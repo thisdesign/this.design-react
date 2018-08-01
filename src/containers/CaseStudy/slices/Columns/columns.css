@@ -6,5 +6,8 @@
   width: 50%;
   height: auto;
   align-self: center
+}
 
+.caseStudy__column--right {
+  flex-direction: row-reverse!important;
 }
