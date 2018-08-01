@@ -1,7 +1,9 @@
 import React from 'react';
-import { RichText } from 'prismic-reactjs';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
+import Text from './slices/Text/Text';
+import Columns from './slices/Columns/Columns';
+import Image from './slices/Image/Image';
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -46,11 +48,11 @@ export default class CaseStudy extends React.Component {
       const slices = doc.data.content.map((slice) => {
         switch (slice.slice_type) {
           case 'text':
-            return <p>{ RichText.asText(slice.value)}</p>;
+            return <Text data={slice} />;
           case 'columns':
-            return <div>{RichText.asText(slice.value[0].text)}</div>;
+            return <Columns data={slice} />;
           case 'image':
-            return <img src={slice.value[0].file.url} width="100%" />;
+            return <Image data={slice} />;
           default:
             console.error('Could not find slice type', slice.slice_type); // eslint-disable-line no-console
         }

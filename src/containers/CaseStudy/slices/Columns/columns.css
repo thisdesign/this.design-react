@@ -1,0 +1,10 @@
+.caseStudy__column {
+  display: flex;
+}
+.caseStudy__column *{
+  flex-basis: 50%;
+  width: 50%;
+  height: auto;
+  align-self: center
+
+}
