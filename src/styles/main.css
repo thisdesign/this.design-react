@@ -1,3 +1,7 @@
 body {
   background: transparent;
 }
+.homepageLink{
+  display:block;
+  color: black
+}
