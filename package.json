@@ -1,0 +1,37 @@
+{
+  "name": "reactjs-starter",
+  "version": "0.1.2",
+  "private": true,
+  "dependencies": {
+    "eslint": "^4.19.1",
+    "highlight.js": "~9.12.0",
+    "js-cookie": "^2.2.0",
+    "prismic-javascript": "^1.4.1",
+    "prismic-reactjs": "^0.2.0",
+    "prop-types": "^15.6.2",
+    "qs": "^6.4.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "whatwg-fetch": "~2.0.3"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.8.2",
+    "react-scripts": "~1.0.14"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "postinstall": "npm run build",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client/ && npm install && npm run build"
+  },
+  "engines": {
+    "node": ">=4.8.1",
+    "npm": ">=2.15.11"
+  }
+}
