@@ -7,6 +7,8 @@ import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
 import Image from './slices/Image/Image';
 import Video from './slices/Video/Video';
+import Diptych from './slices/Diptych/Diptych';
+
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -57,6 +59,8 @@ export default class CaseStudy extends React.Component {
             return <Columns data={slice} />;
           case 'image':
             return <Image data={slice} />;
+          case 'diptych':
+            return <Diptych data={slice} />;
           case 'video':
             return <Video data={slice} />;
           default:
