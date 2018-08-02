@@ -56,7 +56,7 @@ export default class CaseStudy extends React.Component {
           default:
             console.error('Could not find slice type', slice.slice_type); // eslint-disable-line no-console
         }
-        return <pre>{slice.slice_type} goes here</pre>;
+        return <p className="future">{slice.slice_type} goes here</p>;
       });
       return (
         <div>

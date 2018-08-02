@@ -1,13 +1,17 @@
-.caseStudy__column {
+.caseStudy__colBlock {
   display: flex;
 }
-.caseStudy__column *{
+.caseStudy__colBlock__col{
   flex-basis: 50%;
   width: 50%;
   height: auto;
   align-self: center
 }
 
-.caseStudy__column--right {
+.caseStudy__colBlock__col > img{
+  width: 100%
+}
+
+.caseStudy__colBlock--right {
   flex-direction: row-reverse!important;
 }

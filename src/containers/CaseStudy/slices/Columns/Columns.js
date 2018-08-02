@@ -4,12 +4,16 @@ import './columns.css';
 
 const Columns = (props) => {
   const data = props.data.value[0];
-  const text = RichText.asText(data.text);
+  const text = RichText.render(data.text);
 
   return (
-    <div className={`caseStudy__column ${!data.right ? '' : 'caseStudy__column--right'}`}>
-      <img src={data.image.url} alt={data.image.alt} />
-      <p>{text}</p>
+    <div className={`caseStudy__colBlock ${!data.right ? '' : 'caseStudy__colBlock--right'}`}>
+      <div className="caseStudy__colBlock__col">
+        <img src={data.image.url} alt={data.image.alt} />
+      </div>
+      <div className="caseStudy__colBlock__col">
+        {text}
+      </div>
     </div>
   );
 };

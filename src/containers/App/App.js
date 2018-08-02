@@ -3,7 +3,8 @@ import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 
-// import '../../styles/reset.css';
+import '../../styles/reset.css';
+import '../../styles/fonts.css';
 import '../../styles/typography.css';
 import '../../styles/main.css';
 
