@@ -30,7 +30,7 @@
 
 /* Domaine Display Black */
 @font-face {
-    font-family: serif-display;
+    font-family: 'domaineDiaplay-black';
     src: url( "https://prismic-io.s3.amazonaws.com/thisstaging%2F12855606-5254-41ca-8832-a6ad659c0643_domainedisplayweb-black.woff" ) format( "woff" );
     font-style: normal;
     font-stretch: normal;
