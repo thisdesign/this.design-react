@@ -3,11 +3,8 @@ import { RichText } from 'prismic-reactjs';
 import './CaseStudyCover.css';
 
 const CaseStudyCover = (props) => {
-  const { data } = props;
   const { color } = props.data;
   const header = props.data.header[0];
-
-  console.log(header);
 
   return (
     <div className="casestudy__cover" >
