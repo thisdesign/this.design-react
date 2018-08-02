@@ -9,6 +9,7 @@ import Image from './slices/Image/Image';
 import Video from './slices/Video/Video';
 import Diptych from './slices/Diptych/Diptych';
 
+import './CaseStudy.css';
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -49,7 +50,6 @@ export default class CaseStudy extends React.Component {
   render() {
     const { doc, notFound } = this.state;
 
-
     if (doc) {
       const slices = doc.data.content.map((slice) => {
         switch (slice.slice_type) {
@@ -67,11 +67,12 @@ export default class CaseStudy extends React.Component {
             return <p className="future">{slice.slice_type} goes here</p>;
         }
       });
+
       return (
-        <div>
+        <article className="casestudy">
           <CaseStudyCover data={doc.data} />
-          <div>{slices}</div>
-        </div>
+          {slices.map(slice => <div className="casestudy__block">{slice}</div>)}
+        </article>
       );
     } else if (notFound) {
       return <NotFound />;
