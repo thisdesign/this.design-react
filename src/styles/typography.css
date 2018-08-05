@@ -1,7 +1,7 @@
 body {
   color: #111;
   font-family: 'calibre-light', arial, sans-serif;
-  font-size: 22px;
+  font-size: calc(17px + .334vw);
   line-height: 2.25;
   font-stretch: normal;
   font-style: normal;

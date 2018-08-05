@@ -1,0 +1,7 @@
+.casestudy__diptych__item {
+  grid-column: span 6;
+}
+
+.casestudy__diptych__item > img{
+  width:100%;
+}

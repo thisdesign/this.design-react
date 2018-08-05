@@ -1,17 +1,31 @@
 .caseStudy__colBlock {
-  display: flex;
+  /* margin: calc(-180px - 30px) auto!important; */
+  /* position:relative; */
+  z-index: 20;
 }
-.caseStudy__colBlock__col{
-  flex-basis: 50%;
-  width: 50%;
-  height: auto;
-  align-self: center
+
+.caseStudy__colBlock__col--media {
+  grid-column-start: 1;
+  grid-column-end: span 8;
+}
+
+.caseStudy__colBlock__col--text {
+  grid-column-start: 9 ;
+  grid-column-end:  span 4;
 }
 
 .caseStudy__colBlock__col > img{
   width: 100%
 }
 
-.caseStudy__colBlock--right {
-  flex-direction: row-reverse!important;
+/* reversed */
+
+.caseStudy__colBlock--right >
+.caseStudy__colBlock__col--media {
+  grid-column-start: 5 ;
+}
+
+.caseStudy__colBlock--right >
+.caseStudy__colBlock__col--text {
+  grid-column-start: 1;
 }

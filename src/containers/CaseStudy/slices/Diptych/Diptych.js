@@ -1,4 +1,5 @@
 import React from 'react';
+import './Diptych.css';
 
 const Diptych = (props) => {
   const {
@@ -8,20 +9,23 @@ const Diptych = (props) => {
     offset2,
   } = props.data.value[0];
   return (
-    <React.Fragment>
-      <img
-        src={image1.url}
-        alt={image1.alt}
-        width="50%"
-        style={{ transform: `translateX(${offset1}%)` }}
-      />
-      <img
-        src={image2.url}
-        alt={image2.alt}
-        width="50%"
-        style={{ transform: `translateX(${offset2}%)` }}
-      />
-    </React.Fragment>
+    <div className="grid casestudy__diptych">
+      <div className="casestudy__diptych__item">
+        <img
+          src={image1.url}
+          alt={image1.alt}
+          style={{ transform: `translateX(${offset1}%)` }}
+        />
+      </div>
+      <div className="casestudy__diptych__item">
+        <img
+          className="casestudy__diptych__item"
+          src={image2.url}
+          alt={image2.alt}
+          style={{ transform: `translateX(${offset2}%)` }}
+        />
+      </div>
+    </div>
   );
 };
 
