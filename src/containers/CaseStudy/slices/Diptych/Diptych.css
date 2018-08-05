@@ -1,5 +1,5 @@
 .casestudy__diptych__item {
-  grid-column: span 6;
+  flex-basis: 50%;
 }
 
 .casestudy__diptych__item > img{
