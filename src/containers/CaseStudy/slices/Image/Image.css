@@ -1,0 +1,11 @@
+.caseStudy__image {
+  width: 66.66%;
+}
+
+.caseStudy__image img{
+  width: 100%;
+}
+
+.caseStudy__image--fullscreen {
+  width: 100%;
+}
