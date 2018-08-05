@@ -1,4 +1,5 @@
 import React from 'react';
+import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
@@ -10,6 +11,7 @@ import Video from './slices/Video/Video';
 import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
+
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -71,7 +73,7 @@ export default class CaseStudy extends React.Component {
       return (
         <article className="casestudy">
           <CaseStudyCover data={doc.data} />
-          {slices.map(slice => <div className="casestudy__block">{slice}</div>)}
+          {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
         </article>
       );
     } else if (notFound) {

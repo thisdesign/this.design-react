@@ -8,7 +8,7 @@ const Video = (props) => {
 
   return (
     <video
-      playsinline
+      playsInline
       autoPlay
       loop
       muted

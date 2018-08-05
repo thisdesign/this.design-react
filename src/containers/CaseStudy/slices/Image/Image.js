@@ -3,18 +3,16 @@ import './Image.css';
 
 const Image = (props) => {
   const data = props.data.value[0];
-  const src = data.file.url;
+  const { url: src, alt } = data.file;
   const imageIsFullScreen = data.layout === 'fullscreen';
+  const classes = [
+    'caseStudy__image',
+    imageIsFullScreen ? 'caseStudy__image--fullscreen' : 'grid',
+  ];
 
   return (
-    <div className={
-        `caseStudy__image ${imageIsFullScreen
-          ? 'caseStudy__image--fullscreen'
-          : 'grid'
-        }`
-      }
-    >
-      <img src={src} />
+    <div className={classes.join(' ')} >
+      <img src={src} alt={alt} />
     </div>
   );
 };

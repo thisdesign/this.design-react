@@ -44,7 +44,10 @@ export default class App extends React.Component {
     if (doc) {
       const homepageLinks = doc.data.case_study_list.map((item) => {
         const { uid } = item.case_study_item;
-        return <a className="homepageLink" href={`#${uid}`}>{item.case_study_item.uid}</a>;
+        return (
+          <a className="homepageLink" href={`#${uid}`} key={uid}>
+            {item.case_study_item.uid}
+          </a>);
       });
       return (
         <div>
