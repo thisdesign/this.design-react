@@ -9,7 +9,7 @@
 }
 
 .caseStudy__colBlock__col--text > div{
-  max-width: 18em;
+  max-width: 25em;
   margin: 0 auto;
 }
 
@@ -21,12 +21,12 @@
 @media only screen and (min-width: 1080px) {
   .caseStudy__colBlock--largeImage >
   .caseStudy__colBlock__col--media {
-    flex-basis: 66.67%;
+    flex-basis: 66.6%;
   }
 
   .caseStudy__colBlock--largeImage>
   .caseStudy__colBlock__col--text {
-    flex-basis: 33.33%;
+    flex-basis: 33.3%;
   }
 }
 
