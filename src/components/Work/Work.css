@@ -1,0 +1,16 @@
+.work {
+  display: flex;
+  max-width: 1400px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+.work__link {
+  flex-basis:33%;
+  padding:4%;
+  box-sizing: border-box;
+}
+
+.work__link img {
+  width: 100%;
+}

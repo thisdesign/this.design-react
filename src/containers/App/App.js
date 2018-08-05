@@ -1,5 +1,6 @@
 import React from 'react';
 import Loading from '../../components/Loading/Loading';
+import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 
@@ -28,7 +29,12 @@ export default class App extends React.Component {
 
   fetchPage(props) {
     if (props.prismicCtx) {
-      return props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
+      return props.prismicCtx.api.getByUID('context', 'home', {
+        fetchLinks: [
+          'casestudy.title',
+          'casestudy.thumbnail',
+        ],
+      }).then((doc) => {
         if (doc) {
           this.setState({ doc });
         } else {
@@ -42,18 +48,11 @@ export default class App extends React.Component {
   render() {
     const { doc, notFound } = this.state;
     if (doc) {
-      const homepageLinks = doc.data.case_study_list.map((item) => {
-        const { uid } = item.case_study_item;
-        return (
-          <a className="homepageLink" href={`#${uid}`} key={uid}>
-            {item.case_study_item.uid}
-          </a>);
-      });
       return (
-        <div>
-          {homepageLinks}
+        <React.Fragment>
+          <Work caseStudyList={doc.data.case_study_list} />
           <CaseStudy prismicCtx={this.props.prismicCtx} />
-        </div>
+        </React.Fragment>
       );
     } else if (notFound) {
       return <NotFound />;
