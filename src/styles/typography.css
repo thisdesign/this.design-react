@@ -1,7 +1,7 @@
 body {
   color: #111;
   font-family: 'calibre-light', arial, sans-serif;
-  font-size: calc(16.5px + .334vw);
+  font-size: calc(17px + .2vw);
   line-height: 2.25;
   font-stretch: normal;
   font-style: normal;
@@ -43,7 +43,7 @@ h4 {
 
 
 p a,
-span a, 
+span a,
 h1 a,
 h2 a,
 h4 a,
