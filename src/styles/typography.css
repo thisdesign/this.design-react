@@ -60,11 +60,3 @@ h6 a {
 a:hover {
   border-bottom-color: #000;
 }
-
-p.future {
-  font-family: monospace;
-  background: #f3e4e4;
-  border: 1px dashed red;
-  margin: 40px;
-  padding: 40px;
-}

@@ -1,0 +1,24 @@
+.nav {
+  background-color: transparent;
+  left: 0;
+  padding-top: 80px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1004;
+  color: red;
+}
+
+.nav__inner {
+  padding-left: 80px;
+  padding-right: 80px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav__inner a {
+  color: orange;
+  text-decoration: none;
+  letter-spacing: .31em;
+  font-size:.61em
+}
