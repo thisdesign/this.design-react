@@ -1,8 +1,11 @@
 .casestudy__video {
-  width:80%;
-  margin:0px auto;
+  width: 66.66%;
 }
 
 .casestudy__video.-fs {
   width:100%;
+}
+
+.casestudy__video__node {
+  width: 100%;
 }

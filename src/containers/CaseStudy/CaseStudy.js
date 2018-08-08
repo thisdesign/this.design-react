@@ -73,7 +73,9 @@ export default class CaseStudy extends React.Component {
       return (
         <article className="casestudy">
           <CaseStudyCover data={doc.data} />
-          {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
+          <div className="casestudy__body">
+            {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
+          </div>
         </article>
       );
     } else if (notFound) {

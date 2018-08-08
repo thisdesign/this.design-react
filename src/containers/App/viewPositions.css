@@ -12,6 +12,11 @@
 
 /* Default */
 
+.view:not(.-is-active){
+  pointer-events: none;
+  overflow: hidden;
+}
+
 .work {
   background-color: #fff;
   transform: translate3d(-50%, 0, 0);

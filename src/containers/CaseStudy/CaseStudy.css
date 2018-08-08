@@ -6,6 +6,11 @@
   margin-top: 160px;
 }
 
+.casestudy__body {
+  position: relative;
+  z-index: 30;
+}
+
 .grid {
   display: flex;
   margin: 0 auto;
