@@ -9,6 +9,7 @@ import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
 import Image from './slices/Image/Image';
 import Video from './slices/Video/Video';
+import Pullquote from './slices/Pullquote/Pullquote';
 import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
@@ -68,6 +69,8 @@ export default class CaseStudy extends React.Component {
             return <Video data={slice} />;
           case 'gallery':
             return <Gallery data={slice} />;
+          case 'pullquote':
+            return <Pullquote data={slice} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }
