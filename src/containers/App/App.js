@@ -8,6 +8,7 @@ import CaseStudy from '../CaseStudy/CaseStudy';
 import '../../styles/reset.css';
 import '../../styles/fonts.css';
 import '../../styles/typography.css';
+import '../../styles/columns.css';
 import './App.css';
 import './viewPositions.css';
 

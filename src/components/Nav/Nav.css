@@ -1,7 +1,7 @@
 .nav {
   background-color: transparent;
   left: 0;
-  padding-top: 80px;
+  padding-top: 4vw;
   position: fixed;
   top: 0;
   width: 100%;
@@ -10,8 +10,8 @@
 }
 
 .nav__inner {
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: 6vw;
+  padding-right: 6vw;
   display: flex;
   justify-content: space-between;
 }

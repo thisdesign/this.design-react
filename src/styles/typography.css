@@ -27,7 +27,8 @@ h2 {
   font-style: normal;
 }
 
-h3 {
+h3,
+.h3 {
   font-size: 11px;
   line-height: 2.25;
   letter-spacing: 1px;
