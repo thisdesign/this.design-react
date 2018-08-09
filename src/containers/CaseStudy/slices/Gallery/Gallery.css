@@ -1,0 +1,37 @@
+.caseStudy__gallery{
+  position: relative;
+  padding-bottom: 50%!important;
+  overflow: hidden;
+}
+
+.caseStudy__gallery__img {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: scale(1.05);
+  width: 100%;
+  opacity:0;
+  transition: 1000ms opacity ease, 1000ms transform ease;
+
+}
+
+.caseStudy__gallery__img--current{
+  opacity:1;
+  transform: scale(1);
+}
+
+
+.casestudy__gallery__nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.casestudy__gallery__nav--prev {
+  background: blue;
+  left:0;
+  right:50%;
+}

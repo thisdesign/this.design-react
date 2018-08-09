@@ -5,6 +5,7 @@ import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 
 import Text from './slices/Text/Text';
+import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
 import Image from './slices/Image/Image';
 import Video from './slices/Video/Video';
@@ -65,6 +66,8 @@ export default class CaseStudy extends React.Component {
             return <Diptych data={slice} />;
           case 'video':
             return <Video data={slice} />;
+          case 'gallery':
+            return <Gallery data={slice} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }
