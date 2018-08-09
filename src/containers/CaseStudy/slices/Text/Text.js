@@ -4,7 +4,7 @@ import './Text.css';
 
 const Text = props => (
   <div className="grid">
-    <div className="casestudy__text">{RichText.render(props.data.value)}</div>
+    <div className="casestudy__text grid__inner">{RichText.render(props.data.value)}</div>
   </div>
 );
 

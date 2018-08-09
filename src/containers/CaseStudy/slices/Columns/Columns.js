@@ -15,10 +15,10 @@ const Columns = (props) => {
   ].join(' ');
 
   const columnItems = [
-    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media" key="col-media">
+    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media grid__inner" key="col-media">
       <img src={data.image.url} alt={data.image.alt} />
     </div>,
-    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text" key="col-img">
+    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text grid__inner" key="col-img">
       {text}
     </div>,
   ];

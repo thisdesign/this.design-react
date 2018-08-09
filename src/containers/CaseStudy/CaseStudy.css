@@ -20,7 +20,7 @@
   max-width: 1600px;
 }
 
-.grid>div {
+.grid__inner {
   margin: 0 4%
 }
 
