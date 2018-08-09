@@ -1,0 +1,19 @@
+.about__columns {
+  margin: 10vh auto!important;
+}
+
+.about__columns__col {
+  margin: 0 2%;
+}
+
+.about__columns__col img{
+  width:100%;
+}
+
+.about__columns.-col-4 .about__columns__col {
+  flex-basis: 25%;
+}
+
+.about__columns.-col-3 .about__columns__col {
+  flex-basis: 33.33%;
+}

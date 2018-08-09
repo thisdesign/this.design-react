@@ -16,7 +16,13 @@ const Columns = (props) => {
 
   const columnItems = [
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media grid__inner" key="col-media">
-      <img src={data.image.url} alt={data.image.alt} />
+      { data.video.url
+          ? (
+            <video autoPlay muted loop className="caseStudy__colBlock__col__video">
+              <source src={data.video.url} />
+            </video>
+          )
+          : <img src={data.image.url} alt={data.image.alt} />}
     </div>,
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text grid__inner" key="col-img">
       {text}

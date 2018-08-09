@@ -4,11 +4,13 @@ import Nav from '../../components/Nav/Nav';
 import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
+import About from '../About/About';
 
 import '../../styles/reset.css';
 import '../../styles/fonts.css';
 import '../../styles/typography.css';
 import '../../styles/columns.css';
+import '../../styles/grid.css';
 import './App.css';
 import './viewPositions.css';
 
@@ -79,7 +81,7 @@ export default class App extends React.Component {
               <CaseStudy prismicCtx={this.props.prismicCtx} />
             </section>
             <section className={`view about view--aside ${this.isActive('about')}`}>
-              About
+              <About prismicCtx={this.props.prismicCtx} />
             </section>
           </main>
         </React.Fragment>);

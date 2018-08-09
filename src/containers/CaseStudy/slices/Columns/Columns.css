@@ -34,3 +34,7 @@
 .caseStudy__colBlock__col > img{
   width: 100%
 }
+
+.caseStudy__colBlock__col__video {
+  width: 100%;
+}

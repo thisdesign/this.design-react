@@ -1,0 +1,12 @@
+.about__inner {
+  color: #575757;
+}
+
+.about__inner h1,
+.about__inner h2,
+.about__inner h3
+.about__inner h4
+.about__inner h5
+.about__inner h6 {
+  color: #fff;
+}
