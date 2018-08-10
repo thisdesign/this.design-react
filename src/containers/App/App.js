@@ -19,6 +19,7 @@ import './viewPositions.css';
 export default class App extends React.Component {
   state = {
     doc: null,
+    site: null,
     notFound: false,
     view: 'root',
     route: null,
@@ -30,6 +31,7 @@ export default class App extends React.Component {
 
   componentWillReceiveProps(props) {
     this.getContextDoc(props);
+    this.getSiteDoc(props);
     this.parseRoute();
   }
 
@@ -43,7 +45,17 @@ export default class App extends React.Component {
       component: this,
       pageType: 'context',
       uid: 'home',
-      fetchLinks: ['casestudy.title', 'casestudy.thumbnail', 'site.image'],
+      fetchLinks: ['casestudy.title', 'casestudy.thumbnail'],
+    });
+  }
+
+  getSiteDoc =(props) => {
+    props.prismicCtx.api.getSingle('site').then((doc) => {
+      if (doc) {
+        this.setState({ site: doc });
+      } else {
+        this.setState({ notFound: !doc });
+      }
     });
   }
 
@@ -73,9 +85,9 @@ export default class App extends React.Component {
 
   render() {
     const {
-      doc, notFound, view, route,
+      doc, notFound, view, route, site,
     } = this.state;
-    if (doc) {
+    if (doc && site) {
       return (
         <React.Fragment>
           <Nav handleViewChange={this.handleViewChange} asideIsOpen={this.asideIsOpen} />
@@ -90,7 +102,7 @@ export default class App extends React.Component {
               {
                 route
                 ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                : <Homepage data={doc.data.site} />
+                : <Homepage data={site} />
               }
             </section>
             <section className={`view about view--aside ${this.isActive('about')}`}>
