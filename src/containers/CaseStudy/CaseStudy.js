@@ -12,6 +12,8 @@ import Video from './slices/Video/Video';
 import Pullquote from './slices/Pullquote/Pullquote';
 import Diptych from './slices/Diptych/Diptych';
 
+import getByUID from '../../util/getByUID';
+
 import './CaseStudy.css';
 
 
@@ -22,33 +24,24 @@ export default class CaseStudy extends React.Component {
   };
 
   componentWillMount() {
-    this.fetchPage(this.props);
+    this.getCaseStudyDoc(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this.fetchPage(props);
+    this.getCaseStudyDoc(props);
   }
 
   componentDidUpdate() {
     this.props.prismicCtx.toolbar();
   }
 
-  fetchPage(props) {
-    const { hash } = window.location;
-    if (hash) {
-      const uid = hash.substring(1);
-      if (props.prismicCtx) {
-        return props.prismicCtx.api.getByUID('casestudy', uid).then((doc) => {
-          if (doc) {
-            this.setState({ doc });
-          } else {
-            this.setState({ notFound: !doc });
-          }
-        });
-      }
-      return null;
-    }
-    return null;
+  getCaseStudyDoc = (props = this.props) => {
+    getByUID({
+      props,
+      component: this,
+      pageType: 'casestudy',
+      uid: props.route,
+    });
   }
 
   render() {

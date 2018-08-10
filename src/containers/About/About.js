@@ -2,11 +2,12 @@ import React from 'react';
 import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
-
-import './About.css';
-
 import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
+
+import getByUID from '../../util/getByUID';
+
+import './About.css';
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -15,28 +16,24 @@ export default class CaseStudy extends React.Component {
   };
 
   componentWillMount() {
-    this.fetchPage(this.props);
+    this.getAboutDoc(this.props);
   }
 
   componentWillReceiveProps(props) {
-    this.fetchPage(props);
+    this.getAboutDoc(props);
   }
 
   componentDidUpdate() {
     this.props.prismicCtx.toolbar();
   }
 
-  fetchPage(props) {
-    if (props.prismicCtx) {
-      return props.prismicCtx.api.getByUID('about', 'about').then((doc) => {
-        if (doc) {
-          this.setState({ doc });
-        } else {
-          this.setState({ notFound: !doc });
-        }
-      });
-    }
-    return null;
+  getAboutDoc = (props = this.props) => {
+    getByUID({
+      props,
+      component: this,
+      pageType: 'about',
+      uid: 'about',
+    });
   }
 
   render() {

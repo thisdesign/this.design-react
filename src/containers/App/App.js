@@ -6,6 +6,7 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
+import getByUID from '../../util/getByUID';
 
 import '../../styles/reset.css';
 import '../../styles/fonts.css';
@@ -24,20 +25,29 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
-    this.fetchPage(this.props);
-    this.setRoute();
+    this.parseRoute();
   }
 
   componentWillReceiveProps(props) {
-    this.fetchPage(props);
-    this.setRoute();
+    this.getContextDoc(props);
+    this.parseRoute();
   }
 
   componentDidUpdate() {
     this.props.prismicCtx.toolbar();
   }
 
-  setRoute = () => {
+  getContextDoc = (props = this.props) => {
+    getByUID({
+      props,
+      component: this,
+      pageType: 'context',
+      uid: 'home',
+      fetchLinks: ['casestudy.title', 'casestudy.thumbnail', 'site.image'],
+    });
+  }
+
+  parseRoute = () => {
     const { hash } = window.location;
     const string = hash.substring(1);
     const uid = string !== '' ? string : null;
@@ -60,20 +70,6 @@ export default class App extends React.Component {
 
   asideIsOpen = () => this.state.view !== 'root'
 
-  fetchPage(props) {
-    if (props.prismicCtx) {
-      return props.prismicCtx.api.getByUID('context', 'home', {
-        fetchLinks: ['casestudy.title', 'casestudy.thumbnail', 'site.image'],
-      }).then((doc) => {
-        if (doc) {
-          this.setState({ doc });
-        } else {
-          this.fetchPage(props);
-        }
-      });
-    }
-    return null;
-  }
 
   render() {
     const {
@@ -93,7 +89,7 @@ export default class App extends React.Component {
             <section className={`view root ${this.isActive('root')}`}>
               {
                 route
-                ? <CaseStudy prismicCtx={this.props.prismicCtx} />
+                ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
                 : <Homepage data={doc.data.site} />
               }
             </section>
