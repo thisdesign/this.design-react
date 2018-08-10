@@ -1,0 +1,13 @@
+.about__instagram {
+  display: grid;
+  grid-gap: 4%;
+  grid-template-columns: auto auto auto;
+  grid-template-rows: auto;
+  align-items: center;
+  margin: 4%;
+}
+
+.about__instagram__item {
+  width: 100%;
+  margin-top: 20%;
+}

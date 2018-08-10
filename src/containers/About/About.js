@@ -4,6 +4,7 @@ import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
+import Instagram from './slices/Instagram/Instagram';
 
 import getByUID from '../../util/getByUID';
 
@@ -46,6 +47,8 @@ export default class CaseStudy extends React.Component {
             return <Text data={slice} />;
           case 'columns':
             return <Columns data={slice} />;
+          case 'instagram':
+            return <Instagram data={slice} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }
