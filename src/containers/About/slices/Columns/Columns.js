@@ -4,10 +4,10 @@ import './Columns.css';
 
 const Columns = (props) => {
   const { items } = props.data;
-  const { layout } = props.data.primary;
+  const { layout, classnames } = props.data.primary;
 
   return (
-    <div className={`about__columns grid -left -top ${layout ? `-${layout}` : ''}`}>
+    <div className={`about__columns grid -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
       {items.map(item => (
         <div className="about__columns__col">
           {RichText.render(item.text)}
