@@ -9,7 +9,6 @@
   width: 8px;
   height: 2px;
   background: white;
-  display: inline-block;
   transition: transform 300ms ease, opacity 300ms ease;
 }
 
@@ -29,11 +28,16 @@
   transform: translate3d(12px, 4px, 0)
 }
 
+
+/* enabled */
+.-enabled .icon--grid__item {
+  background: #000;
+}
 .-enabled .icon--grid__item:nth-child(3) {
-  transform: translateX(5px) rotate(-45deg) scale3d(2, 1.6, 1);
+  transform: translateX(5px) rotate(-45deg) scale3d(2.25, 1, 1);
 }
 .-enabled .icon--grid__item:nth-child(2) {
-  transform: translateX(5px) rotate(45deg) scale3d(2, 1.6, 1);
+  transform: translateX(5px) rotate(45deg) scale3d(2.25, 1, 1);
 }
 
 .-enabled .icon--grid__item:nth-child(1),

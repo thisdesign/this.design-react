@@ -6,7 +6,6 @@
   top: 0;
   width: 100%;
   z-index: 1004;
-  color: red;
 }
 
 .nav__inner {
@@ -14,11 +13,4 @@
   padding-right: 6vw;
   display: flex;
   justify-content: space-between;
-}
-
-.nav__inner a {
-  color: orange;
-  text-decoration: none;
-  letter-spacing: .31em;
-  font-size:.61em
 }
