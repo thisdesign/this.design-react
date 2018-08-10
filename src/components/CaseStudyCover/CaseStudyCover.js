@@ -1,25 +1,17 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
+import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
+
 import './CaseStudyCover.css';
-import './imagePositions.css';
 
 const CaseStudyCover = (props) => {
   const { color } = props.data;
   const header = props.data.header[0];
-  const {
-    image1, image2, video1, video2,
-  } = header;
-
-  const backroundImage = {
-    backgroundImage: image1.url
-      ? `url(${header.image1.url})`
-      : null,
-  };
 
   return (
     <div className="casestudy__cover" >
       <div className="casestudy__fill" style={{ background: color }} />
-      <div className="casestudy__header">
+      <div className="casestudy__header -wrap-nav">
         <div className="casestudy__header__item casestudy__header__item--title">
           {RichText.render(header.title)}
         </div>
@@ -30,28 +22,7 @@ const CaseStudyCover = (props) => {
           {header.services ? RichText.render(header.services) : null}
         </div>
       </div>
-      <div className="casestudy__splash">
-        <img
-          className={`casestudy__splash__fr ${header.layout2}`}
-          src={image2.url}
-          alt={image2.alt}
-          key={image2.url}
-        />
-        <video
-          autoPlay
-          loop
-          muted
-          key={video2.url}
-          className={`casestudy__splash__fr ${header.layout2}`}
-        >
-          <source src={video2.url} type="video/mp4" />
-        </video>
-        <div className="casestudy__splash__bg -cover" style={backroundImage}>
-          <video autoPlay loop muted key={video1.url}>
-            <source src={video1.url} type="video/mp4" />
-          </video>
-        </div>
-      </div>
+      <CaseStudySplash data={header} />
     </div>
   );
 };

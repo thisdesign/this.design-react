@@ -6,7 +6,7 @@ import './Nav.css';
 const Nav = (props) => {
   const { handleViewChange, asideIsOpen } = props;
   return (
-    <nav className="nav">
+    <nav className="nav -wrap-nav">
       <div className="nav__inner">
         <div className="nav__item">
           <a onClick={() => { handleViewChange('work'); }}>

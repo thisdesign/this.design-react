@@ -20,9 +20,7 @@
   padding-top: calc(4em + 8vw);
   position: absolute;
   top: 0;
-  z-index: 30;
-  padding-left: 6vw;
-  padding-right: 6vw;
+  z-index: 40;
 }
 
 .casestudy__header__item {

@@ -20,3 +20,8 @@
 .grid__inner {
   margin: 0 4%
 }
+
+.-wrap-nav {
+  padding-left: calc(1.5em + 3vw);
+  padding-right: calc(1.5em + 3vw);
+}

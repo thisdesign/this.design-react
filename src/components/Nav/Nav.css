@@ -9,7 +9,6 @@
 }
 
 .nav__inner {
-  padding: 0 calc(1.5em + 3vw);
   display: flex;
   justify-content: space-between;
 }

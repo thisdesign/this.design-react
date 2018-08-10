@@ -6,6 +6,7 @@ const Homepage = (props) => {
   const { data } = props.data;
   const { image } = data;
   const videoURLs = data.video_group.map(vid => vid.link.url);
+  const randomUrl = videoURLs[Math.floor(Math.random() * videoURLs.length)];
 
   return (
     <div className="homepage">
@@ -14,7 +15,7 @@ const Homepage = (props) => {
         {!isMobile()
           ? (
             <video autoPlay loop muted className="homepage__inner__video">
-              <source src={videoURLs[0]} type="video/mp4" />
+              <source src={randomUrl} type="video/mp4" />
             </video>
           ) : <img className="homepage__inner__image" src={image.url} alt={image.alt} />
         }
