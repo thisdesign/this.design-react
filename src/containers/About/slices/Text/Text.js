@@ -7,7 +7,7 @@ const Text = (props) => {
   const { text } = props.data.primary;
   const { layout } = props.data.primary;
   return (
-    <div className={`about__text grid ${layout ? `-${layout}` : ''}`}>
+    <div className={`about__text -grid ${layout ? `-${layout}` : ''}`}>
       {RichText.render(text)}
     </div>
   );

@@ -7,7 +7,9 @@ const Image = (props) => {
   const imageIsFullScreen = data.layout === 'fullscreen';
   const classes = [
     'caseStudy__image',
-    imageIsFullScreen ? 'caseStudy__image--fullscreen' : 'grid',
+    imageIsFullScreen
+      ? 'caseStudy__image--fullscreen'
+      : '-centered -wrap',
   ];
 
   return (

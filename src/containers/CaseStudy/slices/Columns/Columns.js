@@ -9,13 +9,14 @@ const Columns = (props) => {
   const imageIsLarge = data.layout === '-column--2of3';
   const classes = [
     'caseStudy__colBlock',
-    'grid',
+    '-grid',
+    '-wrap',
     imageIsRight ? 'caseStudy__colBlock--right' : null,
     imageIsLarge ? 'caseStudy__colBlock--largeImage' : null,
   ].join(' ');
 
   const columnItems = [
-    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media grid__inner" key="col-media">
+    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">
       { data.video.url
           ? (
             <video autoPlay muted loop className="caseStudy__colBlock__col__video">
@@ -24,7 +25,7 @@ const Columns = (props) => {
           )
           : <img src={data.image.url} alt={data.image.alt} />}
     </div>,
-    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text grid__inner" key="col-img">
+    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text -padding" key="col-img">
       {text}
     </div>,
   ];

@@ -9,15 +9,15 @@ const Diptych = (props) => {
     offset2,
   } = props.data.value[0];
   return (
-    <div className="grid casestudy__diptych">
-      <div className="casestudy__diptych__item grid__inner">
+    <div className="-grid -wrap casestudy__diptych">
+      <div className="casestudy__diptych__item -padding">
         <img
           src={image1.url}
           alt={image1.alt}
           style={{ transform: `translateX(${offset1}%)` }}
         />
       </div>
-      <div className="casestudy__diptych__item grid__inner">
+      <div className="casestudy__diptych__item -padding">
         <img
           className="casestudy__diptych__item"
           src={image2.url}

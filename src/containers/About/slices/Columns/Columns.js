@@ -7,7 +7,7 @@ const Columns = (props) => {
   const { layout, classnames } = props.data.primary;
 
   return (
-    <div className={`about__columns grid -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
+    <div className={`about__columns -grid -wrap -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
       {items.map(item => (
         <div className="about__columns__col">
           {RichText.render(item.text)}

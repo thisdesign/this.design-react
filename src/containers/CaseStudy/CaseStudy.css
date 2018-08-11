@@ -10,9 +10,3 @@
   position: relative;
   z-index: 30;
 }
-
-@media only screen and (max-width: 768px) {
-  .grid {
-    display: block;
-  }
-}

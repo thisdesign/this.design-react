@@ -3,9 +3,7 @@ import React from 'react';
 import './Text.css';
 
 const Text = props => (
-  <div className="grid">
-    <div className="casestudy__text grid__inner">{RichText.render(props.data.value)}</div>
-  </div>
+  <div className="casestudy__text -wrap">{RichText.render(props.data.value)}</div>
 );
 
 export default Text;

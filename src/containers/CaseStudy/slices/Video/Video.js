@@ -7,7 +7,7 @@ const Video = (props) => {
   const isFullScreen = data.layout === 'fullscreen';
 
   return (
-    <div className={`casestudy__video ${isFullScreen ? '-fs' : 'grid'}`}>
+    <div className={`casestudy__video ${isFullScreen ? '-fs' : '-wrap'}`}>
       <video
         playsInline
         autoPlay
