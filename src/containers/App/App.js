@@ -72,25 +72,25 @@ export default class App extends React.Component {
       : ''
   )
 
-  handleViewChange = (view) => {
-    if (this.asideIsOpen()) {
+  handleViewChange = (updatedView) => {
+    const asideIsOpen = this.state.view !== 'root';
+    if (asideIsOpen) {
       this.setState({ view: 'root' });
     } else {
-      this.setState({ view });
+      this.setState({ view: updatedView });
     }
   }
-
-  asideIsOpen = () => this.state.view !== 'root'
 
 
   render() {
     const {
       doc, notFound, view, route, site,
     } = this.state;
+
     if (doc && site) {
       return (
         <React.Fragment>
-          <Nav handleViewChange={this.handleViewChange} asideIsOpen={this.asideIsOpen} />
+          <Nav handleViewChange={this.handleViewChange} view={view} />
           <main className={`views -view-is-${view}`}>
             <section className={`view work view--aside ${this.isActive('work')}`}>
               <Work
@@ -106,7 +106,10 @@ export default class App extends React.Component {
               }
             </section>
             <section className={`view about view--aside ${this.isActive('about')}`}>
-              <About prismicCtx={this.props.prismicCtx} />
+              <About
+                prismicCtx={this.props.prismicCtx}
+                view={view}
+              />
             </section>
           </main>
         </React.Fragment>);

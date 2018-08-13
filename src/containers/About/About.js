@@ -39,6 +39,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
+    const { view } = this.props;
 
     if (doc) {
       const slices = doc.data.content.map((slice) => {
@@ -48,7 +49,7 @@ export default class CaseStudy extends React.Component {
           case 'columns':
             return <Columns data={slice} />;
           case 'instagram':
-            return <Instagram data={slice} />;
+            return <Instagram data={slice} view={view} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }

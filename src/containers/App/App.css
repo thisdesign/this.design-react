@@ -15,6 +15,19 @@ img {
   display: block;
 }
 
+/* Container */
+
+::selection {
+  background: #ffb7b7; /* WebKit/Blink Browsers */
+  color: red;
+}
+::-moz-selection {
+  background: #ffb7b7; /* Gecko Browsers */
+  color: red;
+}
+
+/* Container */
+
 p.future {
   font-family: monospace;
   background: #f3e4e4;
