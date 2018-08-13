@@ -1,5 +1,6 @@
 .about__columns {
   margin: 10vh auto!important;
+  flex-wrap: wrap;
 }
 
 .about__columns__col {
