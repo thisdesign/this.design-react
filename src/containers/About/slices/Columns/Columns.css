@@ -3,7 +3,9 @@
 }
 
 .about__columns__col {
-  margin: 0 2%;
+  padding: 0 2%;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
 .about__columns__col img{
@@ -24,4 +26,9 @@
 
 .-above {
   margin-top: 50vh!important;
+}
+
+.about__columns--logos .about__columns__col img{
+  padding:35%;
+  box-sizing: border-box;
 }
