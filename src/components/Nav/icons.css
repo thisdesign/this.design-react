@@ -8,7 +8,7 @@
 .icon__item {
   position: absolute;
   width: 8px;
-  height: 2px;
+  height: 1.5px;
   background: white;
   transition: transform 300ms ease, opacity 300ms ease;
 }
