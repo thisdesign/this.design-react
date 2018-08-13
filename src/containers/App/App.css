@@ -18,12 +18,10 @@ img {
 /* Container */
 
 ::selection {
-  background: #ffb7b7; /* WebKit/Blink Browsers */
-  color: red;
+  background: #ECAA9A; /* WebKit/Blink Browsers */
 }
 ::-moz-selection {
-  background: #ffb7b7; /* Gecko Browsers */
-  color: red;
+  background: #ECAA9A; /* Gecko Browsers */
 }
 
 /* Container */
