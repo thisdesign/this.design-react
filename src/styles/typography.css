@@ -11,6 +11,10 @@ body {
   font-family: 'calibre-regular', arial, sans-serif;
 }
 
+em {
+  font-style: italic;
+}
+
 h1 {
   font-size: 44px;
   line-height: 1.04348;
@@ -40,6 +44,14 @@ h4 {
   font-size: 24px;
   line-height: 1.375;
   font-family: 'calibre-light';
+}
+
+h4 em {
+  font-family: "TiemposHeadlineWeb-Light";
+  font-stretch: normal;
+  font-style: normal;
+  font-style: italic;
+  font-size: 22px;
 }
 
 
