@@ -1,22 +1,21 @@
 import React from 'react';
+import VideoNode from '../../../../components/VideoNode/VideoNode';
 import './Video.css';
 
 const Video = (props) => {
   const data = props.data.value[0];
   const { url } = data.file;
   const isFullScreen = data.layout === 'fullscreen';
+  const videoHasAudio = data.audio === 'true';
+  const videoHasControls = data.autoplay !== 'autoplay';
 
   return (
     <div className={`casestudy__video ${isFullScreen ? '-fs' : '-wrap'}`}>
-      <video
-        playsInline
-        autoPlay
-        loop
-        muted
-        className="casestudy__video__node"
-      >
-        <source src={url} type="video/mp4" />
-      </video>
+      <VideoNode
+        muteToggle={videoHasAudio}
+        controls={videoHasControls}
+        url={url}
+      />
     </div>
   );
 };

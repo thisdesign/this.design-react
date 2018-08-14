@@ -1,0 +1,20 @@
+.videoNode {
+  position: relative;
+  cursor: pointer;
+
+}
+
+.videoNode__video {
+  width: 100%;
+  position: relative;
+  z-index: -10;
+  display:block;
+}
+
+.videoNode__iconWrap {
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  width: 1em;
+  z-index: 30;
+}

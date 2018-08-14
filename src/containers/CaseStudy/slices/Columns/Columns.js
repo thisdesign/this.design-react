@@ -1,5 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
+import VideoNode from '../../../../components/VideoNode/VideoNode';
 import './Columns.css';
 
 const Columns = (props) => {
@@ -7,6 +8,8 @@ const Columns = (props) => {
   const text = RichText.render(data.text);
   const imageIsRight = data.right != null;
   const imageIsLarge = data.layout === '-column--2of3';
+  const videoHasAudio = data.audio === 'true';
+
   const classes = [
     'caseStudy__colBlock',
     '-grid',
@@ -19,9 +22,7 @@ const Columns = (props) => {
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">
       { data.video.url
           ? (
-            <video autoPlay muted loop className="caseStudy__colBlock__col__video">
-              <source src={data.video.url} />
-            </video>
+            <VideoNode muteToggle={videoHasAudio} url={data.video.url} />
           )
           : <img src={data.image.url} alt={data.image.alt} />}
     </div>,

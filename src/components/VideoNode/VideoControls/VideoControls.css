@@ -1,0 +1,56 @@
+.videoNode__controls {
+  opacity: 0;
+  transform: translateY(30%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: white;
+  width: 100%;
+  box-sizing: border-box;
+  user-select: none;
+  flex-wrap: wrap;
+  transition: .25s transform ease, .25s opacity ease;
+}
+
+/* .videoNode__controls { */
+.videoNode:hover .videoNode__controls {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.videoNode__controls__controlWrap {
+  display: flex;
+  line-height: 1em;
+  padding: 0 1em;
+}
+
+.videoNode__controls__control {
+  cursor: pointer;
+  outline: none;
+  padding: 1.5em .75em;
+}
+
+.videoNode__controls__control--duration {
+  flex: 1;
+  font-size: 13px;
+  letter-spacing: .2em;
+  display: flex;
+  align-items: center
+}
+.videoNode__controls__control--duration .-spacer {
+  margin: 0 .75em;
+  border-left: 1px solid white;
+  height: 1em;
+  opacity: .5;
+}
+
+.videoNode__controls--progress {
+  padding: 0;
+  width: 100%;
+  height: 1.5px;
+}
+
+.videoNode__controls--progress__fill {
+  height: inherit;
+  background: orange
+}
