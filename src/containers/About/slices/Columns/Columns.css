@@ -21,6 +21,10 @@
   flex-basis: 33.33%;
 }
 
+.about__columns.-col-2 .about__columns__col {
+  flex-basis: 50%;
+}
+
 .-spacebelow {
   margin-bottom: 50vh!important;
 }
