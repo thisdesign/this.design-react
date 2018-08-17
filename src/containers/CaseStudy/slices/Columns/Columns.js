@@ -1,6 +1,8 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
+import sizeCheck from '../../../../util/sizeCheck';
+
 import './Columns.css';
 
 const Columns = (props) => {
@@ -17,6 +19,8 @@ const Columns = (props) => {
     imageIsRight ? 'caseStudy__colBlock--right' : null,
     imageIsLarge ? 'caseStudy__colBlock--largeImage' : null,
   ].join(' ');
+
+  sizeCheck({ ...data.video }, 10);
 
   const columnItems = [
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">

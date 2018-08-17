@@ -1,12 +1,13 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
-
+import sizeCheck from '../../util/sizeCheck';
 import './CaseStudyCover.css';
 
 const CaseStudyCover = (props) => {
   const { color } = props.data;
   const header = props.data.header[0];
+  [header.video1, header.video2].forEach(file => sizeCheck({ ...file }, 5));
 
   return (
     <div className="casestudy__cover" >
