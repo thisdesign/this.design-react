@@ -10,7 +10,7 @@ import getByUID from '../../util/getByUID';
 
 import './About.css';
 
-export default class CaseStudy extends React.Component {
+export default class About extends React.Component {
   state = {
     doc: null,
     notFound: false,

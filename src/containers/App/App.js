@@ -21,8 +21,8 @@ export default class App extends React.Component {
     doc: null,
     site: null,
     notFound: false,
-    view: 'root',
-    route: null,
+    view: 'root', // rm. if needed when implimenting RR
+    route: null, // rm. if needed when implimenting RR
   };
 
   componentWillMount() {
@@ -39,6 +39,11 @@ export default class App extends React.Component {
     this.props.prismicCtx.toolbar();
   }
 
+  /*
+   Loads API data for the "context doc"
+   which is just the list of case studies
+  */
+
   getContextDoc = (props = this.props) => {
     getByUID({
       props,
@@ -48,6 +53,11 @@ export default class App extends React.Component {
       fetchLinks: ['casestudy.title', 'casestudy.thumbnail'],
     });
   }
+
+  /*
+  Loads API data for the "site" single which is
+  the page that handles all the top-level site info
+  */
 
   getSiteDoc =(props) => {
     props.prismicCtx.api.getSingle('site').then((doc) => {
@@ -59,6 +69,11 @@ export default class App extends React.Component {
     });
   }
 
+  /*
+  Temporary hash router.
+  Remove when implimenting ReactRouter
+  */
+
   parseRoute = () => {
     const { hash } = window.location;
     const string = hash.substring(1);
@@ -66,11 +81,20 @@ export default class App extends React.Component {
     this.setState({ route: uid });
   }
 
+  /*
+  -is-active refers to the currently
+  active route (root/work/about)
+  */
+
   isActive = name => (
     this.state.view === name
       ? '-is-active'
       : ''
   )
+
+  /*
+  Temporary routing for root/work/about.
+  */
 
   handleViewChange = (updatedView) => {
     const asideIsOpen = this.state.view !== 'root';

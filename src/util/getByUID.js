@@ -1,3 +1,5 @@
+import error from './error';
+
 const getByUID = (options) => {
   const {
     props,
@@ -16,6 +18,7 @@ const getByUID = (options) => {
       }
     });
   }
+  error('props.prismicCtx not found.');
   return null;
 };
 

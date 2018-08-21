@@ -31,6 +31,13 @@ export default class CaseStudy extends React.Component {
     this.getCaseStudyDoc(props);
   }
 
+  /*
+  Mess with this as needed, it keeps the component
+  from updating when selecting /about/ or /work/
+  */
+
+  shouldComponentUpdate = (nextProps, nextState) => this.state.doc !== nextState.doc;
+
   componentDidUpdate() {
     this.props.prismicCtx.toolbar();
   }
