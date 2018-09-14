@@ -5,9 +5,9 @@
   grid-template-rows: auto;
   align-items: center;
   margin: 4%;
-}
 
-.about__instagram__item {
-  width: 100%;
-  margin-top: 20%;
+  &__item {
+    width: 100%;
+    margin-top: 20%;
+  }
 }

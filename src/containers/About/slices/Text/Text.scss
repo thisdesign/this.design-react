@@ -1,0 +1,12 @@
+.about__text {
+  text-align: center;
+  margin: 5vh auto!important;
+
+  &.-full-height {
+    min-height: 100vh;
+  }
+
+  &.-small-caption {
+    margin-top: 25vh!important;
+  }
+}

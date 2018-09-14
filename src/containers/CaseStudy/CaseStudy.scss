@@ -1,12 +1,15 @@
+@import "../../styles/variables.scss";
+
 .casestudy {
   background: #f9f9f9
 }
 
 .casestudy__block {
-  margin-top: 160px;
+  margin-top: $variable-spacing-lg;
 }
 
 .casestudy__body {
   position: relative;
   z-index: 30;
+  padding-bottom: $variable-spacing-lg;
 }

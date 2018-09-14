@@ -1,7 +1,7 @@
 .casestudy__diptych__item {
   flex-basis: 50%;
-}
 
-.casestudy__diptych__item > img{
-  width:100%;
+  & > img {
+    width: 100%;
+  }
 }

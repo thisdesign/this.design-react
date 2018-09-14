@@ -1,7 +1,9 @@
+@import '../../styles/variables.scss';
+
 .nav {
   background-color: transparent;
   left: 0;
-  padding-top: calc(1.5em + 3vw);
+  padding-top: $variable-spacing;
   position: fixed;
   top: 0;
   width: 100%;

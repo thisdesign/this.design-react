@@ -1,6 +1,8 @@
 import React from 'react';
+import uuidv1 from 'uuid/v1';
 import { RichText } from 'prismic-reactjs';
 import './Columns.css';
+
 
 const Columns = (props) => {
   const { items } = props.data;
@@ -9,7 +11,7 @@ const Columns = (props) => {
   return (
     <div className={`about__columns -grid -wrap -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
       {items.map(item => (
-        <div className="about__columns__col">
+        <div className="about__columns__col" key={uuidv1()}>
           {RichText.render(item.text)}
         </div>
       ))}

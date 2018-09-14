@@ -11,7 +11,6 @@ import getByUID from '../../util/getByUID';
 import '../../styles/reset.css';
 import '../../styles/fonts.css';
 import '../../styles/typography.css';
-import '../../styles/columns.css';
 import '../../styles/layout.css';
 import './App.css';
 import './viewPositions.css';
