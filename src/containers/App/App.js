@@ -1,3 +1,8 @@
+import 'styles/reset.css';
+import 'styles/fonts.css';
+import 'styles/typography.css';
+import 'styles/layout.css';
+
 import React from 'react';
 import Loading from '../../components/Loading/Loading';
 import Homepage from '../../components/Homepage/Homepage';
@@ -8,10 +13,6 @@ import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
 import getByUID from '../../util/getByUID';
 
-import '../../styles/reset.css';
-import '../../styles/fonts.css';
-import '../../styles/typography.css';
-import '../../styles/layout.css';
 import './App.css';
 import './viewPositions.css';
 
