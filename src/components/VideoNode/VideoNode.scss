@@ -2,19 +2,22 @@
   position: relative;
   cursor: pointer;
 
-}
+  &__video {
+    width: 100%;
+    position: relative;
+    z-index: -10;
+    display: block;
+  }
 
-.videoNode__video {
-  width: 100%;
-  position: relative;
-  z-index: -10;
-  display:block;
-}
+  &__iconWrap {
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    width: 1em;
+    z-index: 30;
+  }
 
-.videoNode__iconWrap {
-  cursor: pointer;
-  outline: none;
-  user-select: none;
-  width: 1em;
-  z-index: 30;
+  &__videoWrapper {
+    background: rgba(0, 0, 0, .03);
+  }
 }

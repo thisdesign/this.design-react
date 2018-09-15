@@ -106,7 +106,7 @@ export default class VideoNode extends React.Component {
     return (
       <div className="videoNode" >
         <div
-          className="videoNode_VideoWrapper"
+          className="videoNode__videoWrapper"
           {...controls ? { onClick: this.handlePause } : null}
         >
           <video {...atts} >

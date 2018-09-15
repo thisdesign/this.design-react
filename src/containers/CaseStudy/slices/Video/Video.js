@@ -1,6 +1,6 @@
 import React from 'react';
-import VideoNode from '../../../../components/VideoNode/VideoNode';
-import sizeCheck from '../../../../util/sizeCheck';
+import VideoNode from 'components/VideoNode/VideoNode';
+import sizeCheck from 'util/sizeCheck';
 import './Video.css';
 
 const Video = (props) => {
