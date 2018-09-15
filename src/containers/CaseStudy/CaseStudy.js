@@ -55,6 +55,11 @@ export default class CaseStudy extends React.Component {
     const { doc, notFound } = this.state;
 
     if (doc) {
+      const customCmsAtts = {
+        color: doc.data.text_color,
+        backgroundColor: doc.data.background_color,
+      };
+
       const slices = doc.data.content.map((slice) => {
         switch (slice.slice_type) {
           case 'text':
@@ -77,7 +82,7 @@ export default class CaseStudy extends React.Component {
       });
 
       return (
-        <article className="casestudy">
+        <article className="casestudy" style={customCmsAtts}>
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
