@@ -1,39 +1,35 @@
 import React from 'react';
+import isMobile from 'util/isMobile';
+import AuxiliaryItems from './AuxiliaryItems/AuxiliaryItems';
+import SplashBackground from './SplashBackground/SplashBackground';
 import './imagePositions.css';
+import './CaseStudySplash.css';
+
 
 const CaseStudySplash = (props) => {
-  const {
-    image1, image2, video1, video2,
-  } = props.data;
-
-  const backroundImage = {
-    backgroundImage: image1.url
-      ? `url(${image1.url})`
-      : null,
+  const media = {
+    backgroundImage: props.data.image1,
+    backgroundVideo: props.data.video1,
+    auxImage: props.data.image2,
+    auxVideo: props.data.video2,
+    mobileImage: props.data.mobileImage,
   };
 
+
+  if (isMobile() && media.mobileImage.url) {
+    return (
+      <div className="casestudy__splash" >
+        <SplashBackground image={media.mobileImage} />
+      </div>);
+  }
   return (
     <div className="casestudy__splash">
-      <img
-        className={`casestudy__splash__fr ${props.data.layout2}`}
-        src={image2.url}
-        alt={image2.alt}
-        key={image2.url}
+      <AuxiliaryItems
+        media={media}
+        width={props.data.floating_media_width}
+        layout={props.data.layout2}
       />
-      <video
-        autoPlay
-        loop
-        muted
-        key={video2.url}
-        className={`casestudy__splash__fr ${props.data.layout2}`}
-      >
-        <source src={video2.url} type="video/mp4" />
-      </video>
-      <div className="casestudy__splash__bg -cover" style={backroundImage}>
-        <video autoPlay loop muted key={video1.url}>
-          <source src={video1.url} type="video/mp4" />
-        </video>
-      </div>
+      <SplashBackground image={media.backgroundImage} video={media.backgroundVideo} />
     </div>
   );
 };

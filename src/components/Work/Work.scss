@@ -1,16 +1,19 @@
+@import '../../styles/variables.scss';
+
 .work__inner {
   display: flex;
   max-width: 1400px;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: $variable-spacing auto 0;
+  align-items: center;
 }
 
 .work__link {
-  flex-basis:33%;
-  padding:4%;
+  flex-basis: 33%;
+  padding: 4%;
   box-sizing: border-box;
-}
 
-.work__link img {
-  width: 100%;
+  img {
+    width: 100%;
+  }
 }

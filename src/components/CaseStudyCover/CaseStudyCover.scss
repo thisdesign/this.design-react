@@ -7,7 +7,7 @@
 
 .casestudy__fill {
   background-color: #161616;
-  height: 150vh;
+  height: calc(100vh + 30vw);
   left: 0;
   position: absolute;
   top: 0;
@@ -25,44 +25,4 @@
 
 .casestudy__header__item {
   margin-bottom: 3.5vh;
-}
-
-.casestudy__splash {
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 20;
-}
-
-.casestudy__splash__bg {
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.casestudy__splash__bg video{
-  height:100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.casestudy__splash__fr {
-  position: absolute;
-  width: auto;
-  max-width: 100%;
-  z-index: 10;
-}
-
-.-cover {
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
