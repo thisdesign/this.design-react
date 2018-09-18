@@ -1,0 +1,13 @@
+@import '../../../../styles/variables.scss';
+
+.website {
+  display: flex;
+
+  img {
+    width: 100%;
+  }
+
+  .-backgroundEnabled {
+    margin: calc(80px + 5vw) auto;
+  }
+}

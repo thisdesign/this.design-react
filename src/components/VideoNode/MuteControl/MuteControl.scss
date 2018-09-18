@@ -21,8 +21,7 @@
         stroke: $white;
         stroke-width: 1.5;
         fill: none;
-        transition: all cubic-bezier(0.25, 0.1, 0.25, 1) 400ms;
-
+ 
         &--muted {
           transform: translateX(-50%);
           opacity: 0;

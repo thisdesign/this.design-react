@@ -10,6 +10,7 @@ import Columns from './slices/Columns/Columns';
 import Image from './slices/Image/Image';
 import Video from './slices/Video/Video';
 import Pullquote from './slices/Pullquote/Pullquote';
+import Website from './slices/Website/Website';
 import Diptych from './slices/Diptych/Diptych';
 
 import getByUID from '../../util/getByUID';
@@ -78,6 +79,8 @@ export default class CaseStudy extends React.Component {
             return <Gallery data={slice} />;
           case 'pullquote':
             return <Pullquote data={slice} />;
+          case 'website':
+            return <Website data={slice} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }

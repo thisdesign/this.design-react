@@ -3,8 +3,13 @@
 
 .-wrap {
   margin: 0 auto;
-  max-width: 1600px;
+  max-width: 1200px;
   width: 80%;
+
+  &--dub {
+    max-width: 960px;
+    width: 66.67%;
+  }
 }
 
 .-grid {
