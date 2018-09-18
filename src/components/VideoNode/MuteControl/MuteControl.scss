@@ -1,44 +1,53 @@
-.videoNode__muteButtonSolo {
-  position: absolute;
-  left: 22px;
-  bottom: 5px;
-  width: 22px;
-  opacity: 0.5;
+@import '../../../styles/variables.scss';
+
+
+.videoNode {
+  &__muteButtonSolo {
+    position: absolute;
+    left: 22px;
+    bottom: 5px;
+    width: 22px;
+    opacity: .5;
+  }
+
+  &__muteToggle {
+    &__icon {
+      &__speaker {
+        fill: $white;
+        stroke: none;
+      }
+
+      &__line {
+        stroke: $white;
+        stroke-width: 1.5;
+        fill: none;
+        transition: all cubic-bezier(0.25, 0.1, 0.25, 1) 400ms;
+
+        &--muted {
+          transform: translateX(-50%);
+          opacity: 0;
+        }
+
+        &--unmuted {
+          transform: translateX(0%);
+          opacity: 1;
+        }
+      }
+    }
+  }
 }
 
-.videoNode__muteToggle__icon__speaker {
-  fill: #fff;
-  stroke: none;
-}
+.-muted {
+  .videoNode__muteToggle__icon__line {
 
-.videoNode__muteToggle__icon__line {
-  stroke: #fff;
-  stroke-width: 1.5;
-  fill: none;
-  transition: all cubic-bezier(0.25, 0.1, 0.25, 1) 400ms;
-}
+    &--muted {
+      transform: translateX(0);
+      opacity: 1;
+    }
 
-
-/* MUTED */
-
-.-muted .videoNode__muteToggle__icon__line--muted {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.-muted .videoNode__muteToggle__icon__line--unmuted {
-  transform: translateX(-50%);
-  opacity: 0;
-}
-
-/* UNMUTED */
-
-.videoNode__muteToggle__icon__line--muted {
-  transform: translateX(-50%);
-  opacity: 0;
-}
-
-.videoNode__muteToggle__icon__line--unmuted {
-  transform: translateX(0%);
-  opacity: 1;
+    &--unmuted {
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+  }
 }

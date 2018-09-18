@@ -15,6 +15,7 @@ export default class VideoNode extends React.Component {
     duration: 0,
     elapsed: 0,
     percentComplete: 0,
+    hasPlayed: false,
   }
 
   componentDidMount() {
@@ -69,23 +70,25 @@ export default class VideoNode extends React.Component {
   }
 
   handlePause = () => {
-    if (this.state.isPaused) {
-      this.setState({ isPaused: false }, () => {
-        this.videoElem.current.play();
-        this.getCurrentTime();
-      });
-    } else {
-      this.setState({ isPaused: true }, () => {
-        this.videoElem.current.pause();
-      });
-    }
+    this.setState({ hasPlayed: true }, () => {
+      if (this.state.isPaused) {
+        this.setState({ isPaused: false }, () => {
+          this.videoElem.current.play();
+          this.getCurrentTime();
+        });
+      } else {
+        this.setState({ isPaused: true }, () => {
+          this.videoElem.current.pause();
+        });
+      }
+    });
   }
 
   render() {
     const {
-      isMuted, duration, elapsed, isPaused, percentComplete,
+      isMuted, duration, elapsed, isPaused, percentComplete, hasPlayed,
     } = this.state;
-    const { muteToggle, controls } = this.props;
+    const { muteToggle, controls, poster } = this.props;
     const atts = {
       ...controls
         ? {
@@ -101,6 +104,7 @@ export default class VideoNode extends React.Component {
       ref: this.videoElem,
       className: 'videoNode__video',
       playsInline: true,
+      poster,
     };
 
     return (
@@ -113,7 +117,7 @@ export default class VideoNode extends React.Component {
             <source src={this.props.url} type="video/mp4" />
           </video>
         </div>
-        { muteToggle &&
+        { (!controls && muteToggle) &&
           <div className="videoNode__muteButtonSolo">
             <MuteControl
               isMuted={isMuted}
@@ -121,7 +125,7 @@ export default class VideoNode extends React.Component {
             />
           </div>
         }
-        { controls &&
+        { controls && hasPlayed &&
           <VideoControls
             duration={this.parseTime(duration)}
             elapsed={this.parseTime(elapsed)}
@@ -129,6 +133,7 @@ export default class VideoNode extends React.Component {
             isMuted={isMuted}
             handleMuteToggle={this.handleMuteToggle}
             percentComplete={percentComplete}
+            hasPlayed={hasPlayed}
           /> }
       </div>
     );

@@ -9,7 +9,7 @@ const Video = (props) => {
   const isFullScreen = data.layout === 'fullscreen';
   const videoHasAudio = data.audio === 'true';
   const videoHasControls = data.autoplay !== 'autoplay';
-
+  const poster = data.poster.url;
   sizeCheck({ ...data.file }, 7);
 
   return (
@@ -18,6 +18,7 @@ const Video = (props) => {
         muteToggle={videoHasAudio}
         controls={videoHasControls}
         url={url}
+        poster={poster}
       />
     </div>
   );
