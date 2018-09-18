@@ -6,6 +6,10 @@
   &__col {
     flex-basis: 50%;
 
+    img {
+      width: 100%;
+    }
+
     &--media {
       max-width: 80em;
       margin: 0 auto;
@@ -16,22 +20,27 @@
       margin: 0 auto;
     }
 
-    & > img {
-      width: 100%;
-    }
-
     &__video {
       width: 100%;
     }
   }
 
-  @include breakpoint(lg) {
-    &--largeImage > .caseStudy__colBlock__col--media {
-      flex-basis: 66.6%;
-    }
-
-    &--largeImage > .caseStudy__colBlock__col--text {
+  &--smallImage {
+    & > .caseStudy__colBlock__col--media {
       flex-basis: 33.3%;
+    }
+  }
+
+
+  @include breakpoint(lg) {
+    &--largeImage {
+      & > .caseStudy__colBlock__col--media {
+        flex-basis: 66.6%;
+      }
+
+      & > .caseStudy__colBlock__col--text {
+        flex-basis: 33.3%;
+      }
     }
   }
 }

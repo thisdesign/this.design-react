@@ -66,6 +66,8 @@ export default class CaseStudy extends React.Component {
             return <Text data={slice} />;
           case 'columns':
             return <Columns data={slice} />;
+          case 'columns-v2':
+            return <Columns data={slice} />;
           case 'image':
             return <Image data={slice} />;
           case 'diptych':
