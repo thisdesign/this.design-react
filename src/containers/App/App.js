@@ -50,7 +50,7 @@ export default class App extends React.Component {
       component: this,
       pageType: 'context',
       uid: 'home',
-      fetchLinks: ['casestudy.title', 'casestudy.thumbnail'],
+      fetchLinks: ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'],
     });
   }
 

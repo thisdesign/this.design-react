@@ -7,7 +7,8 @@ const Work = (props) => {
     const { uid, data } = item.case_study_item;
     return (
       <a className="work__link" href={`#${uid}`} key={uid} onClick={() => props.handleViewChange('root')}>
-        <img src={data.thumbnail.url} alt={data.thumbnail.alt} />
+        <img className="work__link__item" src={data.thumbnail.url} alt={data.thumbnail.alt} />
+        <img className="work__link__item--svg" src={data.svg.url} alt={data.svg.alt} />
       </a>);
   });
   return (
