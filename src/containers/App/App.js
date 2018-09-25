@@ -18,21 +18,31 @@ import './viewPositions.css';
 
 export default class App extends React.Component {
   state = {
-    doc: null,
-    site: null,
+    /*
+    contains array of info & links to case studies
+    */
+    caseStudyList: null,
+    /*
+    contains high-level site information
+    (title, desc, homepage vids, etc)
+    */
+    siteData: null,
+    /*
+    Error catching
+    */
     notFound: false,
     view: 'root', // rm. if needed when implimenting RR
     route: null, // rm. if needed when implimenting RR
   };
 
   componentWillMount() {
-    this.parseRoute();
+    this.parseRoute(); // remove
   }
 
   componentWillReceiveProps(props) {
-    this.getContextDoc(props);
-    this.getSiteDoc(props);
-    this.parseRoute();
+    this.getCaseStudyList(props);
+    this.getSiteData(props);
+    this.parseRoute(); // remove
   }
 
   componentDidUpdate() {
@@ -44,9 +54,10 @@ export default class App extends React.Component {
    which is just the list of case studies
   */
 
-  getContextDoc = (props = this.props) => {
+  getCaseStudyList = (props = this.props) => {
     getByUID({
       props,
+      state: 'caseStudyList',
       component: this,
       pageType: 'context',
       uid: 'home',
@@ -59,10 +70,10 @@ export default class App extends React.Component {
   the page that handles all the top-level site info
   */
 
-  getSiteDoc =(props) => {
+  getSiteData =(props) => {
     props.prismicCtx.api.getSingle('site').then((doc) => {
       if (doc) {
-        this.setState({ site: doc });
+        this.setState({ siteData: doc });
       } else {
         this.setState({ notFound: !doc });
       }
@@ -105,20 +116,19 @@ export default class App extends React.Component {
     }
   }
 
-
   render() {
     const {
-      doc, notFound, view, route, site,
+      caseStudyList, notFound, view, route, siteData,
     } = this.state;
 
-    if (doc && site) {
+    if (caseStudyList && siteData) {
       return (
         <React.Fragment>
           <Nav handleViewChange={this.handleViewChange} view={view} />
           <main className={`views -view-is-${view}`}>
             <section className={`view work view--aside ${this.isActive('work')}`}>
               <Work
-                caseStudyList={doc.data.case_study_list}
+                caseStudyList={caseStudyList.data.case_study_list}
                 handleViewChange={this.handleViewChange}
               />
             </section>
@@ -126,7 +136,7 @@ export default class App extends React.Component {
               {
                 route
                 ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                : <Homepage data={site} />
+                : <Homepage data={siteData} />
               }
             </section>
             <section className={`view about view--aside ${this.isActive('about')}`}>

@@ -5,6 +5,7 @@ const getByUID = (options) => {
     props,
     pageType,
     uid,
+    state = 'doc',
     fetchLinks,
     component,
   } = options;
@@ -12,7 +13,7 @@ const getByUID = (options) => {
   if (props.prismicCtx) {
     return props.prismicCtx.api.getByUID(pageType, uid, { fetchLinks }).then((doc) => {
       if (doc) {
-        component.setState({ doc });
+        component.setState({ [state]: doc });
       } else {
         component.setState({ notFound: !doc });
       }
