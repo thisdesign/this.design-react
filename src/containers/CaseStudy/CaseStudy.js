@@ -13,8 +13,6 @@ import Pullquote from './slices/Pullquote/Pullquote';
 import Website from './slices/Website/Website';
 import Diptych from './slices/Diptych/Diptych';
 
-import getByUID from '../../util/getByUID';
-
 import './CaseStudy.css';
 
 
@@ -43,12 +41,13 @@ export default class CaseStudy extends React.Component {
     this.props.prismicCtx.toolbar();
   }
 
-  getCaseStudyDoc = (props = this.props) => {
-    getByUID({
-      props,
-      component: this,
-      pageType: 'casestudy',
-      uid: props.route,
+  getCaseStudyDoc = () => {
+    this.props.prismicCtx.api.getByUID('casestudy', this.props.route).then((doc) => {
+      if (doc) {
+        this.setState({ doc });
+      } else {
+        this.setState({ notFound: true });
+      }
     });
   }
 

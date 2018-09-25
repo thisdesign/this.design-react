@@ -6,8 +6,6 @@ import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
 
-import getByUID from '../../util/getByUID';
-
 import './About.css';
 
 export default class About extends React.Component {
@@ -28,12 +26,13 @@ export default class About extends React.Component {
     this.props.prismicCtx.toolbar();
   }
 
-  getAboutDoc = (props = this.props) => {
-    getByUID({
-      props,
-      component: this,
-      pageType: 'about',
-      uid: 'about',
+  getAboutDoc = () => {
+    this.props.prismicCtx.api.getByUID('about', 'about').then((doc) => {
+      if (doc) {
+        this.setState({ doc });
+      } else {
+        this.setState({ notFound: true });
+      }
     });
   }
 

@@ -11,7 +11,6 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
-import getByUID from '../../util/getByUID';
 
 import './App.css';
 import './viewPositions.css';
@@ -55,13 +54,14 @@ export default class App extends React.Component {
   */
 
   getCaseStudyList = (props = this.props) => {
-    getByUID({
-      props,
-      state: 'caseStudyList',
-      component: this,
-      pageType: 'context',
-      uid: 'home',
-      fetchLinks: ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'],
+    const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
+
+    props.prismicCtx.api.getByUID('context', 'home', { fetchLinks }).then((doc) => {
+      if (doc) {
+        this.setState({ caseStudyList: doc.data.case_study_list });
+      } else {
+        this.setState({ notFound: true });
+      }
     });
   }
 
@@ -128,7 +128,7 @@ export default class App extends React.Component {
           <main className={`views -view-is-${view}`}>
             <section className={`view work view--aside ${this.isActive('work')}`}>
               <Work
-                caseStudyList={caseStudyList.data.case_study_list}
+                caseStudyList={caseStudyList}
                 handleViewChange={this.handleViewChange}
               />
             </section>
