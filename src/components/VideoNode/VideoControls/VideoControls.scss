@@ -1,29 +1,55 @@
 @import '../../../styles/variables.scss';
 
 .videoNode {
-  &__controls {
-    opacity: 0;
-    transform: translateY(30%);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    color: $white;
-    width: 100%;
-    box-sizing: border-box;
-    user-select: none;
-    flex-wrap: wrap;
-    transition: .25s transform ease, .25s opacity ease;
+  &:hover {
+    .-enabled {
+      .videoNode__controls--wrapper {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  }
 
-    &__controlWrap {
+  &__controls {
+    &--wrapper {
+      opacity: 0;
+      transform: translateY(30%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      color: $white;
+      width: 100%;
+      box-sizing: border-box;
+      user-select: none;
+      flex-wrap: wrap;
+      transition: .25s transform ease, .25s opacity ease;
+
+    }
+
+    &__play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      transition: .25s transform ease, .25s opacity ease;
+      opacity: 0;
+      pointer-events: none;
+
+      &.-isPaused {
+        opacity: 1;
+      }
+    }
+
+    &__controlInner {
       display: flex;
       line-height: 1em;
       padding: 0 1em;
     }
 
     &__control {
-      cursor: pointer;
       outline: none;
       padding: 1.5em .75em;
+
 
       &--duration {
         flex: 1;
@@ -52,9 +78,4 @@
       background: $color-secondary;
     }
   }
-}
-
-.videoNode:hover .videoNode__controls {
-  opacity: 1;
-  transform: translateX(0);
 }

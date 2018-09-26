@@ -1,0 +1,16 @@
+.videoNode__controls__play__icon {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+
+  svg {
+    width: 15%;
+    fill: white;
+    transform: translate3d(10%, 0%, 0);
+  }
+}

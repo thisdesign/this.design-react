@@ -84,6 +84,16 @@ export default class VideoNode extends React.Component {
     });
   }
 
+  handleFullScreen = () => {
+    if (this.videoElem.current.requestFullscreen) {
+      this.videoElem.current.requestFullscreen();
+    } else if (this.videoElem.current.mozRequestFullScreen) {
+      this.videoElem.current.mozRequestFullScreen();
+    } else if (this.videoElem.current.webkitRequestFullscreen) {
+      this.videoElem.current.webkitRequestFullscreen();
+    }
+  }
+
   render() {
     const {
       isMuted, duration, elapsed, isPaused, percentComplete, hasPlayed,
@@ -125,13 +135,15 @@ export default class VideoNode extends React.Component {
             />
           </div>
         }
-        { controls && hasPlayed &&
+
+        { controls &&
           <VideoControls
             duration={this.parseTime(duration)}
             elapsed={this.parseTime(elapsed)}
             isPaused={isPaused}
             isMuted={isMuted}
             handleMuteToggle={this.handleMuteToggle}
+            handleFullScreen={this.handleFullScreen}
             percentComplete={percentComplete}
             hasPlayed={hasPlayed}
           /> }

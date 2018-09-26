@@ -3,7 +3,6 @@ import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
 
 import './Nav.css';
-import './icons.css';
 
 const Nav = (props) => {
   const { handleViewChange, view } = props;
