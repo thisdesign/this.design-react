@@ -1,9 +1,10 @@
+@import '../../../../styles/breakpoints.scss';
+
 .about__columns {
-  margin: 10vh auto !important;
   flex-wrap: wrap;
 
   &__col {
-    padding: 0 2%;
+    padding: 0 4%;
     flex-wrap: wrap;
     box-sizing: border-box;
 
@@ -14,19 +15,28 @@
 
   &.-col-4 {
     .about__columns__col {
-      flex-basis: 25%;
+
+      flex-basis: 50%;
+
+      @include breakpoint(sm) {
+        flex-basis: 25%;
+      }
     }
   }
 
   &.-col-3 {
     .about__columns__col {
-      flex-basis: 33.33%;
+      @include breakpoint(sm) {
+        flex-basis: 33.33%;
+      }
     }
   }
 
   &.-col-2 {
     .about__columns__col {
-      flex-basis: 50%;
+      @include breakpoint(sm) {
+        flex-basis: 50%;
+      }
     }
   }
 

@@ -1,6 +1,10 @@
 .about__inner {
   color: #575757;
 
+  .-grid {
+    display: flex;
+  }
+
   h1,
   h2,
   h4,

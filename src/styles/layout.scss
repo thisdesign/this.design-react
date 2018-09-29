@@ -1,24 +1,15 @@
 @import 'breakpoints.scss';
 @import 'variables.scss';
 
-.-wrap {
-  margin: 0 auto;
-  max-width: 1200px;
-  width: 80%;
-
-  &--dub {
-    max-width: 960px;
-    width: 66.67%;
-  }
-}
 
 .-grid {
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+
   @include breakpoint(sm) {
     display: flex;
-    margin: 0 auto;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
   };
 
   @include breakpoint(xs) {
@@ -50,4 +41,24 @@
 
 .-centered {
   margin: 0 auto;
+}
+
+
+.-wrap {
+
+  margin: 0 auto;
+
+  @include breakpoint(xs) {
+    padding: 0 8% !important;
+
+  }
+  @include breakpoint(sm) {
+    max-width: 1200px;
+    width: 80%;
+  }
+
+  &--dub {
+    max-width: 960px;
+    width: 66.67%;
+  }
 }
