@@ -4,18 +4,17 @@
   text-align: center;
   margin: 5vh 4% !important;
 
-  /*
-  For the future:
-  
-  &-keepBreak {
+
+  @include breakpoint(xs) {
     br {
-      display: inherit;
+      display: none;
     }
   }
-  */
 
-  br {
-    display: none;
+  &.-keepBreak {
+    br {
+      display: block;
+    }
   }
 
   &.-full-height {

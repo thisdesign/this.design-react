@@ -4,10 +4,17 @@ import './Text.css';
 
 
 const Text = (props) => {
-  const { text } = props.data.primary;
-  const { layout } = props.data.primary;
+  const { text, layout, class_names: classNames } = props.data.primary;
+
+  const classes = [
+    'about__text',
+    '-grid',
+    layout ? `-${layout}` : '',
+    classNames || '',
+  ].join(' ');
+
   return (
-    <div className={`about__text -grid ${layout ? `-${layout}` : ''}`}>
+    <div className={classes}>
       {RichText.render(text)}
     </div>
   );
