@@ -69,14 +69,16 @@ export default class App extends React.Component {
     });
 
     return (
-      <div
-        className="caseStudy__gallery grid"
-        role="button"
-        tabIndex="0"
-        onClick={() => this.changeImage(1)}
-        style={{ paddingTop: `${ratio}%` }}
-      >
-        {galleryItems}
+      <div className="caseStudy__gallery grid">
+        <div
+          className="caseStudy__gallery__imageContainer"
+          role="button"
+          tabIndex="0"
+          onClick={() => this.changeImage(1)}
+          style={{ paddingTop: `${ratio}%` }}
+        >
+          {galleryItems}
+        </div>
         <div className="caseStudy__gallery__indicators">
           {indicators}
         </div>

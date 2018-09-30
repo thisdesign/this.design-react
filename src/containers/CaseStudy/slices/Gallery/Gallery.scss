@@ -1,8 +1,12 @@
 .caseStudy__gallery {
-  position: relative;
-  overflow: hidden;
-  outline: none;
-  cursor: pointer;
+
+
+  &__imageContainer {
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    cursor: pointer;
+  }
 
   &__indicators {
     display: flex;
