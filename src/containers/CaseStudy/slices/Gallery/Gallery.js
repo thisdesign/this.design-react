@@ -69,7 +69,7 @@ export default class App extends React.Component {
     });
 
     return (
-      <div className="caseStudy__gallery grid">
+      <div className="caseStudy__gallery grid -wrap">
         <div
           className="caseStudy__gallery__imageContainer"
           role="button"
