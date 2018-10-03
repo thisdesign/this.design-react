@@ -1,9 +1,12 @@
 import React from 'react';
+import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
 import './Gallery.css';
 
-export default class App extends React.Component {
+export default class Gallery extends React.Component {
   state = {
-    images: this.props.data.value.map(img => img.image),
+    images: this.props.data.items
+      ? this.props.data.items.map(img => img.image) // v2
+      : this.props.data.value.map(img => img.image), // old
     currentImageIndex: 0,
     ratio: 0,
   }
@@ -21,20 +24,30 @@ export default class App extends React.Component {
 
   cycleImages = () => {
     setInterval(() => {
-      this.changeImage(1);
+      this.handleNextImage();
     }, 5000);
   }
 
 
-  changeImage = (num) => {
-    const { currentImageIndex, images } = this.state;
-    const nextImage = ((images.length - 1) > currentImageIndex)
-      ? currentImageIndex + num
-      : 0;
+  goToImage = (num) => {
     this.setState({
-      currentImageIndex: nextImage,
+      currentImageIndex: num,
     });
   }
+
+  handleNextImage = () => {
+    const { currentImageIndex, images } = this.state;
+    const lastImage = images.length - 1;
+    const nextImage = currentImageIndex + 1;
+    const isLastImage = lastImage > currentImageIndex;
+
+    if (isLastImage) {
+      this.goToImage(nextImage);
+    } else {
+      this.goToImage(0);
+    }
+  }
+
   render() {
     const { images, currentImageIndex, ratio } = this.state;
 
@@ -57,31 +70,20 @@ export default class App extends React.Component {
       );
     });
 
-    const indicators = images.map((img, index) => {
-      const className = 'caseStudy__gallery__indicator';
-      const classes = (index === currentImageIndex)
-        ? `${className} ${className}--active`
-        : className;
-
-      return (
-        <div className={classes} />
-      );
-    });
-
     return (
       <div className="caseStudy__gallery grid -wrap">
         <div
           className="caseStudy__gallery__imageContainer"
-          role="button"
-          tabIndex="0"
-          onClick={() => this.changeImage(1)}
+          onClick={this.handleNextImage}
           style={{ paddingTop: `${ratio}%` }}
         >
           {galleryItems}
         </div>
-        <div className="caseStudy__gallery__indicators">
-          {indicators}
-        </div>
+        <GalleryIndicators
+          images={images}
+          currentImageIndex={currentImageIndex}
+          goToImage={this.goToImage}
+        />
       </div>
     );
   }
