@@ -12,7 +12,7 @@ export default class Gallery extends React.Component {
   }
 
   componentWillMount() {
-    this.cycleImages();
+    // this.cycleImages();
     this.setRatio();
   }
 
@@ -22,11 +22,11 @@ export default class Gallery extends React.Component {
     this.setState({ ratio: smallestRatio });
   }
 
-  cycleImages = () => {
-    setInterval(() => {
-      this.handleNextImage();
-    }, 5000);
-  }
+  // cycleImages = () => {
+  //   setInterval(() => {
+  //     this.handleNextImage();
+  //   }, 5000);
+  // }
 
 
   goToImage = (num) => {
@@ -45,6 +45,19 @@ export default class Gallery extends React.Component {
       this.goToImage(nextImage);
     } else {
       this.goToImage(0);
+    }
+  }
+
+  handlePrevImage = () => {
+    const { currentImageIndex, images } = this.state;
+    const lastImage = images.length - 1;
+    const isFirstImage = currentImageIndex <= 0;
+    const previousImage = currentImageIndex - 1;
+
+    if (isFirstImage) {
+      this.goToImage(lastImage);
+    } else {
+      this.goToImage(previousImage);
     }
   }
 
@@ -72,11 +85,21 @@ export default class Gallery extends React.Component {
 
     return (
       <div className="caseStudy__gallery grid -wrap">
+
         <div
           className="caseStudy__gallery__imageContainer"
-          onClick={this.handleNextImage}
           style={{ paddingTop: `${ratio}%` }}
         >
+          <div className="caseStudy__gallery__nav">
+            <div
+              className="caseStudy__gallery__nav__item--prev caseStudy__gallery__nav__item"
+              onClick={this.handlePrevImage}
+            />
+            <div
+              className="caseStudy__gallery__nav__item--next caseStudy__gallery__nav__item"
+              onClick={this.handleNextImage}
+            />
+          </div>
           {galleryItems}
         </div>
         <GalleryIndicators
