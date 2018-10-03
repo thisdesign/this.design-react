@@ -51,7 +51,7 @@ export default class App extends React.Component {
         <img
           src={img.url}
           key={img.url}
-          alt={img.alt}
+          alt={this.props.title}
           className={classes}
         />
       );

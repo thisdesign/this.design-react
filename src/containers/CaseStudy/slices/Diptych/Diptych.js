@@ -13,7 +13,7 @@ const Diptych = (props) => {
       <div className="casestudy__diptych__item -padding">
         <img
           src={image1.url}
-          alt={image1.alt}
+          alt={props.title}
           style={{ transform: `translateX(${offset1}%)` }}
         />
       </div>
@@ -21,7 +21,7 @@ const Diptych = (props) => {
         <img
           className="casestudy__diptych__item"
           src={image2.url}
-          alt={image2.alt}
+          alt={props.title}
           style={{ transform: `translateX(${offset2}%)` }}
         />
       </div>

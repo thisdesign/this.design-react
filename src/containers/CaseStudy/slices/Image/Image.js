@@ -3,7 +3,8 @@ import './Image.css';
 
 const Image = (props) => {
   const data = props.data.value[0];
-  const { url: src, alt } = data.file;
+  const { url: src } = data.file;
+  const { title } = props;
   const imageIsFullScreen = data.layout === 'fullscreen';
   const classes = [
     'caseStudy__image',
@@ -14,7 +15,7 @@ const Image = (props) => {
 
   return (
     <div className={classes.join(' ')} >
-      <img src={src} alt={alt} />
+      <img src={src} alt={title} />
     </div>
   );
 };

@@ -54,7 +54,10 @@ export default class CaseStudy extends React.Component {
   render() {
     const { doc, notFound } = this.state;
 
+
     if (doc) {
+      const title = `${doc.data.title} – This Design – Portland, OR`;
+
       const customCmsAtts = {
         color: doc.data.text_color,
         backgroundColor: doc.data.background_color,
@@ -65,21 +68,21 @@ export default class CaseStudy extends React.Component {
           case 'text':
             return <Text data={slice} />;
           case 'columns':
-            return <Columns data={slice} />;
+            return <Columns data={slice} title={title} />;
           case 'columns-v2':
-            return <Columns data={slice} />;
+            return <Columns data={slice} title={title} />;
           case 'image':
-            return <Image data={slice} />;
+            return <Image data={slice} title={title} />;
           case 'diptych':
-            return <Diptych data={slice} />;
+            return <Diptych data={slice} title={title} />;
           case 'video':
             return <Video data={slice} />;
           case 'gallery':
-            return <Gallery data={slice} />;
+            return <Gallery data={slice} title={title} />;
           case 'pullquote':
             return <Pullquote data={slice} />;
           case 'website':
-            return <Website data={slice} />;
+            return <Website data={slice} title={title} />;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }

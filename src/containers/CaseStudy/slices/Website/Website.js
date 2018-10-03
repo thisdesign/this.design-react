@@ -25,7 +25,7 @@ const Website = (props) => {
           frameColor={frameColor}
           dotColor={dotColor}
           render={
-            <img src={screenshot.url} alt={screenshot.alt} />
+            <img src={screenshot.url} alt={props.title} />
           }
         />
       </div>

@@ -30,7 +30,7 @@ const Columns = (props) => {
   const columnMedia = (
     data.video.url
       ? <VideoNode muteToggle={data.audio === 'true'} url={data.video.url} />
-      : <img src={data.image.url} alt={data.image.alt} />);
+      : <img src={data.image.url} alt={props.title} />);
 
   const columnText = (
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text -padding" key="col-img">
