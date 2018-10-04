@@ -30,7 +30,7 @@
 
 .-padding {
   @include breakpoint(sm) {
-    padding: 0 4%;
+    padding: 0 3%;
   }
 }
 
@@ -45,7 +45,6 @@
 
 
 .-wrap {
-
   margin: 0 auto;
 
   @include breakpoint(xs) {
@@ -53,7 +52,7 @@
 
   }
   @include breakpoint(sm) {
-    max-width: 1200px;
+    max-width: 1500px;
     width: 80%;
   }
 
