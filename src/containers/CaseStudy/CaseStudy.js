@@ -81,7 +81,7 @@ export default class CaseStudy extends React.Component {
             return <Video data={slice} />;
           case 'gallery':
             return <Gallery data={slice} title={title} />;
-          case 'image_gallery':
+          case 'gallery-v2':
             return <Gallery data={slice} title={title} />;
           case 'pullquote':
             return <Pullquote data={slice} />;

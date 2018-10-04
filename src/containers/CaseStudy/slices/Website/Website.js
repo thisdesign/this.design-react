@@ -1,5 +1,6 @@
 import React from 'react';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
+import VideoNode from 'components/VideoNode/VideoNode';
 import './Website.css';
 
 const Website = (props) => {
@@ -10,6 +11,7 @@ const Website = (props) => {
     background,
     screenshot,
     layout,
+    video,
   } = data.primary;
 
   const classes = [
@@ -18,6 +20,7 @@ const Website = (props) => {
     background ? '-backgroundEnabled' : '-centered',
   ].join(' ');
 
+
   return (
     <div className="website -padding" style={{ backgroundColor: background }}>
       <div className={classes}>
@@ -25,8 +28,11 @@ const Website = (props) => {
           frameColor={frameColor}
           dotColor={dotColor}
           render={
-            <img src={screenshot.url} alt={props.title} />
-          }
+            video.url ? (
+              <VideoNode url={video.url} />
+            ) : (
+              <img src={screenshot.url} alt={props.title} />
+          )}
         />
       </div>
     </div>
