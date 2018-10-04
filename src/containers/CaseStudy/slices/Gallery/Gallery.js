@@ -35,7 +35,7 @@ export default class Gallery extends React.Component {
   cycleImages = () => {
     this.int = setInterval(() => {
       this.handleNextImage();
-    }, 5000);
+    }, 3000);
   }
 
   resetTimer = () => {
@@ -44,15 +44,14 @@ export default class Gallery extends React.Component {
   }
 
   goToImage = (num) => {
+    this.resetTimer();
     this.setState({
       currentImageIndex: num,
     });
   }
 
   handleNextImage = () => {
-    this.resetTimer();
     this.setVars();
-
     if (this.isLastImage) {
       this.goToImage(this.nextImage);
     } else {
@@ -61,9 +60,7 @@ export default class Gallery extends React.Component {
   }
 
   handlePrevImage = () => {
-    this.resetTimer();
     this.setVars();
-
     if (this.isFirstImage) {
       this.goToImage(this.lastImage);
     } else {
