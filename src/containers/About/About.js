@@ -15,26 +15,32 @@ export default class About extends React.Component {
   };
 
   componentWillMount() {
+    console.log('About will mount');
     this.getAboutDoc(this.props);
   }
 
   componentWillReceiveProps(props) {
+    console.log('About will receive props');
+    console.log('props ', props);
     this.getAboutDoc(props);
   }
 
   componentDidUpdate() {
+    console.log('About did update');
     this.props.prismicCtx.toolbar();
   }
 
   getAboutDoc = () => {
     this.props.prismicCtx.api.getByUID('about', 'about').then((doc) => {
       if (doc) {
+        console.log('doc ', doc);
         this.setState({ doc });
       } else {
+        console.log('notfound about doc ');
         this.setState({ notFound: true });
       }
     });
-  }
+  };
 
   render() {
     const { doc, notFound } = this.state;
@@ -55,9 +61,16 @@ export default class About extends React.Component {
       });
 
       return (
-        <div className="about__inner view__child">
-          {slices.map(slice => <div className="about__block" key={uuidv1()}>{slice}</div>)}
-        </div>
+        <section className="view about view--aside">
+          <div className="about__inner view__child">
+            <h1>about with slices</h1>
+            {slices.map(slice => (
+              <div className="about__block" key={uuidv1()}>
+                {slice}
+              </div>
+            ))}
+          </div>
+        </section>
       );
     } else if (notFound) {
       return <NotFound />;

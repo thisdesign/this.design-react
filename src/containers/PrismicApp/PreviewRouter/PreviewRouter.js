@@ -19,6 +19,8 @@ const PreviewRouter = props => (
         render={routeProps => <Preview {...routeProps} prismicCtx={props.prismicCtx} />}
       />
       <Route path="/@:ctx" render={({ match }) => <Redirect to={`/?=${match.params.ctx}`} />} />
+      {/* Will render the id in a div  */}
+      <Route path="/work/:id" render={({ match }) => <div>{match.params.id}</div>} />
       <Route
         path="/"
         render={routeProps => <App {...routeProps} prismicCtx={props.prismicCtx} />}

@@ -18,6 +18,9 @@ export default class PrismicApp extends React.Component {
         console.error(`Cannot contact the API, check your prismic configuration:\n${e}`);
       });
   }
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log('this.state ', this.state);
+  }
 
   refreshToolbar() {
     const maybeCurrentExperiment = this.api.currentExperiment();
@@ -26,6 +29,8 @@ export default class PrismicApp extends React.Component {
     }
     window.PrismicToolbar.setup(PrismicConfig.apiEndpoint);
   }
+
+
 
   buildContext() {
     const { accessToken } = PrismicConfig;
