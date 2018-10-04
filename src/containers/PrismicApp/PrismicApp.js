@@ -7,14 +7,16 @@ import PreviewRouter from './PreviewRouter/PreviewRouter';
 export default class PrismicApp extends React.Component {
   state = {
     prismicCtx: null,
-  }
+  };
 
   componentWillMount() {
-    this.buildContext().then((prismicCtx) => {
-      this.setState({ prismicCtx });
-    }).catch((e) => {
-      console.error(`Cannot contact the API, check your prismic configuration:\n${e}`);
-    });
+    this.buildContext()
+      .then((prismicCtx) => {
+        this.setState({ prismicCtx });
+      })
+      .catch((e) => {
+        console.error(`Cannot contact the API, check your prismic configuration:\n${e}`);
+      });
   }
 
   refreshToolbar() {
@@ -26,7 +28,7 @@ export default class PrismicApp extends React.Component {
   }
 
   buildContext() {
-    const accessToken = PrismicConfig.accessToken;
+    const { accessToken } = PrismicConfig;
     return Prismic.api(PrismicConfig.apiEndpoint, { accessToken }).then(api => ({
       api,
       endpoint: PrismicConfig.apiEndpoint,
