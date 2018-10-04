@@ -2,10 +2,12 @@ import React from 'react';
 import './Image.css';
 
 const Image = (props) => {
-  const data = props.data.value[0];
-  const { url: src } = data.file;
+  const image = props.data.image || props.data.file; // v2 vs v1
+  const imageIsFullScreen = props.data.layout === 'fullscreen';
+  const largeImage = image.size_2560;
   const { title } = props;
-  const imageIsFullScreen = data.layout === 'fullscreen';
+  let { url } = image;
+
   const classes = [
     'caseStudy__image',
     imageIsFullScreen
@@ -13,9 +15,18 @@ const Image = (props) => {
       : '-centered -wrap',
   ];
 
+  if (imageIsFullScreen && largeImage) {
+    ({ url } = largeImage);
+  }
   return (
     <div className={classes.join(' ')} >
-      <img src={src} alt={title} />
+      <picture>
+        {
+          image.size_760 &&
+            <source srcSet={image.size_760.url} media="(max-width: 600px)" />
+        }
+        <img src={url} alt={title} />
+      </picture>
     </div>
   );
 };
