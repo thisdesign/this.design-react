@@ -12,8 +12,18 @@ export default class Gallery extends React.Component {
   }
 
   componentWillMount() {
-    // this.cycleImages();
+    this.setVars();
+    this.cycleImages();
     this.setRatio();
+  }
+
+  setVars = () => {
+    const { currentImageIndex, images } = this.state;
+    this.lastImage = images.length - 1;
+    this.isFirstImage = currentImageIndex <= 0;
+    this.isLastImage = this.lastImage > currentImageIndex;
+    this.nextImage = currentImageIndex + 1;
+    this.previousImage = currentImageIndex - 1;
   }
 
   setRatio = () => {
@@ -22,12 +32,16 @@ export default class Gallery extends React.Component {
     this.setState({ ratio: smallestRatio });
   }
 
-  // cycleImages = () => {
-  //   setInterval(() => {
-  //     this.handleNextImage();
-  //   }, 5000);
-  // }
+  cycleImages = () => {
+    this.int = setInterval(() => {
+      this.handleNextImage();
+    }, 5000);
+  }
 
+  resetTimer = () => {
+    clearInterval(this.int);
+    this.cycleImages();
+  }
 
   goToImage = (num) => {
     this.setState({
@@ -36,28 +50,24 @@ export default class Gallery extends React.Component {
   }
 
   handleNextImage = () => {
-    const { currentImageIndex, images } = this.state;
-    const lastImage = images.length - 1;
-    const nextImage = currentImageIndex + 1;
-    const isLastImage = lastImage > currentImageIndex;
+    this.resetTimer();
+    this.setVars();
 
-    if (isLastImage) {
-      this.goToImage(nextImage);
+    if (this.isLastImage) {
+      this.goToImage(this.nextImage);
     } else {
       this.goToImage(0);
     }
   }
 
   handlePrevImage = () => {
-    const { currentImageIndex, images } = this.state;
-    const lastImage = images.length - 1;
-    const isFirstImage = currentImageIndex <= 0;
-    const previousImage = currentImageIndex - 1;
+    this.resetTimer();
+    this.setVars();
 
-    if (isFirstImage) {
-      this.goToImage(lastImage);
+    if (this.isFirstImage) {
+      this.goToImage(this.lastImage);
     } else {
-      this.goToImage(previousImage);
+      this.goToImage(this.previousImage);
     }
   }
 
@@ -85,7 +95,6 @@ export default class Gallery extends React.Component {
 
     return (
       <div className="caseStudy__gallery grid -wrap">
-
         <div
           className="caseStudy__gallery__imageContainer"
           style={{ paddingTop: `${ratio}%` }}
