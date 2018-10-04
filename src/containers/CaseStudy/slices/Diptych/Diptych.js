@@ -11,19 +11,21 @@ const Diptych = (props) => {
   return (
     <div className="-grid -wrap casestudy__diptych">
       <div className="casestudy__diptych__item -padding">
-        <img
-          src={image1.url}
-          alt={props.title}
-          style={{ transform: `translateX(${offset1}%)` }}
-        />
+        {image1.url &&
+          <img
+            src={image1.url}
+            alt={props.title}
+            style={{ transform: `translateX(${offset1}%)` }}
+          />}
       </div>
       <div className="casestudy__diptych__item -padding">
-        <img
-          className="casestudy__diptych__item"
-          src={image2.url}
-          alt={props.title}
-          style={{ transform: `translateX(${offset2}%)` }}
-        />
+        {image2.url &&
+          <img
+            className="casestudy__diptych__item"
+            src={image2.url}
+            alt={props.title}
+            style={{ transform: `translateX(${offset2}%)` }}
+          />}
       </div>
     </div>
   );
