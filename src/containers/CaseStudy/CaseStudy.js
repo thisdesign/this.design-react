@@ -77,6 +77,8 @@ export default class CaseStudy extends React.Component {
             return <Image data={slice.primary} title={title} />;
           case 'diptych':
             return <Diptych data={slice} title={title} />;
+          case 'diptych-v2':
+            return <Diptych data={slice} title={title} />;
           case 'video':
             return <Video data={slice} />;
           case 'gallery':

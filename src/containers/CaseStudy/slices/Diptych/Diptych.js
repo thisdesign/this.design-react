@@ -2,12 +2,16 @@ import React from 'react';
 import './Diptych.css';
 
 const Diptych = (props) => {
+  const dataSource = props.data.value
+    ? props.data.value[0] // v1
+    : props.data.primary; // v2
+
   const {
     image1,
     image2,
     offset1,
     offset2,
-  } = props.data.value[0];
+  } = dataSource;
   return (
     <div className="-grid -wrap casestudy__diptych">
       <div className="casestudy__diptych__item -padding">
