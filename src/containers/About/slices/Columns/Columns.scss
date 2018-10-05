@@ -4,12 +4,17 @@
   flex-wrap: wrap;
 
   &__col {
-    padding: 0 4%;
+    padding: 0 2%;
     flex-wrap: wrap;
     box-sizing: border-box;
 
     img {
       width: 100%;
+    }
+
+    li {
+      line-height: 1.5;
+      margin-bottom: .8em;
     }
   }
 
@@ -49,11 +54,11 @@
     }
   }
 
-  .-spacebelow {
+  &.-spacebelow {
     margin-bottom: 50vh !important;
   }
 
-  .-above {
+  &.-spaceabove {
     margin-top: 50vh !important;
   }
 
