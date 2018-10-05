@@ -5,6 +5,7 @@ import NotFound from '../../components/NotFound/NotFound';
 import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
+import Gridwall from './slices/Gridwall/Gridwall';
 
 import './About.css';
 
@@ -49,6 +50,12 @@ export default class About extends React.Component {
             return <Columns data={slice} />;
           case 'instagram':
             return <Instagram data={slice} view={view} />;
+          // case 'gridwall':
+          //   return <Gridwall data={slice} />;
+          case 'gridwall-v2':
+            console.log(slice);
+            return <Gridwall data={slice} />;
+            // return null;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }
