@@ -13,17 +13,22 @@
     }
 
     li {
-      line-height: 1.5;
-      margin-bottom: .8em;
+      line-height: 1.35;
+      margin-bottom: .5em;
     }
   }
 
   &.-col-4 {
     .about__columns__col {
-
       flex-basis: 50%;
+      flex-wrap: nowrap;
 
-      @include breakpoint(sm) {
+      p {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      @include breakpoint(lg) {
         flex-basis: 25%;
       }
     }

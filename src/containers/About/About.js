@@ -50,12 +50,8 @@ export default class About extends React.Component {
             return <Columns data={slice} />;
           case 'instagram':
             return <Instagram data={slice} view={view} />;
-          // case 'gridwall':
-          //   return <Gridwall data={slice} />;
           case 'gridwall-v2':
-            console.log(slice);
             return <Gridwall data={slice} />;
-            // return null;
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }
