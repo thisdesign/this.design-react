@@ -30,18 +30,18 @@ export default class App extends React.Component {
     Error catching
     */
     notFound: false,
-    view: 'root', // rm. if needed when implimenting RR
-    route: null, // rm. if needed when implimenting RR
+    // view: 'root', // rm. if needed when implimenting RR
+    // route: null, // rm. if needed when implimenting RR
   };
 
-  componentWillMount() {
-    this.parseRoute(); // remove
-  }
+  // componentWillMount() {
+  //   this.parseRoute(); // remove
+  // }
 
   componentWillReceiveProps(props) {
     this.getCaseStudyList(props);
     this.getSiteData(props);
-    this.parseRoute(); // remove
+    // this.parseRoute(); // remove
   }
 
   componentDidUpdate() {
@@ -63,14 +63,14 @@ export default class App extends React.Component {
         this.setState({ notFound: true });
       }
     });
-  }
+  };
 
   /*
   Loads API data for the "site" single which is
   the page that handles all the top-level site info
   */
 
-  getSiteData =(props) => {
+  getSiteData = (props) => {
     props.prismicCtx.api.getSingle('site').then((doc) => {
       if (doc) {
         this.setState({ siteData: doc });
@@ -78,7 +78,7 @@ export default class App extends React.Component {
         this.setState({ notFound: !doc });
       }
     });
-  }
+  };
 
   /*
   Temporary hash router.
@@ -90,18 +90,14 @@ export default class App extends React.Component {
     const string = hash.substring(1);
     const uid = string !== '' ? string : null;
     this.setState({ route: uid });
-  }
+  };
 
   /*
   -is-active refers to the currently
   active route (root/work/about)
   */
 
-  isActive = name => (
-    this.state.view === name
-      ? '-is-active'
-      : ''
-  )
+  isActive = name => (this.state.view === name ? '-is-active' : '');
 
   /*
   Temporary routing for root/work/about.
@@ -114,39 +110,43 @@ export default class App extends React.Component {
     } else {
       this.setState({ view: updatedView });
     }
-  }
+  };
 
   render() {
     const {
       caseStudyList, notFound, view, route, siteData,
     } = this.state;
-
-    if (caseStudyList && siteData) {
+    if (siteData) {
       return (
         <React.Fragment>
-          <Nav handleViewChange={this.handleViewChange} view={view} />
-          <main className={`views -view-is-${view}`}>
-            <section className={`view work view--aside ${this.isActive('work')}`}>
-              <Work
-                caseStudyList={caseStudyList}
-                handleViewChange={this.handleViewChange}
-              />
-            </section>
-            <section className={`view root ${this.isActive('root')}`}>
-              {
-                route
-                ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                : <Homepage data={siteData} />
-              }
-            </section>
-            <section className={`view about view--aside ${this.isActive('about')}`}>
-              <About
-                prismicCtx={this.props.prismicCtx}
-                view={view}
-              />
-            </section>
-          </main>
-        </React.Fragment>);
+          <Homepage data={siteData} />
+        </React.Fragment>
+      );
+      // return (
+      //   <React.Fragment>
+      //     <Nav handleViewChange={this.handleViewChange} view={view} />
+      //     <main className={`views -view-is-${view}`}>
+      //       <section className={`view work view--aside ${this.isActive('work')}`}>
+      //         <Work
+      //           caseStudyList={caseStudyList}
+      //           handleViewChange={this.handleViewChange}
+      //         />
+      //       </section>
+      //       <section className={`view root ${this.isActive('root')}`}>
+      //         {
+      //           route
+      //           ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
+      //           : <Homepage data={siteData} />
+      //         }
+      //       </section>
+      //       <section className={`view about view--aside ${this.isActive('about')}`}>
+      //         <About
+      //           prismicCtx={this.props.prismicCtx}
+      //           view={view}
+      //         />
+      //       </section>
+      //     </main>
+      //   </React.Fragment>);
     } else if (notFound) {
       return <NotFound />;
     }

@@ -7,20 +7,39 @@ import PreviewRouter from './PreviewRouter/PreviewRouter';
 export default class PrismicApp extends React.Component {
   state = {
     prismicCtx: null,
+    caseStudyList: [],
   };
 
   componentWillMount() {
     this.buildContext()
       .then((prismicCtx) => {
         this.setState({ prismicCtx });
+        this.getCaseStudyList(prismicCtx);
+        console.log('prismicCtx ', prismicCtx);
       })
       .catch((e) => {
         console.error(`Cannot contact the API, check your prismic configuration:\n${e}`);
       });
   }
+  componentDidMount = () => {
+    this.setState({ caseStudyList: this.getCaseStudyList() });
+  };
   componentDidUpdate = (prevProps, prevState) => {
     console.log('this.state ', this.state);
-  }
+  };
+
+  getCaseStudyList = (prismicCtx) => {
+    // const { prismicCtx } = this.state;
+    if (!prismicCtx) {
+      console.log('prismicCtx ', prismicCtx);
+    }
+
+    const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
+
+    prismicCtx.api
+      .getByUID('context', 'home', { fetchLinks })
+      .then(doc => (doc ? doc.data.case_study_list : null));
+  };
 
   refreshToolbar() {
     const maybeCurrentExperiment = this.api.currentExperiment();
@@ -29,8 +48,6 @@ export default class PrismicApp extends React.Component {
     }
     window.PrismicToolbar.setup(PrismicConfig.apiEndpoint);
   }
-
-
 
   buildContext() {
     const { accessToken } = PrismicConfig;
