@@ -6,11 +6,11 @@ import 'styles/layout.css';
 import React from 'react';
 import Loading from '../../components/Loading/Loading';
 import Homepage from '../../components/Homepage/Homepage';
-import Nav from '../../components/Nav/Nav';
-import Work from '../../components/Work/Work';
+// import Nav from '../../components/Nav/Nav';
+// import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
-import CaseStudy from '../CaseStudy/CaseStudy';
-import About from '../About/About';
+// import CaseStudy from '../CaseStudy/CaseStudy';
+// import About from '../About/About';
 
 import './App.css';
 import './viewPositions.css';
@@ -71,6 +71,7 @@ export default class App extends React.Component {
   */
 
   getSiteData = (props) => {
+    console.log('getting site data');
     props.prismicCtx.api.getSingle('site').then((doc) => {
       if (doc) {
         this.setState({ siteData: doc });
@@ -114,7 +115,11 @@ export default class App extends React.Component {
 
   render() {
     const {
-      caseStudyList, notFound, view, route, siteData,
+      // caseStudyList,
+      notFound,
+      // view,
+      // route,
+      siteData,
     } = this.state;
     if (siteData) {
       return (

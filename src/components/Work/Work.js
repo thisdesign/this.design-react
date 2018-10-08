@@ -2,17 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Work.css';
 
-const getCaseStudyList = ctx =>
-  // const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
+// const getCaseStudyList = ctx =>
+//   // const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
 
-  // ctx.api
-  //   .getByUID('context', 'home', { fetchLinks })
-  //   .then(doc => (doc ? doc.data.case_study_list : null));
-  null;
-const Work = ({ prismicCtx }) => {
+//   // ctx.api
+//   //   .getByUID('context', 'home', { fetchLinks })
+//   //   .then(doc => (doc ? doc.data.case_study_list : null));
+//   null;
+const Work = ({ prismicCtx, caseStudyList }) => {
   console.log('prismicCtx ', prismicCtx);
   // if the prismicCtx is set, get the case study list from the api
-  const caseStudyList = prismicCtx ? getCaseStudyList(prismicCtx) : [];
+  // const caseStudyList = prismicCtx ? getCaseStudyList(prismicCtx) : [];
   console.log('caseStudyList ', caseStudyList);
   const links = caseStudyList.map((item) => {
     const { uid, data } = item.case_study_item;

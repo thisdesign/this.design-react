@@ -11,37 +11,26 @@ export default class PrismicApp extends React.Component {
   };
 
   componentWillMount() {
-    console.log('Component Will Mount');
     this.buildContext()
       .then((prismicCtx) => {
         this.setState({ prismicCtx });
         this.getCaseStudyList(prismicCtx);
-        console.log('prismicCtx ', prismicCtx);
       })
       .catch((e) => {
         console.error(`Cannot contact the API, check your prismic configuration:\n${e}`);
       });
   }
-  componentDidMount = () => {
-    console.log('Component Did Mount');
-    // this.setState({ caseStudyList: this.getCaseStudyList() });
-  };
-  componentDidUpdate = (prevProps, prevState) => {
-    console.log('this.state ', this.state);
-  };
 
   getCaseStudyList = (prismicCtx) => {
-    // const { prismicCtx } = this.state;
-    if (!prismicCtx) {
-      console.log('no prismit ctx');
-    }
-    console.log('prismicCtx ', prismicCtx);
-
     const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
 
-    prismicCtx.api
-      .getByUID('context', 'home', { fetchLinks })
-      .then(doc => (doc ? doc.data.case_study_list : null));
+    prismicCtx.api.getByUID('context', 'home', { fetchLinks }).then(doc =>
+      (doc
+        ? this.setState({
+          caseStudyList: doc.data.case_study_list,
+          notFound: false,
+        })
+        : this.setState({ notFound: true, caseStudyList: [] })));
   };
 
   refreshToolbar() {
@@ -64,6 +53,9 @@ export default class PrismicApp extends React.Component {
   }
 
   render() {
-    return <PreviewRouter prismicCtx={this.state.prismicCtx} />;
+    const { caseStudyList, prismicCtx, notFound } = this.state;
+    return (
+      <PreviewRouter prismicCtx={prismicCtx} caseStudyList={notFound ? null : caseStudyList} />
+    );
   }
 }
