@@ -11,6 +11,7 @@ import Preview from '../Preview/Preview';
 import App from '../../App/App';
 import About from '../../About/About';
 import Nav from '../../../components/Nav/Nav';
+import CaseStudy from '../../CaseStudy/CaseStudy';
 import Work from '../../../components/Work/Work';
 
 import './PreviewRouter.css';
@@ -24,7 +25,7 @@ const PreviewRouter = (props) => {
           <div>
             <Nav />
             <TransitionGroup>
-              <CSSTransition key={location.key} classNames="fade" timeout={300}>
+              <CSSTransition key={location.key} classNames="fade" timeout={1000}>
                 <Switch location={location}>
                   <Route
                     exact
@@ -38,7 +39,12 @@ const PreviewRouter = (props) => {
                   />
                   {/* <Route path="/@:ctx" render={({ match }) => <Redirect to={`/?=${match.params.ctx}`} />} /> */}
                   {/* Will render the id in a div  */}
-                  <Route path="/work/:id" render={({ match }) => <div>{match.params.id}</div>} />
+                  <Route
+                    path="/work/:id"
+                    render={({ match }) => (
+                      <CaseStudy route={match.params.id} prismicCtx={prismicCtx} />
+                    )}
+                  />
                   <Route
                     path="/work"
                     render={routeProps => (
