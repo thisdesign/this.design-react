@@ -11,6 +11,7 @@ export default class PrismicApp extends React.Component {
   };
 
   componentWillMount() {
+    console.log('Component Will Mount');
     this.buildContext()
       .then((prismicCtx) => {
         this.setState({ prismicCtx });
@@ -22,7 +23,8 @@ export default class PrismicApp extends React.Component {
       });
   }
   componentDidMount = () => {
-    this.setState({ caseStudyList: this.getCaseStudyList() });
+    console.log('Component Did Mount');
+    // this.setState({ caseStudyList: this.getCaseStudyList() });
   };
   componentDidUpdate = (prevProps, prevState) => {
     console.log('this.state ', this.state);
@@ -31,8 +33,9 @@ export default class PrismicApp extends React.Component {
   getCaseStudyList = (prismicCtx) => {
     // const { prismicCtx } = this.state;
     if (!prismicCtx) {
-      console.log('prismicCtx ', prismicCtx);
+      console.log('no prismit ctx');
     }
+    console.log('prismicCtx ', prismicCtx);
 
     const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
 
