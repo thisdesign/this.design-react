@@ -15,7 +15,6 @@ import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
 
-
 export default class CaseStudy extends React.Component {
   state = {
     doc: null,
@@ -35,25 +34,31 @@ export default class CaseStudy extends React.Component {
   from updating when selecting /about/ or /work/
   */
 
-  shouldComponentUpdate = (nextProps, nextState) => this.state.doc !== nextState.doc;
+  // shouldComponentUpdate = (nextProps, nextState) => this.state.doc !== nextState.doc;
 
   componentDidUpdate() {
     this.props.prismicCtx.toolbar();
   }
 
   getCaseStudyDoc = () => {
-    this.props.prismicCtx.api.getByUID('casestudy', this.props.route).then((doc) => {
-      if (doc) {
-        this.setState({ doc });
-      } else {
-        this.setState({ notFound: true });
-      }
-    });
-  }
+    const { prismicCtx } = this.props;
+    // check for prismicCtx first, then set state
+    if (prismicCtx !== null) {
+      prismicCtx.api.getByUID('casestudy', this.props.route).then((doc) => {
+        if (doc) {
+          this.setState({ doc });
+          this.setState({ notFound: false });
+        } else {
+          this.setState({ notFound: true });
+        }
+      });
+    } else {
+      this.setState({ notFound: true });
+    }
+  };
 
   render() {
     const { doc, notFound } = this.state;
-
 
     if (doc) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
@@ -95,8 +100,13 @@ export default class CaseStudy extends React.Component {
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
-              {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
+              {slices.map(slice => (
+                <div className="casestudy__block" key={uuidv1()}>
+                  {slice}
+                </div>
+              ))}
             </div>
+            <div>NEXT CASE STUDY</div>
           </div>
         </article>
       );

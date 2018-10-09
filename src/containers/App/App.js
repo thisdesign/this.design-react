@@ -39,8 +39,13 @@ export default class App extends React.Component {
   // }
 
   componentWillReceiveProps(props) {
-    this.getCaseStudyList(props);
-    this.getSiteData(props);
+    const { siteData, caseStudyList } = this.state;
+    if (siteData === null) {
+      this.getSiteData(props);
+    }
+    if (caseStudyList === null) {
+      this.getCaseStudyList(props);
+    }
     // this.parseRoute(); // remove
   }
 
@@ -86,12 +91,12 @@ export default class App extends React.Component {
   Remove when implimenting ReactRouter
   */
 
-  parseRoute = () => {
-    const { hash } = window.location;
-    const string = hash.substring(1);
-    const uid = string !== '' ? string : null;
-    this.setState({ route: uid });
-  };
+  // parseRoute = () => {
+  //   const { hash } = window.location;
+  //   const string = hash.substring(1);
+  //   const uid = string !== '' ? string : null;
+  //   this.setState({ route: uid });
+  // };
 
   /*
   -is-active refers to the currently
@@ -122,11 +127,7 @@ export default class App extends React.Component {
       siteData,
     } = this.state;
     if (siteData) {
-      return (
-        <React.Fragment>
-          <Homepage data={siteData} />
-        </React.Fragment>
-      );
+      return <Homepage data={siteData} />;
       // return (
       //   <React.Fragment>
       //     <Nav handleViewChange={this.handleViewChange} view={view} />

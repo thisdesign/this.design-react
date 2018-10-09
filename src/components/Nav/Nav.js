@@ -11,22 +11,28 @@ import './Nav.css';
  * @param {*} props
  * @returns
  */
-const Nav = ({ handleViewChange, view, location }) => (
+const Nav = ({
+  // handleViewChange,
+  // we've largely replaced view with location.pathname
+  // view,
+  location: { pathname },
+}) => (
   // const { handleViewChange, view } = props;
   <nav className="nav -wrap-nav">
     <div className="nav__inner">
       <div className="nav__item">
-        <Link to="/work">{view !== 'about' && <GridIcon view={view} />}</Link>
-        {location.pathname}
+        <Link to={pathname === '/work' ? '/' : '/work'}>
+          {pathname !== '/about' && <GridIcon view={pathname} />}
+        </Link>
       </div>
       <div className="nav__item">
         <Link
           // onClick={() => {
           //   handleViewChange('about');
           // }}
-          to="/about"
+          to={pathname === '/about' ? '/' : '/about'}
         >
-          {view !== 'work' && <AboutIcon view={view} />}
+          {pathname !== '/work' && <AboutIcon view={pathname} />}
         </Link>
       </div>
     </div>

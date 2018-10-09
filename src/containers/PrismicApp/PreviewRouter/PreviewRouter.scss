@@ -7,3 +7,23 @@
     opacity: 1;
     transition: opacity 250ms ease-in;
 }
+
+.slideRight-enter {
+    transform: translateX(-100vw);
+}
+
+.slideRight-enter-active {
+    transform: translateX(100vw) 250ms ease-in;
+}
+
+.slideRight-enter-done {}
+
+.slideRight-exit {}
+
+.slideRight-exit-active {}
+
+.slideRight-exit-done {}
+
+.slideRight-appear {}
+
+.slideRight-appear-active {}

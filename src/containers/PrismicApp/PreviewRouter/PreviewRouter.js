@@ -16,16 +16,24 @@ import Work from '../../../components/Work/Work';
 
 import './PreviewRouter.css';
 
+// once the transitions work, this should get the 3-panel slide to work
+const routeFromWork = (history, workPath) => {
+  history.push('/');
+  setTimeout(() => {
+    history.push(`/work/${workPath}`);
+  }, 500);
+};
+
 const PreviewRouter = (props) => {
   const { prismicCtx, caseStudyList } = props;
   return (
     <Router>
       <Route
         render={({ location }) => (
-          <div>
+          <div className="view -is-active">
             <Nav />
             <TransitionGroup>
-              <CSSTransition key={location.key} classNames="fade" timeout={1000}>
+              <CSSTransition key={location.key} classNames="slideRight" timeout={300}>
                 <Switch location={location}>
                   <Route
                     exact
@@ -48,7 +56,12 @@ const PreviewRouter = (props) => {
                   <Route
                     path="/work"
                     render={routeProps => (
-                      <Work {...routeProps} prismicCtx={prismicCtx} caseStudyList={caseStudyList} />
+                      <Work
+                        {...routeProps}
+                        prismicCtx={prismicCtx}
+                        caseStudyList={caseStudyList}
+                        routeFromWork={routeFromWork}
+                      />
                     )}
                   />
                   <Route

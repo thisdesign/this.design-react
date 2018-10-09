@@ -31,15 +31,20 @@ export default class About extends React.Component {
   }
 
   getAboutDoc = () => {
-    this.props.prismicCtx.api.getByUID('about', 'about').then((doc) => {
-      if (doc) {
-        console.log('doc ', doc);
-        this.setState({ doc });
-      } else {
-        console.log('notfound about doc ');
-        this.setState({ notFound: true });
-      }
-    });
+    const { prismicCtx } = this.props;
+    if (prismicCtx !== null) {
+      prismicCtx.api.getByUID('about', 'about').then((doc) => {
+        if (doc) {
+          console.log('doc ', doc);
+          this.setState({ doc, notFound: true });
+        } else {
+          console.log('notfound about doc ');
+          this.setState({ notFound: true });
+        }
+      });
+    } else {
+      this.setState({ notFound: true });
+    }
   };
 
   render() {
