@@ -2,7 +2,7 @@ import React from 'react';
 import 'whatwg-fetch';
 import Prismic from 'prismic-javascript';
 import PrismicConfig from './config/prismic-configuration';
-import PreviewRouter from './PreviewRouter/PreviewRouter';
+import App from '../App/App';
 
 export default class PrismicApp extends React.Component {
   state = {
@@ -55,7 +55,7 @@ export default class PrismicApp extends React.Component {
   render() {
     const { caseStudyList, prismicCtx, notFound } = this.state;
     return (
-      <PreviewRouter prismicCtx={prismicCtx} caseStudyList={notFound ? null : caseStudyList} />
+      <App prismicCtx={prismicCtx} caseStudyList={notFound ? null : caseStudyList} />
     );
   }
 }

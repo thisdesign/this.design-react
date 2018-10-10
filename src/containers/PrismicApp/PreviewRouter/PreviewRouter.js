@@ -5,7 +5,7 @@ import {
   Switch,
   // Redirect
 } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
+// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import Preview from '../Preview/Preview';
 import App from '../../App/App';
@@ -30,47 +30,32 @@ const PreviewRouter = (props) => {
     <Router>
       <Route
         render={({ location }) => (
-          <div className="view -is-active">
+          <div className={`view -is-active ${location.pathname}`}>
             <Nav />
-            <TransitionGroup>
-              <CSSTransition key={location.key} classNames="slideRight" timeout={300}>
-                <Switch location={location}>
-                  <Route
-                    exact
-                    path="/about"
-                    render={routeProps => <About {...routeProps} prismicCtx={prismicCtx} />}
-                  />
-                  <Route
-                    exact
-                    path="/preview"
-                    render={routeProps => <Preview {...routeProps} prismicCtx={prismicCtx} />}
-                  />
-                  {/* <Route path="/@:ctx" render={({ match }) => <Redirect to={`/?=${match.params.ctx}`} />} /> */}
-                  {/* Will render the id in a div  */}
-                  <Route
-                    path="/work/:id"
-                    render={({ match }) => (
-                      <CaseStudy route={match.params.id} prismicCtx={prismicCtx} />
+            <About prismicCtx={prismicCtx} />
+            <Work
+              prismicCtx={prismicCtx}
+              caseStudyList={caseStudyList}
+              routeFromWork={routeFromWork}
+            />
+            <Switch location={location}>
+              <Route
+                exact
+                path="/preview"
+                render={routeProps => <Preview {...routeProps} prismicCtx={prismicCtx} />}
+              />
+              <Route
+                path="/work/:id"
+                render={({ match }) => (
+                  <CaseStudy route={match.params.id} prismicCtx={prismicCtx} />
                     )}
-                  />
-                  <Route
-                    path="/work"
-                    render={routeProps => (
-                      <Work
-                        {...routeProps}
-                        prismicCtx={prismicCtx}
-                        caseStudyList={caseStudyList}
-                        routeFromWork={routeFromWork}
-                      />
-                    )}
-                  />
-                  <Route
-                    path="/"
-                    render={routeProps => <App {...routeProps} prismicCtx={prismicCtx} />}
-                  />
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
+              />
+
+              <Route
+                path="/"
+                render={routeProps => <App {...routeProps} prismicCtx={prismicCtx} />}
+              />
+            </Switch>
           </div>
         )}
       />
