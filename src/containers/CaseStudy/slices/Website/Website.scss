@@ -3,6 +3,11 @@
 .website {
   display: flex;
 
+  &__inner {
+    position: relative;
+    z-index: 10;
+  }
+
   img {
     width: 100%;
   }

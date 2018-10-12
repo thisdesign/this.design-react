@@ -45,7 +45,6 @@
 
 
 .-wrap {
-
   margin: 0 auto;
 
   @include breakpoint(xs) {
@@ -53,12 +52,17 @@
 
   }
   @include breakpoint(sm) {
-    max-width: 1200px;
+    max-width: 1500px;
     width: 80%;
   }
 
   &--dub {
     max-width: 960px;
     width: 66.67%;
+  }
+
+  &--lg {
+    max-width: 1500px;
+    width: 88%;
   }
 }

@@ -11,16 +11,28 @@ const Columns = (props) => {
   const data = props.data.value
     ? props.data.value[0] // v1 structure
     : props.data.primary; // v2 structure
+
   const imageIsRight = data.right != null;
+  const is2of3 = data.layout === '-column--2of3';
+  const is1of3 = (
+    data.layout === '-column--1of3' ||
+    data.layout === '-mobile' ||
+    data.layout === '-website'
+  );
 
   const classes = [
-    'caseStudy__colBlock', '-grid', '-wrap', imageIsRight
+    'caseStudy__colBlock',
+    '-grid',
+    '-wrap',
+    imageIsRight
       ? 'caseStudy__colBlock--right'
       : null,
-    data.layout === '-column--2of3'
-      ? 'caseStudy__colBlock--largeImage' : null,
-    data.layout === '-column--1of3' || '-mobile'
-      ? 'caseStudy__colBlock--smallImage' : null,
+    is2of3
+      ? 'caseStudy__colBlock--largeImage'
+      : null,
+    is1of3
+      ? 'caseStudy__colBlock--smallImage'
+      : null,
   ].join(' ');
 
   sizeCheck({

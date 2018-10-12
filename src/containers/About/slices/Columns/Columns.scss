@@ -4,19 +4,29 @@
   flex-wrap: wrap;
 
   &__col {
-    padding: 0 4%;
+    padding: 0 2%;
     flex-wrap: wrap;
     box-sizing: border-box;
 
     img {
       width: 100%;
     }
+
+    li {
+      line-height: 1.35;
+      margin-bottom: .5em;
+    }
   }
 
   &.-col-4 {
     .about__columns__col {
-
       flex-basis: 50%;
+      flex-wrap: nowrap;
+
+      p {
+        margin-left: 0;
+        margin-right: 0;
+      }
 
       @include breakpoint(sm) {
         flex-basis: 25%;
@@ -49,11 +59,11 @@
     }
   }
 
-  .-spacebelow {
+  &.-spacebelow {
     margin-bottom: 50vh !important;
   }
 
-  .-above {
+  &.-spaceabove {
     margin-top: 50vh !important;
   }
 

@@ -6,6 +6,20 @@ $variable-spacing-vh-lg: calc(1.5em + 8vw);
 
 $color-primary: #ecaa9a;
 $color-secondary: #ffa500;
+$color-grey: #797979;
 
 $white: #fff;
 $black: #000;
+
+/******************************************************************************
+ * Animations
+*******************************************************************************/
+
+$ease: cubic-bezier(.25, .1, .25, 1);
+$ease-one: cubic-bezier(.9, 0, .1, 1);
+$ease-two: cubic-bezier(.14, 1, .34, 1);
+$ease-three: cubic-bezier(0, 0, .2, 1);
+$long-duration: 600ms;
+$base-duration: 400ms;
+$midi-duration: 300ms;
+$fast-duration: 200ms;

@@ -77,14 +77,18 @@ export default class CaseStudy extends React.Component {
           case 'columns-v2':
             return <Columns data={slice} title={title} />;
           case 'image':
-            return <Image data={slice} title={title} />;
+            return <Image data={slice.value[0]} title={title} />;
+          case 'image-v2':
+            return <Image data={slice.primary} title={title} />;
           case 'diptych':
+            return <Diptych data={slice} title={title} />;
+          case 'diptych-v2':
             return <Diptych data={slice} title={title} />;
           case 'video':
             return <Video data={slice} />;
           case 'gallery':
             return <Gallery data={slice} title={title} />;
-          case 'image_gallery':
+          case 'gallery-v2':
             return <Gallery data={slice} title={title} />;
           case 'pullquote':
             return <Pullquote data={slice} />;
