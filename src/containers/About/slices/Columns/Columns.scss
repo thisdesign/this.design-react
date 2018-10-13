@@ -28,7 +28,7 @@
         margin-right: 0;
       }
 
-      @include breakpoint(lg) {
+      @include breakpoint(sm) {
         flex-basis: 25%;
       }
     }
