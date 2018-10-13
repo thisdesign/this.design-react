@@ -1,23 +1,24 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
 
 import './Nav.css';
 
 const Nav = (props) => {
-  const { handleViewChange, view } = props;
+  const { view } = props;
   return (
     <nav className="nav -wrap-nav">
       <div className="nav__inner">
         <div className="nav__item">
-          <a onClick={() => { handleViewChange('work'); }}>
+          <Link to="/work/">
             {view !== 'about' && <GridIcon view={view} />}
-          </a>
+          </Link>
         </div>
         <div className="nav__item">
-          <a onClick={() => { handleViewChange('about'); }}>
+          <Link to="/about/">
             {view !== 'work' && <AboutIcon view={view} />}
-          </a>
+          </Link>
         </div>
       </div>
     </nav>

@@ -4,6 +4,7 @@ import 'styles/typography.css';
 import 'styles/layout.css';
 
 import React from 'react';
+import { Route } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import Homepage from '../../components/Homepage/Homepage';
 import Nav from '../../components/Nav/Nav';
@@ -11,7 +12,6 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
-
 import './App.css';
 import './viewPositions.css';
 
@@ -25,7 +25,7 @@ export default class App extends React.Component {
     contains high-level site information
     (title, desc, homepage vids, etc)
     */
-    siteData: null,
+    siteInfo: null,
     /*
     Error catching
     */
@@ -35,25 +35,31 @@ export default class App extends React.Component {
   };
 
   componentWillMount() {
-    this.parseRoute(); // remove
+    console.log('componentWillMount fired ');
+
+    // this.parseRoute(); // remove
   }
 
-  componentWillReceiveProps(props) {
-    this.getCaseStudyList(props);
-    this.getSiteData(props);
-    this.parseRoute(); // remove
+  componentDidUpdate(prevProps) {
+    if (prevProps.prismicCtx !== this.props.prismicCtx) {
+      this.loadData();
+      this.props.prismicCtx.toolbar();
+    }
   }
 
-  componentDidUpdate() {
-    this.props.prismicCtx.toolbar();
-  }
+   loadData = () => {
+     this.loadCaseStudyList(this.props);
+     this.loadSiteInfo(this.props);
+   }
 
   /*
    Loads API data for the "context doc"
    which is just the list of case studies
   */
 
-  getCaseStudyList = (props = this.props) => {
+  loadCaseStudyList = (props = this.props) => {
+    console.log('getCaseStudyList fired');
+
     const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
 
     props.prismicCtx.api.getByUID('context', 'home', { fetchLinks }).then((doc) => {
@@ -70,79 +76,50 @@ export default class App extends React.Component {
   the page that handles all the top-level site info
   */
 
-  getSiteData =(props) => {
+  loadSiteInfo =(props) => {
+    console.log('getSiteData fired');
     props.prismicCtx.api.getSingle('site').then((doc) => {
       if (doc) {
-        this.setState({ siteData: doc });
+        this.setState({ siteInfo: doc });
       } else {
         this.setState({ notFound: !doc });
       }
     });
   }
 
-  /*
-  Temporary hash router.
-  Remove when implimenting ReactRouter
-  */
-
-  parseRoute = () => {
-    const { hash } = window.location;
-    const string = hash.substring(1);
-    const uid = string !== '' ? string : null;
-    this.setState({ route: uid });
-  }
-
-  /*
-  -is-active refers to the currently
-  active route (root/work/about)
-  */
-
-  isActive = name => (
-    this.state.view === name
-      ? '-is-active'
-      : ''
-  )
-
-  /*
-  Temporary routing for root/work/about.
-  */
-
-  handleViewChange = (updatedView) => {
-    const asideIsOpen = this.state.view !== 'root';
-    if (asideIsOpen) {
-      this.setState({ view: 'root' });
-    } else {
-      this.setState({ view: updatedView });
-    }
-  }
 
   render() {
+    console.log('RENDER');
     const {
-      caseStudyList, notFound, view, route, siteData,
+      caseStudyList, notFound, view, route, siteInfo,
     } = this.state;
 
-    if (caseStudyList && siteData) {
+    if (caseStudyList && siteInfo) {
       return (
         <React.Fragment>
           <Nav handleViewChange={this.handleViewChange} view={view} />
           <main className={`views -view-is-${view}`}>
-            <section className={`view work view--aside ${this.isActive('work')}`}>
+            <section className={`view work view--aside ${view === 'work' ? '-is-active' : ''}`}>
               <Work
                 caseStudyList={caseStudyList}
                 handleViewChange={this.handleViewChange}
               />
             </section>
-            <section className={`view root ${this.isActive('root')}`}>
+            <section className={`view root ${view === 'root' ? '-is-active' : ''}`}>
               {
                 route
                 ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                : <Homepage data={siteData} />
+                : <Homepage data={siteInfo} />
               }
             </section>
-            <section className={`view about view--aside ${this.isActive('about')}`}>
-              <About
-                prismicCtx={this.props.prismicCtx}
-                view={view}
+            <section className={`view about view--aside ${view === 'about' ? '-is-active' : ''}`}>
+              <Route
+                path="/about"
+                render={() =>
+                  (<About
+                    prismicCtx={this.props.prismicCtx}
+                    view={view}
+                  />)}
               />
             </section>
           </main>
