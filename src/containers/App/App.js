@@ -35,24 +35,23 @@ class App extends React.Component {
     }
   }
 
-  getViewFromRoute() {
-    const path = this.props.location.pathname;
+  setView = (forcedView) => {
+    if (forcedView) {
+      this.setState({ view: forcedView });
+    } else {
+      this.setState({ view: this.returnViewFromPath(this.props.location.pathname) });
+    }
+  }
+
+  returnViewFromPath = (path) => {
     const isCaseStudy = matchPath(path, { path: '/work/:id' }) !== null;
     let view = 'root';
     if (path !== '/') {
-      // if case study is set set view to root otherwise set it to whatever /:path is
-      view = !isCaseStudy ? matchPath(path, { path: '/:view/' }).params.view : 'root';
+      view = !isCaseStudy
+        ? matchPath(path, { path: '/:view/' }).params.view
+        : 'root';
     }
     return view;
-  }
-
-  setView = (nextView) => {
-    if (nextView) {
-      this.setState({ view: nextView });
-    } else {
-      const route = this.getViewFromRoute();
-      this.setState({ view: route });
-    }
   }
 
   loadData = () => {
