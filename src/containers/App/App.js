@@ -124,9 +124,20 @@ class App extends React.Component {
                     <Work caseStudyList={caseStudyList} />
                   </section>
                   <section className={isActive('root')}>
-                    { route
-                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                        : <Homepage data={siteInfo} /> }
+                    <Switch>
+                      <Route
+                        exact
+                        path="/work/:uid"
+                        render={({ match }) => (
+                          <CaseStudy prismicCtx={this.props.prismicCtx} route={match.params.uid} />
+                      )}
+                      />
+                      <Route
+                        path="/"
+                        render={() => <Homepage data={siteInfo} />}
+                      />
+                    </Switch>
+
                   </section>
                   <section className={`${isActive('about')} view--aside`}>
                     <About prismicCtx={this.props.prismicCtx} />
