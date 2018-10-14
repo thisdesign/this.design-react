@@ -4,7 +4,14 @@ import 'styles/typography.css';
 import 'styles/layout.css';
 
 import React from 'react';
-import { Route, withRouter, matchPath } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  withRouter,
+  matchPath,
+  Redirect,
+} from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 import Homepage from '../../components/Homepage/Homepage';
 import Nav from '../../components/Nav/Nav';
@@ -12,6 +19,7 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
+import Preview from '../PrismicApp/Preview/Preview';
 import './App.css';
 import './viewPositions.css';
 
@@ -25,12 +33,14 @@ class App extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    if (prevProps.prismicCtx !== this.props.prismicCtx) {
+    const isNewUrl = prevProps.location.pathname !== this.props.location.pathname;
+    const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
+    if (hasLoadedCtx) {
       this.loadData();
       this.props.prismicCtx.toolbar();
       this.setView();
     }
-    if (prevProps.location.pathname !== this.props.location.pathname) {
+    if (isNewUrl) {
       this.setView();
     }
   }
@@ -88,35 +98,56 @@ class App extends React.Component {
       caseStudyList, notFound, view, route, siteInfo,
     } = this.state;
 
+
     if (caseStudyList && siteInfo) {
       return (
-        <React.Fragment>
-          <Nav view={view} history={this.props.history} />
-          <main className={`views -view-is-${view}`}>
-            <section className={`view work view--aside ${view === 'work'
-              ? '-is-active'
-              : ''}`}
-            >
-              <Work caseStudyList={caseStudyList} />
-            </section>
-            <section className={`view root ${view === 'root'
-              ? '-is-active'
-              : ''}`}
-            >
-              {
-              route
-                ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
-                : <Homepage data={siteInfo} />
-            }
-            </section>
-            <section className={`view about view--aside ${view === 'about'
-              ? '-is-active'
-              : ''}`}
-            >
-              {/* <About prismicCtx={this.props.prismicCtx} view={view} /> */}
-            </section>
-          </main>
-        </React.Fragment>);
+        <Switch>
+          <Route
+            exact
+            path="/preview"
+            render={routeProps => <Preview {...routeProps} prismicCtx={this.props.prismicCtx} />}
+          />
+          <Route
+            path="/@:ctx"
+            render={({ match }) => (
+              <Redirect to={`/?=${match.params.ctx}`} />
+              )}
+          />
+          <Route
+            path="/"
+            render={() => (
+              <React.Fragment>
+                <Nav view={view} history={this.props.history} />
+                <main className={`views -view-is-${view}`}>
+                  <section className={`view work view--aside ${view === 'work'
+                      ? '-is-active'
+                      : ''}`}
+                  >
+                    <Work caseStudyList={caseStudyList} />
+                  </section>
+                  <section className={`view root ${view === 'root'
+                      ? '-is-active'
+                      : ''}`}
+                  >
+                    {
+                      route
+                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
+                        : <Homepage data={siteInfo} />
+                    }
+                  </section>
+                  <section className={`view about view--aside ${view === 'about'
+                      ? '-is-active'
+                      : ''}`}
+                  >
+                    {/* <About prismicCtx={this.props.prismicCtx} view={view} /> */}
+                  </section>
+                </main>
+              </React.Fragment>
+              )}
+          />
+          <Route component={NotFound} />
+        </Switch>
+      );
     }
     if (notFound) {
       return <NotFound />;
