@@ -29,12 +29,13 @@ class App extends React.Component {
     siteInfo: null,
     notFound: false,
     view: 'root',
-    route: null, // rm. if needed when implimenting RR
+    currentCaseStudy: null,
   };
 
   componentDidUpdate(prevProps) {
     const isNewUrl = prevProps.location.pathname !== this.props.location.pathname;
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
+
     if (hasLoadedCtx) {
       this.loadData();
       this.props.prismicCtx.toolbar();
@@ -51,6 +52,10 @@ class App extends React.Component {
     } else {
       this.setState({ view: this.returnViewFromPath(this.props.location.pathname) });
     }
+  }
+
+  returnCsFromPath = (path) => {
+    matchPath(path, { path: '/work/:id' });
   }
 
   returnViewFromPath = (path) => {
@@ -129,27 +134,9 @@ class App extends React.Component {
                       ? '-is-active'
                       : ''}`}
                   >
-                    <Switch>
-                      <Route
-                        exact
-                        path="/work/:route"
-                        render={({ match }) => (
-                          <CaseStudy
-                            prismicCtx={this.props.prismicCtx}
-                            route={match.params.route}
-                          />
-                          )}
-                      />
-                      <Route
-                        path="/"
-                        render={() => (<Homepage data={siteInfo} />)}
-                      />
-                      {/* {
-                      route
-                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={match.params.route} />
-                        : <Homepage data={siteInfo} />
-                    } */}
-                    </Switch>
+                    { route
+                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
+                        : <Homepage data={siteInfo} /> }
                   </section>
                   <section className={`view about view--aside ${view === 'about'
                       ? '-is-active'
