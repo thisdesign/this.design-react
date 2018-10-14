@@ -5,7 +5,6 @@ import 'styles/layout.css';
 
 import React from 'react';
 import {
-  BrowserRouter,
   Switch,
   Route,
   withRouter,
@@ -142,7 +141,7 @@ class App extends React.Component {
                       ? '-is-active'
                       : ''}`}
                   >
-                    {/* <About prismicCtx={this.props.prismicCtx} view={view} /> */}
+                    <About prismicCtx={this.props.prismicCtx} />
                   </section>
                 </main>
               </React.Fragment>
