@@ -129,11 +129,27 @@ class App extends React.Component {
                       ? '-is-active'
                       : ''}`}
                   >
-                    {
+                    <Switch>
+                      <Route
+                        exact
+                        path="/work/:route"
+                        render={({ match }) => (
+                          <CaseStudy
+                            prismicCtx={this.props.prismicCtx}
+                            route={match.params.route}
+                          />
+                          )}
+                      />
+                      <Route
+                        path="/"
+                        render={() => (<Homepage data={siteInfo} />)}
+                      />
+                      {/* {
                       route
-                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
+                        ? <CaseStudy prismicCtx={this.props.prismicCtx} route={match.params.route} />
                         : <Homepage data={siteInfo} />
-                    }
+                    } */}
+                    </Switch>
                   </section>
                   <section className={`view about view--aside ${view === 'about'
                       ? '-is-active'
