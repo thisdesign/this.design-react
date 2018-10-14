@@ -42,6 +42,9 @@ class App extends React.Component {
       this.props.prismicCtx.toolbar();
       this.setView();
     }
+    window.onpopstate = () => {
+      this.setView();
+    };
   }
 
   setView = (forcedView) => {
