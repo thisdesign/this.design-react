@@ -1,10 +1,11 @@
 import React from 'react';
 import 'whatwg-fetch';
 import Prismic from 'prismic-javascript';
+import { BrowserRouter } from 'react-router-dom';
 import PrismicConfig from './config/prismic-configuration';
-import PreviewRouter from './PreviewRouter/PreviewRouter';
+import App from '../../containers/App/App';
 
-export default class PrismicApp extends React.Component {
+class PrismicApp extends React.Component {
   state = {
     prismicCtx: null,
   }
@@ -26,7 +27,7 @@ export default class PrismicApp extends React.Component {
   }
 
   buildContext() {
-    const accessToken = PrismicConfig.accessToken;
+    const { accessToken } = PrismicConfig;
     return Prismic.api(PrismicConfig.apiEndpoint, { accessToken }).then(api => ({
       api,
       endpoint: PrismicConfig.apiEndpoint,
@@ -37,6 +38,8 @@ export default class PrismicApp extends React.Component {
   }
 
   render() {
-    return <PreviewRouter prismicCtx={this.state.prismicCtx} />;
+    return <BrowserRouter><App prismicCtx={this.state.prismicCtx} /></BrowserRouter>;
   }
 }
+
+export default PrismicApp;
