@@ -23,6 +23,11 @@ import './App.css';
 import './viewPositions.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.VIEW_TRANSITION_DURATION = 600;
+  }
+
   state = {
     caseStudyList: null,
     siteInfo: null,
@@ -32,7 +37,6 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps) {
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
-
     if (hasLoadedCtx) {
       this.loadData();
       this.props.prismicCtx.toolbar();
@@ -61,6 +65,16 @@ class App extends React.Component {
         : 'root';
     }
     return view;
+  }
+
+  changeView = (view) => {
+    if (view !== 'root') {
+      setTimeout(() => {
+        this.props.history.push(`/${view}/`);
+      }, this.VIEW_TRANSITION_DURATION);
+    }
+
+    this.setState({ view });
   }
 
   loadData = () => {
@@ -96,9 +110,9 @@ class App extends React.Component {
 
   render() {
     const {
-      caseStudyList, notFound, view, route, siteInfo,
+      caseStudyList, notFound, view, siteInfo,
     } = this.state;
-    const { isActive } = this;
+    const { isActive, changeView } = this;
 
     if (caseStudyList && siteInfo) {
       return (
@@ -118,10 +132,10 @@ class App extends React.Component {
             path="/"
             render={() => (
               <React.Fragment>
-                <Nav view={view} history={this.props.history} />
+                <Nav view={view} changeView={changeView} />
                 <main className={`views -view-is-${view}`}>
                   <section className={`${isActive('work')} view--aside`}>
-                    <Work caseStudyList={caseStudyList} />
+                    <Work caseStudyList={caseStudyList} changeView={changeView} />
                   </section>
                   <section className={isActive('root')}>
                     <Switch>
@@ -137,7 +151,6 @@ class App extends React.Component {
                         render={() => <Homepage data={siteInfo} />}
                       />
                     </Switch>
-
                   </section>
                   <section className={`${isActive('about')} view--aside`}>
                     <About prismicCtx={this.props.prismicCtx} />

@@ -8,7 +8,12 @@ const Work = (props) => {
     const { uid, data } = item.case_study_item;
 
     return (
-      <Link className="work__link" to={`/work/${uid}`} key={uid}>
+      <Link
+        className="work__link"
+        to={`/work/${uid}`}
+        onClick={() => props.changeView('root')}
+        key={uid}
+      >
         <div className="work__link__wrapper">
           <img
             className="work__link__item"
