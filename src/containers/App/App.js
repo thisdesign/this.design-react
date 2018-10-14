@@ -17,20 +17,10 @@ import './viewPositions.css';
 
 class App extends React.Component {
   state = {
-    /*
-    contains array of info & links to case studies
-    */
     caseStudyList: null,
-    /*
-    contains high-level site information
-    (title, desc, homepage vids, etc)
-    */
     siteInfo: null,
-    /*
-    Error catching
-    */
     notFound: false,
-    view: 'root', // rm. if needed when implimenting RR
+    view: 'root',
     route: null, // rm. if needed when implimenting RR
   };
 
@@ -41,7 +31,7 @@ class App extends React.Component {
       this.setView();
     }
     if (prevProps.location.pathname !== this.props.location.pathname) {
-      this.setView('work');
+      this.setView();
     }
   }
 
@@ -50,7 +40,8 @@ class App extends React.Component {
     const isCaseStudy = matchPath(path, { path: '/work/:id' }) !== null;
     let view = 'root';
     if (path !== '/') {
-      ({ view } = !isCaseStudy ? matchPath(path, { path: '/:view/' }).params : view);
+      // if case study is set set view to root otherwise set it to whatever /:path is
+      view = !isCaseStudy ? matchPath(path, { path: '/:view/' }).params.view : 'root';
     }
     return view;
   }
@@ -63,7 +54,6 @@ class App extends React.Component {
       this.setState({ view: route });
     }
   }
-
 
   loadData = () => {
     this.loadCaseStudyList(this.props);
@@ -95,39 +85,39 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('RENDER');
     const {
       caseStudyList, notFound, view, route, siteInfo,
     } = this.state;
 
     if (caseStudyList && siteInfo) {
-      return (<React.Fragment>
-        <Nav handleViewChange={this.handleViewChange} view={view} />
-        <main className={`views -view-is-${view}`}>
-          <section className={`view work view--aside ${view === 'work'
+      return (
+        <React.Fragment>
+          <Nav view={view} history={this.props.history} />
+          <main className={`views -view-is-${view}`}>
+            <section className={`view work view--aside ${view === 'work'
               ? '-is-active'
               : ''}`}
-          >
-            <Work caseStudyList={caseStudyList} handleViewChange={this.handleViewChange} />
-          </section>
-          <section className={`view root ${view === 'root'
+            >
+              <Work caseStudyList={caseStudyList} />
+            </section>
+            <section className={`view root ${view === 'root'
               ? '-is-active'
               : ''}`}
-          >
-            {
+            >
+              {
               route
                 ? <CaseStudy prismicCtx={this.props.prismicCtx} route={route} />
                 : <Homepage data={siteInfo} />
             }
-          </section>
-          <section className={`view about view--aside ${view === 'about'
+            </section>
+            <section className={`view about view--aside ${view === 'about'
               ? '-is-active'
               : ''}`}
-          >
-            <Route path="/about" render={() => (<About prismicCtx={this.props.prismicCtx} view={view} />)} />
-          </section>
-        </main>
-      </React.Fragment>);
+            >
+              {/* <About prismicCtx={this.props.prismicCtx} view={view} /> */}
+            </section>
+          </main>
+        </React.Fragment>);
     }
     if (notFound) {
       return <NotFound />;

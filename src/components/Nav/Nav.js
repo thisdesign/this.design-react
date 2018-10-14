@@ -7,16 +7,22 @@ import './Nav.css';
 
 const Nav = (props) => {
   const { view } = props;
+  const setButtonAction = (route) => {
+    if (view === route) {
+      return '/';
+    }
+    return `/${route}/`;
+  };
   return (
     <nav className="nav -wrap-nav">
       <div className="nav__inner">
         <div className="nav__item">
-          <Link to="/work/">
+          <Link to={(() => setButtonAction('work'))()}>
             {view !== 'about' && <GridIcon view={view} />}
           </Link>
         </div>
         <div className="nav__item">
-          <Link to="/about/">
+          <Link to={(() => setButtonAction('about'))()}>
             {view !== 'work' && <AboutIcon view={view} />}
           </Link>
         </div>

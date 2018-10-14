@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Work.css';
 
 const Work = (props) => {
@@ -7,7 +8,7 @@ const Work = (props) => {
     const { uid, data } = item.case_study_item;
 
     return (
-      <a className="work__link" href={`#${uid}`} key={uid} onClick={() => props.handleViewChange('root')}>
+      <Link className="work__link" to={`/work/${uid}`} key={uid}>
         <div className="work__link__wrapper">
           <img
             className="work__link__item"
@@ -18,7 +19,7 @@ const Work = (props) => {
           <img className="work__link__item--svg" src={data.svg.url} alt={data.svg.alt} />
         </div>
         <p className="work__link__item--title">{data.title}</p>
-      </a>);
+      </Link>);
   });
 
   return (
