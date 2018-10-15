@@ -41,6 +41,7 @@ class App extends React.Component {
     }
     window.onpopstate = () => {
       this.setViewFromUrl();
+      this.setCsFromUrl();
     };
   }
 
