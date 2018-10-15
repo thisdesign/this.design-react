@@ -6,30 +6,46 @@ import AboutIcon from './AboutIcon/AboutIcon';
 import './Nav.css';
 
 const Nav = (props) => {
-  const { view, closeAside, openAside } = props;
+  const {
+    view: currentView, currentCaseStudy, changeView,
+  } = props;
 
   const handleNavButton = (futureView) => {
-    const asideShouldOpen = (view !== futureView);
+    const asideShouldOpen = (currentView !== futureView);
     if (asideShouldOpen) {
-      openAside(futureView);
+      changeView(futureView);
     } else {
-      closeAside('root');
+      changeView('root');
     }
   };
+
+  const viewToggleLink = (view) => {
+    if (currentView === 'root') {
+      return `/${view}`;
+    } else if (currentCaseStudy) {
+      return `/work/${currentCaseStudy}`;
+    }
+    return '/';
+  };
+
+  const navLinks = ['work', 'about'];
 
   return (
     <nav className="nav -wrap-nav">
       <div className="nav__inner">
-        <div className="nav__item">
-          <Link to="/work" onClick={() => handleNavButton('work')}>
-            {view !== 'about' && <GridIcon view={view} />}
-          </Link>
-        </div>
-        <div className="nav__item">
-          <a onClick={() => handleNavButton('about')}>
-            {view !== 'work' && <AboutIcon view={view} />}
-          </a>
-        </div>
+
+        {navLinks.map(link => (
+          <div className="nav__item" key={link} >
+
+            <Link
+              to={(() => viewToggleLink(link))()}
+              onClick={() => handleNavButton(link)}
+            >
+              {link === 'work' && <GridIcon view={currentView} />}
+              {link === 'about' && <AboutIcon view={currentView} />}
+            </Link>
+          </div>
+          ))}
       </div>
     </nav>
   );

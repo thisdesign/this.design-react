@@ -78,17 +78,7 @@ class App extends React.Component {
 
   isCaseStudy = path => this.returnCsFromPath(path) !== null;
 
-  closeAside = (view) => { // maybe rename this to be about the CLOSE button
-    if (this.state.currentCaseStudy) { // this should only do this shit if its the close button
-      this.props.history.push(`/work/${this.state.currentCaseStudy}`);
-    } else {
-      this.props.history.push('/');
-    }
-
-    this.setState({ view });
-  }
-
-  openAside = (view) => {
+  changeView = (view) => {
     this.setState({ view });
   }
 
@@ -126,10 +116,10 @@ class App extends React.Component {
   render() {
     console.log('app rendered', this.state.currentCaseStudy);
     const {
-      caseStudyList, notFound, view, siteInfo,
+      caseStudyList, notFound, view, siteInfo, currentCaseStudy,
     } = this.state;
     const {
-      isActive, closeAside, openAside, openCaseStudy,
+      isActive, changeView, openCaseStudy,
     } = this;
 
     if (caseStudyList && siteInfo) {
@@ -150,17 +140,17 @@ class App extends React.Component {
             path="/"
             render={() => (
               <React.Fragment>
-                <Nav view={view} closeAside={closeAside} openAside={openAside} />
+                <Nav view={view} changeView={changeView} currentCaseStudy={currentCaseStudy} />
                 <main className={`views -view-is-${view}`}>
                   <section className={`${isActive('work')} view--aside`}>
                     <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
                   </section>
                   <section className={isActive('root')}>
                     <section className={isActive('root')}>
-                      { this.state.currentCaseStudy ? (
+                      { currentCaseStudy ? (
                         <CaseStudy
                           prismicCtx={this.props.prismicCtx}
-                          route={this.state.currentCaseStudy}
+                          route={currentCaseStudy}
                         />) : (
                           <Homepage data={siteInfo} />
                         )}
