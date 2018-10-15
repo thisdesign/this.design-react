@@ -41,10 +41,19 @@ class App extends React.Component {
       this.loadData();
       this.props.prismicCtx.toolbar();
       this.setView();
+      this.setCurrentCaseStudy();
     }
     window.onpopstate = () => {
       this.setView();
     };
+    this.setCurrentCaseStudy();
+  }
+
+  setCurrentCaseStudy() {
+    const location = this.props.location.pathname;
+    if (this.isCaseStudy(location)) {
+      this.currentCaseStudy = this.returnCsFromPath(location);
+    }
   }
 
   setView = (forcedView) => {
@@ -56,11 +65,14 @@ class App extends React.Component {
   }
 
   returnCsFromPath = (path) => {
-    matchPath(path, { path: '/work/:id' });
+    const match = matchPath(path, { path: '/work/:id' });
+    return match ? match.params.id : null;
   }
 
+  isCaseStudy = path => this.returnCsFromPath(path) !== null;
+
   returnViewFromPath = (path) => {
-    const isCaseStudy = matchPath(path, { path: '/work/:id' }) !== null;
+    const isCaseStudy = this.isCaseStudy(path);
     let view = 'root';
     if (path !== '/') {
       view = !isCaseStudy
@@ -70,11 +82,16 @@ class App extends React.Component {
     return view;
   }
 
+
   changeView = (view) => {
     if (view !== 'root') {
       setTimeout(() => {
         this.props.history.push(`/${view}/`);
       }, this.VIEW_TRANSITION_DURATION);
+    } if (this.currentCaseStudy) {
+      this.props.history.push(`/work/${this.currentCaseStudy}`);
+    } else {
+      this.props.history.push('/');
     }
 
     this.setState({ view });

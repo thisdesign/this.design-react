@@ -6,16 +6,26 @@ import './Nav.css';
 
 const Nav = (props) => {
   const { view, changeView } = props;
+
+  const handleNavButton = (destination) => {
+    const asideShouldOpen = view !== destination;
+    if (asideShouldOpen) {
+      changeView(destination);
+    } else {
+      changeView('root');
+    }
+  };
+
   return (
     <nav className="nav -wrap-nav">
       <div className="nav__inner">
         <div className="nav__item">
-          <a onClick={() => changeView('work')}>
+          <a onClick={() => handleNavButton('work')}>
             {view !== 'about' && <GridIcon view={view} />}
           </a>
         </div>
         <div className="nav__item">
-          <a onClick={() => changeView('about')}>
+          <a onClick={() => handleNavButton('about')}>
             {view !== 'work' && <AboutIcon view={view} />}
           </a>
         </div>
