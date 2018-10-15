@@ -2,19 +2,12 @@ import React from 'react';
 import './Instagram.css';
 
 export default class Instagram extends React.Component {
-  constructor(props) {
-    super(props);
-    this.aboutIsVisible = props.view === 'about';
-  }
   state = {
-    doc: null,
-    notFound: false,
+    data: null,
   };
 
-  componentWillMount() {
-    if (this.aboutIsVisible) {
-      this.fetchAPI();
-    }
+  componentDidMount() {
+    this.fetchAPI();
   }
 
   fetchAPI() {
@@ -24,21 +17,19 @@ export default class Instagram extends React.Component {
 
     fetch(url)
       .then(res => res.json())
-      .then(doc => this.setState({ doc }));
+      .then(doc => this.setState({ data: doc.data }));
   }
 
   render() {
-    const { notFound, doc } = this.state;
-    if (doc && !notFound) {
-      if (doc.data) {
-        const urls = doc.data.map(img => img.images.standard_resolution.url);
-        const images = urls.map(url => <img className="about__instagram__item" src={url} key={url} alt={url} />);
-        return (
-          <div className="about__instagram -wrap">
-            {images}
-          </div>
-        );
-      }
+    const { data } = this.state;
+    if (data) {
+      const urls = data.map(img => img.images.standard_resolution.url);
+      const images = urls.map(url => <img className="about__instagram__item" src={url} key={url} alt={url} />);
+      return (
+        <div className="about__instagram -wrap">
+          {images}
+        </div>
+      );
     }
     return null;
   }

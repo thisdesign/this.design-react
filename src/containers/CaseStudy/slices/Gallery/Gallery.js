@@ -17,6 +17,10 @@ export default class Gallery extends React.Component {
     this.setRatio();
   }
 
+  componentWillUnmount() {
+    clearInterval(this.int);
+  }
+
   setVars = () => {
     const { currentImageIndex, images } = this.state;
     this.lastImage = images.length - 1;
@@ -58,6 +62,7 @@ export default class Gallery extends React.Component {
       this.goToImage(0);
     }
   }
+
 
   handlePrevImage = () => {
     this.setVars();

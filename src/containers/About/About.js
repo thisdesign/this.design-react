@@ -15,16 +15,12 @@ export default class About extends React.Component {
     notFound: false,
   };
 
-  componentWillMount() {
-    this.getAboutDoc(this.props);
+  componentDidMount() {
+    this.getAboutDoc();
   }
 
-  componentWillReceiveProps(props) {
-    this.getAboutDoc(props);
-  }
-
-  componentDidUpdate() {
-    this.props.prismicCtx.toolbar();
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state !== nextState;
   }
 
   getAboutDoc = () => {
@@ -38,8 +34,8 @@ export default class About extends React.Component {
   }
 
   render() {
+    console.log('about rendered');
     const { doc, notFound } = this.state;
-    const { view } = this.props;
 
     if (doc) {
       const slices = doc.data.content.map((slice) => {
@@ -49,7 +45,7 @@ export default class About extends React.Component {
           case 'columns':
             return <Columns data={slice} />;
           case 'instagram':
-            return <Instagram data={slice} view={view} />;
+            return <Instagram data={slice} />;
           case 'gridwall-v2':
             return <Gridwall data={slice} />;
           default:
