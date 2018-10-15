@@ -11,7 +11,7 @@ const Work = (props) => {
       <Link
         className="work__link"
         to={`/work/${uid}`}
-        onClick={() => props.changeView('root')}
+        onClick={() => props.openCaseStudy(uid)}
         key={uid}
       >
         <div className="work__link__wrapper">

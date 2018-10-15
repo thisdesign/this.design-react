@@ -1,18 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
 
 import './Nav.css';
 
 const Nav = (props) => {
-  const { view, changeView } = props;
+  const { view, closeAside, openAside } = props;
 
-  const handleNavButton = (destination) => {
-    const asideShouldOpen = view !== destination;
+  const handleNavButton = (futureView) => {
+    const asideShouldOpen = (view !== futureView);
     if (asideShouldOpen) {
-      changeView(destination);
+      openAside(futureView);
     } else {
-      changeView('root');
+      closeAside('root');
     }
   };
 
@@ -20,9 +21,9 @@ const Nav = (props) => {
     <nav className="nav -wrap-nav">
       <div className="nav__inner">
         <div className="nav__item">
-          <a onClick={() => handleNavButton('work')}>
+          <Link to="/work" onClick={() => handleNavButton('work')}>
             {view !== 'about' && <GridIcon view={view} />}
-          </a>
+          </Link>
         </div>
         <div className="nav__item">
           <a onClick={() => handleNavButton('about')}>

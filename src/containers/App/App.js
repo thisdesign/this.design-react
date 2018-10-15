@@ -23,16 +23,12 @@ import './App.css';
 import './viewPositions.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.VIEW_TRANSITION_DURATION = 600;
-  }
-
   state = {
     caseStudyList: null,
     siteInfo: null,
     notFound: false,
     view: 'root',
+    currentCaseStudy: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -40,28 +36,38 @@ class App extends React.Component {
     if (hasLoadedCtx) {
       this.loadData();
       this.props.prismicCtx.toolbar();
-      this.setView();
-      this.setCurrentCaseStudy();
+      this.setViewFromUrl();
+      this.setCsFromUrl();
     }
     window.onpopstate = () => {
-      this.setView();
+      this.setViewFromUrl();
     };
-    this.setCurrentCaseStudy();
   }
 
-  setCurrentCaseStudy() {
+  setCsFromUrl() {
     const location = this.props.location.pathname;
     if (this.isCaseStudy(location)) {
-      this.currentCaseStudy = this.returnCsFromPath(location);
+      this.setState({ currentCaseStudy: this.returnCsFromPath(location) });
     }
   }
 
-  setView = (forcedView) => {
-    if (forcedView) {
-      this.setState({ view: forcedView });
-    } else {
-      this.setState({ view: this.returnViewFromPath(this.props.location.pathname) });
+  setViewFromUrl = () => {
+    const path = this.props.location.pathname;
+    const isCaseStudy = this.isCaseStudy(path);
+    let view = 'root';
+    if (path !== '/') {
+      view = !isCaseStudy
+        ? matchPath(path, { path: '/:view/' }).params.view
+        : 'root';
     }
+    this.setState({ view });
+  }
+
+  openCaseStudy = (uid) => {
+    this.setState({
+      currentCaseStudy: uid,
+      view: 'root',
+    });
   }
 
   returnCsFromPath = (path) => {
@@ -71,29 +77,17 @@ class App extends React.Component {
 
   isCaseStudy = path => this.returnCsFromPath(path) !== null;
 
-  returnViewFromPath = (path) => {
-    const isCaseStudy = this.isCaseStudy(path);
-    let view = 'root';
-    if (path !== '/') {
-      view = !isCaseStudy
-        ? matchPath(path, { path: '/:view/' }).params.view
-        : 'root';
-    }
-    return view;
-  }
-
-
-  changeView = (view) => {
-    if (view !== 'root') {
-      setTimeout(() => {
-        this.props.history.push(`/${view}/`);
-      }, this.VIEW_TRANSITION_DURATION);
-    } if (this.currentCaseStudy) {
-      this.props.history.push(`/work/${this.currentCaseStudy}`);
+  closeAside = (view) => { // maybe rename this to be about the CLOSE button
+    if (this.state.currentCaseStudy) { // this should only do this shit if its the close button
+      this.props.history.push(`/work/${this.state.currentCaseStudy}`);
     } else {
       this.props.history.push('/');
     }
 
+    this.setState({ view });
+  }
+
+  openAside = (view) => {
     this.setState({ view });
   }
 
@@ -129,10 +123,13 @@ class App extends React.Component {
   isActive = view => (this.state.view === view ? `view ${view} -is-active` : `view ${view}`)
 
   render() {
+    console.log('app rendered', this.state.currentCaseStudy);
     const {
       caseStudyList, notFound, view, siteInfo,
     } = this.state;
-    const { isActive, changeView } = this;
+    const {
+      isActive, closeAside, openAside, openCaseStudy,
+    } = this;
 
     if (caseStudyList && siteInfo) {
       return (
@@ -152,25 +149,21 @@ class App extends React.Component {
             path="/"
             render={() => (
               <React.Fragment>
-                <Nav view={view} changeView={changeView} />
+                <Nav view={view} closeAside={closeAside} openAside={openAside} />
                 <main className={`views -view-is-${view}`}>
                   <section className={`${isActive('work')} view--aside`}>
-                    <Work caseStudyList={caseStudyList} changeView={changeView} />
+                    <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
                   </section>
                   <section className={isActive('root')}>
-                    <Switch>
-                      <Route
-                        exact
-                        path="/work/:uid"
-                        render={({ match }) => (
-                          <CaseStudy prismicCtx={this.props.prismicCtx} route={match.params.uid} />
-                      )}
-                      />
-                      <Route
-                        path="/"
-                        render={() => <Homepage data={siteInfo} />}
-                      />
-                    </Switch>
+                    <section className={isActive('root')}>
+                      { this.state.currentCaseStudy ? (
+                        <CaseStudy
+                          prismicCtx={this.props.prismicCtx}
+                          route={this.state.currentCaseStudy}
+                        />) : (
+                          <Homepage data={siteInfo} />
+                        )}
+                    </section>
                   </section>
                   <section className={`${isActive('about')} view--aside`}>
                     <About prismicCtx={this.props.prismicCtx} />
