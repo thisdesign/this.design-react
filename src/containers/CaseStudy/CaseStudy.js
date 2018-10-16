@@ -22,23 +22,23 @@ export default class CaseStudy extends React.Component {
     notFound: false,
   };
 
+
   componentWillMount() {
     this.getCaseStudyDoc(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.getCaseStudyDoc(props);
-  }
+  shouldComponentUpdate = (nextProps, nextState) => {
+    // need to work on this. want case study to only render once
+    const newRoute = nextProps.route !== this.props.route;
+    const newDoc = this.state.doc !== nextState.doc;
+    return !!(newDoc || newRoute);
+  };
 
-  /*
-  Mess with this as needed, it keeps the component
-  from updating when selecting /about/ or /work/
-  */
-
-  shouldComponentUpdate = (nextProps, nextState) => this.state.doc !== nextState.doc;
-
-  componentDidUpdate() {
-    this.props.prismicCtx.toolbar();
+  componentDidUpdate(prevProps) {
+    const recievedNewRoute = prevProps.route !== this.props.route;
+    if (recievedNewRoute) {
+      this.getCaseStudyDoc();
+    }
   }
 
   getCaseStudyDoc = () => {
@@ -53,6 +53,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
+    console.log('case study rendered', doc);
 
 
     if (doc) {
