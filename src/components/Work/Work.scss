@@ -17,7 +17,7 @@
 
 .work__link {
   box-sizing: border-box;
-  transition: transform 600ms cubic-bezier(0, 0, .2, 1);
+  transition: transform $anim-fast cubic-bezier(0, 0, .2, 1);
   text-decoration: none;
 
   @include breakpoint(sm) {
@@ -34,6 +34,12 @@
 
   &__wrapper {
     position: relative;
+    overflow: hidden;
+  }
+
+  &__item {
+    transform: scale(1.08);
+    transition: transform $anim-slow cubic-bezier(0, 0, .2, 1);
   }
 
   &__item--title {
@@ -43,7 +49,10 @@
     @include breakpoint(sm) {
       height: 0;
       opacity: 0;
-      transition: opacity 200ms cubic-bezier(0, 0, .2, 1);
+      transform: translateY(-.2em);
+      transition:
+      opacity $anim-slow cubic-bezier(0, 0, .2, 1),
+      transform $anim-fast cubic-bezier(0, 0, .2, 1);
     }
   }
 
@@ -55,16 +64,24 @@
     left: 50%;
     transform: translate3d(-50%, -50%, 0);
     opacity: 0;
-    transition: opacity 200ms cubic-bezier(0, 0, .2, 1);
+    transition: opacity $anim-fast cubic-bezier(0, 0, .2, 1);
   }
 
   &:hover {
     @include breakpoint(sm) {
       transform: scale(1.02);
 
+      .work__link__item {
+        transform: scale(1.02);
+      }
+
       .work__link__item--svg,
       .work__link__item--title {
+        // move down
         opacity: 1;
+      }
+      .work__link__item--title {
+        transform: translateY(0);
       }
     }
   }
