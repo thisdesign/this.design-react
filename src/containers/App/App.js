@@ -146,15 +146,13 @@ class App extends React.Component {
                     <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
                   </section>
                   <section className={isActive('root')}>
-                    <section className={isActive('root')}>
-                      { currentCaseStudy ? (
-                        <CaseStudy
-                          prismicCtx={this.props.prismicCtx}
-                          route={currentCaseStudy}
-                        />) : (
-                          <Homepage data={siteInfo} />
-                        )}
-                    </section>
+                    { currentCaseStudy ? (
+                      <CaseStudy
+                        prismicCtx={this.props.prismicCtx}
+                        route={currentCaseStudy}
+                      />) : (
+                        <Homepage data={siteInfo} />
+                      )}
                   </section>
                   <section className={`${isActive('about')} view--aside`}>
                     <About prismicCtx={this.props.prismicCtx} />
