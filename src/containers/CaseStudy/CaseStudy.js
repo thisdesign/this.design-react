@@ -15,6 +15,11 @@ import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
 
+/**
+ * Still some work to be done with regards to
+ * the efficency of this. Will try to keep it
+ * simple now
+ */
 
 export default class CaseStudy extends React.Component {
   state = {
@@ -22,17 +27,25 @@ export default class CaseStudy extends React.Component {
     notFound: false,
   };
 
-
   componentWillMount() {
     this.getCaseStudyDoc(this.props);
   }
 
+  /**
+   * Keeping rerenders under control. If this is
+   * causing problems, return `true` to check
+   */
+
   shouldComponentUpdate = (nextProps, nextState) => {
-    // need to work on this. want case study to only render once
-    const newRoute = nextProps.route !== this.props.route;
-    const newDoc = this.state.doc !== nextState.doc;
-    return !!(newDoc || newRoute);
-  };
+    const newRoute = this.props.route !== nextProps.route;
+    const newAnimState = this.props.isAnimatingToCs !== nextProps.isAnimatingToCs;
+    const newDoc = nextState.doc !== this.state.doc;
+    return newRoute || newAnimState || newDoc;
+  }
+
+  /**
+   * Reset state based on props change
+   */
 
   componentDidUpdate(prevProps) {
     const recievedNewRoute = prevProps.route !== this.props.route;
@@ -40,6 +53,10 @@ export default class CaseStudy extends React.Component {
       this.getCaseStudyDoc();
     }
   }
+
+  /**
+   * Set isAnimatingToCs based on props
+   */
 
   getCaseStudyDoc = () => {
     this.props.prismicCtx.api.getByUID('casestudy', this.props.route).then((doc) => {
@@ -53,10 +70,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
-    console.log('case study rendered', doc);
-
-
-    if (doc) {
+    if (doc && !this.props.isAnimatingToCs) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
 
       const customCmsAtts = {

@@ -34,7 +34,6 @@ export default class About extends React.Component {
   }
 
   render() {
-    console.log('about rendered');
     const { doc, notFound } = this.state;
 
     if (doc) {

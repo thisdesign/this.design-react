@@ -23,15 +23,34 @@ import './App.css';
 import './viewPositions.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.VIEW_CHANGE_DURATION = 600;
+  }
+
   state = {
     caseStudyList: null,
     siteInfo: null,
     notFound: false,
     view: 'root',
+    /**
+     * Once set, should never be 'null' again
+     * @type {String}
+     */
     currentCaseStudy: null,
+    /**
+     * while animating, show <Loading /> until animation
+     * finishes to reduce animation jank due to DOM changes
+     * @type {Boolean}
+     */
+    isAnimatingToCs: false,
   };
 
   componentDidUpdate(prevProps) {
+    /**
+     * Can't do anything without prismicCtx so make
+     * sure it has loaded before going any further
+     */
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
     if (hasLoadedCtx) {
       this.loadData();
@@ -68,6 +87,11 @@ class App extends React.Component {
     this.setState({
       currentCaseStudy: uid,
       view: 'root',
+      isAnimatingToCs: true,
+    }, () => {
+      setTimeout(() => {
+        this.setState({ isAnimatingToCs: false });
+      }, this.VIEW_CHANGE_DURATION);
     });
   }
 
@@ -114,9 +138,8 @@ class App extends React.Component {
   isActive = view => (this.state.view === view ? `view ${view} -is-active` : `view ${view}`)
 
   render() {
-    console.log('app rendered', this.state.currentCaseStudy);
     const {
-      caseStudyList, notFound, view, siteInfo, currentCaseStudy,
+      caseStudyList, notFound, view, siteInfo, currentCaseStudy, isAnimatingToCs,
     } = this.state;
     const {
       isActive, changeView, openCaseStudy,
@@ -150,6 +173,7 @@ class App extends React.Component {
                       <CaseStudy
                         prismicCtx={this.props.prismicCtx}
                         route={currentCaseStudy}
+                        isAnimatingToCs={isAnimatingToCs}
                       />) : (
                         <Homepage data={siteInfo} />
                       )}
