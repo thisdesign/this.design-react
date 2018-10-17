@@ -70,7 +70,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
-    if (doc && !this.props.isAnimatingToCs) {
+    if (doc) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
 
       const customCmsAtts = {
@@ -114,7 +114,9 @@ export default class CaseStudy extends React.Component {
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
-              {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
+              { !this.props.isAnimatingToCs &&
+                slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)
+              }
             </div>
           </div>
         </article>
