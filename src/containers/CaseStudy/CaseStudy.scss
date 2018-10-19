@@ -1,11 +1,17 @@
 @import '../../styles/variables.scss';
 
 .casestudy {
-  background: #f9f9f9
+  background: $case-study-bg;
 }
 
 .casestudy__block {
   margin-top: $variable-spacing-lg;
+  opacity: 0;
+  transition: opacity $anim-slow ease;
+
+  &.-inView {
+    opacity: 1;
+  }
 }
 
 .casestudy__body {
