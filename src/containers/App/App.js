@@ -22,6 +22,7 @@ import Preview from '../PrismicApp/Preview/Preview';
 import './App.css';
 import './viewPositions.css';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
