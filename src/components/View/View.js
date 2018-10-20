@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollProvider from '../ScrollProvider/ScrollProvider';
+import ScrollContainer from '../../containers/ScrollContainer/ScrollContainer';
 
 const Section = (props) => {
   const className = [
@@ -9,9 +9,9 @@ const Section = (props) => {
     props.aside ? 'view--aside' : '',
   ].join(' ');
   return (
-    <ScrollProvider className={className}>
+    <ScrollContainer className={className}>
       {props.children}
-    </ScrollProvider>
+    </ScrollContainer>
   );
 };
 

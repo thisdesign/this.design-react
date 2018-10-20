@@ -18,7 +18,7 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
-import View from '../View/View';
+import View from '../../components/View/View';
 import Preview from '../PrismicApp/Preview/Preview';
 import './App.css';
 import './viewPositions.css';
@@ -137,7 +137,6 @@ class App extends React.Component {
       }
     });
   }
-
 
   render() {
     const {
