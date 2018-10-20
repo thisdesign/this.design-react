@@ -3,7 +3,7 @@ import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
-
+import ScrollWatch from '../ScrollWatch/ScrollWatch';
 import Text from './slices/Text/Text';
 import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
@@ -114,7 +114,11 @@ export default class CaseStudy extends React.Component {
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
-              {slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)}
+              {slices.map(slice => (
+                <ScrollWatch className="casestudy__block" key={uuidv1()}>
+                  {slice}
+                </ScrollWatch>
+              ))}
             </div>
           </div>
         </article>

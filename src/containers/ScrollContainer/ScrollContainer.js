@@ -1,6 +1,6 @@
 import React from 'react';
+import throttle from 'lodash.throttle';
 import ScrollContext from '../ScrollContext/ScrollContext';
-// import ScrollProvider from '../ScrollProvider/ScrollProvider';
 
 
 export default class ScrollContainer extends React.Component {
@@ -14,8 +14,7 @@ export default class ScrollContainer extends React.Component {
   }
 
   componentDidMount() {
-    // throttle this
-    this.container.current.addEventListener('scroll', this.logPosition);
+    this.container.current.addEventListener('scroll', throttle(this.logPosition, 200));
   }
 
   logPosition = () => {
