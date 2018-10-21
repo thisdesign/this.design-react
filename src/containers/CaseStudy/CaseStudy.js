@@ -3,7 +3,7 @@ import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
-import ScrollWatch from '../ScrollWatch/ScrollWatch';
+import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
 import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
@@ -115,9 +115,9 @@ export default class CaseStudy extends React.Component {
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
               {slices.map(slice => (
-                <ScrollWatch className="casestudy__block" key={uuidv1()}>
+                <ScrollTrigger className="casestudy__block" key={uuidv1()}>
                   {slice}
-                </ScrollWatch>
+                </ScrollTrigger>
               ))}
             </div>
           </div>
