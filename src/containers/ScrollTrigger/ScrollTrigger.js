@@ -44,8 +44,12 @@ class ScrollTrigger extends React.Component {
   }
 }
 
+
 export default React.forwardRef((props, ref) => (
   <ScrollContext.Consumer>
     {context => <ScrollTrigger {...props} scrollTop={context.scrollTop} ref={ref} />}
   </ScrollContext.Consumer>
 ));
+
+
+// https://github.com/facebook/react/issues/12397#issuecomment-375501574
