@@ -1,5 +1,5 @@
 import React from 'react';
-import ScrollContext from '../ScrollContext/ScrollContext';
+import ScrollContext from '../ScrollContainer/ScrollContext/ScrollContext';
 
 class ScrollTrigger extends React.Component {
   constructor(props) {

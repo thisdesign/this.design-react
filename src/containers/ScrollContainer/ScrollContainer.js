@@ -1,6 +1,6 @@
 import React from 'react';
 import throttle from 'lodash.throttle';
-import ScrollContext from '../ScrollContext/ScrollContext';
+import ScrollContext from './ScrollContext/ScrollContext';
 
 
 export default class ScrollContainer extends React.Component {

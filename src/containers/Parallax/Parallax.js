@@ -1,6 +1,6 @@
 import React from 'react';
 import isInView from 'util/isInView';
-import ScrollContext from '../ScrollContext/ScrollContext';
+import ScrollContext from '../ScrollContainer//ScrollContext/ScrollContext';
 
 class Parallax extends React.Component {
   constructor(props) {
