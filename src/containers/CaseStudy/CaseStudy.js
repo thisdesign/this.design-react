@@ -115,7 +115,7 @@ export default class CaseStudy extends React.Component {
             <CaseStudyCover data={doc.data} />
             <div className="casestudy__body">
               {slices.map(slice => (
-                <ScrollTrigger className="casestudy__block" key={uuidv1()}>
+                <ScrollTrigger offset={90} className="casestudy__block" key={uuidv1()}>
                   {slice}
                 </ScrollTrigger>
               ))}
