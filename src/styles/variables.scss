@@ -19,11 +19,14 @@ $ease: cubic-bezier(.25, .1, .25, 1);
 $ease-one: cubic-bezier(.9, 0, .1, 1);
 $ease-two: cubic-bezier(.14, 1, .34, 1);
 $ease-three: cubic-bezier(0, 0, .2, 1);
+
+$ease-views: cubic-bezier(0, 0, .2, 1);
+$ease-views-rev: cubic-bezier(8, 0, 1, 1);
+
 $long-duration: 600ms;
 $base-duration: 400ms;
 $midi-duration: 300ms;
 $fast-duration: 200ms;
-
 
 $anim-x-slow: 1800ms;
 $anim-slow: 1400ms;
