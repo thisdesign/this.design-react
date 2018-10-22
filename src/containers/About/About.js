@@ -48,7 +48,12 @@ export default class About extends React.Component {
           case 'gridwall-v2':
             return <Gridwall data={slice} />;
           case 'color-start':
-            return <ScrollTrigger>TRIGGER HERE</ScrollTrigger>;
+            return (
+              <ScrollTrigger
+                onEnter={() => { console.log('entered'); }}
+                onExit={() => { console.log('exited'); }}
+              />
+            );
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }

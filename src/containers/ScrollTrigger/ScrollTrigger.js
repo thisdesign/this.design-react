@@ -12,16 +12,18 @@ class ScrollTrigger extends React.Component {
 
   componentDidMount() {
     this.setPos();
+    this.setActivity();
   }
 
   componentDidUpdate() {
     this.setPos();
-    this.checkIfActive();
+    this.setActivity();
   }
 
-  setActive = (criteria) => {
-    if (this.state.active !== criteria) {
-      this.setState({ active: criteria });
+  setActivity = () => {
+    if (this.conditionChanged()) {
+      this.runTriggerMethods();
+      this.setState({ active: this.meetsCriteria() });
     }
   }
 
@@ -30,9 +32,24 @@ class ScrollTrigger extends React.Component {
     this.rect = this.target.current.getBoundingClientRect();
   }
 
-  checkIfActive = () => {
-    this.setActive(this.isBeyondTrigger());
+  runTriggerMethods = () => {
+    const { onEnter, onExit } = this.props;
+    if (onEnter && this.meetsCriteria()) {
+      onEnter();
+    } else if (onExit && !this.meetsCriteria()) {
+      onExit();
+    }
   }
+
+  conditionChanged = () => this.state.active !== this.meetsCriteria()
+
+  /**
+   * change to allow different criterian based on props
+   * for example:
+   *    objIsVisible
+   */
+
+  meetsCriteria = () => this.isBeyondTrigger()
 
   isBeyondTrigger = () => this.rect.top - this.offset < 0
 
