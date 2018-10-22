@@ -1,4 +1,5 @@
 import React from 'react';
+import isInView from 'util/isInView';
 import ScrollContext from '../ScrollContext/ScrollContext';
 
 class Parallax extends React.Component {
@@ -7,19 +8,41 @@ class Parallax extends React.Component {
     this.target = React.createRef();
   }
 
+  state = {
+    isInView: false,
+  }
+
   componentDidUpdate() {
-    const { top, height } = this.target.current.getBoundingClientRect();
-    const offset = ((top + height) / 2) - (window.innerHeight / 2);
+    this.updatePosition((rect) => {
+      this.setIsInView(rect);
+    });
+  }
+
+  setIsInView = (rect) => {
+    if (isInView(rect) !== this.state.isInView) {
+      this.setState({ isInView: isInView(rect) });
+    }
+  }
+
+  updatePosition = (callback) => {
+    const rect = this.target.current.getBoundingClientRect();
+    const offset = ((rect.top + rect.height) / 2) - (window.innerHeight / 2);
     const { speed } = this.props;
     this.offset = offset / -speed;
+
+    callback(rect);
   }
 
   render() {
+    const style = this.state.isInView
+      ? { transform: `translate(0, ${this.offset}px` }
+      : null;
+
     return (
       <div
         className={this.props.className || null}
         ref={this.target}
-        style={{ transform: `translate(0, ${this.offset}px` }}
+        style={style}
       >
         {this.props.children}
       </div>

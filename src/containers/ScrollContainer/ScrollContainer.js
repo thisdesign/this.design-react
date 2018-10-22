@@ -14,7 +14,7 @@ export default class ScrollContainer extends React.Component {
   }
 
   componentDidMount() {
-    this.container.current.addEventListener('scroll', throttle(this.logPosition, 16.67));
+    this.container.current.addEventListener('scroll', throttle(this.logPosition, 60 / 1000));
   }
 
   logPosition = () => {
