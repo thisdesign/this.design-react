@@ -4,7 +4,7 @@ import MobileFrame from 'components/MobileFrame/MobileFrame';
 import { RichText } from 'prismic-reactjs';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
 import sizeCheck from '../../../../util/sizeCheck';
-
+import Parallax from '../../../Parallax/Parallax';
 import './Columns.css';
 
 const Columns = (props) => {
@@ -40,9 +40,11 @@ const Columns = (props) => {
   }, 10);
 
   const columnMedia = (
-    data.video.url
-      ? <VideoNode muteToggle={data.audio === 'true'} url={data.video.url} />
-      : <img src={data.image.url} alt={props.title} />);
+    <Parallax>
+      {data.video.url
+        ? <VideoNode muteToggle={data.audio === 'true'} url={data.video.url} />
+        : <img src={data.image.url} alt={props.title} />}
+    </Parallax>);
 
   const columnText = (
     <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text -padding" key="col-img">
