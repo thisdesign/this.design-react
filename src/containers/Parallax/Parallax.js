@@ -10,7 +10,7 @@ class Parallax extends React.Component {
   componentDidUpdate() {
     const { top, height } = this.target.current.getBoundingClientRect();
     const offset = ((top + height) / 2) - (window.innerHeight / 2);
-    const speed = 4;
+    const { speed } = this.props;
     this.offset = offset / -speed;
   }
 
@@ -26,6 +26,10 @@ class Parallax extends React.Component {
     );
   }
 }
+
+Parallax.defaultProps = {
+  speed: 4,
+};
 
 export default React.forwardRef((props, ref) => (
   <ScrollContext.Consumer>
