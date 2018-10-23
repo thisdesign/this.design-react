@@ -30,9 +30,9 @@
       height: 1.5px;
       background: $white;
       transition:
-        transform 300ms $ease-views,
-        opacity 300ms $ease-views,
-        background-color 300ms $ease-views;
+        transform 300ms $ease-accel,
+        opacity 300ms $ease-accel,
+        background-color 300ms $ease-accel;
 
       // Applies to About & Grid
 

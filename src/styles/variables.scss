@@ -18,7 +18,7 @@ $black: #000;
 *******************************************************************************/
 
 $ease-standard: cubic-bezier(.4, 0, .2, 1);
-$ease-decel: cubic-bezier(0, 0, 2, 1);
+$ease-decel: cubic-bezier(0, 0, .2, 1);
 $ease-accel: cubic-bezier(.4, 0, 1, 1);
 
 $ease-views: cubic-bezier(0, 0, .2, 1);
