@@ -75,6 +75,9 @@ export default class Gallery extends React.Component {
 
   render() {
     const { images, currentImageIndex, ratio } = this.state;
+    const shouldZoom = this.props.data.primary
+      ? this.props.data.primary.zoom_animation_enabled
+      : null;
 
     const galleryItems = images.map((img, index) => {
       const imageIsCurrent = index === currentImageIndex;
@@ -95,8 +98,16 @@ export default class Gallery extends React.Component {
       );
     });
 
+    const classes = [
+      'caseStudy__gallery grid',
+      '-wrap',
+      shouldZoom === 'false'
+        ? 'caseStudy__gallery--noZoom'
+        : '',
+    ].join(' ');
+
     return (
-      <div className="caseStudy__gallery grid -wrap">
+      <div className={classes}>
         <div
           className="caseStudy__gallery__imageContainer"
           style={{ paddingTop: `${ratio}%` }}

@@ -1,3 +1,5 @@
+@import '../../../../styles/variables.scss';
+
 .caseStudy__gallery {
   position: relative;
 
@@ -17,10 +19,16 @@
     justify-content: center;
   }
 
+  &--noZoom {
+    .caseStudy__gallery__img {
+      transform: scale(1);
+    }
+  }
+
   &__indicator {
     width: 35px;
     height: 3px;
-    background: black;
+    background: $black;
     opacity: .15;
     display: inline-block;
     margin: 0 6px;
