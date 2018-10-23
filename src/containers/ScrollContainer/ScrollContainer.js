@@ -18,6 +18,16 @@ export default class ScrollContainer extends React.Component {
     this.getContainer();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.viewName === nextProps.view || this.props.viewName === this.props.view;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.view !== this.props.view && this.props.view === 'root') {
+      this.container.current.scrollTop = 0;
+    }
+  }
+
   getContainer = () => this.container
 
   scrollToTop = (speed) => {
@@ -37,7 +47,7 @@ export default class ScrollContainer extends React.Component {
   render() {
     const { children, className } = this.props;
     return (
-      <section className={className} ref={this.container}>
+      <div className={className} ref={this.container}>
         <ScrollContext.Provider value={{
             scrollTop: this.state.scrollTop,
             scrollToTop: this.scrollToTop,
@@ -46,7 +56,7 @@ export default class ScrollContainer extends React.Component {
         >
           {children}
         </ScrollContext.Provider>
-      </section>
+      </div>
     );
   }
 }

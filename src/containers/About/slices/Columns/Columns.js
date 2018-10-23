@@ -7,7 +7,6 @@ import './Columns.css';
 const Columns = (props) => {
   const { items } = props.data;
   const { layout, classnames } = props.data.primary;
-
   return (
     <div className={`about__columns -grid -wrap--lg -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
       {items.map(item => (
