@@ -70,7 +70,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
-    if (doc && !this.props.isAnimatingToCs) {
+    if (doc) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
 
       const customCmsAtts = {
@@ -113,7 +113,7 @@ export default class CaseStudy extends React.Component {
         <article className="casestudy" style={customCmsAtts}>
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
-            <ScrollTrigger
+ <ScrollTrigger
               offset={-25}
               onEnter={() => this.props.updateCsScrollPos(true)}
               onExit={() => this.props.updateCsScrollPos(false)}
