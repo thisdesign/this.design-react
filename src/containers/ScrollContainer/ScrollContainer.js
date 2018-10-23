@@ -15,6 +15,19 @@ export default class ScrollContainer extends React.Component {
 
   componentDidMount() {
     this.container.current.addEventListener('scroll', throttle(this.logPosition, 60 / 1000));
+    this.getContainer();
+  }
+
+  getContainer = () => this.container
+
+  scrollToTop = (speed) => {
+    const scrolling = setInterval(() => {
+      const { scrollTop } = this.container.current;
+      this.container.current.scrollTop -= speed;
+      if (scrollTop === 0) {
+        clearInterval(scrolling);
+      }
+    }, 1000 / 60);
   }
 
   logPosition = () => {
@@ -25,7 +38,12 @@ export default class ScrollContainer extends React.Component {
     const { children, className } = this.props;
     return (
       <section className={className} ref={this.container}>
-        <ScrollContext.Provider value={{ scrollTop: this.state.scrollTop }}>
+        <ScrollContext.Provider value={{
+            scrollTop: this.state.scrollTop,
+            scrollToTop: this.scrollToTop,
+            getContainer: this.getContainer,
+          }}
+        >
           {children}
         </ScrollContext.Provider>
       </section>
