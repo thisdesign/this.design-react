@@ -15,9 +15,15 @@ class ScrollTrigger extends React.Component {
     this.setActivity();
   }
 
-  componentDidUpdate() {
-    this.setPos();
-    this.setActivity();
+  shouldComponentUpdate(nextProps) {
+    return this.props.scrollTop !== nextProps.scrollTop;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.scrollTop !== prevProps.scrollTop) {
+      this.setPos();
+      this.setActivity();
+    }
   }
 
   setActivity = () => {
