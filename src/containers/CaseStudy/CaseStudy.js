@@ -70,6 +70,7 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
+    const { isAnimatingToCs } = this.props;
     if (doc) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
 
@@ -113,13 +114,13 @@ export default class CaseStudy extends React.Component {
         <article className="casestudy" style={customCmsAtts}>
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
- <ScrollTrigger
+            <ScrollTrigger
               offset={-25}
               onEnter={() => this.props.updateCsScrollPos(true)}
               onExit={() => this.props.updateCsScrollPos(false)}
             >
               <div className="casestudy__body">
-                {slices.map(slice => (
+                {!isAnimatingToCs && slices.map(slice => (
                   <ScrollTrigger offset={85} className="casestudy__block" key={uuidv1()}>
                     {slice}
                   </ScrollTrigger>
