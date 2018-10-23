@@ -18,14 +18,17 @@ import Work from '../../components/Work/Work';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudy from '../CaseStudy/CaseStudy';
 import About from '../About/About';
+import View from '../../components/View/View';
 import Preview from '../PrismicApp/Preview/Preview';
 import './App.css';
 import './viewPositions.css';
+
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.VIEW_CHANGE_DURATION = 600;
+    this.aboutNode = React.createRef();
   }
 
   state = {
@@ -44,6 +47,7 @@ class App extends React.Component {
      * @type {Boolean}
      */
     isAnimatingToCs: false,
+    scrolledPastCsCover: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -88,6 +92,7 @@ class App extends React.Component {
       currentCaseStudy: uid,
       view: 'root',
       isAnimatingToCs: true,
+      scrolledPastCsCover: false,
     }, () => {
       setTimeout(() => {
         this.setState({ isAnimatingToCs: false });
@@ -135,14 +140,24 @@ class App extends React.Component {
     });
   }
 
-  isActive = view => (this.state.view === view ? `view ${view} -is-active` : `view ${view}`)
+  updateCsScrollPos = (scrolledPastCsCover) => {
+    this.setState({ scrolledPastCsCover });
+  }
 
   render() {
     const {
-      caseStudyList, notFound, view, siteInfo, currentCaseStudy, isAnimatingToCs,
+      caseStudyList,
+      notFound,
+      view,
+      siteInfo,
+      currentCaseStudy,
+      isAnimatingToCs,
+      scrolledPastCsCover,
     } = this.state;
     const {
-      isActive, changeView, openCaseStudy,
+      changeView,
+      openCaseStudy,
+      updateCsScrollPos,
     } = this;
 
     if (caseStudyList && siteInfo) {
@@ -163,24 +178,31 @@ class App extends React.Component {
             path="/"
             render={() => (
               <React.Fragment>
-                <Nav view={view} changeView={changeView} currentCaseStudy={currentCaseStudy} />
+                <Nav
+                  view={view}
+                  scrolledPastCsCover={scrolledPastCsCover}
+                  changeView={changeView}
+                  currentCaseStudy={currentCaseStudy}
+                />
                 <main className={`views -view-is-${view}`}>
-                  <section className={`${isActive('work')} view--aside`}>
+                  <View aside name="work" view={view}>
                     <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
-                  </section>
-                  <section className={isActive('root')}>
-                    { currentCaseStudy ? (
-                      <CaseStudy
-                        prismicCtx={this.props.prismicCtx}
-                        route={currentCaseStudy}
-                        isAnimatingToCs={isAnimatingToCs}
-                      />) : (
-                        <Homepage data={siteInfo} />
-                      )}
-                  </section>
-                  <section className={`${isActive('about')} view--aside`}>
+                  </View>
+                  <View name="root" view={view}>
+                    {
+                      currentCaseStudy ? (
+                        <CaseStudy
+                          prismicCtx={this.props.prismicCtx}
+                          route={currentCaseStudy}
+                          isAnimatingToCs={isAnimatingToCs}
+                          updateCsScrollPos={updateCsScrollPos}
+                        />
+                      ) : (<Homepage data={siteInfo} />)
+                    }
+                  </View>
+                  <View aside name="about" view={view} >
                     <About prismicCtx={this.props.prismicCtx} />
-                  </section>
+                  </View>
                 </main>
               </React.Fragment>
               )}

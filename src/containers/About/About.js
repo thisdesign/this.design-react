@@ -3,10 +3,10 @@ import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import Text from './slices/Text/Text';
+import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
 import Gridwall from './slices/Gridwall/Gridwall';
-
 import './About.css';
 
 export default class About extends React.Component {
@@ -47,6 +47,13 @@ export default class About extends React.Component {
             return <Instagram data={slice} />;
           case 'gridwall-v2':
             return <Gridwall data={slice} />;
+          case 'color-start':
+            return (
+              <ScrollTrigger
+                onEnter={() => { console.log('entered'); }}
+                onExit={() => { console.log('exited'); }}
+              />
+            );
           default:
             return <p className="future">{slice.slice_type} goes here</p>;
         }

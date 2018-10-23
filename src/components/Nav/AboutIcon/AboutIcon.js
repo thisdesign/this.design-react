@@ -1,5 +1,4 @@
 import React from 'react';
-import './AboutIcon.css';
 
 const AboutIcon = (props) => {
   const { view } = props;

@@ -6,6 +6,14 @@
 
 .casestudy__block {
   margin-top: $variable-spacing-lg;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: $anim-x-slow opacity ease, $anim-x-slow transform ease;
+
+  &.-active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .casestudy__body {

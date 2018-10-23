@@ -3,7 +3,7 @@ import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
-
+import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
 import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
@@ -113,11 +113,19 @@ export default class CaseStudy extends React.Component {
         <article className="casestudy" style={customCmsAtts}>
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
-            <div className="casestudy__body">
-              { !this.props.isAnimatingToCs &&
-                slices.map(slice => <div className="casestudy__block" key={uuidv1()}>{slice}</div>)
-              }
-            </div>
+ <ScrollTrigger
+              offset={-25}
+              onEnter={() => this.props.updateCsScrollPos(true)}
+              onExit={() => this.props.updateCsScrollPos(false)}
+            >
+              <div className="casestudy__body">
+                {slices.map(slice => (
+                  <ScrollTrigger offset={85} className="casestudy__block" key={uuidv1()}>
+                    {slice}
+                  </ScrollTrigger>
+                ))}
+              </div>
+            </ScrollTrigger>
           </div>
         </article>
       );

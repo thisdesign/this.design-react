@@ -1,5 +1,4 @@
 import React from 'react';
-import './GridIcon.css';
 
 const GridIcon = (props) => {
   const { view } = props;
