@@ -1,5 +1,6 @@
 import React from 'react';
 import isInView from 'util/isInView';
+import isMobile from 'util/isMobile';
 import ScrollContext from '../ScrollContainer//ScrollContext/ScrollContext';
 
 class Parallax extends React.Component {
@@ -13,9 +14,9 @@ class Parallax extends React.Component {
   }
 
   componentDidUpdate() {
-    this.updatePosition((rect) => {
-      this.setIsInView(rect);
-    });
+    if (this.parallaxIsEnabled()) {
+      this.executeParallax();
+    }
   }
 
   setIsInView = (rect) => {
@@ -23,6 +24,14 @@ class Parallax extends React.Component {
       this.setState({ isInView: isInView(rect) });
     }
   }
+
+  executeParallax = () => {
+    this.updatePosition((rect) => {
+      this.setIsInView(rect);
+    });
+  }
+
+  parallaxIsEnabled = () => !isMobile() && !this.props.forceMobile;
 
   updatePosition = (callback) => {
     const rect = this.target.current.getBoundingClientRect();
@@ -52,6 +61,7 @@ class Parallax extends React.Component {
 
 Parallax.defaultProps = {
   speed: 4,
+  forceMobile: false,
 };
 
 export default React.forwardRef((props, ref) => (
