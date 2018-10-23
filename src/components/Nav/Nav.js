@@ -19,9 +19,9 @@ const Nav = (props) => {
     }
   };
 
-  const linkTo = (currentView) => {
-    if (currentView === 'root') {
-      return `/${currentView}`;
+  const linkTo = (link) => {
+    if (view === 'root') {
+      return `/${link}`;
     } else if (currentCaseStudy) {
       return `/work/${currentCaseStudy}`;
     }
