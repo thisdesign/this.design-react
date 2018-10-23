@@ -53,14 +53,14 @@
     color: $white;
     cursor: pointer;
     opacity: 0;
-    transition: opacity $base-duration $ease;
+    transition: opacity $base-duration $ease-standard;
 
     &__inner {
-      transition: transform $midi-duration $ease;
+      transition: transform $midi-duration $ease-standard;
       transform: scale(.9);
     }
 
-    &:hover{
+    &:hover {
       @include breakpoint(md) {
         opacity: 1;
 

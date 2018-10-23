@@ -1,5 +1,5 @@
 @import '../../../styles/variables.scss';
-
+// sass-lint:disable indentation
 
 .videoNode {
   &__muteButtonSolo {
@@ -21,7 +21,9 @@
         stroke: $white;
         stroke-width: 1.5;
         fill: none;
-        transition: all cubic-bezier(.25, .1, .25, 1) 400ms;
+        transition:
+          transform $ease-standard $anim-fast,
+          opacity $ease-standard $anim-fast;
 
         &--muted {
           transform: translateX(-50%);
@@ -32,6 +34,25 @@
           transform: translateX(0%);
           opacity: 1;
         }
+      }
+    }
+  }
+
+  .videoNode__iconWrap {
+    &:not(.-muted) {
+      transform: translateY(30%);
+      opacity: 0;
+      transition:
+        transform $ease-standard $anim-x-fast,
+        opacity $ease-standard $anim-x-fast;
+    }
+  }
+
+  &:hover {
+    .videoNode__iconWrap {
+      &:not(.-muted) {
+        transform: translateY(0%);
+        opacity: 1;
       }
     }
   }
