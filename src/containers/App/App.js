@@ -47,6 +47,7 @@ class App extends React.Component {
      * @type {Boolean}
      */
     isAnimatingToCs: false,
+    scrolledPastCsCover: null,
   };
 
   componentDidUpdate(prevProps) {
@@ -91,6 +92,7 @@ class App extends React.Component {
       currentCaseStudy: uid,
       view: 'root',
       isAnimatingToCs: true,
+      scrolledPastCsCover: false,
     }, () => {
       setTimeout(() => {
         this.setState({ isAnimatingToCs: false });
@@ -138,12 +140,24 @@ class App extends React.Component {
     });
   }
 
+  updateCsScrollPos = (scrolledPastCsCover) => {
+    this.setState({ scrolledPastCsCover });
+  }
+
   render() {
     const {
-      caseStudyList, notFound, view, siteInfo, currentCaseStudy, isAnimatingToCs,
+      caseStudyList,
+      notFound,
+      view,
+      siteInfo,
+      currentCaseStudy,
+      isAnimatingToCs,
+      scrolledPastCsCover,
     } = this.state;
     const {
-      changeView, openCaseStudy,
+      changeView,
+      openCaseStudy,
+      updateCsScrollPos,
     } = this;
 
     if (caseStudyList && siteInfo) {
@@ -164,7 +178,12 @@ class App extends React.Component {
             path="/"
             render={() => (
               <React.Fragment>
-                <Nav view={view} changeView={changeView} currentCaseStudy={currentCaseStudy} />
+                <Nav
+                  view={view}
+                  scrolledPastCsCover={scrolledPastCsCover}
+                  changeView={changeView}
+                  currentCaseStudy={currentCaseStudy}
+                />
                 <main className={`views -view-is-${view}`}>
                   <View aside name="work" view={view}>
                     <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
@@ -176,6 +195,7 @@ class App extends React.Component {
                           prismicCtx={this.props.prismicCtx}
                           route={currentCaseStudy}
                           isAnimatingToCs={isAnimatingToCs}
+                          updateCsScrollPos={updateCsScrollPos}
                         />
                       ) : (<Homepage data={siteInfo} />)
                     }

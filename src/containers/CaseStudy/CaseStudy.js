@@ -113,13 +113,19 @@ export default class CaseStudy extends React.Component {
         <article className="casestudy" style={customCmsAtts}>
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
-            <div className="casestudy__body">
-              {slices.map(slice => (
-                <ScrollTrigger offset={85} className="casestudy__block" key={uuidv1()}>
-                  {slice}
-                </ScrollTrigger>
-              ))}
-            </div>
+            <ScrollTrigger
+              offset={-25}
+              onEnter={() => this.props.updateCsScrollPos(true)}
+              onExit={() => this.props.updateCsScrollPos(false)}
+            >
+              <div className="casestudy__body">
+                {slices.map(slice => (
+                  <ScrollTrigger offset={85} className="casestudy__block" key={uuidv1()}>
+                    {slice}
+                  </ScrollTrigger>
+                ))}
+              </div>
+            </ScrollTrigger>
           </div>
         </article>
       );
