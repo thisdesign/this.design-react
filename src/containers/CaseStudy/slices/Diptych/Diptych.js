@@ -1,4 +1,6 @@
 import React from 'react';
+import uuidv1 from 'uuid/v1';
+import isMobile from 'util/isMobile';
 import './Diptych.css';
 
 const Diptych = (props) => {
@@ -12,25 +14,30 @@ const Diptych = (props) => {
     offset1,
     offset2,
   } = dataSource;
+
+  const diptychData = [
+    { ...image1, offset: offset1 },
+    { ...image2, offset: offset2 }];
+
   return (
     <div className="-grid -wrap casestudy__diptych">
-      <div className="casestudy__diptych__item -padding">
-        {image1.url &&
-          <img
-            src={image1.url}
-            alt={props.title}
-            style={{ transform: `translateX(${offset1}%)` }}
-          />}
-      </div>
-      <div className="casestudy__diptych__item -padding">
-        {image2.url &&
-          <img
-            className="casestudy__diptych__item"
-            src={image2.url}
-            alt={props.title}
-            style={{ transform: `translateX(${offset2}%)` }}
-          />}
-      </div>
+      { diptychData.map(({ url, title, offset }) => {
+        const condOffset = !isMobile() ? offset : null;
+        return (
+          <div className="casestudy__diptych__item -padding" key={uuidv1()}>
+            {url &&
+              <img
+                src={url}
+                alt={title}
+                style={{ transform: `translateX(${condOffset}%)` }}
+              />
+            } {
+              // If no image, put a spacer in except on mobile
+              !url && !isMobile() && <div className="casestudy__diptych__spacer" />
+            }
+          </div>
+        );
+      }) }
     </div>
   );
 };
