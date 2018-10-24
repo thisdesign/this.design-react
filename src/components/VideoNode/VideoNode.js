@@ -16,49 +16,60 @@ export default class VideoNode extends React.Component {
     elapsed: 0,
     percentComplete: 0,
     hasPlayed: false,
+    // If autoplay dont play until in view & pause when out of view
   }
 
   componentDidMount() {
     if (this.props.controls) {
-      this.getMetaData();
+      this.onMetaDataLoad(() => {
+        this.setMetaData();
+      });
     }
   }
 
-  getMetaData() {
-    this.videoElem.current.addEventListener('loadedmetadata', () => {
-      const elem = this.videoElem.current;
-      if (elem) {
-        const { duration } = elem;
-        this.setState({ duration });
-      }
+  componentWillUnmount() {
+    this.stopTimer();
+  }
+
+  onMetaDataLoad = (callback) => {
+    this.getElem().addEventListener('loadedmetadata', () => {
+      callback();
     });
   }
 
-  getCurrentTime() {
-    const elem = this.videoElem.current;
-    setInterval(() => {
-      this.setState({ elapsed: elem.currentTime }, () => {
-        this.setPercentage();
-      });
-    }, 30);
+  setMetaData() {
+    this.setState({ duration: this.getDuration() });
   }
 
+  getElem = () => this.videoElem.current
 
-  setPercentage = () => {
-    this.setState({ percentComplete: (this.state.elapsed / this.state.duration) * 100 });
+  getElapsed = () => this.getElem().currentTime;
+
+  getDuration = () => this.getElem().duration
+
+  getPercentComplete = () => (this.getElapsed() / this.getDuration()) * 100
+
+  stopTimer = () => {
+    clearInterval(this.interval);
   }
 
+  pauseVideo = () => {
+    this.stopTimer();
+    this.getElem().pause();
+  }
+
+  playVideo = () => {
+    this.updateCurrentTime();
+    this.getElem().play();
+  }
 
   handleMuteToggle = () => {
-    if (this.state.isMuted) {
-      this.setState({ isMuted: false }, () => {
-        this.videoElem.current.muted = false;
-      });
-    } else {
-      this.setState({ isMuted: true }, () => {
-        this.videoElem.current.muted = true;
-      });
-    }
+    this.setState((prevState) => {
+      this.videoElem.current.muted = !prevState.isMuted;
+      return {
+        isMuted: !prevState.isMuted,
+      };
+    });
   };
 
   leadingZero = num => `00${num}`.slice(-2);
@@ -69,18 +80,26 @@ export default class VideoNode extends React.Component {
     return `${minutes}:${this.leadingZero(seconds)}`;
   }
 
+  updateCurrentTime() {
+    this.interval = setInterval(() => {
+      this.setState({
+        elapsed: this.getElapsed(),
+        percentComplete: this.getPercentComplete(),
+      });
+    }, 30);
+  }
+
   handlePause = () => {
-    this.setState({ hasPlayed: true }, () => {
-      if (this.state.isPaused) {
-        this.setState({ isPaused: false }, () => {
-          this.videoElem.current.play();
-          this.getCurrentTime();
-        });
+    this.setState((prevState) => {
+      if (prevState.isPaused) {
+        this.playVideo();
       } else {
-        this.setState({ isPaused: true }, () => {
-          this.videoElem.current.pause();
-        });
+        this.pauseVideo();
       }
+      return {
+        isPaused: !prevState.isPaused,
+        hasPlayed: true,
+      };
     });
   }
 
