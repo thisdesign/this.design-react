@@ -32,7 +32,7 @@
     opacity: .15;
     display: inline-block;
     margin: 0 6px;
-    transition: 600ms opacity ease;
+    transition: $anim-med opacity $ease-standard;
     cursor: pointer;
 
     &--active {
@@ -51,7 +51,7 @@
     transform: scale(1.035);
     width: 100%;
     opacity: 0;
-    transition: 1000ms opacity ease, 1000ms transform ease;
+    transition: $anim-med opacity $ease-standard, $anim-med transform $ease-standard;
 
     &--current {
       opacity: 1;
