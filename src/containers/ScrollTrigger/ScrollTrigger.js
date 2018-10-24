@@ -16,13 +16,6 @@ class ScrollTrigger extends React.Component {
     this.watchScroll();
   }
 
-  componentDidUpdate(prevProps) { // still need?
-    if (this.props.scrollTop !== prevProps.scrollTop) {
-      this.setCondition();
-    }
-    this.watchScroll();
-  }
-
   componentWillUnmount() {
     this.unWatchScroll();
   }
