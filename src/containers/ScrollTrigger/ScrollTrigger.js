@@ -1,4 +1,5 @@
 import React from 'react';
+import isInView from 'util/isInView';
 import ScrollContext from '../ScrollContainer/ScrollContext/ScrollContext';
 
 class ScrollTrigger extends React.Component {
@@ -11,28 +12,25 @@ class ScrollTrigger extends React.Component {
   }
 
   componentDidMount() {
-    this.setPos();
-    this.setActivity();
+    this.setCondition();
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.scrollTop !== prevProps.scrollTop) {
-      this.setPos();
-      this.setActivity();
+      this.setCondition();
     }
   }
 
-  setActivity = () => {
+  setCondition = () => {
     if (this.conditionChanged()) {
       this.runTriggerMethods();
       this.setState({ active: this.meetsCriteria() });
     }
   }
 
-  setPos = () => {
-    this.offset = (this.props.offset / 100) * window.innerHeight;
-    this.rect = this.target.current.getBoundingClientRect();
-  }
+  getOffset = () => (this.props.offset / 100) * window.innerHeight;
+
+  getRect = () => this.target.current.getBoundingClientRect();
 
   runTriggerMethods = () => {
     const { onEnter, onExit } = this.props;
@@ -45,15 +43,17 @@ class ScrollTrigger extends React.Component {
 
   conditionChanged = () => this.state.active !== this.meetsCriteria()
 
-  /**
-   * change to allow different criterian based on props
-   * for example:
-   *    objIsVisible
-   */
+  meetsCriteria = () => {
+    const offset = this.getOffset();
+    const rect = this.getRect();
 
-  meetsCriteria = () => this.isBeyondTrigger()
+    if (this.props.inView) {
+      return isInView(rect, offset);
+    }
+    return this.isBeyondTrigger();
+  }
 
-  isBeyondTrigger = () => this.rect.top - this.offset < 0
+  isBeyondTrigger = () => this.getRect().top - this.getOffset() < 0
 
   render() {
     const className = [

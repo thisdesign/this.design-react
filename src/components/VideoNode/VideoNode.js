@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollTrigger from 'containers/ScrollTrigger/ScrollTrigger';
 import './VideoNode.css';
 import MuteControl from './MuteControl/MuteControl';
 import VideoControls from './VideoControls/VideoControls';
@@ -32,9 +33,11 @@ export default class VideoNode extends React.Component {
   }
 
   onMetaDataLoad = (callback) => {
-    this.getElem().addEventListener('loadedmetadata', () => {
-      callback();
-    });
+    if (this.getElem()) {
+      this.getElem().addEventListener('loadedmetadata', () => {
+        callback();
+      });
+    }
   }
 
   setMetaData() {
@@ -117,9 +120,9 @@ export default class VideoNode extends React.Component {
     const {
       isMuted, duration, elapsed, isPaused, percentComplete, hasPlayed,
     } = this.state;
-    const { muteToggle, controls, poster } = this.props;
+    const { muteToggle: hasMuteToggle, controls: hasControls, poster } = this.props;
     const atts = {
-      ...controls
+      ...hasControls
         ? {
           autoPlay: false,
           muted: false,
@@ -136,36 +139,49 @@ export default class VideoNode extends React.Component {
       poster,
     };
 
-    return (
-      <div className="videoNode" >
-        <div
-          className="videoNode__videoWrapper"
-          {...controls ? { onClick: this.handlePause } : null}
-        >
-          <video {...atts} >
-            <source src={this.props.url} type="video/mp4" />
-          </video>
-        </div>
-        { (!controls && muteToggle) &&
-          <div className="videoNode__muteButtonSolo">
-            <MuteControl
-              isMuted={isMuted}
-              handleMuteToggle={this.handleMuteToggle}
-            />
-          </div>
-        }
+    const videoDom = (
+      <video {...atts} >
+        <source src={this.props.url} type="video/mp4" />
+      </video>
+    );
 
-        { controls &&
-          <VideoControls
-            duration={this.parseTime(duration)}
-            elapsed={this.parseTime(elapsed)}
-            isPaused={isPaused}
+    const muteIcon = (
+      (!hasControls && hasMuteToggle) &&
+        <div className="videoNode__muteButtonSolo">
+          <MuteControl
             isMuted={isMuted}
             handleMuteToggle={this.handleMuteToggle}
-            handleFullScreen={this.handleFullScreen}
-            percentComplete={percentComplete}
-            hasPlayed={hasPlayed}
-          /> }
+          />
+        </div>
+    );
+
+    const controls = (hasControls &&
+      <VideoControls
+        duration={this.parseTime(duration)}
+        elapsed={this.parseTime(elapsed)}
+        isPaused={isPaused}
+        isMuted={isMuted}
+        handleMuteToggle={this.handleMuteToggle}
+        handleFullScreen={this.handleFullScreen}
+        percentComplete={percentComplete}
+        hasPlayed={hasPlayed}
+      />);
+
+    const video = (!hasControls ? (
+      <ScrollTrigger inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
+        {videoDom}
+      </ScrollTrigger>
+    ) : (videoDom));
+
+    const clickPauseAbility = { ...hasControls ? { onClick: this.handlePause } : null };
+
+    return (
+      <div className="videoNode" >
+        <div className="videoNode__videoWrapper" {...clickPauseAbility}>
+          {video}
+        </div>
+        { muteIcon }
+        { controls }
       </div>
     );
   }

@@ -1,6 +1,6 @@
-const isInView = (rect) => {
-  const isBelowVpTop = rect.bottom <= 0;
-  const isAboveVpBottom = rect.top - window.innerHeight <= 0;
+const isInView = (rect, offset = 0) => {
+  const isBelowVpTop = rect.bottom - offset <= 0;
+  const isAboveVpBottom = rect.top - window.innerHeight - offset <= 0;
   return isAboveVpBottom !== isBelowVpTop;
 };
 
