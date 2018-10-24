@@ -13,12 +13,18 @@ class ScrollTrigger extends React.Component {
 
   componentDidMount() {
     this.setCondition();
+    this.watchScroll();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps) { // still need?
     if (this.props.scrollTop !== prevProps.scrollTop) {
       this.setCondition();
     }
+    this.watchScroll();
+  }
+
+  componentWillUnmount() {
+    this.unWatchScroll();
   }
 
   setCondition = () => {
@@ -32,6 +38,16 @@ class ScrollTrigger extends React.Component {
 
   getRect = () => this.target.current.getBoundingClientRect();
 
+  getContainer = () => this.props.container.current
+
+  watchScroll = () => {
+    this.getContainer().addEventListener('scroll', this.setCondition);
+  }
+
+  unWatchScroll = () => {
+    this.getContainer().removeEventListener('scroll', this.setCondition);
+  }
+
   runTriggerMethods = () => {
     const { onEnter, onExit } = this.props;
     if (onEnter && this.meetsCriteria()) {
@@ -44,14 +60,13 @@ class ScrollTrigger extends React.Component {
   conditionChanged = () => this.state.active !== this.meetsCriteria()
 
   meetsCriteria = () => {
-    const offset = this.getOffset();
-    const rect = this.getRect();
-
     if (this.props.inView) {
-      return isInView(rect, offset);
+      return this.isInView();
     }
     return this.isBeyondTrigger();
   }
+
+  isInView = () => isInView(this.getRect(), this.getOffset());
 
   isBeyondTrigger = () => this.getRect().top - this.getOffset() < 0
 
@@ -77,7 +92,7 @@ ScrollTrigger.defaultProps = {
 
 export default React.forwardRef((props, ref) => (
   <ScrollContext.Consumer>
-    {context => <ScrollTrigger {...props} scrollTop={context.scrollTop} ref={ref} />}
+    {context => <ScrollTrigger {...props} {...context} container={context.container} ref={ref} />}
   </ScrollContext.Consumer>
 ));
 
