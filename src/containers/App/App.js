@@ -5,21 +5,18 @@ import 'styles/layout.css';
 
 import React from 'react';
 import {
-  Switch,
-  Route,
   withRouter,
   matchPath,
-  Redirect,
 } from 'react-router-dom';
-import Loading from '../../components/Loading/Loading';
-import Homepage from '../../components/Homepage/Homepage';
-import Nav from '../../components/Nav/Nav';
-import Work from '../../components/Work/Work';
-import NotFound from '../../components/NotFound/NotFound';
-import CaseStudy from '../CaseStudy/CaseStudy';
-import About from '../About/About';
-import View from '../../components/View/View';
-import Preview from '../PrismicApp/Preview/Preview';
+import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
+import Loading from 'components/Loading/Loading';
+import Homepage from 'components/Homepage/Homepage';
+import Nav from 'components/Nav/Nav';
+import Work from 'components/Work/Work';
+import View from 'components/View/View';
+import NotFound from 'components/NotFound/NotFound';
+import CaseStudy from 'containers/CaseStudy/CaseStudy';
+import About from 'containers/About/About';
 import './App.css';
 
 class App extends React.Component {
@@ -160,59 +157,43 @@ class App extends React.Component {
 
     if (caseStudyList && siteInfo) {
       return (
-        <Switch>
-          <Route
-            exact
-            path="/preview"
-            render={routeProps => <Preview {...routeProps} prismicCtx={this.props.prismicCtx} />}
+        <React.Fragment>
+          <Nav
+            view={view}
+            scrolledPastCsCover={scrolledPastCsCover}
+            changeView={changeView}
+            currentCaseStudy={currentCaseStudy}
           />
-          <Route
-            path="/@:ctx"
-            render={({ match }) => (
-              <Redirect to={`/?=${match.params.ctx}`} />
-              )}
-          />
-          <Route
-            path="/"
-            render={() => (
-              <React.Fragment>
-                <Nav
-                  view={view}
-                  scrolledPastCsCover={scrolledPastCsCover}
-                  changeView={changeView}
-                  currentCaseStudy={currentCaseStudy}
-                />
-                <main className={`views -view-is-${view}`}>
-                  <View aside name="work" view={view}>
-                    <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
-                  </View>
-                  <View name="root" view={view}>
-                    {
-                      currentCaseStudy ? (
-                        <CaseStudy
-                          prismicCtx={this.props.prismicCtx}
-                          route={currentCaseStudy}
-                          isAnimatingToCs={isAnimatingToCs}
-                          updateCsScrollPos={updateCsScrollPos}
-                        />
-                      ) : (<Homepage data={siteInfo} />)
-                    }
-                  </View>
-                  <View aside name="about" view={view} >
-                    <About prismicCtx={this.props.prismicCtx} />
-                  </View>
-                </main>
-              </React.Fragment>
-              )}
-          />
-          <Route component={NotFound} />
-        </Switch>
+          <main className={`views -view-is-${view}`}>
+            <View aside name="work" view={view}>
+              <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
+            </View>
+            <View name="root" view={view}>
+              {
+                currentCaseStudy ? (
+                  <CaseStudy
+                    prismicCtx={this.props.prismicCtx}
+                    route={currentCaseStudy}
+                    isAnimatingToCs={isAnimatingToCs}
+                    updateCsScrollPos={updateCsScrollPos}
+                  />
+                ) : (<Homepage data={siteInfo} />)
+              }
+            </View>
+            <View aside name="about" view={view} >
+              <About prismicCtx={this.props.prismicCtx} />
+            </View>
+          </main>
+        </React.Fragment>
       );
     }
     if (notFound) {
       return <NotFound />;
     }
-    return <Loading />;
+    return (
+      <PreviewRouter prismicCtx={this.props.prismicCtx}>
+        <Loading />
+      </PreviewRouter>);
   }
 }
 

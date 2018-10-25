@@ -12,7 +12,7 @@ export default class Preview extends React.Component {
     const params = qs.parse(props.location.search.slice(1));
     props.prismicCtx.api.previewSession(params.token, PrismicConfig.linkResolver, '/').then((url) => {
       Cookies.set(Prismic.previewCookie, params.token, { expires: PREVIEW_EXPIRES });
-      props.history.push(url);
+      window.location.replace(url);
     });
   }
 
