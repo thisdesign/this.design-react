@@ -22,22 +22,13 @@ export default class VideoNode extends React.Component {
 
   componentDidMount() {
     if (this.props.controls) {
-      this.onMetaDataLoad(() => {
-        this.setMetaData();
-      });
+      this.addMetadataListener();
     }
   }
 
   componentWillUnmount() {
     this.stopTimer();
-  }
-
-  onMetaDataLoad = (callback) => {
-    if (this.getElem()) {
-      this.getElem().addEventListener('loadedmetadata', () => {
-        callback();
-      });
-    }
+    this.removeMetadataListener();
   }
 
   setMetaData() {
@@ -51,6 +42,14 @@ export default class VideoNode extends React.Component {
   getDuration = () => this.getElem().duration
 
   getPercentComplete = () => (this.getElapsed() / this.getDuration()) * 100
+
+  addMetadataListener = () => {
+    this.getElem().addEventListener('loadedmetadata', () => this.setMetaData);
+  }
+
+  removeMetadataListener = () => {
+    this.getElem().removeEventListener('loadedmetadata', () => this.setMetaData);
+  }
 
   stopTimer = () => {
     clearInterval(this.interval);
