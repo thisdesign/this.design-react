@@ -7,7 +7,7 @@ class Parallax extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
-    this.throttledParalax = throttle(this.initParallax, 100);
+    this.throttledParalax = throttle(this.initParallax, 40);
   }
 
   state = {
