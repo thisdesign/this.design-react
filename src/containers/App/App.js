@@ -165,10 +165,10 @@ class App extends React.Component {
             currentCaseStudy={currentCaseStudy}
           />
           <main className={`views -view-is-${view}`}>
-            <View aside name="work" view={view}>
+            <View aside viewName="work" view={view}>
               <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
             </View>
-            <View name="root" view={view}>
+            <View viewName="root" view={view}>
               {
                 currentCaseStudy ? (
                   <CaseStudy
@@ -180,7 +180,7 @@ class App extends React.Component {
                 ) : (<Homepage data={siteInfo} />)
               }
             </View>
-            <View aside name="about" view={view} >
+            <View aside viewName="about" view={view} >
               <About prismicCtx={this.props.prismicCtx} />
             </View>
           </main>
