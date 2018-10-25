@@ -1,7 +1,6 @@
 import React from 'react';
-import throttle from 'lodash.throttle';
+// import throttle from 'lodash.throttle';
 import ScrollContext from './ScrollContext/ScrollContext';
-
 
 export default class ScrollContainer extends React.Component {
   constructor(props) {
@@ -9,26 +8,21 @@ export default class ScrollContainer extends React.Component {
     this.container = React.createRef();
   }
 
-  state = {
-    scrollTop: 0,
-  }
-
-  componentDidMount() {
-    this.container.current.addEventListener('scroll', throttle(this.logPosition, 60 / 1000));
-    this.getContainer();
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return nextProps.viewName === nextProps.view || this.props.viewName === this.props.view;
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.view !== this.props.view && this.props.view === 'root') {
-      this.container.current.scrollTop = 0;
-    }
-  }
-
-  getContainer = () => this.container
+  // componentWillUnmount() {
+  //   this.container.current.removeEventListener();
+  // }
+  //
+  // onScroll = (callback) => {
+  //   if (callback) {
+  //     this.container.current.addEventListener('scroll', throttle(callback, 60 / 1000));
+  //   } else {
+  //     console.log('expected a callback');
+  //   }
+  // }
+  //
+  // removeListener = (callback) => {
+  //   this.container.current.removeEventListener('scroll', callback);
+  // }
 
   scrollToTop = (speed) => {
     const scrolling = setInterval(() => {
@@ -40,23 +34,19 @@ export default class ScrollContainer extends React.Component {
     }, 1000 / 60);
   }
 
-  logPosition = () => {
-    this.setState({ scrollTop: this.container.current.scrollTop });
-  }
-
   render() {
     const { children, className } = this.props;
     return (
       <div className={className} ref={this.container}>
         <ScrollContext.Provider value={{
-            scrollTop: this.state.scrollTop,
-            scrollToTop: this.scrollToTop,
-            getContainer: this.getContainer,
-          }}
+           container: this.container,
+           onScroll: this.onScroll,
+           removeListener: this.removeListener,
+           scrollToTop: this.scrollToTop,
+         }}
         >
           {children}
         </ScrollContext.Provider>
-      </div>
-    );
+      </div>);
   }
 }

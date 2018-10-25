@@ -1,4 +1,5 @@
 import React from 'react';
+import throttle from 'lodash.throttle';
 import isInView from 'util/isInView';
 import ScrollContext from '../ScrollContainer/ScrollContext/ScrollContext';
 
@@ -6,6 +7,7 @@ class ScrollTrigger extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
+    this.throttledSetCondition = throttle(this.setCondition, 100);
   }
   state = {
     active: false,
@@ -13,12 +15,11 @@ class ScrollTrigger extends React.Component {
 
   componentDidMount() {
     this.setCondition();
+    this.watchScroll();
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.scrollTop !== prevProps.scrollTop) {
-      this.setCondition();
-    }
+  componentWillUnmount() {
+    this.unWatchScroll();
   }
 
   setCondition = () => {
@@ -32,6 +33,16 @@ class ScrollTrigger extends React.Component {
 
   getRect = () => this.target.current.getBoundingClientRect();
 
+  getContainer = () => this.props.container.current
+
+  watchScroll = () => {
+    this.getContainer().addEventListener('scroll', this.throttledSetCondition);
+  }
+
+  unWatchScroll = () => {
+    this.getContainer().removeEventListener('scroll', this.throttledSetCondition);
+  }
+
   runTriggerMethods = () => {
     const { onEnter, onExit } = this.props;
     if (onEnter && this.meetsCriteria()) {
@@ -44,14 +55,13 @@ class ScrollTrigger extends React.Component {
   conditionChanged = () => this.state.active !== this.meetsCriteria()
 
   meetsCriteria = () => {
-    const offset = this.getOffset();
-    const rect = this.getRect();
-
     if (this.props.inView) {
-      return isInView(rect, offset);
+      return this.isInView();
     }
     return this.isBeyondTrigger();
   }
+
+  isInView = () => isInView(this.getRect(), this.getOffset());
 
   isBeyondTrigger = () => this.getRect().top - this.getOffset() < 0
 
@@ -77,7 +87,7 @@ ScrollTrigger.defaultProps = {
 
 export default React.forwardRef((props, ref) => (
   <ScrollContext.Consumer>
-    {context => <ScrollTrigger {...props} scrollTop={context.scrollTop} ref={ref} />}
+    {context => <ScrollTrigger {...props} {...context} container={context.container} ref={ref} />}
   </ScrollContext.Consumer>
 ));
 

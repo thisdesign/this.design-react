@@ -1,51 +1,63 @@
 import React from 'react';
 import isInView from 'util/isInView';
-import isMobile from 'util/isMobile';
+import throttle from 'lodash.throttle';
 import ScrollContext from '../ScrollContainer//ScrollContext/ScrollContext';
 
 class Parallax extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
+    this.throttledParalax = throttle(this.initParallax, 1000 / 60);
   }
 
   state = {
-    isInView: false,
+    offset: 0,
   }
 
-  componentDidUpdate() {
-    if (this.parallaxIsEnabled()) {
-      this.executeParallax();
-    }
+  componentDidMount() {
+    this.watchScroll();
   }
 
-  setIsInView = (rect) => {
-    if (isInView(rect) !== this.state.isInView) {
-      this.setState({ isInView: isInView(rect) });
-    }
+  componentWillUnmount() {
+    this.unWatchScroll();
   }
 
-  executeParallax = () => {
-    this.updatePosition((rect) => {
-      this.setIsInView(rect);
+  setOffset = () => {
+    this.setState({
+      offset: this.getOffset(),
     });
   }
 
-  parallaxIsEnabled = () => !isMobile() && !this.props.forceMobile;
+  getContainer = () => this.props.container.current
 
-  updatePosition = (callback) => {
-    const rect = this.target.current.getBoundingClientRect();
-    const offset = ((rect.top + rect.height) / 2) - (window.innerHeight / 2);
+  getRect = () => this.target.current.getBoundingClientRect()
+
+
+  getOffset = () => {
+    const { height, top } = this.getRect();
+    const offset = ((top + height) / 2) - (window.innerHeight / 2);
     const { speed } = this.props;
-    this.offset = offset / -speed;
+    return offset / -speed;
+  }
 
-    callback(rect);
+  isInView = () => isInView(this.getRect(), 0);
+
+  watchScroll = () => {
+    this.getContainer().addEventListener('scroll', this.throttledParalax);
+  }
+
+  unWatchScroll = () => {
+    this.getContainer().removeEventListener('scroll', this.throttledParalax);
+  }
+
+  initParallax = () => {
+    if (this.isInView()) {
+      this.setOffset();
+    }
   }
 
   render() {
-    const style = this.state.isInView
-      ? { transform: `translate(0, ${this.offset}px` }
-      : null;
+    const style = { transform: `translate(0, ${this.state.offset}px` };
 
     return (
       <div
@@ -66,7 +78,7 @@ Parallax.defaultProps = {
 
 export default React.forwardRef((props, ref) => (
   <ScrollContext.Consumer>
-    {context => <Parallax {...props} scrollTop={context.scrollTop} ref={ref} />}
+    {context => <Parallax {...props} container={context.container} ref={ref} />}
   </ScrollContext.Consumer>
 ));
 
