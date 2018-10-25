@@ -8,22 +8,6 @@ export default class ScrollContainer extends React.Component {
     this.container = React.createRef();
   }
 
-  // componentWillUnmount() {
-  //   this.container.current.removeEventListener();
-  // }
-  //
-  // onScroll = (callback) => {
-  //   if (callback) {
-  //     this.container.current.addEventListener('scroll', throttle(callback, 60 / 1000));
-  //   } else {
-  //     console.log('expected a callback');
-  //   }
-  // }
-  //
-  // removeListener = (callback) => {
-  //   this.container.current.removeEventListener('scroll', callback);
-  // }
-
   scrollToTop = (speed) => {
     const scrolling = setInterval(() => {
       const { scrollTop } = this.container.current;
