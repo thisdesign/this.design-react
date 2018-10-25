@@ -1,12 +1,13 @@
 import React from 'react';
 import isInView from 'util/isInView';
-import isMobile from 'util/isMobile';
+import throttle from 'lodash.throttle';
 import ScrollContext from '../ScrollContainer//ScrollContext/ScrollContext';
 
 class Parallax extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
+    this.throttledParalax = throttle(this.initParallax, 100);
   }
 
   state = {
@@ -42,11 +43,11 @@ class Parallax extends React.Component {
   isInView = () => isInView(this.getRect(), 0);
 
   watchScroll = () => {
-    this.getContainer().addEventListener('scroll', this.initParallax);
+    this.getContainer().addEventListener('scroll', this.throttledParalax);
   }
 
   unWatchScroll = () => {
-    this.getContainer().removeEventListener('scroll', this.initParallax);
+    this.getContainer().removeEventListener('scroll', this.throttledParalax);
   }
 
   initParallax = () => {

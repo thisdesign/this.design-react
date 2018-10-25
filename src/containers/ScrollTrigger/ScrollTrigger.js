@@ -1,4 +1,5 @@
 import React from 'react';
+import throttle from 'lodash.throttle';
 import isInView from 'util/isInView';
 import ScrollContext from '../ScrollContainer/ScrollContext/ScrollContext';
 
@@ -6,6 +7,7 @@ class ScrollTrigger extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
+    this.throttledSetCondition = throttle(this.setCondition, 100);
   }
   state = {
     active: false,
@@ -34,11 +36,11 @@ class ScrollTrigger extends React.Component {
   getContainer = () => this.props.container.current
 
   watchScroll = () => {
-    this.getContainer().addEventListener('scroll', this.setCondition);
+    this.getContainer().addEventListener('scroll', this.throttledSetCondition);
   }
 
   unWatchScroll = () => {
-    this.getContainer().removeEventListener('scroll', this.setCondition);
+    this.getContainer().removeEventListener('scroll', this.throttledSetCondition);
   }
 
   runTriggerMethods = () => {
