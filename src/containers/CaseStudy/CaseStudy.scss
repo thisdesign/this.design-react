@@ -8,7 +8,7 @@
   margin-top: $variable-spacing-lg;
   opacity: 0;
   transform: translateY(50px);
-  transition: $anim-x-slow opacity $ease-decel, $anim-x-slow transform $ease-decel;
+  transition: $anim-slow opacity $ease-decel, $anim-slow transform $ease-decel;
 
   &.-active {
     opacity: 1;
