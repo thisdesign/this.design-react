@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import './CursorDot.css';
+import icons from './icons';
 
 class CursorDot extends Component {
+  state = {
+    icon: 'about',
+  }
   componentDidMount() {
     this.addListener();
   }
@@ -31,6 +35,8 @@ class CursorDot extends Component {
   }
 
   render() {
+    // const overlay = '';
+    console.log(icons.about);
     return (
       <React.Fragment>
         {this.props.children}
@@ -38,7 +44,13 @@ class CursorDot extends Component {
           className={`cursorDot ${this.props.enabled ? 'cursorDot__enabled' : ''} -noMouse`}
           style={{ ...this.coords }}
           ref={(el) => { this.el = el; }}
-        />
+        >
+          {icons[this.state.icon] &&
+            <div className="cursorDot__overlay">
+              {icons[this.state.icon]}
+            </div>
+          }
+        </div>
       </React.Fragment>
     );
   }

@@ -1,6 +1,13 @@
 @import '../../styles/variables.scss';
 
-$cursor-size: 20px;
+$cursor-size: 100px;
+$text-circle-size: 70px;
+$spin-speed: 9600ms;
+
+@keyframes spin {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
 
 .cursorDot {
   height: $cursor-size;
@@ -14,9 +21,19 @@ $cursor-size: 20px;
   z-index: 1003;
   transform: scale(0);
   transition: transform $anim-fast $ease-decel;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &__enabled {
     transform: scale(1);
+  }
+
+  &__overlay {
+    fill: $white;
+    width: $text-circle-size;
+    height: $text-circle-size;
+    animation: spin $spin-speed linear infinite;
   }
 
 }
