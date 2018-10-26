@@ -17,7 +17,6 @@ import View from 'components/View/View';
 import NotFound from 'components/NotFound/NotFound';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import About from 'containers/About/About';
-import CursorDot from '../../components/CursorDot/CursorDot';
 
 import './App.css';
 
@@ -44,7 +43,6 @@ class App extends React.Component {
      * @type {Boolean}
      */
     isAnimatingToCs: false,
-    cursorEnabled: true,
     scrolledPastCsCover: null,
   };
 
@@ -147,7 +145,6 @@ class App extends React.Component {
       currentCaseStudy,
       isAnimatingToCs,
       scrolledPastCsCover,
-      cursorEnabled,
     } = this.state;
     const {
       changeView,
@@ -158,7 +155,6 @@ class App extends React.Component {
     if (caseStudyList && siteInfo) {
       return (
         <React.Fragment>
-          <CursorDot enabled={cursorEnabled} />
           <Nav
             view={view}
             scrolledPastCsCover={scrolledPastCsCover}

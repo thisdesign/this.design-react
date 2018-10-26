@@ -10,13 +10,15 @@ class CursorDot extends Component {
   }
 
   handleMouseMove = (e) => {
-    this.mouseY = e.clientY;
-    this.mouseX = e.clientX;
+    this.y = e.clientY;
+    this.x = e.clientX;
     this.calculateStyle();
   };
 
   calculateStyle = () => {
-    const transform = `translate3d(${this.mouseX}px, ${this.mouseY}px, 0)`;
+    const { x, y } = this;
+    const transform = `translate3d(${x}px, ${y}px, 0)`;
+    this.el.classList.remove('-noMouse');
     this.el.style.transform = transform;
   }
 
@@ -33,7 +35,7 @@ class CursorDot extends Component {
       <React.Fragment>
         {this.props.children}
         <div
-          className={`cursorDot ${this.props.enabled ? 'cursorDot__enabled' : ''}`}
+          className={`cursorDot ${this.props.enabled ? 'cursorDot__enabled' : ''} -noMouse`}
           style={{ ...this.coords }}
           ref={(el) => { this.el = el; }}
         />
