@@ -33,18 +33,15 @@ $spin-speed: 7000ms;
   }
 
   &__text {
-    $circle-text-offset: ($cursor-size - $text-circle-size) / 2;
     fill: $white;
     width: $text-circle-size;
     height: $text-circle-size;
     animation: spin $spin-speed linear infinite;
-    position: absolute;
-    top: $circle-text-offset;
-    left: $circle-text-offset;
+    position: relative;
 
     svg {
       opacity: 0;
-      transform: scale(.5);
+      transform: scale(.85);
       transition: transform $anim-xx-fast $ease-accel, opacity $anim-xx-fast $ease-accel;
     }
 
@@ -54,5 +51,23 @@ $spin-speed: 7000ms;
         transform: scale(1);
       }
     }
+  }
+
+  .cursor__text {
+    $circle-text-offset: ($cursor-size - $text-circle-size) / 2;
+    top: -$cursor-size + $circle-text-offset;
+    left: $circle-text-offset;
+  }
+}
+
+.cursorAnchor {
+  position: relative;
+
+  &__wrapper {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+
   }
 }
