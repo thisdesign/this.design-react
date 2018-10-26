@@ -1,0 +1,22 @@
+@import '../../styles/variables.scss';
+
+$cursor-size: 20px;
+
+.cursorDot {
+  height: $cursor-size;
+  width: $cursor-size;
+  left: $cursor-size / -2;
+  top: $cursor-size / -2;
+  background: $color-primary;
+  border-radius: 50%;
+  pointer-events: none;
+  position: fixed;
+  z-index: 1003;
+  transform: scale(0);
+  transition: transform $anim-fast $ease-decel;
+
+  &__enabled {
+    transform: scale(1);
+  }
+
+}
