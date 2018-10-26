@@ -12,6 +12,7 @@ const View = ({
     view === viewName ? '-is-active' : '',
     aside ? 'view--aside' : '',
   ].join(' ');
+
   return (
     <section className={className}>
       <ScrollContainer className="view__inner" viewName={viewName} view={view}>

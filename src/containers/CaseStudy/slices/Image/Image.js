@@ -2,7 +2,10 @@ import React from 'react';
 import './Image.css';
 
 const Image = (props) => {
-  const image = props.data.image || props.data.file; // v2 vs v1
+  const isV2Slice = props.data.primary !== undefined;
+  const image = isV2Slice // get based on v1 vs v2 api
+    ? props.data.primary.image
+    : props.data.value[0].file;
   const imageIsFullScreen = props.data.layout === 'fullscreen';
 
   const largeImage = image.size_2560;

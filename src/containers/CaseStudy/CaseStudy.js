@@ -79,34 +79,35 @@ export default class CaseStudy extends React.Component {
         backgroundColor: doc.data.background_color,
       };
 
-      const slices = doc.data.content.map((slice) => {
-        switch (slice.slice_type) {
+      const slices = doc.data.content.map((data) => {
+        const atts = { data, title };
+        switch (data.slice_type) {
           case 'text':
-            return <Text data={slice} />;
+            return <Text {...atts} />;
           case 'columns':
-            return <Columns data={slice} title={title} />;
+            return <Columns {...atts} />;
           case 'columns-v2':
-            return <Columns data={slice} title={title} />;
+            return <Columns {...atts} />;
           case 'image':
-            return <Image data={slice.value[0]} title={title} />;
+            return <Image {...atts} />;
           case 'image-v2':
-            return <Image data={slice.primary} title={title} />;
+            return <Image {...atts} />;
           case 'diptych':
-            return <Diptych data={slice} title={title} />;
+            return <Diptych {...atts} />;
           case 'diptych-v2':
-            return <Diptych data={slice} title={title} />;
+            return <Diptych {...atts} />;
           case 'video':
-            return <Video data={slice} />;
+            return <Video {...atts} />;
           case 'gallery':
-            return <Gallery data={slice} title={title} />;
+            return <Gallery {...atts} />;
           case 'gallery-v2':
-            return <Gallery data={slice} title={title} />;
+            return <Gallery {...atts} />;
           case 'pullquote':
-            return <Pullquote data={slice} />;
+            return <Pullquote {...atts} />;
           case 'website':
-            return <Website data={slice} title={title} />;
+            return <Website {...atts} />;
           default:
-            return <p className="future">{slice.slice_type} goes here</p>;
+            return <p className="future">{data.slice_type} goes here</p>;
         }
       });
 
@@ -115,16 +116,20 @@ export default class CaseStudy extends React.Component {
           <div className="view__child">
             <CaseStudyCover data={doc.data} />
             <ScrollTrigger
-              offset={-25}
+              offset={0}
               onEnter={() => this.props.updateCsScrollPos(true)}
               onExit={() => this.props.updateCsScrollPos(false)}
             >
               <div className="casestudy__body">
-                {!isAnimatingToCs && slices.map(slice => (
-                  <ScrollTrigger offset={85} className="casestudy__block" key={uuidv1()}>
-                    {slice}
-                  </ScrollTrigger>
-                ))}
+                {!isAnimatingToCs && slices.map((slice) => {
+                  const type = slice.props.data.slice_type.replace('-v2', '');
+                  const className = `casestudy__block casestudy__block--${type}`;
+                  return (
+                    <ScrollTrigger offset={85} className={className} key={uuidv1()}>
+                      {slice}
+                    </ScrollTrigger>
+                );
+              })}
               </div>
             </ScrollTrigger>
           </div>
