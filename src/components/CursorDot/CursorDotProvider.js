@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CursorContext from 'components/CursorDot/CursorContext';
 import './CursorDot.css';
 import icons from './icons';
 
@@ -35,9 +36,19 @@ class CursorDot extends Component {
     window.removeEventListener('mousemove', this.handleMouseMove);
   }
 
+  updateCursor = (options) => {
+    const enabled = options ? (options.enabled || false) : false;
+    const icon = options ? (options.icon || null) : null;
+    this.setState({ enabled, icon });
+  }
+
   render() {
     return (
-      <React.Fragment>
+      <CursorContext.Provider
+        value={{
+          updateCursor: this.updateCursor,
+        }}
+      >
         {this.props.children}
         <div
           className="cursor"
@@ -51,7 +62,7 @@ class CursorDot extends Component {
             </div>
           }
         </div>
-      </React.Fragment>
+      </CursorContext.Provider>
     );
   }
 }

@@ -1,8 +1,11 @@
 import React from 'react';
+import CursorContext from 'components/CursorDot/CursorContext';
 import propTypes from 'prop-types';
 import icons from './icons';
 
 export default class CursorAnchor extends React.Component {
+  static contextType = CursorContext;
+
   state= {
     hovered: false,
   }
@@ -13,12 +16,21 @@ export default class CursorAnchor extends React.Component {
     }
   }
 
+
   enableHover = () => {
+    this.context.updateCursor({
+      enabled: true,
+      icon: this.props.detched && this.props.textId,
+    });
     this.setState({ hovered: true });
   };
 
   disableHover = () => {
     this.setState({ hovered: false });
+    this.context.updateCursor({
+      enabled: false,
+      icon: 'about',
+    });
   };
 
   render() {

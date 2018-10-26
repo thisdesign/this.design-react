@@ -15,8 +15,8 @@
     "prismic-reactjs": "^0.2.0",
     "prop-types": "^15.6.2",
     "qs": "^6.4.0",
-    "react": "^16.5.1",
-    "react-dom": "^16.5.1",
+    "react": "^16.6.0",
+    "react-dom": "^16.6.0",
     "react-router-dom": "^4.3.1",
     "uuid": "^3.3.2",
     "whatwg-fetch": "~2.0.3"
