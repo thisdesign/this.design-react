@@ -4,8 +4,8 @@ import icons from './icons';
 
 class CursorDot extends Component {
   state = {
-    icon: 'close',
-    enabled: true,
+    icon: null,
+    enabled: false,
   }
   componentDidMount() {
     this.addListener();
@@ -44,10 +44,12 @@ class CursorDot extends Component {
           style={{ ...this.coords }}
           ref={(el) => { this.el = el; }}
         >
-          <div className={` cursor__dot ${this.state.enabled ? 'cursor__dot--enabled' : ''}`} />
-          <div className={`cursor__text ${this.state.enabled ? 'cursor__text--enabled' : ''}`}>
-            {icons[this.state.icon]}
-          </div>
+          <div className={` cursor__dot ${this.state.enabled && 'cursor__dot--enabled'}`} />
+          {icons[this.state.icon] &&
+            <div className={`cursor__text ${this.state.enabled && 'cursor__text--enabled'}`}>
+              {icons[this.state.icon]}
+            </div>
+          }
         </div>
       </React.Fragment>
     );
