@@ -4,7 +4,7 @@ import icons from './icons';
 
 class CursorDot extends Component {
   state = {
-    icon: 'about',
+    icon: 'close',
   }
   componentDidMount() {
     this.addListener();
@@ -35,8 +35,6 @@ class CursorDot extends Component {
   }
 
   render() {
-    // const overlay = '';
-    console.log(icons.about);
     return (
       <React.Fragment>
         {this.props.children}

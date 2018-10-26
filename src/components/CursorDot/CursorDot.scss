@@ -1,12 +1,12 @@
 @import '../../styles/variables.scss';
 
 $cursor-size: 100px;
-$text-circle-size: 70px;
+$text-circle-size: 60px;
 $spin-speed: 9600ms;
 
 @keyframes spin {
-    from {transform: rotate(0deg);}
-    to {transform: rotate(360deg);}
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
 }
 
 .cursorDot {

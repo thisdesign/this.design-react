@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 body {
   background: #f9f9f9;
 }
@@ -18,14 +20,9 @@ img {
 }
 
 /* Container */
-::selection {
-  background: #ECAA9A;
-  /* WebKit/Blink Browsers */
-}
-
-::-moz-selection {
-  background: #ECAA9A;
-  /* Gecko Browsers */
+::selection,
+::-moz-selection  {
+  background: $color-primary;
 }
 
 .future {
