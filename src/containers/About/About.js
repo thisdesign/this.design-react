@@ -35,36 +35,42 @@ export default class About extends React.Component {
   }
 
   render() {
-    const { doc, notFound } = this.state;
-
-    if (doc) {
-      const slices = doc.data.content.map((slice) => {
-        switch (slice.slice_type) {
-          case 'text':
-            return <Text data={slice} />;
-          case 'columns':
-            return <Columns data={slice} />;
-          case 'instagram':
-            return <Instagram data={slice} />;
-          case 'gridwall-v2':
-            return <Gridwall data={slice} />;
-          case 'conclusion':
-            return <Conclusion data={slice} />;
-          case 'color-start':
-            return <ScrollTrigger />;
-          default:
-            return <p className="future">{slice.slice_type} goes here</p>;
-        }
-      });
+    if (!this.state.notFound) {
+      const { doc } = this.state;
+      const slices = doc ? (
+        doc.data.content
+          // map 'slice_type' to component
+          .map((slice) => {
+            switch (slice.slice_type) {
+              case 'text':
+                return <Text data={slice} />;
+              case 'columns':
+                return <Columns data={slice} />;
+              case 'instagram':
+                return <Instagram data={slice} />;
+              case 'gridwall-v2':
+                return <Gridwall data={slice} />;
+              case 'conclusion':
+                return <Conclusion data={slice} />;
+              case 'color-start':
+                return <ScrollTrigger />;
+              default:
+                return <p className="future">{slice.slice_type} goes here</p>;
+            }
+          })
+          // map to wrapping div
+          .map(slice => (
+            <div className="about__block" key={uuidv1()}>
+              {slice}
+            </div>))
+      ) : null;
 
       return (
         <div className="about__inner view__child">
-          {slices.map(slice => <div className="about__block" key={uuidv1()}>{slice}</div>)}
+          { slices || <Loading />}
         </div>
       );
-    } else if (notFound) {
-      return <NotFound />;
     }
-    return <Loading />;
+    return <NotFound />;
   }
 }
