@@ -7,6 +7,12 @@ export default class CursorAnchor extends React.Component {
     hovered: false,
   }
 
+  componentWillMount() {
+    if (!(this.props.textId in icons)) {
+      console.error(`${this.props.textId} was not found in icons.js`); // eslint-disable-line
+    }
+  }
+
   enableHover = () => {
     this.setState({ hovered: true });
   };
@@ -19,16 +25,23 @@ export default class CursorAnchor extends React.Component {
     return (
       <div onMouseEnter={this.enableHover} onMouseLeave={this.disableHover} className="cursorAnchor">
         {this.props.children}
-        <div className="cursorAnchor__wrapper">
-          <div className={`cursor__text ${this.state.hovered && 'cursor__text--enabled'}`}>
-            { icons[this.props.textId] }
+        {!this.props.detached &&
+          <div className="cursorAnchor__wrapper">
+            <div className={`cursor__text ${this.state.hovered && 'cursor__text--enabled'}`}>
+              { icons[this.props.textId] }
+            </div>
           </div>
-        </div>
+        }
       </div>
     );
   }
 }
 
+CursorAnchor.defaultProps = {
+  detached: false,
+};
+
 CursorAnchor.propTypes = {
   textId: propTypes.string.isRequired,
+  detached: propTypes.bool,
 };
