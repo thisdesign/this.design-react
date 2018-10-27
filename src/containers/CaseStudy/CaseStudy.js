@@ -122,7 +122,7 @@ export default class CaseStudy extends React.Component {
             >
               <div className="casestudy__body">
                 {!isAnimatingToCs && slices.map((slice) => {
-                  const type = slice.props.data.slice_type.replace('-v2', '');
+                  const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
                   const className = `casestudy__block casestudy__block--${type}`;
                   return (
                     <ScrollTrigger offset={85} className={className} key={uuidv1()}>

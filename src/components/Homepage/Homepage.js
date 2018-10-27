@@ -10,24 +10,37 @@ class Homepage extends Component {
   }
 
   state = {
-    videoLoaded: false,
+    videoLoaded: null,
   }
 
   componentDidMount() {
+    if (this.video && this.video.current) {
+      this.hideVideoLoad();
+    }
+  }
+
+  hideVideoLoad = () => {
+    this.setState({ videoLoaded: false }, () => {
+      this.showVideoOnLoad();
+    });
+  }
+
+  showVideoOnLoad = () => {
     this.video.current.onloadeddata = () => {
       this.setState({ videoLoaded: true });
     };
   }
+
   render() {
     const { data } = this.props.data;
     const { image } = data;
     const videoURLs = data.video_group.map(vid => vid.link.url);
     const randomUrl = videoURLs[Math.floor(Math.random() * videoURLs.length)];
-    const { videoLoaded } = this.state;
+    const videoLoaded = this.state.videoLoaded !== false;
 
     return (
       <div className="homepage">
-        {!videoLoaded && <Loading />}
+        {(!videoLoaded && !isMobile()) && <Loading />}
         <div className="homepage__inner">
           {!isMobile()
             ? (
