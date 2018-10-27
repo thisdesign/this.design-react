@@ -5,6 +5,11 @@ export default class PercentRadii extends React.Component {
     super(props);
     this.obj = React.createRef();
   }
+
+  state = {
+    radius: 0,
+  }
+
   componentDidMount() {
     this.setRadius();
   }
@@ -16,12 +21,14 @@ export default class PercentRadii extends React.Component {
   getRadius = () => (this.getObjMeas() * (this.props.percent / 100))
 
   setRadius = () => {
-    this.radius = this.getRadius();
+    this.setState({
+      radius: this.getRadius(),
+    });
   }
 
   render() {
     const style = {
-      borderRadius: `${this.radius}px`,
+      borderRadius: `${this.state.radius}px`,
       overflow: 'hidden',
     };
     return (
