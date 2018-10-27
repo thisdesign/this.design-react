@@ -20,7 +20,7 @@ export default class CursorAnchor extends React.Component {
   enableHover = () => {
     this.context.updateCursor({
       enabled: true,
-      icon: this.props.detched && this.props.textId,
+      icon: this.props.detached && this.props.textId,
     });
     this.setState({ hovered: true });
   };
@@ -29,7 +29,7 @@ export default class CursorAnchor extends React.Component {
     this.setState({ hovered: false });
     this.context.updateCursor({
       enabled: false,
-      icon: 'about',
+      icon: null,
     });
   };
 
