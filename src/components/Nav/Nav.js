@@ -41,7 +41,7 @@ const Nav = (props) => {
       <div className="nav__inner">
         {navLinks.map(link => (
           <div className="nav__item" key={link} >
-            <CursorAnchor textId={link}>
+            <CursorAnchor textId={view === 'root' ? link : 'close'}>
               <Link
                 to={(() => linkTo(link))()}
                 onClick={() => handleNavButton(link)}

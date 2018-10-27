@@ -35,7 +35,12 @@ export default class CursorAnchor extends React.Component {
 
   render() {
     return (
-      <div onMouseEnter={this.enableHover} onMouseLeave={this.disableHover} className="cursorAnchor">
+      <div
+        onMouseEnter={this.enableHover}
+        onClick={this.disableHover}
+        onMouseLeave={this.disableHover}
+        className="cursorAnchor"
+      >
         {this.props.children}
         {!this.props.detached &&
           <div className="cursorAnchor__wrapper">
