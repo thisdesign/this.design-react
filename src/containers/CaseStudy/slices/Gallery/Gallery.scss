@@ -3,7 +3,6 @@
 .caseStudy__gallery {
   position: relative;
 
-
   &__imageContainer {
     position: relative;
     overflow: hidden;
@@ -13,10 +12,12 @@
 
   &__indicators {
     display: flex;
-    margin-top: 30px;
-    align-items: center;
-    width: 100%;
-    justify-content: center;
+
+    &__inner {
+      position: relative;
+      display: inline-flex;
+      margin: 25px auto 0;
+    }
   }
 
   &--noZoom {
@@ -26,19 +27,37 @@
   }
 
   &__indicator {
-    width: 35px;
-    height: 3px;
-    background: $black;
-    opacity: .15;
-    display: inline-block;
-    margin: 0 6px;
-    transition: $anim-med opacity $ease-standard;
-    cursor: pointer;
+    $indicator-width: 40px;
+    $indicator-margin: 5px;
 
-    &--active {
+    width: $indicator-width + ($indicator-margin * 2);
+    height: 3px;
+    display: inline-block;
+    transition: $anim-x-fast transform $ease-standard;
+    cursor: pointer;
+    margin: 0 auto;
+
+    &::after {
+      content: '';
+      width: $indicator-width;
+      background: $color-grey-lt;
+      height: 3px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    &--current {
       z-index: 100;
-      position: relative;
+      left: 0;
+      top: 0;
+      position: absolute;
       opacity: .75;
+      transform: translate3d(200%, 0, 0);
+
+      &::after {
+        content: '';
+        background: $black;
+      }
     }
   }
 
