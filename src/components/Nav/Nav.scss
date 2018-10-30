@@ -16,6 +16,17 @@
     justify-content: space-between;
   }
 
+  &.-view-is-about {
+    .icon--grid {
+      opacity: 0; // hide 'work' link when view is 'about'
+    }
+  }
+
+  &.-view-is-work {
+    .icon--about {
+      opacity: 0; // hide 'about' link when view is 'work'
+    }
+  }
 
   .icon {
     pointer-events: all;
@@ -23,6 +34,8 @@
     height: 8px;
     width: 20px;
     cursor: pointer;
+    transition: opacity 300ms $ease-accel;
+
 
     &__item {
       position: absolute;
@@ -30,9 +43,9 @@
       height: 1.5px;
       background: $white;
       transition:
-        transform 300ms $ease-accel,
-        opacity 300ms $ease-accel,
-        background-color 300ms $ease-accel;
+        transform 300ms $ease-accel, // sass-lint:disable-line indentation
+        opacity 300ms $ease-accel, // sass-lint:disable-line indentation
+        background-color 300ms $ease-accel; // sass-lint:disable-line indentation
 
       // Applies to About & Grid
 
