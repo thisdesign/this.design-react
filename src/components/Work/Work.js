@@ -23,7 +23,12 @@ const Work = (props) => {
               alt={data.thumbnail.alt}
               nopin="nopin"
             />
-            <img className="work__link__item--svg" src={data.svg.url} alt={data.svg.alt} />
+            <img
+              className="work__link__item--svg"
+              nopin="nopin"
+              src={data.svg.url}
+              alt={data.svg.alt}
+            />
           </CursorAnchor>
         </div>
         <p className="work__link__item--title">{data.title}</p>
