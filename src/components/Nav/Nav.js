@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
-
 import './Nav.css';
 
 const Nav = (props) => {
@@ -41,13 +41,15 @@ const Nav = (props) => {
       <div className="nav__inner">
         {navLinks.map(link => (
           <div className="nav__item" key={link} >
-            <Link
-              to={(() => linkTo(link))()}
-              onClick={() => handleNavButton(link)}
-            >
-              {link === 'work' && <GridIcon view={view} />}
-              {link === 'about' && <AboutIcon view={view} />}
-            </Link>
+            <CursorAnchor textId={view === 'root' ? link : 'close'}>
+              <Link
+                to={(() => linkTo(link))()}
+                onClick={() => handleNavButton(link)}
+              >
+                {link === 'work' && <GridIcon view={view} />}
+                {link === 'about' && <AboutIcon view={view} />}
+              </Link>
+            </CursorAnchor>
           </div>
         ))}
       </div>

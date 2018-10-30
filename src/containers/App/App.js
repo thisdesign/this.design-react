@@ -17,6 +17,7 @@ import View from 'components/View/View';
 import NotFound from 'components/NotFound/NotFound';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import About from 'containers/About/About';
+
 import './App.css';
 
 class App extends React.Component {
@@ -46,10 +47,6 @@ class App extends React.Component {
   };
 
   componentDidUpdate(prevProps) {
-    /**
-     * Can't do anything without prismicCtx so make
-     * sure it has loaded before going any further
-     */
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
     if (hasLoadedCtx) {
       this.loadData();

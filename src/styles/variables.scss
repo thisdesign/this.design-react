@@ -4,7 +4,7 @@ $variable-spacing-lg: calc(1.5em + 5vw);
 $variable-spacing-vh: calc(1.5em + 6vw);
 $variable-spacing-vh-lg: calc(1.5em + 8vw);
 
-$color-primary: #ecaa9a;
+$color-primary: #d59680; // Peach
 $color-secondary: #ffa500;
 $color-grey: #797979;
 $color-grey-lt: #dadada;
@@ -34,4 +34,5 @@ $anim-x-slow: 1800ms;
 $anim-slow: 1200ms;
 $anim-med: 900ms;
 $anim-fast: 400ms;
-$anim-x-fast: 200ms
+$anim-x-fast: 200ms;
+$anim-xx-fast: 100ms;

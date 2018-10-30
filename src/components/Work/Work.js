@@ -1,4 +1,5 @@
 import React from 'react';
+import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import { Link } from 'react-router-dom';
 import './Work.css';
 
@@ -15,16 +16,19 @@ const Work = (props) => {
         key={uid}
       >
         <div className="work__link__wrapper">
-          <img
-            className="work__link__item"
-            src={data.thumbnail.url}
-            alt={data.thumbnail.alt}
-            nopin="nopin"
-          />
-          <img className="work__link__item--svg" src={data.svg.url} alt={data.svg.alt} />
+          <CursorAnchor textId="launch" detached>
+            <img
+              className="work__link__item"
+              src={data.thumbnail.url}
+              alt={data.thumbnail.alt}
+              nopin="nopin"
+            />
+            <img className="work__link__item--svg" src={data.svg.url} alt={data.svg.alt} />
+          </CursorAnchor>
         </div>
         <p className="work__link__item--title">{data.title}</p>
-      </Link>);
+      </Link>
+    );
   });
 
   return (
