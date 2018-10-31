@@ -33,6 +33,7 @@ export default class VideoNode extends React.Component {
   }
 
   setMetadata = () => {
+    this.round(this.getDuration());
     this.setState({ duration: this.getDuration() });
   }
 
@@ -43,6 +44,11 @@ export default class VideoNode extends React.Component {
   getDuration = () => this.getElem().duration;
 
   getPercentComplete = () => (this.getElapsed() / this.getDuration()) * 100
+
+  round = (input, decimals = 0) => {
+    const multiplier = 10 ** decimals;
+    return Math.round((input * multiplier)) / multiplier;
+  }
 
   addMetadataListener = () => {
     this.getElem().addEventListener('loadedmetadata', this.setMetadata);
@@ -86,8 +92,8 @@ export default class VideoNode extends React.Component {
   updateCurrentTime() {
     this.interval = setInterval(() => {
       this.setState({
-        elapsed: this.getElapsed(),
-        percentComplete: this.getPercentComplete(),
+        elapsed: this.round(this.getElapsed(), 2),
+        percentComplete: this.round(this.getPercentComplete(), 2),
       });
     }, 30);
   }
