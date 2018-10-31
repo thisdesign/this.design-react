@@ -70,8 +70,8 @@ export default class CaseStudy extends React.Component {
 
   render() {
     const { doc, notFound } = this.state;
-    const { isAnimatingToCs } = this.props;
-    if (doc) {
+    const { isAnimatingToCs, route } = this.props;
+    if (doc && doc.uid === route) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
 
       const customCmsAtts = {
