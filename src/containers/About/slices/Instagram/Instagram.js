@@ -17,7 +17,7 @@ export default class Instagram extends React.Component {
 
     fetch(url)
       .then(res => res.json())
-      .then(doc => this.setState({ data: doc.data }));
+      .then(doc => (doc && doc.data) && this.setState({ data: doc.data }));
   }
 
   render() {
