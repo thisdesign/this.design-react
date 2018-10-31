@@ -32,7 +32,7 @@ export default class VideoNode extends React.Component {
     this.removeMetadataListener();
   }
 
-  setMetaData() {
+  setMetadata = () => {
     this.setState({ duration: this.getDuration() });
   }
 
@@ -40,16 +40,16 @@ export default class VideoNode extends React.Component {
 
   getElapsed = () => this.getElem().currentTime;
 
-  getDuration = () => this.getElem().duration
+  getDuration = () => this.getElem().duration;
 
   getPercentComplete = () => (this.getElapsed() / this.getDuration()) * 100
 
   addMetadataListener = () => {
-    this.getElem().addEventListener('loadedmetadata', () => this.setMetaData);
+    this.getElem().addEventListener('loadedmetadata', this.setMetadata);
   }
 
   removeMetadataListener = () => {
-    this.getElem().removeEventListener('loadedmetadata', () => this.setMetaData);
+    this.getElem().removeEventListener('loadedmetadata', this.setMetadata);
   }
 
   stopTimer = () => {
