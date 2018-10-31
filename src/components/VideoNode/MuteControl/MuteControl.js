@@ -11,7 +11,10 @@ const MuteControl = props => (
   >
     <Mute />
   </div>
-
 );
+
+MuteControl.defaultProps = {
+  isMuted: true,
+};
 
 export default MuteControl;

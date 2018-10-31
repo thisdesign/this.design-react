@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ScrollTrigger from 'containers/ScrollTrigger/ScrollTrigger';
 import './VideoNode.css';
 import MuteControl from './MuteControl/MuteControl';
@@ -186,7 +187,15 @@ export default class VideoNode extends React.Component {
   }
 }
 
+VideoNode.propTypes = {
+  url: PropTypes.string.isRequired,
+  poster: PropTypes.string,
+  controls: PropTypes.bool,
+  muteToggle: PropTypes.bool,
+};
+
 VideoNode.defaultProps = {
   controls: false,
   muteToggle: false,
+  poster: null,
 };

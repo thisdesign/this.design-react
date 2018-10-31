@@ -1,11 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import PercentRadii from 'containers/PercentRadii/PercentRadii';
 import './MobileFrame.css';
 
-const WebsiteFrame = props => (
+const MobileFrame = props => (
   <PercentRadii className="mobileFrame" percent={8}>
-    {props.render}
+    {props.children}
   </PercentRadii>
 );
 
-export default WebsiteFrame;
+MobileFrame.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+export default MobileFrame;

@@ -4,8 +4,7 @@ import PercentRadii from 'containers/PercentRadii/PercentRadii';
 import './WebsiteFrame.css';
 
 const WebsiteFrame = (props) => {
-  const dotColor = props.dotColor || '#fff';
-  const frameColor = props.frameColor || '#D8D8D8';
+  const { dotColor, frameColor } = props;
 
   return (
     <PercentRadii className="websiteFrame" percent={1}>
@@ -18,6 +17,11 @@ const WebsiteFrame = (props) => {
       {props.render}
     </PercentRadii>
   );
+};
+
+WebsiteFrame.defaultProps = {
+  dotColor: '#fff',
+  frameColor: '#D8D8D8',
 };
 
 export default WebsiteFrame;

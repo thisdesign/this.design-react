@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import GridIcon from './GridIcon/GridIcon';
@@ -55,6 +56,16 @@ const Nav = (props) => {
       </div>
     </nav>
   );
+};
+
+Nav.defaultProps = {
+  currentCaseStudy: null,
+};
+
+Nav.propTypes = {
+  view: PropTypes.string.isRequired,
+  currentCaseStudy: PropTypes.string,
+  changeView: PropTypes.func.isRequired,
 };
 
 export default Nav;

@@ -57,7 +57,7 @@ const Columns = (props) => {
         if (data.layout === '-website') {
           return <WebsiteFrame render={columnMedia} />;
         } else if (data.layout === '-mobile') {
-          return <MobileFrame render={columnMedia} />;
+          return <MobileFrame>{columnMedia}</MobileFrame>;
         }
         return columnMedia;
       })()}

@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import { Link } from 'react-router-dom';
 import './Work.css';
@@ -41,6 +42,12 @@ const Work = (props) => {
       {links}
     </div>
   );
+};
+
+Work.propTypes = {
+  caseStudyList: propTypes.arrayOf(propTypes.shape({
+    case_study_item: propTypes.object.isRequired,
+  })).isRequired,
 };
 
 export default Work;

@@ -1,4 +1,5 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import './VideoControls.css';
 import MuteControl from '../MuteControl/MuteControl';
 import Play from '../icons/Play';
@@ -11,6 +12,7 @@ const VideoControls = (props) => {
 
   const hasPlayed = props.hasPlayed && !props.isPaused ? '-enabled' : '';
   const isPaused = props.isPaused ? '-isPaused' : '';
+
   return (
     <div className={`videoNode__controls ${hasPlayed}`}>
 
@@ -45,6 +47,15 @@ const VideoControls = (props) => {
       </div>
     </div>
   );
+};
+
+VideoControls.propTypes = {
+  duration: propTypes.string.isRequired,
+  elapsed: propTypes.string.isRequired,
+  percentComplete: propTypes.number.isRequired,
+  handleFullScreen: propTypes.func.isRequired,
+  isPaused: propTypes.bool.isRequired,
+  hasPlayed: propTypes.bool.isRequired,
 };
 
 export default VideoControls;

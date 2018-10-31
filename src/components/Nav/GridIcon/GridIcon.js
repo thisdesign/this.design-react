@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const GridIcon = (props) => {
   const { view } = props;
@@ -10,6 +11,10 @@ const GridIcon = (props) => {
       <span className="icon__item icon--grid__item" />
     </div>
   );
+};
+
+GridIcon.propTypes = {
+  view: PropTypes.string.isRequired,
 };
 
 export default GridIcon;

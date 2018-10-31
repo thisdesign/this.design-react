@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const AboutIcon = (props) => {
   const { view } = props;
@@ -8,6 +9,10 @@ const AboutIcon = (props) => {
       <span className="icon__item icon--about__item" />
     </div>
   );
+};
+
+AboutIcon.propTypes = {
+  view: PropTypes.string.isRequired,
 };
 
 export default AboutIcon;

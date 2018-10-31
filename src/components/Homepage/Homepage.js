@@ -1,4 +1,5 @@
 import Loading from 'components/Loading/Loading';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import isMobile from '../../util/isMobile';
 import './Homepage.css';
@@ -55,5 +56,11 @@ class Homepage extends Component {
   }
 }
 
+
+Homepage.defaultProps = {
+  data: PropTypes.shape({
+    url: PropTypes.string.isRequired,
+  }),
+};
 
 export default Homepage;
