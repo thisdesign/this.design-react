@@ -6,15 +6,14 @@ import './imagePositions.css';
 import './CaseStudySplash.css';
 
 
-const CaseStudySplash = (props) => {
+const CaseStudySplash = ({ data }) => {
   const media = {
-    backgroundImage: props.data.image1,
-    backgroundVideo: props.data.video1,
-    auxImage: props.data.image2,
-    auxVideo: props.data.video2,
-    mobileImage: props.data.mobileImage,
+    backgroundImage: data.image1,
+    backgroundVideo: data.video1,
+    auxImage: data.image2,
+    auxVideo: data.video2,
+    mobileImage: data.mobileImage,
   };
-
 
   if (isMobile() && media.mobileImage.url) {
     return (
@@ -26,10 +25,14 @@ const CaseStudySplash = (props) => {
     <div className="casestudy__splash">
       <AuxiliaryItems
         media={media}
-        width={props.data.floating_media_width}
-        layout={props.data.layout2}
+        width={data.floating_media_width}
+        layout={data.layout2}
       />
-      <SplashBackground image={media.backgroundImage} video={media.backgroundVideo} />
+      <SplashBackground
+        image={media.backgroundImage}
+        video={media.backgroundVideo}
+        backgroundColor={data.preload_background_color}
+      />
     </div>
   );
 };

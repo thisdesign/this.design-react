@@ -1,11 +1,11 @@
 import React from 'react';
 
-const SplashBackground = (props) => {
-  const { image, video } = props;
+const SplashBackground = ({ image, video, backgroundColor }) => {
   const backroundImage = {
     backgroundImage: image
       ? `url(${image.url})`
       : null,
+    backgroundColor,
   };
 
   return (
