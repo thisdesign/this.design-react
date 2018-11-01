@@ -125,7 +125,7 @@ export default class CaseStudy extends React.Component {
                   const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
                   const className = `casestudy__block casestudy__block--${type}`;
                   return (
-                    <ScrollTrigger offset={85} className={className} key={uuidv1()}>
+                    <ScrollTrigger offset={100} className={className} key={uuidv1()}>
                       {slice}
                     </ScrollTrigger>
                 );

@@ -8,7 +8,7 @@
   margin-top: $variable-spacing-lg;
   opacity: 0;
   transform: translateY(50px);
-  transition: $anim-slow opacity $ease-decel, $anim-slow transform $ease-decel;
+  transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
 
   &--columns {
     position: relative;
