@@ -1,4 +1,5 @@
 import React from 'react';
+import isMobile from 'util/isMobile';
 import CursorContext from 'components/CursorDot/CursorContext';
 import propTypes from 'prop-types';
 import icons from './icons';
@@ -34,23 +35,26 @@ export default class CursorAnchor extends React.Component {
   };
 
   render() {
-    return (
-      <div
-        onMouseEnter={this.enableHover}
-        onClick={this.disableHover}
-        onMouseLeave={this.disableHover}
-        className="cursorAnchor"
-      >
-        {this.props.children}
-        {!this.props.detached &&
+    if (!isMobile) {
+      return (
+        <div
+          onMouseEnter={this.enableHover}
+          onClick={this.disableHover}
+          onMouseLeave={this.disableHover}
+          className="cursorAnchor"
+        >
+          {this.props.children}
+          {!this.props.detached &&
           <div className="cursorAnchor__wrapper">
             <div className={`cursor__text ${this.state.hovered && 'cursor__text--enabled'}`}>
               { icons[this.props.textId] }
             </div>
           </div>
-        }
-      </div>
-    );
+            }
+        </div>
+      );
+    }
+    return this.props.children;
   }
 }
 
