@@ -4,7 +4,7 @@ import PercentRadii from 'containers/PercentRadii/PercentRadii';
 import './MobileFrame.css';
 
 const MobileFrame = props => (
-  <PercentRadii className="mobileFrame" percent={8}>
+  <PercentRadii className="mobileFrame" percent={10}>
     {props.children}
   </PercentRadii>
 );

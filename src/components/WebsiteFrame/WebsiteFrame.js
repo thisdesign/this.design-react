@@ -4,10 +4,11 @@ import PercentRadii from 'containers/PercentRadii/PercentRadii';
 import './WebsiteFrame.css';
 
 const WebsiteFrame = (props) => {
-  const { dotColor, frameColor } = props;
+  const dotColor = props.dotColor || '#fff';
+  const frameColor = props.frameColor || '#D8D8D8';
 
   return (
-    <PercentRadii className="websiteFrame" percent={1}>
+    <PercentRadii className="websiteFrame" percent={0.66}>
       <svg viewBox="0 0 632 20" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block' }}>
         <path fill={frameColor} d="M0 0h632v20H0z" />
         <circle fill={dotColor} cx="10" cy="10" r="2.75" />
@@ -19,9 +20,5 @@ const WebsiteFrame = (props) => {
   );
 };
 
-WebsiteFrame.defaultProps = {
-  dotColor: '#fff',
-  frameColor: '#D8D8D8',
-};
 
 export default WebsiteFrame;
