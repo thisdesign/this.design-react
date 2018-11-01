@@ -10,10 +10,6 @@ class Parallax extends React.Component {
     this.throttledParalax = throttle(this.initParallax, 1000 / 30);
   }
 
-  state = {
-    offset: 0,
-  }
-
   componentDidMount() {
     this.watchScroll();
   }
@@ -23,9 +19,8 @@ class Parallax extends React.Component {
   }
 
   setOffset = () => {
-    this.setState({
-      offset: this.getOffset(),
-    });
+    const tr = `translate3d(0, ${this.getOffset()}px, 0`;
+    this.target.current.style.transform = tr;
   }
 
   getContainer = () => this.props.container.current
@@ -57,13 +52,10 @@ class Parallax extends React.Component {
   }
 
   render() {
-    const style = { transform: `translate(0, ${this.state.offset}px` };
-
     return (
       <div
         className={this.props.className || null}
         ref={this.target}
-        style={style}
       >
         {this.props.children}
       </div>
