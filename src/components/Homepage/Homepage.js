@@ -1,7 +1,7 @@
 import Loading from 'components/Loading/Loading';
+import isMobile from 'util/isMobile';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import isMobile from '../../util/isMobile';
 import './Homepage.css';
 
 class Homepage extends Component {
@@ -33,23 +33,20 @@ class Homepage extends Component {
   }
 
   render() {
-    const { data } = this.props.data;
-    const { image } = data;
-    const videoURLs = data.video_group.map(vid => vid.link.url);
-    const randomUrl = videoURLs[Math.floor(Math.random() * videoURLs.length)];
+    const videos = isMobile()
+      ? this.props.data.data.video_group_mobile
+      : this.props.data.data.video_group;
+    const urls = videos.map(vid => vid.link.url);
+    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
     const videoLoaded = this.state.videoLoaded !== false;
 
     return (
       <div className="homepage">
-        {(!videoLoaded && !isMobile()) && <Loading />}
+        {!videoLoaded && <Loading />}
         <div className="homepage__inner">
-          {!isMobile()
-            ? (
-              <video autoPlay loop muted className="homepage__inner__video" ref={this.video}>
-                <source src={randomUrl} type="video/mp4" />
-              </video>
-            ) : <img className="homepage__inner__image" src={image.url} alt={image.alt} />
-          }
+          <video autoPlay loop muted playsInline className="homepage__inner__video" ref={this.video}>
+            <source src={randomUrl} type="video/mp4" />
+          </video>
         </div>
       </div>
     );
