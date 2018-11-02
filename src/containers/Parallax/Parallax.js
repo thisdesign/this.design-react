@@ -30,7 +30,7 @@ class Parallax extends React.Component {
 
   getOffset = () => {
     const { height, top } = this.getRect();
-    const offset = ((top + height) / 2) - (window.innerHeight / 2);
+    const offset = (top + (height / 2)) - (window.innerHeight / 2);
     const { speed } = this.props;
     return offset / -speed;
   }
