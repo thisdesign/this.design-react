@@ -35,7 +35,7 @@ export default class CursorAnchor extends React.Component {
   };
 
   render() {
-    if (!isMobile) {
+    if (!isMobile()) {
       return (
         <div
           onMouseEnter={this.enableHover}
