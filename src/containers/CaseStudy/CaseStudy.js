@@ -63,7 +63,7 @@ export default class CaseStudy extends React.Component {
       if (doc) {
         this.setState({ doc });
       } else {
-        this.setState({ notFound: true });
+        this.props.setNotFound();
       }
     });
   }

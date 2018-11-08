@@ -10,11 +10,10 @@ import {
 } from 'react-router-dom';
 import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
 import Loading from 'components/Loading/Loading';
-import Homepage from 'components/Homepage/Homepage';
+import Homepage from 'containers/Homepage/Homepage';
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
-import NotFound from 'components/NotFound/NotFound';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import About from 'containers/About/About';
 
@@ -79,6 +78,10 @@ class App extends React.Component {
     this.setState({ view });
   }
 
+  setNotFound = () => {
+    this.setState({ notFound: true });
+  }
+
   openCaseStudy = (uid) => {
     this.setState({
       currentCaseStudy: uid,
@@ -139,17 +142,18 @@ class App extends React.Component {
   render() {
     const {
       caseStudyList,
-      notFound,
       view,
       siteInfo,
       currentCaseStudy,
       isAnimatingToCs,
       scrolledPastCsCover,
+      notFound,
     } = this.state;
     const {
       changeView,
       openCaseStudy,
       updateCsScrollPos,
+      setNotFound,
     } = this;
 
     if (caseStudyList && siteInfo) {
@@ -167,14 +171,16 @@ class App extends React.Component {
             </View>
             <View viewName="root" view={view}>
               {
-                currentCaseStudy ? (
+                (!notFound && currentCaseStudy) ? (
                   <CaseStudy
                     prismicCtx={this.props.prismicCtx}
                     route={currentCaseStudy}
                     isAnimatingToCs={isAnimatingToCs}
                     updateCsScrollPos={updateCsScrollPos}
+                    setNotFound={setNotFound}
                   />
-                ) : (<Homepage data={siteInfo} />)
+                ) :
+                  <Homepage data={siteInfo} notFound={notFound} />
               }
             </View>
             <View aside viewName="about" view={view} >
@@ -183,9 +189,6 @@ class App extends React.Component {
           </main>
         </React.Fragment>
       );
-    }
-    if (notFound) {
-      return <NotFound />;
     }
     return (
       <PreviewRouter prismicCtx={this.props.prismicCtx}>

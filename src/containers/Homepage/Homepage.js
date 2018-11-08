@@ -39,7 +39,6 @@ class Homepage extends Component {
     const urls = videos.map(vid => vid.link.url);
     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
     const videoLoaded = this.state.videoLoaded !== false;
-
     return (
       <div className="homepage">
         {!videoLoaded && <Loading />}
