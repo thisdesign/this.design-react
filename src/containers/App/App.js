@@ -69,13 +69,20 @@ class App extends React.Component {
   setViewFromUrl = () => {
     const path = this.props.location.pathname;
     const isCaseStudy = this.isCaseStudy(path);
+    const views = ['root', 'about', 'work'];
     let view = 'root';
     if (path !== '/') {
       view = !isCaseStudy
         ? matchPath(path, { path: '/:view/' }).params.view
         : 'root';
     }
-    this.setState({ view });
+
+    const viewExists = views.indexOf(view) >= 0;
+
+    this.setState({
+      view,
+      notFound: !viewExists,
+    });
   }
 
   setNotFound = () => {
