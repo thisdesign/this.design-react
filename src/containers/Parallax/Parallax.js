@@ -1,21 +1,31 @@
 import React from 'react';
 import isInView from 'util/isInView';
-import throttle from 'lodash.throttle';
 import ScrollContext from '../ScrollContainer//ScrollContext/ScrollContext';
 
-class Parallax extends React.Component {
+export default class Parallax extends React.Component {
+  static contextType = ScrollContext;
+
   constructor(props) {
     super(props);
     this.target = React.createRef();
-    this.throttledParalax = throttle(this.initParallax, 1000 / 30);
+    this.latestKnownScrollY = 0;
+    this.ticking = false;
   }
 
   componentDidMount() {
     this.watchScroll();
+    requestAnimationFrame(this.update);
   }
 
   componentWillUnmount() {
     this.unWatchScroll();
+  }
+
+  onScroll = () => {
+    if (this.isInView()) {
+      this.latestKnownScrollY = this.getContainer().scrollTop;
+      this.requestTick();
+    }
   }
 
   setOffset = () => {
@@ -23,33 +33,39 @@ class Parallax extends React.Component {
     this.target.current.style.transform = tr;
   }
 
-  getContainer = () => this.props.container.current
+  getContainer = () => this.context.container.current
 
   getRect = () => this.target.current.getBoundingClientRect()
 
-
   getOffset = () => {
     const { height, top } = this.getRect();
-    const offset = (top + (height / 2)) - (window.innerHeight / 2);
     const { speed } = this.props;
+    const offset = (top + (height / 2)) - (window.innerHeight / 2);
     return offset / -speed;
   }
 
   isInView = () => isInView(this.getRect(), 0);
 
   watchScroll = () => {
-    this.getContainer().addEventListener('scroll', this.throttledParalax);
+    this.getContainer().addEventListener('scroll', this.onScroll);
   }
 
   unWatchScroll = () => {
-    this.getContainer().removeEventListener('scroll', this.throttledParalax);
+    this.getContainer().removeEventListener('scroll', this.onScroll);
   }
 
-  initParallax = () => {
-    if (this.isInView()) {
-      this.setOffset();
+  update = () => {
+    this.setOffset();
+    this.ticking = false;
+  }
+
+  requestTick = () => {
+    if (!this.ticking) {
+      requestAnimationFrame(this.update);
+      this.ticking = true;
     }
   }
+
 
   render() {
     return (
@@ -68,10 +84,4 @@ Parallax.defaultProps = {
   forceMobile: false,
 };
 
-export default React.forwardRef((props, ref) => (
-  <ScrollContext.Consumer>
-    {context => <Parallax {...props} container={context.container} ref={ref} />}
-  </ScrollContext.Consumer>
-));
-
-// https://github.com/facebook/react/issues/12397#issuecomment-375501574
+// https://gist.github.com/paulmillr/3118943
