@@ -1,5 +1,4 @@
 import React from 'react';
-import throttle from 'lodash.throttle';
 import isInView from 'util/isInView';
 import ScrollContext from '../ScrollContainer/ScrollContext/ScrollContext';
 
@@ -7,14 +6,16 @@ class ScrollTrigger extends React.Component {
   constructor(props) {
     super(props);
     this.target = React.createRef();
-    this.throttledSetCondition = throttle(this.setCondition, 100);
+    this.latestKnownScrollY = 0;
+    this.ticking = false;
   }
+
   state = {
     active: false,
   }
 
   componentDidMount() {
-    this.setCondition();
+    requestAnimationFrame(this.update);
     this.watchScroll();
   }
 
@@ -22,11 +23,9 @@ class ScrollTrigger extends React.Component {
     this.unWatchScroll();
   }
 
-  setCondition = () => {
-    if (this.conditionChanged()) {
-      this.runTriggerMethods();
-      this.setState({ active: this.meetsCriteria() });
-    }
+  onScroll = () => {
+    this.latestKnownScrollY = this.getContainer().scrollTop;
+    this.requestTick();
   }
 
   getOffset = () => (this.props.offset / 100) * window.innerHeight;
@@ -35,12 +34,30 @@ class ScrollTrigger extends React.Component {
 
   getContainer = () => this.props.container.current
 
+  setCondition = () => {
+    if (this.conditionChanged()) {
+      this.runTriggerMethods();
+      this.setState({ active: this.meetsCriteria() });
+    }
+  }
+
+  update = () => {
+    this.setCondition();
+    this.ticking = false;
+  }
+
+  requestTick = () => {
+    if (!this.ticking) {
+      requestAnimationFrame(this.update);
+      this.ticking = true;
+    }
+  }
   watchScroll = () => {
-    this.getContainer().addEventListener('scroll', this.throttledSetCondition);
+    this.getContainer().addEventListener('scroll', this.onScroll);
   }
 
   unWatchScroll = () => {
-    this.getContainer().removeEventListener('scroll', this.throttledSetCondition);
+    this.getContainer().removeEventListener('scroll', this.onScroll);
   }
 
   runTriggerMethods = () => {
