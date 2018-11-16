@@ -8,10 +8,7 @@ class ScrollTrigger extends React.Component {
     this.target = React.createRef();
     this.latestKnownScrollY = 0;
     this.ticking = false;
-  }
-
-  state = {
-    active: false,
+    this.active = false;
   }
 
   componentDidMount() {
@@ -37,7 +34,13 @@ class ScrollTrigger extends React.Component {
   setCondition = () => {
     if (this.conditionChanged()) {
       this.runTriggerMethods();
-      this.setState({ active: this.meetsCriteria() });
+      if (!this.active) {
+        this.active = true;
+        this.target.current.classList.add('-active');
+      } else {
+        this.active = false;
+        this.target.current.classList.remove('-active');
+      }
     }
   }
 
@@ -69,7 +72,7 @@ class ScrollTrigger extends React.Component {
     }
   }
 
-  conditionChanged = () => this.state.active !== this.meetsCriteria()
+  conditionChanged = () => this.active !== this.meetsCriteria()
 
   meetsCriteria = () => {
     if (this.props.inView) {
@@ -85,7 +88,6 @@ class ScrollTrigger extends React.Component {
   render() {
     const className = [
       this.props.className || null,
-      this.state.active ? '-active' : '',
     ].join(' ');
 
     return (
