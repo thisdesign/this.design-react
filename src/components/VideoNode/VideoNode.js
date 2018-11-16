@@ -68,7 +68,9 @@ export default class VideoNode extends React.Component {
   }
 
   playVideo = () => {
-    this.updateCurrentTime();
+    if (this.props.controls) {
+      this.updateCurrentTime();
+    }
     this.getElem().play();
   }
 
