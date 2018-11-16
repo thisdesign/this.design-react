@@ -50,4 +50,4 @@ Work.propTypes = {
   })).isRequired,
 };
 
-export default Work;
+export default React.memo(Work);
