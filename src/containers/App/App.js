@@ -27,6 +27,7 @@ class App extends React.Component {
     notFound: false,
     currentCaseStudy: null,
     scrolledPastCsCover: null,
+    index: 0,
   };
 
   componentDidMount() {
@@ -56,6 +57,14 @@ class App extends React.Component {
   getProjectByUid = (uid) => {
     const index = this.state.caseStudies.map(cs => cs.uid).indexOf(uid);
     return (index !== -1 ? this.state.caseStudies[index] : null);
+  }
+
+  getProjectByIndex(i) {
+    return this.state.caseStudies[i];
+  }
+  getNextProjectByUid = (uid) => {
+    const index = this.state.caseStudies.map(cs => cs.uid).indexOf(uid);
+    return (index !== -1 ? this.state.caseStudies[index + 1] : null);
   }
 
   getImages = doc => flatten(doc.results.map((item) => {
@@ -116,6 +125,17 @@ class App extends React.Component {
     this.setState({ scrolledPastCsCover });
   }
 
+  goToNext = () => {
+    window.window.scrollY = 0;
+    this.setState({ currentCaseStudy: 'soma' });
+  }
+
+
+  changeIndex = () => {
+    document.querySelectorAll('.view__inner')[1].scrollTo(0, 0);
+    this.setState({ index: this.state.index + 1 });
+  }
+
   render() {
     const {
       siteInfo,
@@ -143,7 +163,22 @@ class App extends React.Component {
             <View viewName="root" view={view}>
               {
                 (!notFound && currentCaseStudy) ? (
-                  <CaseStudy doc={this.getProjectByUid(currentCaseStudy)} />
+                  caseStudies.map((cs, i) => {
+                    if (i === this.state.index) {
+                      return (
+                        <div key={i} onClick={this.changeIndex}>
+                          <CaseStudy doc={this.getProjectByIndex(i)} />
+                        </div>);
+                    }
+                    if (i === this.state.index + 1) {
+                      return (
+                        <div key={i} onClick={this.changeIndex} className="peek">
+                          <CaseStudy doc={this.getProjectByIndex(i)} x />
+                        </div>);
+                    }
+                    return null;
+                  })
+
                 ) :
                   <Homepage data={siteInfo} notFound={notFound} />
               }
