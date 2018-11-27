@@ -2,9 +2,8 @@ import React from 'react';
 import 'whatwg-fetch';
 import Prismic from 'prismic-javascript';
 import CursorDotProvider from 'components/CursorDot/CursorDotProvider';
-import { BrowserRouter } from 'react-router-dom';
 import PrismicConfig from './config/prismic-configuration';
-import App from '../../containers/App/App';
+import Router from '../../containers/Router/Router';
 
 class PrismicApp extends React.Component {
   state = {
@@ -40,11 +39,10 @@ class PrismicApp extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <CursorDotProvider>
-          <App prismicCtx={this.state.prismicCtx} />
-        </CursorDotProvider>
-      </BrowserRouter>);
+      <CursorDotProvider>
+        <Router prismicCtx={this.state.prismicCtx} />
+      </CursorDotProvider>
+    );
   }
 }
 

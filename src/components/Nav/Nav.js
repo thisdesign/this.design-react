@@ -8,17 +8,8 @@ import './Nav.css';
 
 const Nav = (props) => {
   const {
-    view, currentCaseStudy, changeView,
+    view, currentCaseStudy,
   } = props;
-
-  const handleNavButton = (futureView) => {
-    const asideShouldOpen = (view !== futureView);
-    if (asideShouldOpen) {
-      changeView(futureView);
-    } else {
-      changeView('root');
-    }
-  };
 
   const linkTo = (link) => {
     if (view === 'root') {
@@ -43,10 +34,7 @@ const Nav = (props) => {
         {navLinks.map(link => (
           <div className="nav__item" key={link} >
             <CursorAnchor textId={view === 'root' ? link : 'close'}>
-              <Link
-                to={(() => linkTo(link))()}
-                onClick={() => handleNavButton(link)}
-              >
+              <Link to={(() => linkTo(link))()} >
                 {link === 'work' && <GridIcon view={view} />}
                 {link === 'about' && <AboutIcon view={view} />}
               </Link>
@@ -65,7 +53,6 @@ Nav.defaultProps = {
 Nav.propTypes = {
   view: PropTypes.string.isRequired,
   currentCaseStudy: PropTypes.string,
-  changeView: PropTypes.func.isRequired,
 };
 
 export default Nav;

@@ -4,10 +4,6 @@ import 'styles/typography.css';
 import 'styles/layout.css';
 
 import React from 'react';
-import {
-  withRouter,
-  matchPath,
-} from 'react-router-dom';
 import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
 import Loading from 'components/Loading/Loading';
 import Homepage from 'containers/Homepage/Homepage';
@@ -23,76 +19,42 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.VIEW_CHANGE_DURATION = 600;
-    this.aboutNode = React.createRef();
   }
 
   state = {
     caseStudyList: null,
     siteInfo: null,
     notFound: false,
-    view: 'root',
-    /**
-     * Once set, should never be 'null' again
-     * @type {String}
-     */
     currentCaseStudy: null,
-    /**
-     * while animating, show <Loading /> until animation
-     * finishes to reduce animation jank due to DOM changes
-     * @type {Boolean}
-     */
     isAnimatingToCs: false,
     scrolledPastCsCover: null,
   };
 
+  componentDidMount() {
+    this.setCaseStudy();
+  }
+
   componentDidUpdate(prevProps) {
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
+    const isNewUid = (this.props.uid !== prevProps.uid) && this.props.uid !== undefined;
+
     if (hasLoadedCtx) {
       this.loadData();
       this.props.prismicCtx.toolbar();
-      this.setViewFromUrl();
-      this.setCsFromUrl();
     }
-    window.onpopstate = () => {
-      this.setViewFromUrl();
-      this.setCsFromUrl();
-    };
+    if (isNewUid) { this.setCaseStudy(); }
   }
 
-  setCsFromUrl() {
-    const location = this.props.location.pathname;
-    if (this.isCaseStudy(location)) {
-      this.setState({ currentCaseStudy: this.returnCsFromPath(location) });
-    }
-  }
-
-  setViewFromUrl = () => {
-    const path = this.props.location.pathname;
-    const isCaseStudy = this.isCaseStudy(path);
-    const views = ['root', 'about', 'work'];
-    let view = 'root';
-    if (path !== '/') {
-      view = !isCaseStudy
-        ? matchPath(path, { path: '/:view/' }).params.view
-        : 'root';
-    }
-
-    const viewExists = views.indexOf(view) >= 0;
-
-    this.setState({
-      view,
-      notFound: !viewExists,
-    });
+  setCaseStudy = () => {
+    this.setState({ currentCaseStudy: this.props.uid });
   }
 
   setNotFound = () => {
     this.setState({ notFound: true });
   }
 
-  openCaseStudy = (uid) => {
+  openCaseStudy = () => {
     this.setState({
-      currentCaseStudy: uid,
-      view: 'root',
       isAnimatingToCs: true,
       scrolledPastCsCover: false,
     }, () => {
@@ -100,17 +62,6 @@ class App extends React.Component {
         this.setState({ isAnimatingToCs: false });
       }, this.VIEW_CHANGE_DURATION);
     });
-  }
-
-  returnCsFromPath = (path) => {
-    const match = matchPath(path, { path: '/work/:id' });
-    return match ? match.params.id : null;
-  }
-
-  isCaseStudy = path => this.returnCsFromPath(path) !== null;
-
-  changeView = (view) => {
-    this.setState({ view });
   }
 
   loadData = () => {
@@ -149,7 +100,6 @@ class App extends React.Component {
   render() {
     const {
       caseStudyList,
-      view,
       siteInfo,
       currentCaseStudy,
       isAnimatingToCs,
@@ -157,11 +107,12 @@ class App extends React.Component {
       notFound,
     } = this.state;
     const {
-      changeView,
       openCaseStudy,
       updateCsScrollPos,
       setNotFound,
     } = this;
+
+    const { view } = this.props;
 
     if (caseStudyList && siteInfo) {
       return (
@@ -169,7 +120,6 @@ class App extends React.Component {
           <Nav
             view={view}
             scrolledPastCsCover={scrolledPastCsCover}
-            changeView={changeView}
             currentCaseStudy={currentCaseStudy}
           />
           <main className={`views -view-is-${view}`}>
@@ -204,4 +154,4 @@ class App extends React.Component {
   }
 }
 
-export default withRouter(App);
+export default App;
