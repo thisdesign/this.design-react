@@ -22,7 +22,6 @@ class App extends React.Component {
   }
 
   state = {
-    caseStudyList: null,
     siteInfo: null,
     notFound: false,
     currentCaseStudy: null,
@@ -65,19 +64,22 @@ class App extends React.Component {
   }
 
   loadData = () => {
-    this.loadCaseStudyList(this.props);
+    this.loadSiteContext(this.props);
     this.loadSiteInfo(this.props);
   }
 
-  loadCaseStudyList = (props = this.props) => {
-    const fetchLinks = ['casestudy.title', 'casestudy.thumbnail', 'casestudy.svg'];
+  loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
+    if (doc) {
+      const ids = doc.data.case_study_list.map(cs => cs.case_study_item.id);
+      this.loadCaseStudies(ids);
+    } else {
+      this.setState({ notFound: true });
+    }
+  })
 
-    props.prismicCtx.api.getByUID('context', 'home', { fetchLinks }).then((doc) => {
-      if (doc) {
-        this.setState({ caseStudyList: doc.data.case_study_list });
-      } else {
-        this.setState({ notFound: true });
-      }
+  loadCaseStudies = (ids) => {
+    this.props.prismicCtx.api.getByIDs(ids).then((doc) => {
+      this.setState({ caseStudies: doc.results });
     });
   }
 
@@ -99,12 +101,12 @@ class App extends React.Component {
 
   render() {
     const {
-      caseStudyList,
       siteInfo,
       currentCaseStudy,
       isAnimatingToCs,
       scrolledPastCsCover,
       notFound,
+      caseStudies,
     } = this.state;
     const {
       openCaseStudy,
@@ -114,7 +116,7 @@ class App extends React.Component {
 
     const { view } = this.props;
 
-    if (caseStudyList && siteInfo) {
+    if (siteInfo && caseStudies) {
       return (
         <React.Fragment>
           <Nav
@@ -124,7 +126,7 @@ class App extends React.Component {
           />
           <main className={`views -view-is-${view}`}>
             <View aside viewName="work" view={view}>
-              <Work caseStudyList={caseStudyList} openCaseStudy={openCaseStudy} />
+              {/* <Work caseStudies={caseStudies} openCaseStudy={openCaseStudy} /> */}
             </View>
             <View viewName="root" view={view}>
               {

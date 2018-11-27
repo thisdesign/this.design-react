@@ -22,54 +22,13 @@ import './CaseStudy.css';
  */
 
 export default class CaseStudy extends React.Component {
-  state = {
-    doc: null,
-    notFound: false,
-  };
-
   componentWillMount() {
-    this.getCaseStudyDoc(this.props);
   }
 
-  /**
-   * Keeping rerenders under control. If this is
-   * causing problems, return `true` to check
-   */
-
-  shouldComponentUpdate = (nextProps, nextState) => {
-    const newRoute = this.props.route !== nextProps.route;
-    const newAnimState = this.props.isAnimatingToCs !== nextProps.isAnimatingToCs;
-    const newDoc = nextState.doc !== this.state.doc;
-    return newRoute || newAnimState || newDoc;
-  }
-
-  /**
-   * Reset state based on props change
-   */
-
-  componentDidUpdate(prevProps) {
-    const recievedNewRoute = prevProps.route !== this.props.route;
-    if (recievedNewRoute) {
-      this.getCaseStudyDoc();
-    }
-  }
-
-  /**
-   * Set isAnimatingToCs based on props
-   */
-
-  getCaseStudyDoc = () => {
-    this.props.prismicCtx.api.getByUID('casestudy', this.props.route).then((doc) => {
-      if (doc) {
-        this.setState({ doc });
-      } else {
-        this.props.setNotFound();
-      }
-    });
-  }
 
   render() {
-    const { doc, notFound } = this.state;
+    const doc = null;
+    const notFound = null;
     const { isAnimatingToCs, route } = this.props;
     if (doc && doc.uid === route) {
       const title = `${doc.data.title} – This Design – Portland, OR`;
