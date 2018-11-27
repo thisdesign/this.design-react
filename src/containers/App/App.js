@@ -12,6 +12,7 @@ import Work from 'components/Work/Work';
 import View from 'components/View/View';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import About from 'containers/About/About';
+import flatten from 'array-flatten';
 
 import './App.css';
 
@@ -57,16 +58,30 @@ class App extends React.Component {
     return (index !== -1 ? this.state.caseStudies[index] : null);
   }
 
-  // openCaseStudy = () => {
-  //   this.setState({
-  //     isAnimatingToCs: true,
-  //     scrolledPastCsCover: false,
-  //   }, () => {
-  //     setTimeout(() => {
-  //       this.setState({ isAnimatingToCs: false });
-  //     }, this.VIEW_CHANGE_DURATION);
-  //   });
-  // }
+  getImages = doc => flatten(doc.results.map((item) => {
+    const header = item.data.header[0];
+    return [
+      header.image1.url,
+      header.image2.url,
+      header.mobileImage.url,
+    ];
+  })).filter(el => el !== undefined)
+
+  loadImages = (doc) => {
+    const imgs = this.getImages(doc);
+    const imgStatuses = [];
+    imgs.forEach((url, i) => {
+      imgStatuses[i] = new Promise((resolve) => {
+        const img = new Image();
+        img.src = url;
+        img.onload = () => resolve({ status: 'ok' });
+        img.onerror = () => resolve({ status: 'error' });
+      });
+    });
+
+    Promise.all(imgStatuses).then(() => console.log('done'));
+    return imgStatuses;
+  }
 
   loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
     if (doc) {
@@ -77,9 +92,11 @@ class App extends React.Component {
     }
   })
 
+
   loadCaseStudies = (ids) => {
     this.props.prismicCtx.api.getByIDs(ids).then((doc) => {
       this.setState({ caseStudies: doc.results });
+      this.loadImages(doc);
     });
   }
 
