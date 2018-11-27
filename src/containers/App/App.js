@@ -38,7 +38,8 @@ class App extends React.Component {
     const isNewUid = (this.props.uid !== prevProps.uid) && this.props.uid !== undefined;
 
     if (hasLoadedCtx) {
-      this.loadData();
+      this.loadSiteContext(this.props);
+      this.loadSiteInfo(this.props);
       this.props.prismicCtx.toolbar();
     }
     if (isNewUid) { this.setCaseStudy(); }
@@ -52,6 +53,11 @@ class App extends React.Component {
     this.setState({ notFound: true });
   }
 
+  getProjectByUid = (uid) => {
+    const index = this.state.caseStudies.map(cs => cs.uid).indexOf(uid);
+    return (index !== -1 ? this.state.caseStudies[index] : null);
+  }
+
   openCaseStudy = () => {
     this.setState({
       isAnimatingToCs: true,
@@ -61,11 +67,6 @@ class App extends React.Component {
         this.setState({ isAnimatingToCs: false });
       }, this.VIEW_CHANGE_DURATION);
     });
-  }
-
-  loadData = () => {
-    this.loadSiteContext(this.props);
-    this.loadSiteInfo(this.props);
   }
 
   loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
@@ -126,7 +127,7 @@ class App extends React.Component {
           />
           <main className={`views -view-is-${view}`}>
             <View aside viewName="work" view={view}>
-              {/* <Work caseStudies={caseStudies} openCaseStudy={openCaseStudy} /> */}
+              <Work caseStudies={caseStudies} openCaseStudy={openCaseStudy} />
             </View>
             <View viewName="root" view={view}>
               {
@@ -137,6 +138,7 @@ class App extends React.Component {
                     isAnimatingToCs={isAnimatingToCs}
                     updateCsScrollPos={updateCsScrollPos}
                     setNotFound={setNotFound}
+                    data={this.getProjectByUid(currentCaseStudy)}
                   />
                 ) :
                   <Homepage data={siteInfo} notFound={notFound} />
