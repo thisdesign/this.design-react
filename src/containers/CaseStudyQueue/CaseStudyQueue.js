@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 
 class CaseStudyQueue extends Component {
+  state = {
+    visibleProjects: [
+      this.props.caseStudies[0],
+      this.props.caseStudies[1]],
+  }
+  componentWillMount() {
+    const { caseStudies } = this.props;
+  }
   componentDidMount() {
   }
 
@@ -15,25 +23,28 @@ class CaseStudyQueue extends Component {
   getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
 
   advanceQueue = () => {
-    this.props.changeProj(this.getNextUid());
+    // this.props.changeProj(this.getNextUid());
     document.querySelectorAll('.view__inner')[1].scrollTo(0, 0);
+
+    const { caseStudies } = this.props;
+    this.setState({ visibleProjects: [caseStudies[1], caseStudies[2]] });
   }
 
   render() {
     const { caseStudies } = this.props;
     const index = this.getIndexFromProj();
     return (
-      caseStudies.map((cs, i) => {
-        if (i === index) {
+      this.state.visibleProjects.map((cs, i) => {
+        if (i === 0) {
           return (
             <div key={cs.id}>
-              <CaseStudy doc={caseStudies[index]} />
+              <CaseStudy doc={this.state.visibleProjects[0]} />
             </div>);
         }
-        if (i === index + 1) {
+        if (i === 1) {
           return (
             <div key={cs.id} onClick={this.advanceQueue} className="peek">
-              <CaseStudy doc={caseStudies[index + 1]} x />
+              <CaseStudy doc={this.state.visibleProjects[1]} x />
             </div>);
         }
         return null;
