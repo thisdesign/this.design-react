@@ -3,36 +3,43 @@ import CaseStudy from 'containers/CaseStudy/CaseStudy';
 
 class CaseStudyQueue extends Component {
   state = {
-    visibleProjects: [
-      this.props.caseStudies[0],
-      this.props.caseStudies[1]],
-  }
-  componentWillMount() {
-    const { caseStudies } = this.props;
-  }
-  componentDidMount() {
+    visibleProjects: [],
   }
 
-  getIndexFromProj = () => {
+  componentWillMount() {
+    this.switchQueue();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      this.switchQueue();
+    }
+  }
+
+  getCurrentIndex = () => {
     const { caseStudies, currentCaseStudy } = this.props;
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
   }
 
-  getNextIndex = () => this.getIndexFromProj() + 1;
+  getNextIndex = () => this.getCurrentIndex() + 1;
 
   getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
 
-  advanceQueue = () => {
-    // this.props.changeProj(this.getNextUid());
-    document.querySelectorAll('.view__inner')[1].scrollTo(0, 0);
+  switchQueue = () => {
+    this.setState({
+      visibleProjects: [
+        this.props.caseStudies[this.getCurrentIndex()],
+        this.props.caseStudies[this.getNextIndex()],
+      ],
+    });
+  }
 
-    const { caseStudies } = this.props;
-    this.setState({ visibleProjects: [caseStudies[1], caseStudies[2]] });
+  advanceQueue = () => {
+    this.props.changeProj(this.getNextUid());
+    document.querySelectorAll('.view__inner')[1].scrollTo(0, 0); // CHANGE
   }
 
   render() {
-    const { caseStudies } = this.props;
-    const index = this.getIndexFromProj();
     return (
       this.state.visibleProjects.map((cs, i) => {
         if (i === 0) {
