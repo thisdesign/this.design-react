@@ -58,16 +58,16 @@ class App extends React.Component {
     return (index !== -1 ? this.state.caseStudies[index] : null);
   }
 
-  openCaseStudy = () => {
-    this.setState({
-      isAnimatingToCs: true,
-      scrolledPastCsCover: false,
-    }, () => {
-      setTimeout(() => {
-        this.setState({ isAnimatingToCs: false });
-      }, this.VIEW_CHANGE_DURATION);
-    });
-  }
+  // openCaseStudy = () => {
+  //   this.setState({
+  //     isAnimatingToCs: true,
+  //     scrolledPastCsCover: false,
+  //   }, () => {
+  //     setTimeout(() => {
+  //       this.setState({ isAnimatingToCs: false });
+  //     }, this.VIEW_CHANGE_DURATION);
+  //   });
+  // }
 
   loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
     if (doc) {
@@ -104,16 +104,11 @@ class App extends React.Component {
     const {
       siteInfo,
       currentCaseStudy,
-      isAnimatingToCs,
+      // isAnimatingToCs,
       scrolledPastCsCover,
       notFound,
       caseStudies,
     } = this.state;
-    const {
-      openCaseStudy,
-      updateCsScrollPos,
-      setNotFound,
-    } = this;
 
     const { view } = this.props;
 
@@ -127,19 +122,12 @@ class App extends React.Component {
           />
           <main className={`views -view-is-${view}`}>
             <View aside viewName="work" view={view}>
-              <Work caseStudies={caseStudies} openCaseStudy={openCaseStudy} />
+              <Work caseStudies={caseStudies} />
             </View>
             <View viewName="root" view={view}>
               {
                 (!notFound && currentCaseStudy) ? (
-                  <CaseStudy
-                    prismicCtx={this.props.prismicCtx}
-                    route={currentCaseStudy}
-                    isAnimatingToCs={isAnimatingToCs}
-                    updateCsScrollPos={updateCsScrollPos}
-                    setNotFound={setNotFound}
-                    data={this.getProjectByUid(currentCaseStudy)}
-                  />
+                  <CaseStudy data={this.getProjectByUid(currentCaseStudy)} />
                 ) :
                   <Homepage data={siteInfo} notFound={notFound} />
               }

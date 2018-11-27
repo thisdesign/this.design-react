@@ -3,15 +3,13 @@ import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import { Link } from 'react-router-dom';
 import './Work.css';
 
-const Work = ({ caseStudies, openCaseStudy }) => {
+const Work = ({ caseStudies }) => {
   const links = caseStudies.map((item) => {
     const { uid, data } = item;
-
     return (
       <Link
         className="work__link"
         to={`/work/${uid}`}
-        onClick={() => openCaseStudy(uid)}
         key={uid}
       >
         <div className="work__link__wrapper">

@@ -1,7 +1,5 @@
 import React from 'react';
 import uuidv1 from 'uuid/v1';
-import Loading from '../../components/Loading/Loading';
-import NotFound from '../../components/NotFound/NotFound';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
@@ -15,72 +13,63 @@ import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
 
-/**
- * Still some work to be done with regards to
- * the efficency of this. Will try to keep it
- * simple now
- */
-
 export default class CaseStudy extends React.Component {
-  componentWillMount() {
-  }
-
+  componentDidMount() {}
 
   render() {
-    const doc = null;
-    const notFound = null;
-    const { isAnimatingToCs, route } = this.props;
-    if (doc && doc.uid === route) {
-      const title = `${doc.data.title} – This Design – Portland, OR`;
+    const { isAnimatingToCs } = this.props;
+    const doc2 = this.props.data;
 
-      const customCmsAtts = {
-        color: doc.data.text_color,
-        backgroundColor: doc.data.background_color,
-      };
+    const title = `${doc2.data.title} – This Design – Portland, OR`;
 
-      const slices = doc.data.content.map((data) => {
-        const atts = { data, title };
-        switch (data.slice_type) {
-          case 'text':
-            return <Text {...atts} />;
-          case 'columns':
-            return <Columns {...atts} />;
-          case 'columns-v2':
-            return <Columns {...atts} />;
-          case 'image':
-            return <Image {...atts} />;
-          case 'image-v2':
-            return <Image {...atts} />;
-          case 'diptych':
-            return <Diptych {...atts} />;
-          case 'diptych-v2':
-            return <Diptych {...atts} />;
-          case 'video':
-            return <Video {...atts} />;
-          case 'gallery':
-            return <Gallery {...atts} />;
-          case 'gallery-v2':
-            return <Gallery {...atts} />;
-          case 'pullquote':
-            return <Pullquote {...atts} />;
-          case 'website':
-            return <Website {...atts} />;
-          default:
-            return <p className="future">{data.slice_type} goes here</p>;
-        }
-      });
+    const customCmsAtts = {
+      color: doc2.data.text_color,
+      backgroundColor: doc2.data.background_color,
+    };
 
-      return (
-        <article className="casestudy" style={customCmsAtts}>
-          <div className="view__child">
-            <CaseStudyCover data={doc.data} />
-            <ScrollTrigger
-              offset={0}
-              onEnter={() => this.props.updateCsScrollPos(true)}
-              onExit={() => this.props.updateCsScrollPos(false)}
-            >
-              <div className="casestudy__body">
-                {!isAnimatingToCs && slices.map((slice) => {
+    const slices = doc2.data.content.map((data) => {
+      const atts = { data, title };
+      switch (data.slice_type) {
+        case 'text':
+          return <Text {...atts} />;
+        case 'columns':
+          return <Columns {...atts} />;
+        case 'columns-v2':
+          return <Columns {...atts} />;
+        case 'image':
+          return <Image {...atts} />;
+        case 'image-v2':
+          return <Image {...atts} />;
+        case 'diptych':
+          return <Diptych {...atts} />;
+        case 'diptych-v2':
+          return <Diptych {...atts} />;
+        case 'video':
+          return <Video {...atts} />;
+        case 'gallery':
+          return <Gallery {...atts} />;
+        case 'gallery-v2':
+          return <Gallery {...atts} />;
+        case 'pullquote':
+          return <Pullquote {...atts} />;
+        case 'website':
+          return <Website {...atts} />;
+        default:
+          return <p className="future">{data.slice_type} goes here</p>;
+      }
+    });
+
+    return (
+      <article className="casestudy" style={customCmsAtts}>
+        <div className="view__child">
+          <CaseStudyCover data={doc2.data} />
+          <ScrollTrigger
+            offset={0}
+            onEnter={() => this.props.updateCsScrollPos(true)}
+            onExit={() => this.props.updateCsScrollPos(false)}
+          >
+            <div className="casestudy__body">
+              {!isAnimatingToCs && slices.map((slice) => {
                   const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
                   const className = `casestudy__block casestudy__block--${type}`;
                   return (
@@ -89,14 +78,10 @@ export default class CaseStudy extends React.Component {
                     </ScrollTrigger>
                 );
               })}
-              </div>
-            </ScrollTrigger>
-          </div>
-        </article>
-      );
-    } else if (notFound) {
-      return <NotFound />;
-    }
-    return <Loading />;
+            </div>
+          </ScrollTrigger>
+        </div>
+      </article>
+    );
   }
 }

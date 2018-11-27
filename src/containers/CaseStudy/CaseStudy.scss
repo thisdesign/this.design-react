@@ -6,7 +6,7 @@
 
 .casestudy__block {
   margin-top: $variable-spacing-lg;
-  opacity: 0;
+  // opacity: 0;
   transform: translateY(50px);
   transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
 
