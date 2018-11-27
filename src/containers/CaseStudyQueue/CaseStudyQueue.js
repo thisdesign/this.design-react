@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
+import { withRouter } from 'react-router-dom';
 
 class CaseStudyQueue extends Component {
   state = {
@@ -8,6 +9,7 @@ class CaseStudyQueue extends Component {
 
   componentWillMount() {
     this.switchQueue();
+    // this.props.history.push('fucfk!!!');
   }
 
   componentDidUpdate(prevProps) {
@@ -21,7 +23,13 @@ class CaseStudyQueue extends Component {
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
   }
 
-  getNextIndex = () => this.getCurrentIndex() + 1;
+  getNextIndex = () => {
+    const totalCaseStudies = this.props.caseStudies.length;
+    const index = this.getCurrentIndex();
+    const isLastCaseStudy = (index + 1) === totalCaseStudies;
+    const nextIndex = (!isLastCaseStudy) ? index + 1 : 0;
+    return nextIndex;
+  };
 
   getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
 
@@ -59,7 +67,7 @@ class CaseStudyQueue extends Component {
   }
 }
 
-export default CaseStudyQueue;
+export default withRouter(CaseStudyQueue);
 
 
 //
