@@ -9,7 +9,6 @@ class CaseStudyQueue extends Component {
 
   componentWillMount() {
     this.switchQueue();
-    // this.props.history.push('fucfk!!!');
   }
 
   componentDidUpdate(prevProps) {
@@ -42,8 +41,13 @@ class CaseStudyQueue extends Component {
     });
   }
 
+  updateUrl = (uid) => {
+    this.props.history.push(uid);
+  }
+
   advanceQueue = () => {
     this.props.changeProj(this.getNextUid());
+    this.updateUrl(this.getNextUid());
     document.querySelectorAll('.view__inner')[1].scrollTo(0, 0); // CHANGE
   }
 

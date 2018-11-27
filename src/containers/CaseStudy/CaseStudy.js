@@ -53,7 +53,6 @@ const caseStudy = ({ doc }) => {
     }
   });
 
-  console.log('rendered');
   return (
     <article className="casestudy" style={customCmsAtts}>
       <div className="view__child">
