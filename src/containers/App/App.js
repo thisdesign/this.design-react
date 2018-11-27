@@ -10,7 +10,7 @@ import Homepage from 'containers/Homepage/Homepage';
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
-import CaseStudy from 'containers/CaseStudy/CaseStudy';
+import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import About from 'containers/About/About';
 import flatten from 'array-flatten';
 
@@ -27,7 +27,6 @@ class App extends React.Component {
     notFound: false,
     currentCaseStudy: null,
     scrolledPastCsCover: null,
-    index: 0,
   };
 
   componentDidMount() {
@@ -52,19 +51,6 @@ class App extends React.Component {
 
   setNotFound = () => {
     this.setState({ notFound: true });
-  }
-
-  getProjectByUid = (uid) => {
-    const index = this.state.caseStudies.map(cs => cs.uid).indexOf(uid);
-    return (index !== -1 ? this.state.caseStudies[index] : null);
-  }
-
-  getProjectByIndex(i) {
-    return this.state.caseStudies[i];
-  }
-  getNextProjectByUid = (uid) => {
-    const index = this.state.caseStudies.map(cs => cs.uid).indexOf(uid);
-    return (index !== -1 ? this.state.caseStudies[index + 1] : null);
   }
 
   getImages = doc => flatten(doc.results.map((item) => {
@@ -121,20 +107,14 @@ class App extends React.Component {
     });
   }
 
+  changeProj = (uid) => {
+    this.setState({ currentCaseStudy: uid });
+  }
+
   updateCsScrollPos = (scrolledPastCsCover) => {
     this.setState({ scrolledPastCsCover });
   }
 
-  goToNext = () => {
-    window.window.scrollY = 0;
-    this.setState({ currentCaseStudy: 'soma' });
-  }
-
-
-  changeIndex = () => {
-    document.querySelectorAll('.view__inner')[1].scrollTo(0, 0);
-    this.setState({ index: this.state.index + 1 });
-  }
 
   render() {
     const {
@@ -162,24 +142,13 @@ class App extends React.Component {
             </View>
             <View viewName="root" view={view}>
               {
-                (!notFound && currentCaseStudy) ? (
-                  caseStudies.map((cs, i) => {
-                    if (i === this.state.index) {
-                      return (
-                        <div key={i} onClick={this.changeIndex}>
-                          <CaseStudy doc={this.getProjectByIndex(i)} />
-                        </div>);
-                    }
-                    if (i === this.state.index + 1) {
-                      return (
-                        <div key={i} onClick={this.changeIndex} className="peek">
-                          <CaseStudy doc={this.getProjectByIndex(i)} x />
-                        </div>);
-                    }
-                    return null;
-                  })
-
-                ) :
+                (!notFound && currentCaseStudy) ?
+                  <CaseStudyQueue
+                    caseStudies={caseStudies}
+                    currentCaseStudy={currentCaseStudy}
+                    changeProj={this.changeProj}
+                  />
+                 :
                   <Homepage data={siteInfo} notFound={notFound} />
               }
             </View>

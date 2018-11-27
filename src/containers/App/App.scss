@@ -41,11 +41,11 @@ img {
   overflow-x: hidden;
 }
 
-.peek{
-  max-height: 100;
+.peek {
+  max-height: 500px;
   overflow: hidden;
 
   .casestudy__header__item--description {
-    opacity: 0
+    opacity: 0;
   }
 }
