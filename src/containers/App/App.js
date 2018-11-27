@@ -25,7 +25,6 @@ class App extends React.Component {
     siteInfo: null,
     notFound: false,
     currentCaseStudy: null,
-    isAnimatingToCs: false,
     scrolledPastCsCover: null,
   };
 
@@ -127,7 +126,7 @@ class App extends React.Component {
             <View viewName="root" view={view}>
               {
                 (!notFound && currentCaseStudy) ? (
-                  <CaseStudy data={this.getProjectByUid(currentCaseStudy)} />
+                  <CaseStudy doc={this.getProjectByUid(currentCaseStudy)} />
                 ) :
                   <Homepage data={siteInfo} notFound={notFound} />
               }
