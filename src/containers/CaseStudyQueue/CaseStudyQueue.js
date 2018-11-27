@@ -10,10 +10,14 @@ class CaseStudyQueue extends Component {
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
   }
 
-  advanceQueue = () => {
-    this.props.changeProj('saison');
-  }
+  getNextIndex = () => this.getIndexFromProj() + 1;
 
+  getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
+
+  advanceQueue = () => {
+    this.props.changeProj(this.getNextUid());
+    document.querySelectorAll('.view__inner')[1].scrollTo(0, 0);
+  }
 
   render() {
     const { caseStudies } = this.props;

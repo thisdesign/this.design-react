@@ -74,7 +74,7 @@ class App extends React.Component {
       });
     });
 
-    Promise.all(imgStatuses).then(() => console.log('done'));
+    // Promise.all(imgStatuses).then(() => console.log('done'));
     return imgStatuses;
   }
 
