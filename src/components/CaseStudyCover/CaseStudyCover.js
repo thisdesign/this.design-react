@@ -28,4 +28,4 @@ const CaseStudyCover = (props) => {
   );
 };
 
-export default CaseStudyCover;
+export default React.memo(CaseStudyCover);
