@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 class CaseStudyQueue extends Component {
   state = {
     visibleProjects: [],
+    isAnimating: false,
   }
 
   componentWillMount() {
@@ -26,8 +27,7 @@ class CaseStudyQueue extends Component {
     const totalCaseStudies = this.props.caseStudies.length;
     const index = this.getCurrentIndex();
     const isLastCaseStudy = (index + 1) === totalCaseStudies;
-    const nextIndex = (!isLastCaseStudy) ? index + 1 : 0;
-    return nextIndex;
+    return (!isLastCaseStudy) ? index + 1 : 0;
   };
 
   getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
@@ -45,14 +45,23 @@ class CaseStudyQueue extends Component {
     this.props.history.push(uid);
   }
 
-  advanceQueue = () => {
-    console.log('asdf');
+  changeCaseStudy = () => {
     this.props.changeProj(this.getNextUid());
-    this.updateUrl(this.getNextUid());
+    this.updateUrl(this.props.currentCaseStudy);
     document.querySelector('.view.root').scrollTo(0, 0); // CHANGE
+    this.setState({ isAnimating: false });
+  }
+
+  advanceQueue = () => {
+    this.setState({ isAnimating: true });
+
+    setTimeout(() => {
+      this.changeCaseStudy();
+    }, 600);
   }
 
   render() {
+    const { isAnimating, visibleProjects } = this.state;
     return (
       this.state.visibleProjects.map((cs, i) => {
         if (i === 0) {
@@ -60,7 +69,8 @@ class CaseStudyQueue extends Component {
             <CaseStudy
               key={cs.id}
               advanceQueue={this.advanceQueue}
-              doc={this.state.visibleProjects[0]}
+              doc={visibleProjects[0]}
+              isAnimating={isAnimating}
             />
           );
         }
@@ -69,7 +79,8 @@ class CaseStudyQueue extends Component {
             <CaseStudy
               next
               key={cs.id}
-              doc={this.state.visibleProjects[1]}
+              isAnimating={isAnimating}
+              doc={visibleProjects[1]}
             />
           );
         }

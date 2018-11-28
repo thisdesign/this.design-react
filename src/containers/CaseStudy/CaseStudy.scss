@@ -1,4 +1,14 @@
 @import '../../styles/variables.scss';
+@-webkit-keyframes slideUp {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, -100vh, 0);
+    // transform: translate3d(0, calc(-100vh + 400px), 0);
+  }
+}
 
 .casestudy {
   left: 0;
@@ -10,15 +20,22 @@
   overflow: auto;
   transform: translate3d(0, 0, 0);
 
+  &.-isAnimating {
+    &:not(.casestudy--next) {
+      animation: slideUp 600ms $ease-standard;
+    }
+  }
+
+  &__header__item {
+    transition: opacity 400ms $ease-standard;
+  }
+
   &--next {
     z-index: 10;
     pointer-events: none;
 
     .casestudy__header__item {
-      &--description,
-      &--services {
-        opacity: 0;
-      }
+      opacity: 0;
     }
   }
 

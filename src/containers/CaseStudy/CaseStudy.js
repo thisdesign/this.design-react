@@ -13,7 +13,9 @@ import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
 
-const caseStudy = ({ doc, next, advanceQueue }) => {
+const caseStudy = ({
+  doc, next, advanceQueue, isAnimating,
+}) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
   const isNext = next === true;
 
@@ -54,12 +56,14 @@ const caseStudy = ({ doc, next, advanceQueue }) => {
     }
   });
 
+  const articleClasses = [
+    'casestudy',
+    isNext ? 'casestudy--next' : '',
+    isAnimating ? '-isAnimating' : '',
+  ].join(' ');
+
   return (
-    <article
-      className={`casestudy ${isNext
-      ? 'casestudy--next'
-      : ''}`}
-    >
+    <article className={articleClasses} >
       <CaseStudyCover data={doc.data} />
       <ScrollTrigger
         offset={0}
