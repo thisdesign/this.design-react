@@ -141,16 +141,15 @@ class App extends React.Component {
               <Work caseStudies={caseStudies} />
             </View>
             <View viewName="root" view={view}>
-              {
-                (!notFound && currentCaseStudy) ?
+              {(!notFound && currentCaseStudy)
+                ?
                   <CaseStudyQueue
                     caseStudies={caseStudies}
                     currentCaseStudy={currentCaseStudy}
                     changeProj={this.changeProj}
                   />
                  :
-                  <Homepage data={siteInfo} notFound={notFound} />
-              }
+                  <Homepage data={siteInfo} notFound={notFound} />}
             </View>
             <View aside viewName="about" view={view} >
               <About prismicCtx={this.props.prismicCtx} />
