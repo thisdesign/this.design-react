@@ -1,11 +1,18 @@
 @import '../../styles/variables.scss';
 
 .casestudy {
-  background: $case-study-bg;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 30;
+  position: fixed;
+  overflow: auto;
+  transform: translate3d(0, 0, 0);
 
   &--next {
-    max-height: 100vh;
-    overflow: hidden;
+    z-index: 10;
+    pointer-events: none;
 
     .casestudy__header__item {
       &--description,
@@ -15,9 +22,16 @@
     }
   }
 
+  &__shim {
+    display: block;
+    height: 400px;
+    position: relative;
+    width: 100%;
+    z-index: 300;
+  }
+
   &__block {
-    margin-top: $variable-spacing-lg;
-    transform: translateY(50px);
+    margin-top: $margin-1;
     transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
 
     &--columns {
@@ -32,8 +46,9 @@
   }
 
   &__body {
+    background: $case-study-bg;
     position: relative;
     z-index: 30;
-    padding-bottom: $variable-spacing-lg;
+    padding-bottom: $margin-1;
   }
 }

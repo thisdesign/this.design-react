@@ -46,6 +46,7 @@ class CaseStudyQueue extends Component {
   }
 
   advanceQueue = () => {
+    console.log('asdf');
     this.props.changeProj(this.getNextUid());
     this.updateUrl(this.getNextUid());
     document.querySelector('.view.root').scrollTo(0, 0); // CHANGE
@@ -56,7 +57,11 @@ class CaseStudyQueue extends Component {
       this.state.visibleProjects.map((cs, i) => {
         if (i === 0) {
           return (
-            <CaseStudy key={cs.id} doc={this.state.visibleProjects[0]} />
+            <CaseStudy
+              key={cs.id}
+              advanceQueue={this.advanceQueue}
+              doc={this.state.visibleProjects[0]}
+            />
           );
         }
         if (i === 1) {
@@ -64,7 +69,6 @@ class CaseStudyQueue extends Component {
             <CaseStudy
               next
               key={cs.id}
-              advanceQueue={this.advanceQueue}
               doc={this.state.visibleProjects[1]}
             />
           );

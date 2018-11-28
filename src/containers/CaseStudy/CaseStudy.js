@@ -59,8 +59,6 @@ const caseStudy = ({ doc, next, advanceQueue }) => {
       className={`casestudy ${isNext
       ? 'casestudy--next'
       : ''}`}
-      style={customCmsAtts}
-      onClick={isNext ? advanceQueue : null}
     >
       <CaseStudyCover data={doc.data} />
       <ScrollTrigger
@@ -68,7 +66,7 @@ const caseStudy = ({ doc, next, advanceQueue }) => {
         onEnter={() => this.props.updateCsScrollPos(true)}
         onExit={() => this.props.updateCsScrollPos(false)}
       />
-      <div className="casestudy__body">
+      <div className="casestudy__body" style={customCmsAtts}>
         {
           slices.map((slice) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
@@ -84,6 +82,7 @@ const caseStudy = ({ doc, next, advanceQueue }) => {
           })
         }
       </div>
+      <div className="casestudy__shim" onClick={advanceQueue} />
     </article>
   );
 };
