@@ -13,8 +13,9 @@ import Diptych from './slices/Diptych/Diptych';
 
 import './CaseStudy.css';
 
-const caseStudy = ({ doc }) => {
+const caseStudy = ({ doc, next, advanceQueue }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
+  const isNext = next === true;
 
   const customCmsAtts = {
     color: doc.data.text_color,
@@ -54,26 +55,34 @@ const caseStudy = ({ doc }) => {
   });
 
   return (
-    <article className="casestudy" style={customCmsAtts}>
-      <div className="view__child">
-        <CaseStudyCover data={doc.data} />
-        <ScrollTrigger
-          offset={0}
-          onEnter={() => this.props.updateCsScrollPos(true)}
-          onExit={() => this.props.updateCsScrollPos(false)}
-        >
-          <div className="casestudy__body">
-            {slices.map((slice) => {
-                  const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
-                  const className = `casestudy__block casestudy__block--${type}`;
-                  return (
-                    <ScrollTrigger offset={100} className={className} key={uuidv1()}>
-                      {slice}
-                    </ScrollTrigger>
-                );
-              })}
-          </div>
-        </ScrollTrigger>
+    <article
+      className={`casestudy ${isNext
+      ? 'casestudy--next'
+      : ''}`}
+      style={customCmsAtts}
+      onClick={isNext ? advanceQueue : null}
+    >
+      <CaseStudyCover data={doc.data} />
+      <ScrollTrigger
+        offset={0}
+        onEnter={() => this.props.updateCsScrollPos(true)}
+        onExit={() => this.props.updateCsScrollPos(false)}
+      />
+      <div className="casestudy__body">
+        {
+          slices.map((slice) => {
+            const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
+            const className = `casestudy__block casestudy__block--${type}`;
+            return (
+              <ScrollTrigger
+                offset={100}
+                className={className}
+                key={uuidv1()}
+              >
+                {slice}
+              </ScrollTrigger>);
+          })
+        }
       </div>
     </article>
   );
