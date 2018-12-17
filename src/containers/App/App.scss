@@ -40,3 +40,9 @@ img {
   width: 100%;
   overflow-x: hidden;
 }
+
+#io-prismic-toolbar {
+  transform: translateX(-97%);
+  opacity: .2 !important;
+  transition: transform cubic-bezier(0.25, 0.1, 0.25, 1) 200ms,opacity cubic-bezier(0.25, 0.1, 0.25, 1) 200ms;
+}
