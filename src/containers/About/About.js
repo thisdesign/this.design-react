@@ -3,7 +3,6 @@ import uuidv1 from 'uuid/v1';
 import Loading from '../../components/Loading/Loading';
 import NotFound from '../../components/NotFound/NotFound';
 import Text from './slices/Text/Text';
-import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
 import Conclusion from './slices/Conclusion/Conclusion';
@@ -53,7 +52,7 @@ export default class About extends React.Component {
               case 'conclusion':
                 return <Conclusion data={slice} />;
               case 'color-start':
-                return <ScrollTrigger />;
+                return null; // used to be <ScrollTrigger />;
               default:
                 return <p className="future">{slice.slice_type} goes here</p>;
             }

@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import ScrollContainer from '../../containers/ScrollContainer/ScrollContainer';
 import './View.css';
 
 const View = ({
@@ -14,9 +13,9 @@ const View = ({
   ].join(' ');
 
   return (
-    <ScrollContainer className={className} viewName={viewName} view={view}>
+    <div className={className} viewName={viewName} view={view}>
       {children}
-    </ScrollContainer>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ScrollTrigger from 'containers/ScrollTrigger/ScrollTrigger';
 import './VideoNode.css';
 import MuteControl from './MuteControl/MuteControl';
 import VideoControls from './VideoControls/VideoControls';
@@ -176,9 +175,14 @@ export default class VideoNode extends React.Component {
       />);
 
     const video = (!hasControls ? (
-      <ScrollTrigger inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
+      /*
+       the following <div />
+       used to be <ScrollTrigger /> which
+       paused video when it was 15vw out of view
+      */
+      <div inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
         {videoDom}
-      </ScrollTrigger>
+      </div>
     ) : (videoDom));
 
     const clickPauseAbility = { ...hasControls ? { onClick: this.handlePause } : null };
