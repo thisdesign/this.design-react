@@ -21,6 +21,7 @@ class App extends React.Component {
     this.setCaseStudy();
   }
 
+
   componentDidUpdate(prevProps) {
     const hasLoadedCtx = prevProps.prismicCtx !== this.props.prismicCtx;
     const isNewUid = (this.props.uid !== prevProps.uid) && this.props.uid !== undefined;
