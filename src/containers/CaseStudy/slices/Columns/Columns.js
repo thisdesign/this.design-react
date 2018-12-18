@@ -2,7 +2,6 @@ import React from 'react';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
 import { RichText } from 'prismic-reactjs';
-import Parallax from '../../../Parallax/Parallax';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
 import './Columns.css';
 
@@ -52,7 +51,8 @@ const Columns = (props) => {
   );
 
   const columnItems = [
-    <Parallax speed={4} className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">
+    // this div used to be a <Parallax />
+    <div speed={4} className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">
       {(() => {
         if (data.layout === '-website') {
           return <WebsiteFrame render={columnMedia} />;
@@ -61,7 +61,7 @@ const Columns = (props) => {
         }
         return columnMedia;
       })()}
-    </Parallax>,
+    </div>,
     columnText,
   ];
 

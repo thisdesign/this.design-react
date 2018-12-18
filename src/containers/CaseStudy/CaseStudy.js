@@ -1,7 +1,6 @@
 import React from 'react';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
-import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
 import Gallery from './slices/Gallery/Gallery';
 import Columns from './slices/Columns/Columns';
@@ -64,24 +63,24 @@ const caseStudy = ({
   return (
     <article className={articleClasses} >
       <CaseStudyCover data={doc.data} />
-      <ScrollTrigger
-        offset={0}
-        onEnter={() => this.props.updateCsScrollPos(true)}
-        onExit={() => this.props.updateCsScrollPos(false)}
-      />
       <div className="casestudy__body" style={customCmsAtts}>
         {
           slices.map((slice, i) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
             const className = `casestudy__block casestudy__block--${type}`;
             return (
-              <ScrollTrigger
+              /*
+               the following <div />
+               used to be <ScrollTrigger /> which
+               faded in each module when it's 100px in view
+              */
+              <div
                 offset={100}
                 className={className}
                 key={i} // eslint-disable-line
               >
                 {slice}
-              </ScrollTrigger>);
+              </div>);
           })
         }
       </div>
