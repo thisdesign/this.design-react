@@ -1,5 +1,4 @@
 import React from 'react';
-import uuidv1 from 'uuid/v1';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
