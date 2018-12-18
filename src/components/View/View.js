@@ -14,11 +14,9 @@ const View = ({
   ].join(' ');
 
   return (
-    <section className={className}>
-      <ScrollContainer className="view__inner" viewName={viewName} view={view}>
-        {children}
-      </ScrollContainer>
-    </section>
+    <ScrollContainer className={className} viewName={viewName} view={view}>
+      {children}
+    </ScrollContainer>
   );
 };
 

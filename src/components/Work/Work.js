@@ -1,19 +1,15 @@
 import React from 'react';
-import propTypes from 'prop-types';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import { Link } from 'react-router-dom';
 import './Work.css';
 
-const Work = (props) => {
-  const { caseStudyList } = props;
-  const links = caseStudyList.map((item) => {
-    const { uid, data } = item.case_study_item;
-
+const Work = ({ caseStudies }) => {
+  const links = caseStudies.map((item) => {
+    const { uid, data } = item;
     return (
       <Link
         className="work__link"
         to={`/work/${uid}`}
-        onClick={() => props.openCaseStudy(uid)}
         key={uid}
       >
         <div className="work__link__wrapper">
@@ -42,12 +38,6 @@ const Work = (props) => {
       {links}
     </div>
   );
-};
-
-Work.propTypes = {
-  caseStudyList: propTypes.arrayOf(propTypes.shape({
-    case_study_item: propTypes.object.isRequired,
-  })).isRequired,
 };
 
 export default React.memo(Work);

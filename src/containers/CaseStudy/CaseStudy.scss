@@ -1,28 +1,71 @@
 @import '../../styles/variables.scss';
+@-webkit-keyframes slideUp {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, -100vh, 0);
+    // transform: translate3d(0, calc(-100vh + 400px), 0);
+  }
+}
 
 .casestudy {
-  background: $case-study-bg;
-}
-
-.casestudy__block {
-  margin-top: $variable-spacing-lg;
-  opacity: 0;
-  transform: translateY(50px);
-  transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
-
-  &--columns {
-    position: relative;
-    z-index: 10;
-  }
-
-  &.-active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.casestudy__body {
-  position: relative;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
   z-index: 30;
-  padding-bottom: $variable-spacing-lg;
+  position: fixed;
+  overflow: auto;
+  transform: translate3d(0, 0, 0);
+
+  &.-isAnimating {
+    &:not(.casestudy--next) {
+      animation: slideUp 600ms $ease-standard;
+    }
+  }
+
+  &__header__item {
+    transition: opacity 400ms $ease-standard;
+  }
+
+  &--next {
+    z-index: 10;
+    pointer-events: none;
+
+    .casestudy__header__item {
+      opacity: 0;
+    }
+  }
+
+  &__shim {
+    display: block;
+    height: 400px;
+    position: relative;
+    width: 100%;
+    z-index: 300;
+  }
+
+  &__block {
+    margin-top: $margin-1;
+    transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
+
+    &--columns {
+      position: relative;
+      z-index: 10;
+    }
+
+    &.-active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &__body {
+    background: $case-study-bg;
+    position: relative;
+    z-index: 30;
+    padding-bottom: $margin-1;
+  }
 }

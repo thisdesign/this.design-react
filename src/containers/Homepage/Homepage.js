@@ -33,6 +33,9 @@ class Homepage extends Component {
   }
 
   render() {
+    if (this.props.notFound) { // find a ui solve for this
+      console.log('Not found');
+    }
     const videos = isMobile()
       ? this.props.data.data.video_group_mobile
       : this.props.data.data.video_group;
