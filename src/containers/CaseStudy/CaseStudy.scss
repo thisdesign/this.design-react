@@ -27,7 +27,7 @@
   }
 
   &__header__item {
-    transition: opacity 400ms $ease-standard;
+    transition: transform 400ms $ease-standard, opacity 400ms $ease-standard;
   }
 
   &--next {
@@ -35,7 +35,12 @@
     pointer-events: none;
 
     .casestudy__header__item {
+      transform: translateY(calc(100vh - 160px - 200px));
       opacity: 0;
+
+      &--title {
+        opacity: 1;
+      }
     }
   }
 
@@ -45,6 +50,7 @@
     position: relative;
     width: 100%;
     z-index: 300;
+    cursor: pointer;
   }
 
   &__block {

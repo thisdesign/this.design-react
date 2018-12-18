@@ -1,4 +1,5 @@
 import React from 'react';
+import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import ScrollTrigger from '../ScrollTrigger/ScrollTrigger';
 import Text from './slices/Text/Text';
@@ -9,7 +10,6 @@ import Video from './slices/Video/Video';
 import Pullquote from './slices/Pullquote/Pullquote';
 import Website from './slices/Website/Website';
 import Diptych from './slices/Diptych/Diptych';
-
 import './CaseStudy.css';
 
 const caseStudy = ({
@@ -85,7 +85,9 @@ const caseStudy = ({
           })
         }
       </div>
-      <div className="casestudy__shim" onClick={advanceQueue} />
+      <CursorAnchor detached textId="launch" >
+        <div className="casestudy__shim" onClick={advanceQueue} />
+      </CursorAnchor>
     </article>
   );
 };
