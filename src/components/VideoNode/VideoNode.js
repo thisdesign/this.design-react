@@ -180,7 +180,8 @@ export default class VideoNode extends React.Component {
        used to be <ScrollTrigger /> which
        paused video when it was 15vw out of view
       */
-      <div inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
+      // <ScrollTrigger inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
+      <div>
         {videoDom}
       </div>
     ) : (videoDom));

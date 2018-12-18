@@ -13,7 +13,7 @@ const View = ({
   ].join(' ');
 
   return (
-    <div className={className} viewName={viewName} view={view}>
+    <div className={className}>
       {children}
     </div>
   );
