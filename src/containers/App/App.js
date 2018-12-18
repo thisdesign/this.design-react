@@ -149,7 +149,7 @@ class App extends React.Component {
                     changeProj={this.changeProj}
                   />
                  :
-                  <Homepage data={siteInfo} notFound={notFound} />}
+                  <Homepage firstCaseStudy={caseStudies[0]} data={siteInfo} notFound={notFound} />}
             </View>
             <View aside viewName="about" view={view} >
               <About prismicCtx={this.props.prismicCtx} />

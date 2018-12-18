@@ -72,14 +72,14 @@ const caseStudy = ({
       />
       <div className="casestudy__body" style={customCmsAtts}>
         {
-          slices.map((slice) => {
+          slices.map((slice, i) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
             const className = `casestudy__block casestudy__block--${type}`;
             return (
               <ScrollTrigger
                 offset={100}
                 className={className}
-                key={uuidv1()}
+                key={i} // eslint-disable-line
               >
                 {slice}
               </ScrollTrigger>);

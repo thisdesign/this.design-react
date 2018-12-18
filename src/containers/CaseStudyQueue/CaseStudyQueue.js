@@ -48,7 +48,7 @@ class CaseStudyQueue extends Component {
   changeCaseStudy = () => {
     this.props.changeProj(this.getNextUid());
     this.updateUrl(this.props.currentCaseStudy);
-    document.querySelector('.view.root').scrollTo(0, 0); // CHANGE
+    // document.querySelector('.view.root').scrollTo(0, 0); // CHANGE
     this.setState({ isAnimating: false });
   }
 
