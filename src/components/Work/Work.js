@@ -12,7 +12,7 @@ const Work = () => {
       className="work__link"
       to={`/work/${uid}`}
       key={uid}
-      onClick={launchProject}
+      onClick={() => launchProject(uid)}
     >
       <div className="work__link__wrapper">
         <CursorAnchor textId="launch" detached>

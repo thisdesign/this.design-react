@@ -18,16 +18,19 @@ class Layout extends Component {
     this.setState({ scrolledPastCsCover });
   }
 
-  launchProject = (name) => {
-    const update = () => this.setState({ projectLaunchStatus: name });
+  launchProject = (nextUid) => {
+    const update = statusName =>
+      this.setState({ projectLaunchStatus: statusName });
 
-    update('transitioning');
-    delay(config.projectLaunchDur).then(() => {
-      update('afterload');
-      return delay(config.afterLaunchDur);
-    }).then(() => {
-      update('ready');
-    });
+    if (nextUid !== this.props.currentCaseStudy) {
+      update('transitioning');
+      delay(config.projectLaunchDur).then(() => {
+        update('afterload');
+        return delay(config.afterLaunchDur);
+      }).then(() => {
+        update('ready');
+      });
+    }
   }
 
   render() {
