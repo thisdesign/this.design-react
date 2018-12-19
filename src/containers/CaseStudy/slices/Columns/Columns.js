@@ -71,4 +71,4 @@ const Columns = (props) => {
     </div>);
 };
 
-export default Columns;
+export default React.memo(Columns);

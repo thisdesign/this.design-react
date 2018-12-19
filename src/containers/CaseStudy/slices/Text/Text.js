@@ -6,4 +6,4 @@ const Text = props => (
   <div className="casestudy__text -wrap">{RichText.render(props.data.value)}</div>
 );
 
-export default Text;
+export default React.memo(Text);
