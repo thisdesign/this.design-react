@@ -56,10 +56,12 @@
   &__block {
     margin-top: $margin-1;
     transition: $anim-slow opacity $ease-decel, $anim-fast transform $ease-decel;
+    position: relative;
+    z-index: 10;
 
     &--columns {
       position: relative;
-      z-index: 10;
+      z-index: 20;
     }
 
     &.-active {
@@ -70,8 +72,7 @@
 
   &__body {
     background: $case-study-bg;
-    position: relative;
-    z-index: 30;
     padding-bottom: $margin-1;
+    position: relative;
   }
 }

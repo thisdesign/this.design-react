@@ -63,8 +63,8 @@ const caseStudy = ({
 
   return (
     <article className={articleClasses} >
-      <CaseStudyCover data={doc.data} />
       <div className="casestudy__body" style={customCmsAtts}>
+        <CaseStudyCover data={doc.data} />
         {
           slices.map((slice, i) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
@@ -88,6 +88,7 @@ const caseStudy = ({
         <div className="casestudy__shim" onClick={advanceQueue} />
       </CursorAnchor>
     </article>
+
   );
 };
 

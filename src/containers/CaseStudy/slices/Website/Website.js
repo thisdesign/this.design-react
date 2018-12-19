@@ -39,4 +39,4 @@ const Website = (props) => {
   );
 };
 
-export default Website;
+export default React.memo(Website);

@@ -1,57 +1,70 @@
 import React, { Component } from 'react';
-import Homepage from 'containers/Homepage/Homepage';
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
-import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import About from 'containers/About/About';
+import config from 'util/config';
+import delay from 'util/delay';
+import Root from 'containers/Root/Root';
+import LayoutContext from './LayoutContext';
 
 class Layout extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.VIEW_CHANGE_DURATION = 600;
-  // }
-
   state = {
     scrolledPastCsCover: null,
+    projectLaunchStatus: 'ready',
   };
 
   updateCsScrollPos = (scrolledPastCsCover) => {
     this.setState({ scrolledPastCsCover });
   }
 
+  launchProject = (nextUid) => {
+    const update = statusName =>
+      this.setState({ projectLaunchStatus: statusName });
+
+    if (nextUid !== this.props.currentCaseStudy) {
+      update('transitioning');
+      delay(config.projectLaunchDur).then(() => {
+        update('afterload');
+        return delay(config.afterLaunchDur);
+      }).then(() => {
+        update('ready');
+      });
+    }
+  }
+
   render() {
-    const { scrolledPastCsCover } = this.state;
-    const {
-      view, caseStudies, notFound, siteInfo, currentCaseStudy,
-    } = this.props;
+    const { view, notFound, currentCaseStudy } = this.props;
+    const { projectLaunchStatus } = this.state;
     return (
-      <React.Fragment>
-        <Nav
-          view={view}
-          scrolledPastCsCover={scrolledPastCsCover}
-          currentCaseStudy={currentCaseStudy}
-        />
+      <LayoutContext.Provider
+        value={{
+          notFound,
+          currentCaseStudy,
+          view,
+          projectLaunchStatus,
+          scrolledPastCsCover: this.state.scrolledPastCsCover,
+          siteInfo: this.props.siteInfo,
+          caseStudies: this.props.caseStudies,
+          launchProject: this.launchProject,
+        }}
+      >
+        <Nav />
         <main className={`views -view-is-${view}`}>
           <View aside viewName="work" view={view}>
-            <Work caseStudies={caseStudies} />
+            <Work />
           </View>
           <View viewName="root" view={view}>
-            {
-            (!notFound && currentCaseStudy)
-              ? <CaseStudyQueue
-                caseStudies={caseStudies}
-                currentCaseStudy={currentCaseStudy}
-                changeProj={this.changeProj}
-              />
-              : <Homepage data={siteInfo} notFound={notFound} />
-          }
+            <Root
+              projectLaunchStatus={projectLaunchStatus}
+              isHome={!(!notFound && currentCaseStudy)}
+            />
           </View>
           <View aside viewName="about" view={view}>
             <About prismicCtx={this.props.prismicCtx} />
           </View>
         </main>
-      </React.Fragment>);
+      </LayoutContext.Provider>);
   }
 }
 

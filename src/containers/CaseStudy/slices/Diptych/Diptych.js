@@ -42,4 +42,4 @@ const Diptych = (props) => {
   );
 };
 
-export default Diptych;
+export default React.memo(Diptych);
