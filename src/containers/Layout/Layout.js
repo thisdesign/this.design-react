@@ -9,32 +9,47 @@ import LayoutContext from './LayoutContext';
 class Layout extends Component {
   state = {
     scrolledPastCsCover: null,
+    projectLaunchStatus: 'ready',
   };
 
   updateCsScrollPos = (scrolledPastCsCover) => {
     this.setState({ scrolledPastCsCover });
   }
 
+  launchProject = () => {
+    const TRANSITION_DURATION = 600;
+    const AFTERLOAD_DURATION = 600;
+
+    function delay(time) {
+      return new Promise((resolve) => {
+        setTimeout(resolve, time);
+      });
+    }
+
+    this.setState({ projectLaunchStatus: 'transitioning' });
+
+    delay(TRANSITION_DURATION).then(() => {
+      this.setState({ projectLaunchStatus: 'afterload' });
+      return delay(AFTERLOAD_DURATION);
+    }).then(() => {
+      this.setState({ projectLaunchStatus: 'ready' });
+    });
+  }
+
   render() {
-    const {
-      scrolledPastCsCover,
-    } = this.state;
-    const {
-      view,
-      caseStudies,
-      notFound,
-      siteInfo,
-      currentCaseStudy,
-    } = this.props;
+    const { view, notFound, currentCaseStudy } = this.props;
+    const { projectLaunchStatus } = this.state;
     return (
       <LayoutContext.Provider
         value={{
-          scrolledPastCsCover,
           notFound,
-          siteInfo,
-          caseStudies,
           currentCaseStudy,
           view,
+          projectLaunchStatus,
+          scrolledPastCsCover: this.state.scrolledPastCsCover,
+          siteInfo: this.props.siteInfo,
+          caseStudies: this.props.caseStudies,
+          launchProject: this.launchProject,
         }}
       >
         <Nav />
@@ -44,6 +59,7 @@ class Layout extends Component {
           </View>
           <View viewName="root" view={view}>
             <Root
+              projectLaunchStatus={projectLaunchStatus}
               isHome={!(!notFound && currentCaseStudy)}
             />
           </View>

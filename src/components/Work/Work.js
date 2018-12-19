@@ -6,12 +6,13 @@ import './Work.css';
 
 const Work = () => {
   const WorkThumbnail = ({
-    uid, thumbnail, svg, title,
+    uid, thumbnail, svg, title, launchProject,
   }) => (
     <Link
       className="work__link"
       to={`/work/${uid}`}
       key={uid}
+      onClick={launchProject}
     >
       <div className="work__link__wrapper">
         <CursorAnchor textId="launch" detached>
@@ -36,14 +37,19 @@ const Work = () => {
   return (
     <div className="work__inner view__child -wrap-nav">
       <LayoutContext.Consumer>{
-        ({ caseStudies }) => caseStudies.map(({ uid, data: { thumbnail, svg, title } }) => (
-          <WorkThumbnail
-            key={uid}
-            uid={uid}
-            thumbnail={thumbnail}
-            svg={svg}
-            title={title}
-          />
+        ({
+          caseStudies,
+          launchProject,
+        }) => caseStudies
+          .map(({ uid, data: { thumbnail, svg, title } }) => (
+            <WorkThumbnail
+              key={uid}
+              uid={uid}
+              thumbnail={thumbnail}
+              svg={svg}
+              title={title}
+              launchProject={launchProject}
+            />
         ))
       }
       </LayoutContext.Consumer>
