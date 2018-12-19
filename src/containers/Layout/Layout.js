@@ -3,6 +3,8 @@ import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
 import About from 'containers/About/About';
+import config from 'util/config';
+import delay from 'util/delay';
 import Root from 'containers/Root/Root';
 import LayoutContext from './LayoutContext';
 
@@ -16,23 +18,15 @@ class Layout extends Component {
     this.setState({ scrolledPastCsCover });
   }
 
-  launchProject = () => {
-    const TRANSITION_DURATION = 600;
-    const AFTERLOAD_DURATION = 600;
+  launchProject = (name) => {
+    const update = () => this.setState({ projectLaunchStatus: name });
 
-    function delay(time) {
-      return new Promise((resolve) => {
-        setTimeout(resolve, time);
-      });
-    }
-
-    this.setState({ projectLaunchStatus: 'transitioning' });
-
-    delay(TRANSITION_DURATION).then(() => {
-      this.setState({ projectLaunchStatus: 'afterload' });
-      return delay(AFTERLOAD_DURATION);
+    update('transitioning');
+    delay(config.projectLaunchDur).then(() => {
+      update('afterload');
+      return delay(config.afterLaunchDur);
     }).then(() => {
-      this.setState({ projectLaunchStatus: 'ready' });
+      update('ready');
     });
   }
 
