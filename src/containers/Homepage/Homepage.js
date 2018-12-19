@@ -1,10 +1,13 @@
+import React, { Component } from 'react';
 import Loading from 'components/Loading/Loading';
 import isMobile from 'util/isMobile';
+import LayoutContext from 'containers/Layout/LayoutContext';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
 import './Homepage.css';
 
 class Homepage extends Component {
+  static contextType = LayoutContext;
+
   constructor(props) {
     super(props);
     this.video = React.createRef();
@@ -33,13 +36,9 @@ class Homepage extends Component {
   }
 
   render() {
-    if (this.props.notFound) { // find a ui solve for this
-      console.log('Not found');
-    }
-    const videos = isMobile()
-      ? this.props.data.data.video_group_mobile
-      : this.props.data.data.video_group;
-    const urls = videos.map(vid => vid.link.url);
+    const { notFound, siteInfo } = this.context;
+    if (notFound) { console.log('Not found'); }
+    const urls = siteInfo.data[isMobile() ? 'video_group_mobile' : 'video_group'].map(vid => vid.link.url);
     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
     const videoLoaded = this.state.videoLoaded !== false;
     return (
@@ -54,7 +53,6 @@ class Homepage extends Component {
     );
   }
 }
-
 
 Homepage.defaultProps = {
   data: PropTypes.shape({

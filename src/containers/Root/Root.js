@@ -1,25 +1,14 @@
 import React from 'react';
 import Homepage from 'containers/Homepage/Homepage';
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
-import Loading from 'components/Loading/Loading';
+import PropTypes from 'prop-types';
 
-
-const Root = ({
-  siteInfo, notFound, currentCaseStudy, caseStudies, isHome, loading,
-}) => {
-  if (isHome) {
-    return <Homepage data={siteInfo} notFound={notFound} />;
-  }
-  return (
-    <React.Fragment>
-      { loading && <Loading />}
-      <CaseStudyQueue
-        caseStudies={caseStudies}
-        currentCaseStudy={currentCaseStudy}
-        changeProj={this.changeProj}
-      />
-    </React.Fragment>
-  );
+const Root = ({ isHome }) => {
+  if (isHome) { return <Homepage />; }
+  return <CaseStudyQueue />;
 };
 
+Root.propTypes = {
+  isHome: PropTypes.bool.isRequired,
+};
 export default Root;
