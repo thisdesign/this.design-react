@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import { withRouter } from 'react-router-dom';
+import LayoutContext from 'containers/Layout/LayoutContext';
 
 class CaseStudyQueue extends Component {
+  static contextType = LayoutContext;
+
   state = {
     visibleProjects: [],
     isAnimating: false,
@@ -19,24 +22,24 @@ class CaseStudyQueue extends Component {
   }
 
   getCurrentIndex = () => {
-    const { caseStudies, currentCaseStudy } = this.props;
+    const { caseStudies, currentCaseStudy } = this.context;
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
   }
 
   getNextIndex = () => {
-    const totalCaseStudies = this.props.caseStudies.length;
+    const totalCaseStudies = this.context.caseStudies.length;
     const index = this.getCurrentIndex();
     const isLastCaseStudy = (index + 1) === totalCaseStudies;
     return (!isLastCaseStudy) ? index + 1 : 0;
   };
 
-  getNextUid = () => this.props.caseStudies[this.getNextIndex()].uid
+  getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
 
   switchQueue = () => {
     this.setState({
       visibleProjects: [
-        this.props.caseStudies[this.getCurrentIndex()],
-        this.props.caseStudies[this.getNextIndex()],
+        this.context.caseStudies[this.getCurrentIndex()],
+        this.context.caseStudies[this.getNextIndex()],
       ],
     });
   }
@@ -47,7 +50,7 @@ class CaseStudyQueue extends Component {
 
   changeCaseStudy = () => {
     this.props.history.push(`/work/${this.getNextUid()}`);
-    this.updateUrl(this.props.currentCaseStudy);
+    this.updateUrl(this.context.currentCaseStudy);
     this.setState({ isAnimating: false });
   }
 
