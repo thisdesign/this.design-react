@@ -1,0 +1,9 @@
+.-waypointAnim {
+  &--fadeIn {
+    opacity: 0;
+
+    &.-enabled {
+      opacity: 1;
+    }
+  }
+}

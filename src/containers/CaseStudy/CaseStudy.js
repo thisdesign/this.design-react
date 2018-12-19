@@ -1,5 +1,6 @@
 import React from 'react';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
+import WaypointAnim from 'components/WaypointAnim/WaypointAnim';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import Text from './slices/Text/Text';
 import Gallery from './slices/Gallery/Gallery';
@@ -74,13 +75,12 @@ const caseStudy = ({
                used to be <ScrollTrigger /> which
                faded in each module when it's 100px in view
               */
-              <div
-                offset={100}
+              <WaypointAnim
                 className={className}
                 key={i} // eslint-disable-line
               >
                 {slice}
-              </div>);
+              </WaypointAnim>);
           })
         }
       </div>
