@@ -9,8 +9,6 @@ import LayoutContext from './LayoutContext';
 class Layout extends Component {
   state = {
     scrolledPastCsCover: null,
-    isTransitioningToCs: false,
-    // csTransitionStatus: null,
   };
 
   updateCsScrollPos = (scrolledPastCsCover) => {
@@ -20,7 +18,6 @@ class Layout extends Component {
   render() {
     const {
       scrolledPastCsCover,
-      isTransitioningToCs,
     } = this.state;
     const {
       view,
@@ -28,13 +25,11 @@ class Layout extends Component {
       notFound,
       siteInfo,
       currentCaseStudy,
-      // istransitioningToCs,
     } = this.props;
     return (
       <LayoutContext.Provider
         value={{
           scrolledPastCsCover,
-          isTransitioningToCs,
           notFound,
           siteInfo,
           caseStudies,
@@ -50,8 +45,6 @@ class Layout extends Component {
           <View viewName="root" view={view}>
             <Root
               isHome={!(!notFound && currentCaseStudy)}
-              isLoading={false}
-              isTransitioningToCs={isTransitioningToCs}
             />
           </View>
           <View aside viewName="about" view={view}>

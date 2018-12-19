@@ -37,7 +37,13 @@ const Work = () => {
     <div className="work__inner view__child -wrap-nav">
       <LayoutContext.Consumer>{
         ({ caseStudies }) => caseStudies.map(({ uid, data: { thumbnail, svg, title } }) => (
-          <WorkThumbnail uid={uid} thumbnail={thumbnail} svg={svg} title={title} />
+          <WorkThumbnail
+            key={uid}
+            uid={uid}
+            thumbnail={thumbnail}
+            svg={svg}
+            title={title}
+          />
         ))
       }
       </LayoutContext.Consumer>
