@@ -1,19 +1,14 @@
 import React, { Component } from 'react';
-import Homepage from 'containers/Homepage/Homepage';
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
-import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import About from 'containers/About/About';
+import Root from 'containers/Root/Root';
 
 class Layout extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.VIEW_CHANGE_DURATION = 600;
-  // }
-
   state = {
     scrolledPastCsCover: null,
+    transitioningToCs: false,
   };
 
   updateCsScrollPos = (scrolledPastCsCover) => {
@@ -37,15 +32,14 @@ class Layout extends Component {
             <Work caseStudies={caseStudies} />
           </View>
           <View viewName="root" view={view}>
-            {
-            (!notFound && currentCaseStudy)
-              ? <CaseStudyQueue
-                caseStudies={caseStudies}
-                currentCaseStudy={currentCaseStudy}
-                changeProj={this.changeProj}
-              />
-              : <Homepage data={siteInfo} notFound={notFound} />
-          }
+            <Root
+              notFound={notFound}
+              currentCaseStudy={currentCaseStudy}
+              caseStudies={caseStudies}
+              siteInfo={siteInfo}
+              isHome={!(!notFound && currentCaseStudy)}
+              loading={false}
+            />
           </View>
           <View aside viewName="about" view={view}>
             <About prismicCtx={this.props.prismicCtx} />
