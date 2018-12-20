@@ -73,7 +73,7 @@ class CaseStudyQueue extends Component {
           advanceQueue={this.advanceQueue}
           doc={visibleProjects[i]}
           isAnimating={isAnimating}
-          isHome={this.context.currentCaseStudy === undefined}
+          isHome={this.props.isHome}
         />
       )));
   }

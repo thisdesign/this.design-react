@@ -21,7 +21,7 @@ class Root extends React.Component {
         }
         <React.Fragment>
           {projectLaunchStatus !== 'ready' && <Loading />}
-          {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
+          {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue isHome={isHome} />}
         </React.Fragment>
       </React.Fragment>
     );

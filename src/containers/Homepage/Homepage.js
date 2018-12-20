@@ -50,9 +50,6 @@ class Homepage extends Component {
             </video>
           </div>
         </div>
-        {this.props.shim &&
-          <div className="casestudy__shim" onClick={this.props.handleOpen} />
-        }
       </div>
     );
   }

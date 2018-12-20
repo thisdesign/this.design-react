@@ -16,9 +16,14 @@
   height: 100%;
   width: 100%;
   z-index: 30;
-  position: fixed;
+  position: relative;
   overflow: auto;
   transform: translate3d(0, 0, 0);
+
+  &.-isHome {
+    height: 400px;
+    overflow: hidden;
+  }
 
   &.-isAnimating {
     &:not(.casestudy--next) {

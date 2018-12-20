@@ -12,7 +12,7 @@ import Diptych from './slices/Diptych/Diptych';
 import './CaseStudy.css';
 
 const caseStudy = ({
-  doc, next, advanceQueue, isAnimating,
+  doc, next, advanceQueue, isAnimating, isHome,
 }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
   const isNext = next === true;
@@ -58,6 +58,7 @@ const caseStudy = ({
     'casestudy',
     isNext ? 'casestudy--next' : '',
     isAnimating ? '-isAnimating' : '',
+    isHome ? '-isHome' : '',
   ].join(' ');
 
   return (
