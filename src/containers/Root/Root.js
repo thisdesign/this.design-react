@@ -5,7 +5,23 @@ import Loading from 'components/Loading/Loading';
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
 
-class HomepageWithNext extends React.Component {
+
+const CaseStudiesWithLag = ({ projectLaunchStatus }) => (
+  <React.Fragment>
+    {projectLaunchStatus !== 'ready' && <Loading />}
+    {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
+  </React.Fragment>
+);
+
+const NextButton = ({ handleOpen }) => {
+  const style = { background: 'red', position: 'fixed', zIndex: 500 };
+  return (
+    <div style={style} onClick={handleOpen}> NEXT </div>
+  );
+};
+
+
+class Root extends React.Component {
   handleOpen = () => {
     setTimeout(() => {
       this.props.history.push('/work/lora');
@@ -17,30 +33,18 @@ class HomepageWithNext extends React.Component {
       <React.Fragment>
         {this.props.isHome &&
           <React.Fragment>
-            <div
-              style={{ background: 'red', position: 'fixed', zIndex: 500 }}
-              onClick={this.handleOpen}
-            >NEXT
-            </div>
+            <NextButton handleOpen={this.handleOpen} />
             <Homepage />
           </React.Fragment>}
-        <CaseStudyQueue />;
+        <CaseStudiesWithLag projectLaunchStatus={this.props.projectLaunchStatus} />;
       </React.Fragment>
     );
   }
 }
 
-const HomepageWithNextWithRouter = withRouter(HomepageWithNext);
 
-const Root = ({ isHome, projectLaunchStatus }) =>
-  (
-    <React.Fragment>
-      {projectLaunchStatus !== 'ready' && <Loading />}
-      {projectLaunchStatus !== 'transitioning' && <HomepageWithNextWithRouter isHome={isHome} />}
-    </React.Fragment>
-  );
 Root.propTypes = {
   isHome: PropTypes.bool.isRequired,
   projectLaunchStatus: PropTypes.string.isRequired,
 };
-export default React.memo(Root);
+export default withRouter(Root);
