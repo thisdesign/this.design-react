@@ -1,4 +1,3 @@
-/* eslint no-case-declarations: 0 */
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import Text from './Text/Text';
@@ -22,20 +21,20 @@ const Slices = ({ sliceData, title }) => {
     switch (data.slice_type) {
       case 'text':
         return <Text value={RichText.render(data.value)} type="text" />;
+
       case 'columns':
       case 'columns-v2':
-        const cms = data.value
+        this.data = data.value
           ? data.value[0] // v1 structure
           : data.primary; // v2 structure
-        // console.log(cms.image);
         return (
           <Columns
             {...atts}
-            isRight={cms.right === 'right'}
+            isRight={this.data.right === 'right'}
             type="columns"
-            text={RichText.render(cms.text)}
+            text={RichText.render(this.data.text)}
             size={(() => {
-              switch (cms.layout) {
+              switch (this.data.layout) {
                 case '-column--2of3':
                   return 'large';
                 case '-column--1of3':
@@ -46,18 +45,20 @@ const Slices = ({ sliceData, title }) => {
                   return null;
               }
             })()}
-            layout={cms.layout}
-            videoUrl={cms.video.url}
-            hasMute={cms.audio !== null}
+            layout={this.data.layout}
+            videoUrl={this.data.video.url}
+            hasMute={this.data.audio !== null}
             imageUrl={(() => {
               const idealSize = 'size_1024';
-              return cms.image[idealSize]
-                ? cms.image[idealSize].url
-                : cms.image.url;
+              return this.data.image[idealSize]
+                ? this.data.image[idealSize].url
+                : this.data.image.url;
             })()}
           />);
+
       case 'image':
       case 'image-v2':
+        console.log(data.value[0]);
         return <Image {...atts} type="image" />;
       case 'diptych':
       case 'diptych-v2':
@@ -70,14 +71,38 @@ const Slices = ({ sliceData, title }) => {
       case 'pullquote':
         return <Pullquote {...atts} type="pullquote" />;
       case 'website':
-        return <Website {...atts} type="website" />;
+        this.data = data.primary;
+        return (
+          <Website
+            background={this.data.background}
+            imageUrl={this.data.screenshot.url}
+            layout={this.data}
+            videoUrl={this.data.video.url}
+            frameColor={this.data.frame_color}
+            dotColor={this.data.dot_color}
+            type="website"
+          />
+        );
+      case 'mobile':
+        [this.data] = data.value;
+        return (
+          <Columns
+            type="columns"
+            audio={this.data.audio}
+            text={RichText.render(this.data.text)}
+            videoUrl={this.data.video.url}
+            right={this.data.right}
+            layout="-mobile"
+          />
+        );
       default:
         console.error('nothing built for', data.slice_type); //eslint-disable-line
-        return <React.Fragment />;
+        return <div type="notFound" />;
     }
   });
+
   return slices.map((slice, i) => (
-    <Slice type={slice.props.type} key={slice.props.type + i}>
+    <Slice type={slice.props.type} key={`${slice.props.type}${i}`}>
       {slice}
     </Slice>
   ));

@@ -34,7 +34,7 @@ const Columns = ({
   const MediaWrapper = ({ children }) => {
     switch (layout) {
       case '-website':
-        return <WebsiteFrame render={children} />;
+        return <WebsiteFrame>{children}</WebsiteFrame>;
       case '-mobile':
         return <MobileFrame>{children}</MobileFrame>;
       default:

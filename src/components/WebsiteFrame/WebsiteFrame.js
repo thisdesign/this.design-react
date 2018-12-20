@@ -1,4 +1,3 @@
-
 import React from 'react';
 import PercentRadii from 'containers/PercentRadii/PercentRadii';
 import './WebsiteFrame.css';
@@ -15,10 +14,9 @@ const WebsiteFrame = (props) => {
         <circle fill={dotColor} cx="21" cy="10" r="2.75" />
         <circle fill={dotColor} cx="32" cy="10" r="2.75" />
       </svg>
-      {props.render}
+      {props.children}
     </PercentRadii>
   );
 };
-
 
 export default WebsiteFrame;
