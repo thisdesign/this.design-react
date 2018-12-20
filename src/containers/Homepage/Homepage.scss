@@ -1,22 +1,21 @@
 .homepage {
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
   z-index: 40;
+  overflow-y: scroll;
 
-  &__notFound {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+  // &__notFound {
+  //   position: absolute;
+  //   top: 50%;
+  //   left: 50%;
+  //   transform: translate(-50%, -50%);
+  // }
 
   &__inner {
     height: calc(100vh - 2em - 2vw);
     width: calc(100vw - 2em - 2vw);
+    margin: calc(4em - 4vw);
     overflow: hidden;
 
     &__video,

@@ -5,15 +5,6 @@ import Loading from 'components/Loading/Loading';
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
 
-
-const NextButton = ({ handleOpen }) => {
-  const style = { background: 'red', position: 'fixed', zIndex: 41 };
-  return (
-    <div style={style} onClick={handleOpen}> NEXT </div>
-  );
-};
-
-
 class Root extends React.Component {
   handleOpen = () => {
     setTimeout(() => {
@@ -22,22 +13,20 @@ class Root extends React.Component {
   }
 
   render() {
+    const { isHome, projectLaunchStatus } = this.props;
     return (
       <React.Fragment>
-        {this.props.isHome &&
-          <React.Fragment>
-            <NextButton handleOpen={this.handleOpen} />
-            <Homepage />
-          </React.Fragment>}
+        {isHome &&
+          <Homepage shim handleOpen={this.handleOpen} />
+        }
         <React.Fragment>
-          {this.props.projectLaunchStatus !== 'ready' && <Loading />}
-          {this.props.projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
+          {projectLaunchStatus !== 'ready' && <Loading />}
+          {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
         </React.Fragment>
       </React.Fragment>
     );
   }
 }
-
 
 Root.propTypes = {
   isHome: PropTypes.bool.isRequired,
