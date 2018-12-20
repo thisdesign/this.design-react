@@ -6,15 +6,8 @@ import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
 
 
-const CaseStudiesWithLag = ({ projectLaunchStatus }) => (
-  <React.Fragment>
-    {projectLaunchStatus !== 'ready' && <Loading />}
-    {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
-  </React.Fragment>
-);
-
 const NextButton = ({ handleOpen }) => {
-  const style = { background: 'red', position: 'fixed', zIndex: 500 };
+  const style = { background: 'red', position: 'fixed', zIndex: 41 };
   return (
     <div style={style} onClick={handleOpen}> NEXT </div>
   );
@@ -36,7 +29,10 @@ class Root extends React.Component {
             <NextButton handleOpen={this.handleOpen} />
             <Homepage />
           </React.Fragment>}
-        <CaseStudiesWithLag projectLaunchStatus={this.props.projectLaunchStatus} />;
+        <React.Fragment>
+          {this.props.projectLaunchStatus !== 'ready' && <Loading />}
+          {this.props.projectLaunchStatus !== 'transitioning' && <CaseStudyQueue />}
+        </React.Fragment>
       </React.Fragment>
     );
   }

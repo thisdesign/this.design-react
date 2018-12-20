@@ -21,13 +21,6 @@ class CaseStudyQueue extends Component {
     }
   }
 
-  shouldComponentUpdate(prevProps, prevState) {
-    return prevState !== this.state;
-  }
-  componentWillUnmount() {
-    console.log('bye');
-  }
-
   getCurrentIndex = () => {
     const { caseStudies, currentCaseStudy } = this.context;
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
@@ -73,29 +66,16 @@ class CaseStudyQueue extends Component {
   render() {
     const { isAnimating, visibleProjects } = this.state;
     return (
-      this.state.visibleProjects.map((cs, i) => {
-        if (i === 0) {
-          return (
-            <CaseStudy
-              key={cs.id}
-              advanceQueue={this.advanceQueue}
-              doc={visibleProjects[0]}
-              isAnimating={isAnimating}
-            />
-          );
-        }
-        if (i === 1) {
-          return (
-            <CaseStudy
-              next
-              key={cs.id}
-              isAnimating={isAnimating}
-              doc={visibleProjects[1]}
-            />
-          );
-        }
-        return null;
-      }));
+      this.state.visibleProjects.map((cs, i) => (
+        <CaseStudy
+          key={cs.id}
+          next={i === 1}
+          advanceQueue={this.advanceQueue}
+          doc={visibleProjects[i]}
+          isAnimating={isAnimating}
+          isHome={this.context.currentCaseStudy === undefined}
+        />
+      )));
   }
 }
 
