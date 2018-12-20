@@ -1,4 +1,5 @@
 import React from 'react';
+import { RichText } from 'prismic-reactjs';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import Text from './slices/Text/Text';
@@ -15,7 +16,6 @@ const caseStudy = ({
   doc, next, advanceQueue, isAnimating,
 }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
-  const isNext = next === true;
 
   const customCmsAtts = {
     color: doc.data.text_color,
@@ -26,37 +26,53 @@ const caseStudy = ({
     const atts = { data, title };
     switch (data.slice_type) {
       case 'text':
-        return <Text {...atts} />;
+        return <Text value={RichText.render(data.value)} type="text" />;
       case 'columns':
-        return <Columns {...atts} />;
       case 'columns-v2':
-        return <Columns {...atts} />;
+        return <Columns {...atts} type="columns" />;
       case 'image':
-        return <Image {...atts} />;
       case 'image-v2':
-        return <Image {...atts} />;
+        return <Image {...atts} type="image" />;
       case 'diptych':
-        return <Diptych {...atts} />;
       case 'diptych-v2':
-        return <Diptych {...atts} />;
+        return <Diptych {...atts} type="diptych" />;
       case 'video':
-        return <Video {...atts} />;
+        return <Video {...atts} type="video" />;
       case 'gallery':
-        return <Gallery {...atts} />;
       case 'gallery-v2':
-        return <Gallery {...atts} />;
+        return <Gallery {...atts} type="gallery" />;
       case 'pullquote':
-        return <Pullquote {...atts} />;
+        return <Pullquote {...atts} type="pullquote" />;
       case 'website':
-        return <Website {...atts} />;
+        return <Website {...atts} type="website" />;
       default:
-        return <p className="future">{data.slice_type} goes here</p>;
+        console.error('nothing built for', data.slice_type); //eslint-disable-line
+        return null;
     }
   });
 
+  const Slice = ({ children, type }) => (
+    <div className={`casestudy__block casestudy__block--${type}`} >
+      {children}
+    </div>
+  );
+
+  const Slices = () =>
+    slices.map((slice, i) => (
+      <Slice type={slice.props.type} key={slice.props.type + i}>
+        {slice}
+      </Slice>
+    ));
+
+  const Shim = () => (
+    <CursorAnchor detached textId="launch" >
+      <div className="casestudy__shim" onClick={advanceQueue} />
+    </CursorAnchor>
+  );
+
   const articleClasses = [
     'casestudy',
-    isNext ? 'casestudy--next' : '',
+    next ? 'casestudy--next' : '',
     isAnimating ? '-isAnimating' : '',
   ].join(' ');
 
@@ -64,29 +80,9 @@ const caseStudy = ({
     <article className={articleClasses} >
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
-        {
-          slices.map((slice, i) => {
-            const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
-            const className = `casestudy__block casestudy__block--${type}`;
-            return (
-              /*
-               the following <div />
-               used to be <ScrollTrigger /> which
-               faded in each module when it's 100px in view
-              */
-              <div
-                offset={100}
-                className={className}
-                key={i} // eslint-disable-line
-              >
-                {slice}
-              </div>);
-          })
-        }
+        <Slices />
       </div>
-      <CursorAnchor detached textId="launch" >
-        <div className="casestudy__shim" onClick={advanceQueue} />
-      </CursorAnchor>
+      <Shim />
     </article>
 
   );
