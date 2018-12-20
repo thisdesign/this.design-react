@@ -1,74 +1,94 @@
+/* eslint react/no-unused-prop-types: 0 */
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
-import { RichText } from 'prismic-reactjs';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
 import './Columns.css';
 
-const Columns = (props) => {
-  const data = props.data.value
-    ? props.data.value[0] // v1 structure
-    : props.data.primary; // v2 structure
-
-  const imageIsRight = data.right != null;
-  const is2of3 = data.layout === '-column--2of3';
-  const is1of3 = (
-    data.layout === '-column--1of3' ||
-    data.layout === '-mobile' ||
-    data.layout === '-website'
-  );
-
+const Columns = ({
+  size,
+  isRight,
+  videoUrl,
+  imageUrl,
+  hasMute,
+  title,
+  text,
+  layout,
+}) => {
   const classes = [
     'caseStudy__colBlock',
     '-grid',
     '-wrap',
-    imageIsRight
-      ? 'caseStudy__colBlock--right'
-      : null,
-    is2of3
-      ? 'caseStudy__colBlock--largeImage'
-      : null,
-    is1of3
-      ? 'caseStudy__colBlock--smallImage'
-      : null,
+    isRight ? 'caseStudy__colBlock--right' : '',
+    size === 'large' ? 'caseStudy__colBlock--largeImage' : '',
+    size === 'small' ? 'caseStudy__colBlock--smallImage' : '',
   ].join(' ');
 
-  const { image } = data;
-  const idealSize = 'size_1024';
-  const imgSrc = image[idealSize]
-    ? image[idealSize].url
-    : image.url;
+  const colClass = (modifier) => {
+    const base = 'caseStudy__colBlock__col';
+    return `${base} ${base}--${modifier} -padding`;
+  };
 
-  const columnMedia = (
-    data.video.url
-      ? <VideoNode muteToggle={data.audio === 'true'} url={data.video.url} />
-      : <img src={imgSrc} alt={props.title} />);
+  const MediaWrapper = ({ children }) => {
+    switch (layout) {
+      case '-website':
+        return <WebsiteFrame render={children} />;
+      case '-mobile':
+        return <MobileFrame>{children}</MobileFrame>;
+      default:
+        return children;
+    }
+  };
 
-  const columnText = (
-    <div className="caseStudy__colBlock__col caseStudy__colBlock__col--text -padding" key="col-img">
-      {RichText.render(data.text)}
+  const MediaItem = () => (
+    videoUrl
+      ? <VideoNode muteToggle={hasMute} url={videoUrl} />
+      : <img src={imageUrl} alt={title} />
+  );
+
+  const Media = () => (
+    <div speed={4} className={colClass('media')}>
+      <MediaWrapper>
+        <MediaItem />
+      </MediaWrapper>
+    </div>
+  );
+
+  const Text = () => (
+    <div className={colClass('text')}>
+      {text}
     </div>
   );
 
   const columnItems = [
-    // this div used to be a <Parallax />
-    <div speed={4} className="caseStudy__colBlock__col caseStudy__colBlock__col--media -padding" key="col-media">
-      {(() => {
-        if (data.layout === '-website') {
-          return <WebsiteFrame render={columnMedia} />;
-        } else if (data.layout === '-mobile') {
-          return <MobileFrame>{columnMedia}</MobileFrame>;
-        }
-        return columnMedia;
-      })()}
-    </div>,
-    columnText,
+    <Media key="media" />,
+    <Text key="text" />,
   ];
 
   return (
     <div className={classes}>
-      { imageIsRight ? columnItems.reverse() : columnItems }
+      { isRight ? columnItems.reverse() : columnItems }
     </div>);
+};
+
+Columns.defaultProps = {
+  isRight: false,
+  size: null,
+  text: <p />,
+  hasMute: false,
+  videoUrl: undefined,
+  imageUrl: undefined,
+};
+
+Columns.propTypes = {
+  text: PropTypes.node,
+  isRight: PropTypes.bool,
+  size: PropTypes.string,
+  hasMute: PropTypes.bool,
+  videoUrl: PropTypes.string,
+  imageUrl: PropTypes.string,
 };
 
 export default React.memo(Columns);
