@@ -21,6 +21,13 @@ class CaseStudyQueue extends Component {
     }
   }
 
+  shouldComponentUpdate(prevProps, prevState) {
+    return prevState !== this.state;
+  }
+  componentWillUnmount() {
+    console.log('bye');
+  }
+
   getCurrentIndex = () => {
     const { caseStudies, currentCaseStudy } = this.context;
     return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
@@ -36,10 +43,11 @@ class CaseStudyQueue extends Component {
   getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
 
   switchQueue = () => {
+    const areFound = this.getCurrentIndex() !== -1 && this.getNextIndex() !== -1;
     this.setState({
       visibleProjects: [
-        this.context.caseStudies[this.getCurrentIndex()],
-        this.context.caseStudies[this.getNextIndex()],
+        this.context.caseStudies[areFound ? this.getCurrentIndex() : 0],
+        this.context.caseStudies[areFound ? this.getNextIndex() : 1],
       ],
     });
   }
