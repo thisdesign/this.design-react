@@ -42,13 +42,11 @@ class Homepage extends Component {
     const videoLoaded = this.state.videoLoaded !== false;
     return (
       <div className="homepage">
-        <div className="homepage--video">
-          {!videoLoaded && <Loading />}
-          <div className="homepage__inner">
-            <video autoPlay loop muted playsInline className="homepage__inner__video" ref={this.video}>
-              <source src={randomUrl} type="video/mp4" />
-            </video>
-          </div>
+        {!videoLoaded && <Loading />}
+        <div className="homepage__inner">
+          <video autoPlay loop muted playsInline className="homepage__inner__video" ref={this.video}>
+            <source src={randomUrl} type="video/mp4" />
+          </video>
         </div>
       </div>
     );

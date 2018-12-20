@@ -27,10 +27,10 @@ class CaseStudyQueue extends Component {
   }
 
   getNextIndex = () => {
-    const totalCaseStudies = this.context.caseStudies.length;
-    const index = this.getCurrentIndex();
-    const isLastCaseStudy = (index + 1) === totalCaseStudies;
-    return (!isLastCaseStudy) ? index + 1 : 0;
+    const nextIndex = this.getCurrentIndex() + 1;
+    return (nextIndex === this.context.caseStudies.length) // if last
+      ? 0
+      : nextIndex;
   };
 
   getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
@@ -40,7 +40,7 @@ class CaseStudyQueue extends Component {
     this.setState({
       visibleProjects: [
         this.context.caseStudies[areFound ? this.getCurrentIndex() : 0],
-        this.context.caseStudies[areFound ? this.getNextIndex() : 1],
+        this.context.caseStudies[areFound ? this.getNextIndex() : null],
       ],
     });
   }
@@ -67,6 +67,7 @@ class CaseStudyQueue extends Component {
     const { isAnimating, visibleProjects } = this.state;
     return (
       this.state.visibleProjects.map((cs, i) => (
+        cs &&
         <CaseStudy
           key={cs.id}
           next={i === 1}
