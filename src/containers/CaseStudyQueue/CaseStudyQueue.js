@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
 
 class CaseStudyQueue extends Component {
-  static contextType = LayoutContext;
+  // static contextType = LayoutContext;
 
   state = {
     visibleProjects: [],
@@ -80,4 +80,6 @@ class CaseStudyQueue extends Component {
   }
 }
 
-export default withRouter(CaseStudyQueue);
+const CaseStudyQueueWithRouter = withRouter(CaseStudyQueue);
+CaseStudyQueueWithRouter.WrappedComponent.contextType = LayoutContext;
+export default CaseStudyQueueWithRouter;
