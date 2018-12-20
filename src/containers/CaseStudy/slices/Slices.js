@@ -83,4 +83,4 @@ const Slices = ({ sliceData, title }) => {
   ));
 };
 
-export default Slices;
+export default React.memo(Slices);
