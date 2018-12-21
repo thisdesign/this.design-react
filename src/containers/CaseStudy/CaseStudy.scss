@@ -44,20 +44,24 @@
 
       &--title {
         opacity: 1;
-        transform: translate3d(0, 40px, 0);
       }
     }
   }
 
 
-  &__header__item {
-    transition: transform 400ms $ease-standard, opacity 400ms $ease-standard;
+  .casestudy__header__item {
+    transition: opacity 600ms $ease-standard;
   }
 
   &.-isAnimating {
-    &:not(.casestudy--next)
-    :not(.-isHome) {
+    &:not(.casestudy--next):not(.-isHome) {
       animation: slideUp 600ms $ease-standard;
+    }
+
+    &.casestudy--next {
+      .casestudy__header__item--title {
+        transform: translate3d(0, 0, 0);
+      }
     }
   }
 
@@ -67,10 +71,12 @@
     position: fixed;
 
     .casestudy__header__item {
-      transform: translateY(calc(100vh - 160px - 200px));
       opacity: 0;
 
+
       &--title {
+        transition: transform 600ms $ease-standard;
+        transform: translateY(calc(100vh - 160px - 200px));
         opacity: 1;
       }
     }

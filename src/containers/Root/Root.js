@@ -17,7 +17,7 @@ class Root extends React.Component {
     this.setState({ isAnimating: true });
 
     setTimeout(() => {
-      this.props.history.push('/work/feller');
+      this.props.history.push(`/work/${this.context.caseStudies[0].uid}`);
       this.setState({ isAnimating: false });
     }, 600);
   }
