@@ -12,7 +12,7 @@ import Diptych from './slices/Diptych/Diptych';
 import './CaseStudy.css';
 
 const caseStudy = ({
-  doc, next, advanceQueue, isAnimating, isHome,
+  doc, next, advanceQueue, isAnimating, isHome, handleOpen,
 }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
   const isNext = next === true;
@@ -62,7 +62,7 @@ const caseStudy = ({
   ].join(' ');
 
   return (
-    <article className={articleClasses} >
+    <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
         {

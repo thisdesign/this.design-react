@@ -65,6 +65,7 @@ class CaseStudyQueue extends Component {
 
   render() {
     const { isAnimating, visibleProjects } = this.state;
+    const { openingFromHome } = this.props;
     return (
       this.state.visibleProjects.map((cs, i) => (
         cs &&
@@ -73,8 +74,9 @@ class CaseStudyQueue extends Component {
           next={i === 1}
           advanceQueue={this.advanceQueue}
           doc={visibleProjects[i]}
-          isAnimating={isAnimating}
+          isAnimating={isAnimating || openingFromHome}
           isHome={this.props.isHome}
+          handleOpen={this.props.handleOpen}
         />
       )));
   }

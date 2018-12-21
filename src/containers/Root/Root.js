@@ -4,11 +4,20 @@ import { withRouter } from 'react-router-dom';
 import Loading from 'components/Loading/Loading';
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
+import LayoutContext from 'containers/Layout/LayoutContext';
 
 class Root extends React.Component {
+  static contextType = LayoutContext
+
+  state = {
+    isAnimating: false,
+  }
+
   handleOpen = () => {
+    this.setState({ isAnimating: true });
+
     setTimeout(() => {
-      this.props.history.push('/work/lora');
+      this.props.history.push('/work/feller');
     }, 600);
   }
 
@@ -17,19 +26,27 @@ class Root extends React.Component {
     return (
       <React.Fragment>
         {isHome &&
-          <Homepage shim handleOpen={this.handleOpen} />
+          <Homepage
+            shim
+            openingFromHome={this.state.isAnimating}
+          />
         }
         <React.Fragment>
           {projectLaunchStatus !== 'ready' && <Loading />}
-          {projectLaunchStatus !== 'transitioning' && <CaseStudyQueue isHome={isHome} />}
+          {projectLaunchStatus !== 'transitioning' &&
+          <CaseStudyQueue
+            openingFromHome={this.state.isAnimating}
+            handleOpen={this.handleOpen}
+            isHome={isHome}
+          />}
         </React.Fragment>
       </React.Fragment>
     );
   }
 }
-
 Root.propTypes = {
   isHome: PropTypes.bool.isRequired,
   projectLaunchStatus: PropTypes.string.isRequired,
 };
-export default withRouter(Root);
+
+export default Object.assign(withRouter(Root), { contextType: undefined });
