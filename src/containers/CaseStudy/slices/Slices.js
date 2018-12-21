@@ -8,7 +8,7 @@ import Image from './Image/Image';
 import Video from './Video/Video';
 import Pullquote from './Pullquote/Pullquote';
 import Website from './Website/WebsiteWrapper';
-import Diptych from './Diptych/Diptych';
+import Diptych from './Diptych/DiptychWrapper';
 
 const Slice = ({ children, type }) => (
   <WaypointAnim className={`casestudy__block casestudy__block--${type}`} >
@@ -30,7 +30,7 @@ const Slices = ({ sliceData, title }) => {
         return <Image {...atts} type="image" />;
       case 'diptych':
       case 'diptych-v2':
-        return <Diptych {...atts} type="diptych" />;
+        return <Diptych.Wrapper {...atts} type="diptych" />;
       case 'video':
         return <Video {...atts} type="video" />;
       case 'gallery':
