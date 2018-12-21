@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
 
 class CaseStudyQueue extends Component {
-  static contextType = LayoutContext;
+  // static contextType = LayoutContext;
 
   state = {
     visibleProjects: [],
@@ -27,19 +27,20 @@ class CaseStudyQueue extends Component {
   }
 
   getNextIndex = () => {
-    const totalCaseStudies = this.context.caseStudies.length;
-    const index = this.getCurrentIndex();
-    const isLastCaseStudy = (index + 1) === totalCaseStudies;
-    return (!isLastCaseStudy) ? index + 1 : 0;
+    const nextIndex = this.getCurrentIndex() + 1;
+    return (nextIndex === this.context.caseStudies.length) // if last
+      ? 0
+      : nextIndex;
   };
 
   getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
 
   switchQueue = () => {
+    const areFound = this.getCurrentIndex() !== -1 && this.getNextIndex() !== -1;
     this.setState({
       visibleProjects: [
-        this.context.caseStudies[this.getCurrentIndex()],
-        this.context.caseStudies[this.getNextIndex()],
+        this.context.caseStudies[areFound ? this.getCurrentIndex() : 0],
+        this.context.caseStudies[areFound ? this.getNextIndex() : null],
       ],
     });
   }
@@ -64,31 +65,24 @@ class CaseStudyQueue extends Component {
 
   render() {
     const { isAnimating, visibleProjects } = this.state;
+    const { openingFromHome } = this.props;
+
     return (
-      this.state.visibleProjects.map((cs, i) => {
-        if (i === 0) {
-          return (
-            <CaseStudy
-              key={cs.id}
-              advanceQueue={this.advanceQueue}
-              doc={visibleProjects[0]}
-              isAnimating={isAnimating}
-            />
-          );
-        }
-        if (i === 1) {
-          return (
-            <CaseStudy
-              next
-              key={cs.id}
-              isAnimating={isAnimating}
-              doc={visibleProjects[1]}
-            />
-          );
-        }
-        return null;
-      }));
+      this.state.visibleProjects.map((cs, i) => (
+        cs &&
+        <CaseStudy
+          key={cs.id}
+          next={i === 1}
+          advanceQueue={this.advanceQueue}
+          doc={visibleProjects[i]}
+          isAnimating={isAnimating || openingFromHome}
+          isHome={this.props.isHome}
+          handleOpen={this.props.handleOpen}
+        />
+      )));
   }
 }
 
-export default withRouter(CaseStudyQueue);
+const CaseStudyQueueWithRouter = withRouter(CaseStudyQueue);
+CaseStudyQueueWithRouter.WrappedComponent.contextType = LayoutContext;
+export default CaseStudyQueueWithRouter;

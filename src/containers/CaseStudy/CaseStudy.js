@@ -5,7 +5,7 @@ import Slices from './slices/Slices';
 import './CaseStudy.css';
 
 const caseStudy = ({
-  doc, next, advanceQueue, isAnimating,
+  doc, next, advanceQueue, isAnimating, isHome, handleOpen,
 }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
 
@@ -24,10 +24,11 @@ const caseStudy = ({
     'casestudy',
     next ? 'casestudy--next' : '',
     isAnimating ? '-isAnimating' : '',
+    isHome ? '-isHome' : '',
   ].join(' ');
 
   return (
-    <article className={articleClasses} >
+    <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
         <Slices sliceData={doc.data.content} title={title} />

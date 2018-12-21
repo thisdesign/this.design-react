@@ -1,4 +1,5 @@
 import React from 'react';
+import Waypoint from 'react-waypoint';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
 import './Gallery.css';
 
@@ -9,6 +10,7 @@ export default class Gallery extends React.Component {
       : this.props.data.value.map(img => img.image), // old
     currentImageIndex: 0,
     ratio: 0,
+    isVisible: false,
   }
 
   componentWillMount() {
@@ -37,13 +39,19 @@ export default class Gallery extends React.Component {
   }
 
   cycleImages = () => {
-    this.int = setInterval(() => {
-      this.handleNextImage();
-    }, 3000);
+    if (this.state.isVisible) {
+      this.int = setInterval(() => {
+        this.handleNextImage();
+      }, 3000);
+    }
+  }
+
+  stopTimer = () => {
+    clearInterval(this.int);
   }
 
   resetTimer = () => {
-    clearInterval(this.int);
+    this.stopTimer();
     this.cycleImages();
   }
 
@@ -71,6 +79,16 @@ export default class Gallery extends React.Component {
     } else {
       this.goToImage(this.previousImage);
     }
+  }
+
+  enableVisibility = () => {
+    this.setState({ isVisible: true });
+    this.cycleImages();
+  }
+
+  disableVisibility = () => {
+    this.setState({ isVisible: false });
+    this.stopTimer();
   }
 
   render() {
@@ -107,29 +125,34 @@ export default class Gallery extends React.Component {
     ].join(' ');
 
     return (
-      <div className={classes}>
-        <div
-          className="caseStudy__gallery__imageContainer"
-          style={{ paddingTop: `${ratio}%` }}
-        >
-          <div className="caseStudy__gallery__nav">
-            <div
-              className="caseStudy__gallery__nav__item--prev caseStudy__gallery__nav__item"
-              onClick={this.handlePrevImage}
-            />
-            <div
-              className="caseStudy__gallery__nav__item--next caseStudy__gallery__nav__item"
-              onClick={this.handleNextImage}
-            />
+      <Waypoint
+        onEnter={this.enableVisibility}
+        onLeave={this.disableVisibility}
+      >
+        <div className={classes}>
+          <div
+            className="caseStudy__gallery__imageContainer"
+            style={{ paddingTop: `${ratio}%` }}
+          >
+            <div className="caseStudy__gallery__nav">
+              <div
+                className="caseStudy__gallery__nav__item--prev caseStudy__gallery__nav__item"
+                onClick={this.handlePrevImage}
+              />
+              <div
+                className="caseStudy__gallery__nav__item--next caseStudy__gallery__nav__item"
+                onClick={this.handleNextImage}
+              />
+            </div>
+            {galleryItems}
           </div>
-          {galleryItems}
+          <GalleryIndicators
+            images={images}
+            currentImageIndex={currentImageIndex}
+            goToImage={this.goToImage}
+          />
         </div>
-        <GalleryIndicators
-          images={images}
-          currentImageIndex={currentImageIndex}
-          goToImage={this.goToImage}
-        />
-      </div>
+      </Waypoint>
     );
   }
 }

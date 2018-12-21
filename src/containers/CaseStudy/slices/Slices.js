@@ -1,5 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
+import WaypointAnim from 'components/WaypointAnim/WaypointAnim';
 import Text from './Text/Text';
 import Gallery from './Gallery/Gallery';
 import Columns from './Columns/Columns';
@@ -10,9 +11,9 @@ import Website from './Website/Website';
 import Diptych from './Diptych/Diptych';
 
 const Slice = ({ children, type }) => (
-  <div className={`casestudy__block casestudy__block--${type}`} >
+  <WaypointAnim className={`casestudy__block casestudy__block--${type}`} >
     {children}
-  </div>
+  </WaypointAnim>
 );
 
 const Slices = ({ sliceData, title }) => {
@@ -58,7 +59,7 @@ const Slices = ({ sliceData, title }) => {
 
       case 'image':
       case 'image-v2':
-        console.log(data.value[0]);
+        // console.log(data.value[0]);
         return <Image {...atts} type="image" />;
       case 'diptych':
       case 'diptych-v2':
