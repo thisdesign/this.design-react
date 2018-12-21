@@ -2,7 +2,7 @@ import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import WaypointAnim from 'components/WaypointAnim/WaypointAnim';
 import Text from './Text/Text';
-import Gallery from './Gallery/Gallery';
+import Gallery from './Gallery/GalleryWrapper';
 import Columns from './Columns/ColumnsWrapper';
 import Image from './Image/ImageWrapper';
 import Video from './Video/Video';
@@ -35,7 +35,7 @@ const Slices = ({ sliceData, title }) => {
         return <Video {...atts} type="video" />;
       case 'gallery':
       case 'gallery-v2':
-        return <Gallery {...atts} type="gallery" />;
+        return <Gallery.Wrapper {...atts} type="gallery" />;
       case 'pullquote':
         return <Pullquote {...atts} type="pullquote" />;
       case 'website':

@@ -5,9 +5,6 @@ import './Gallery.css';
 
 export default class Gallery extends React.Component {
   state = {
-    images: this.props.data.items
-      ? this.props.data.items.map(img => img.image) // v2
-      : this.props.data.value.map(img => img.image), // old
     currentImageIndex: 0,
     ratio: 0,
     isVisible: false,
@@ -24,8 +21,8 @@ export default class Gallery extends React.Component {
   }
 
   setVars = () => {
-    const { currentImageIndex, images } = this.state;
-    this.lastImage = images.length - 1;
+    const { currentImageIndex } = this.state;
+    this.lastImage = this.props.images.length - 1;
     this.isFirstImage = currentImageIndex <= 0;
     this.isLastImage = this.lastImage > currentImageIndex;
     this.nextImage = currentImageIndex + 1;
@@ -33,7 +30,7 @@ export default class Gallery extends React.Component {
   }
 
   setRatio = () => {
-    const ratios = this.state.images.map(image => image.dimensions.height / image.dimensions.width);
+    const ratios = this.props.images.map(image => image.dimensions.height / image.dimensions.width);
     const smallestRatio = Math.min(...ratios) * 100;
     this.setState({ ratio: smallestRatio });
   }
@@ -92,10 +89,8 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const { images, currentImageIndex, ratio } = this.state;
-    const shouldZoom = this.props.data.primary
-      ? this.props.data.primary.zoom_animation_enabled
-      : null;
+    const { currentImageIndex, ratio } = this.state;
+    const { images } = this.props;
 
     const galleryItems = images.map((img, index) => {
       const imageIsCurrent = index === currentImageIndex;
@@ -119,7 +114,7 @@ export default class Gallery extends React.Component {
     const classes = [
       'caseStudy__gallery grid',
       '-wrap',
-      shouldZoom === 'false'
+      this.props.animate === 'false'
         ? 'caseStudy__gallery--noZoom'
         : '',
     ].join(' ');
