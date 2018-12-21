@@ -13,7 +13,7 @@ import Diptych from './slices/Diptych/Diptych';
 import './CaseStudy.css';
 
 const caseStudy = ({
-  doc, next, advanceQueue, isAnimating,
+  doc, next, advanceQueue, isAnimating, isHome, handleOpen,
 }) => {
   const title = `${doc.data.title} – This Design – Portland, OR`;
   const isNext = next === true;
@@ -59,13 +59,15 @@ const caseStudy = ({
     'casestudy',
     isNext ? 'casestudy--next' : '',
     isAnimating ? '-isAnimating' : '',
+    isHome ? '-isHome' : '',
   ].join(' ');
 
   return (
-    <article className={articleClasses} >
+    <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
         {
+          !isNext &&
           slices.map((slice, i) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
             const className = `casestudy__block casestudy__block--${type}`;
@@ -84,9 +86,12 @@ const caseStudy = ({
           })
         }
       </div>
-      <CursorAnchor detached textId="launch" >
-        <div className="casestudy__shim" onClick={advanceQueue} />
-      </CursorAnchor>
+      <CursorAnchor
+        className={`casestudy__shim ${isHome ? '-isHome' : ''}`}
+        onClick={advanceQueue}
+        detached
+        textId="launch"
+      />
     </article>
 
   );

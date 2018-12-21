@@ -36,13 +36,18 @@ class Homepage extends Component {
   }
 
   render() {
-    const { notFound, siteInfo } = this.context;
-    if (notFound) { console.log('Not found'); }
+    const { siteInfo } = this.context;
     const urls = siteInfo.data[isMobile() ? 'video_group_mobile' : 'video_group'].map(vid => vid.link.url);
     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
     const videoLoaded = this.state.videoLoaded !== false;
+
+    const classes = [
+      'homepage',
+      this.props.openingFromHome ? '-isAnimating' : '',
+    ].join(' ');
+
     return (
-      <div className="homepage">
+      <div className={classes}>
         {!videoLoaded && <Loading />}
         <div className="homepage__inner">
           <video autoPlay loop muted playsInline className="homepage__inner__video" ref={this.video}>
