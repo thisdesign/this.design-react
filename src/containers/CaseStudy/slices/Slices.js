@@ -4,7 +4,7 @@ import WaypointAnim from 'components/WaypointAnim/WaypointAnim';
 import Text from './Text/Text';
 import Gallery from './Gallery/Gallery';
 import Columns from './Columns/ColumnsWrapper';
-import Image from './Image/Image';
+import Image from './Image/ImageWrapper';
 import Video from './Video/Video';
 import Pullquote from './Pullquote/Pullquote';
 import Website from './Website/WebsiteWrapper';
@@ -27,7 +27,7 @@ const Slices = ({ sliceData, title }) => {
         return <Columns.Wrapper {...atts} />;
       case 'image':
       case 'image-v2':
-        return <Image {...atts} type="image" />;
+        return <Image.Wrapper {...atts} type="image" />;
       case 'diptych':
       case 'diptych-v2':
         return <Diptych.Wrapper {...atts} type="diptych" />;
