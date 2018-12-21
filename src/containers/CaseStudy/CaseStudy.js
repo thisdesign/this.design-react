@@ -66,6 +66,7 @@ const caseStudy = ({
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
         {
+          !isNext &&
           slices.map((slice, i) => {
             const type = slice.props.data && slice.props.data.slice_type.replace('-v2', '');
             const className = `casestudy__block casestudy__block--${type}`;

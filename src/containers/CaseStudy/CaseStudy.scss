@@ -115,6 +115,7 @@
   }
 
   &__body {
+    transform: translateZ(0);
     background: $case-study-bg;
     padding-bottom: $margin-1;
     position: relative;
