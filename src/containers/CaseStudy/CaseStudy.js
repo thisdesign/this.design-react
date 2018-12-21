@@ -31,7 +31,7 @@ const caseStudy = ({
     <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
-        <Slices sliceData={doc.data.content} title={title} />
+        {(!next && !isHome) && <Slices sliceData={doc.data.content} title={title} />}
       </div>
       <Shim />
     </article>
