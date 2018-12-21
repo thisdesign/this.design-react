@@ -3,11 +3,11 @@ import { RichText } from 'prismic-reactjs';
 import WaypointAnim from 'components/WaypointAnim/WaypointAnim';
 import Text from './Text/Text';
 import Gallery from './Gallery/Gallery';
-import Columns from './Columns/Columns';
+import Columns from './Columns/ColumnsWrapper';
 import Image from './Image/Image';
 import Video from './Video/Video';
 import Pullquote from './Pullquote/Pullquote';
-import Website from './Website/Website';
+import Website from './Website/WebsiteWrapper';
 import Diptych from './Diptych/Diptych';
 
 const Slice = ({ children, type }) => (
@@ -22,44 +22,11 @@ const Slices = ({ sliceData, title }) => {
     switch (data.slice_type) {
       case 'text':
         return <Text value={RichText.render(data.value)} type="text" />;
-
       case 'columns':
       case 'columns-v2':
-        this.data = data.value
-          ? data.value[0] // v1 structure
-          : data.primary; // v2 structure
-        return (
-          <Columns
-            {...atts}
-            isRight={this.data.right === 'right'}
-            type="columns"
-            text={RichText.render(this.data.text)}
-            size={(() => {
-              switch (this.data.layout) {
-                case '-column--2of3':
-                  return 'large';
-                case '-column--1of3':
-                case '-website':
-                case '-mobile':
-                  return 'small';
-                default:
-                  return null;
-              }
-            })()}
-            layout={this.data.layout}
-            videoUrl={this.data.video.url}
-            hasMute={this.data.audio !== null}
-            imageUrl={(() => {
-              const idealSize = 'size_1024';
-              return this.data.image[idealSize]
-                ? this.data.image[idealSize].url
-                : this.data.image.url;
-            })()}
-          />);
-
+        return <Columns.Wrapper {...atts} />;
       case 'image':
       case 'image-v2':
-        // console.log(data.value[0]);
         return <Image {...atts} type="image" />;
       case 'diptych':
       case 'diptych-v2':
@@ -72,18 +39,7 @@ const Slices = ({ sliceData, title }) => {
       case 'pullquote':
         return <Pullquote {...atts} type="pullquote" />;
       case 'website':
-        this.data = data.primary;
-        return (
-          <Website
-            background={this.data.background}
-            imageUrl={this.data.screenshot.url}
-            layout={this.data}
-            videoUrl={this.data.video.url}
-            frameColor={this.data.frame_color}
-            dotColor={this.data.dot_color}
-            type="website"
-          />
-        );
+        return <Website.Wrapper {...atts} />;
       case 'mobile':
         [this.data] = data.value;
         return (
