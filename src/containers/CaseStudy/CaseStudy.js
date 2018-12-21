@@ -85,9 +85,12 @@ const caseStudy = ({
           })
         }
       </div>
-      <CursorAnchor detached textId="launch" >
-        <div className="casestudy__shim" onClick={advanceQueue} />
-      </CursorAnchor>
+      <CursorAnchor
+        className={`casestudy__shim ${isHome ? '-isHome' : ''}`}
+        onClick={advanceQueue}
+        detached
+        textId="launch"
+      />
     </article>
 
   );

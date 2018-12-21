@@ -34,20 +34,28 @@ export default class CursorAnchor extends React.Component {
     });
   };
 
+  handleClick = () => {
+    if (this.props.onClick) { this.props.onClick(); }
+    this.disableHover();
+  }
+
   render() {
+    const {
+      className, detached, children, textId,
+    } = this.props;
     if (!isMobile()) {
       return (
         <div
           onMouseEnter={this.enableHover}
-          onClick={this.disableHover}
+          onClick={this.handleClick}
           onMouseLeave={this.disableHover}
-          className="cursorAnchor"
+          className={`${className} cursorAnchor`}
         >
-          {this.props.children}
-          {!this.props.detached &&
+          {children}
+          {!detached &&
           <div className="cursorAnchor__wrapper">
             <div className={`cursor__text ${this.state.hovered && 'cursor__text--enabled'}`}>
-              { icons[this.props.textId] }
+              { icons[textId] }
             </div>
           </div>
             }
