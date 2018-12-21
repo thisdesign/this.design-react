@@ -65,7 +65,10 @@ export default class CursorAnchor extends React.Component {
         </div>
       );
     }
-    return children;
+    return (<div
+      onClick={this.props.onClick}
+      className={`${className} cursorAnchor`}
+    />);
   }
 }
 
