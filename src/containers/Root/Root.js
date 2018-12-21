@@ -18,6 +18,7 @@ class Root extends React.Component {
 
     setTimeout(() => {
       this.props.history.push('/work/feller');
+      this.setState({ isAnimating: false });
     }, 600);
   }
 

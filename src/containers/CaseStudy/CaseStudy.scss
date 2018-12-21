@@ -14,6 +14,7 @@
   from {
     transform: translate3d(0, 0, 0);
   }
+
   to {
     transform: translate3d(0, calc(-100vh + 400px), 0);
   }
@@ -43,7 +44,7 @@
 
       &--title {
         opacity: 1;
-        transform: translate3d(0,40px,0)
+        transform: translate3d(0, 40px, 0);
       }
     }
   }
@@ -53,16 +54,17 @@
     transition: transform 400ms $ease-standard, opacity 400ms $ease-standard;
   }
 
+  &.-isAnimating {
+    &:not(.casestudy--next)
+    :not(.-isHome) {
+      animation: slideUp 600ms $ease-standard;
+    }
+  }
+
   &--next {
     z-index: 10;
     pointer-events: none;
     position: fixed;
-
-    &.-isAnimating {
-      &:not(.casestudy--next) {
-        animation: slideUp 600ms $ease-standard;
-      }
-    }
 
     .casestudy__header__item {
       transform: translateY(calc(100vh - 160px - 200px));

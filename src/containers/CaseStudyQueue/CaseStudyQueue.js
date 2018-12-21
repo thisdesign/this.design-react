@@ -66,6 +66,7 @@ class CaseStudyQueue extends Component {
   render() {
     const { isAnimating, visibleProjects } = this.state;
     const { openingFromHome } = this.props;
+
     return (
       this.state.visibleProjects.map((cs, i) => (
         cs &&
