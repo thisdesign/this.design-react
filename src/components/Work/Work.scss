@@ -4,11 +4,11 @@
 .work__inner {
   display: flex;
   flex-wrap: wrap;
-  margin: $variable-spacing auto;
-  padding-top: $variable-spacing;
+  margin: $margin-1 auto;
+  padding-top: $margin-1;
 
   @include breakpoint(sm) {
-    padding-top: $variable-spacing;
+    padding-top: $margin-1;
     padding-left: 8%;
     padding-right: 8%;
   }

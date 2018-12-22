@@ -14,7 +14,7 @@
 
   @include breakpoint(xs) {
     >* {
-      margin-top: $variable-spacing;
+      margin-top: $margin-1;
     }
 
   }
@@ -35,8 +35,11 @@
 }
 
 .-wrap-nav {
-  padding-left: $variable-spacing;
-  padding-right: $variable-spacing;
+  padding: 0 $nav-padding;
+
+  @include breakpoint(xs) {
+    padding: 0 $nav-padding-xs;
+  }
 }
 
 .-centered {

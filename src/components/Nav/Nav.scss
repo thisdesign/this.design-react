@@ -1,15 +1,20 @@
 @import '../../styles/variables.scss';
+@import '../../styles/breakpoints.scss';
 
 .nav {
   background-color: transparent;
   left: 0;
-  padding-top: $variable-spacing;
+  padding-top: $nav-padding;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1004;
   box-sizing: border-box;
   pointer-events: none;
+
+  @include breakpoint(xs) {
+    padding-top: $nav-padding-xs;
+  }
 
   &__inner {
     display: flex;
