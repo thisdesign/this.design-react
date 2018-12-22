@@ -76,7 +76,7 @@
 
       &--title {
         transition: transform 600ms $ease-standard;
-        transform: translateY(calc(100vh - 160px - 200px));
+        transform: translateY(calc(100vh - 400px));
         opacity: 1;
       }
     }
