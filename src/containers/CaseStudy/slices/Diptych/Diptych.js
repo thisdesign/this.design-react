@@ -19,8 +19,8 @@ const Diptych = ({ images }) => {
   );
 
   const Images = () => (
-    images.map(({ url, title, offset }) => (
-      <Image key={url} url={url} title={title} offset={!isMobile() ? offset : null} />
+    images.map(({ url, title, offset }, i) => (
+      <Image key={url || i} url={url} title={title} offset={!isMobile() ? offset : null} />
     ))
   );
 
