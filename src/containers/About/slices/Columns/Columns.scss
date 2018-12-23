@@ -20,7 +20,7 @@
 
   &.-col-4 {
     .about__columns__col {
-      flex-basis: 50%;
+      width: 50%;
       flex-wrap: nowrap;
 
       p {
@@ -29,7 +29,7 @@
       }
 
       @include breakpoint(sm) {
-        flex-basis: 25%;
+        width: 25%;
       }
     }
   }
@@ -37,7 +37,7 @@
   &.-col-3 {
     .about__columns__col {
       @include breakpoint(sm) {
-        flex-basis: 33.33%;
+        width: 33.33%;
       }
     }
   }
@@ -45,7 +45,7 @@
   &.-col-2 {
     .about__columns__col {
       @include breakpoint(sm) {
-        flex-basis: 50%;
+        width: 50%;
       }
     }
   }
