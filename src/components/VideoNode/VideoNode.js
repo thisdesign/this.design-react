@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Waypoint from 'react-waypoint';
 import './VideoNode.css';
 import MuteControl from './MuteControl/MuteControl';
 import VideoControls from './VideoControls/VideoControls';
@@ -128,6 +129,7 @@ export default class VideoNode extends React.Component {
       isMuted, duration, elapsed, isPaused, percentComplete, hasPlayed,
     } = this.state;
     const { muteToggle: hasMuteToggle, controls: hasControls, poster } = this.props;
+
     const atts = {
       ...hasControls
         ? {
@@ -146,13 +148,7 @@ export default class VideoNode extends React.Component {
       poster,
     };
 
-    const videoDom = (
-      <video {...atts} >
-        <source src={this.props.url} type="video/mp4" />
-      </video>
-    );
-
-    const muteIcon = (
+    const MuteIcon = () => (
       (!hasControls && hasMuteToggle) &&
         <div className="videoNode__muteButtonSolo">
           <MuteControl
@@ -174,26 +170,29 @@ export default class VideoNode extends React.Component {
         hasPlayed={hasPlayed}
       />);
 
-    const video = (!hasControls ? (
-      /*
-       the following <div />
-       used to be <ScrollTrigger /> which
-       paused video when it was 15vw out of view
-      */
-      // <ScrollTrigger inView offset={-15} onExit={this.pauseVideo} onEnter={(this.playVideo)}>
-      <div>
-        {videoDom}
-      </div>
-    ) : (videoDom));
+    const Video = () => {
+      const videoDom = (
+        <video {...atts} >
+          <source src={this.props.url} type="video/mp4" />
+        </video>
+      );
+      return (
+        !hasControls
+          ? (
+            <Waypoint onLeave={this.pauseVideo} onEnter={(this.playVideo)}>
+              {videoDom}
+            </Waypoint>
+          ) : (videoDom));
+    };
 
     const clickPauseAbility = { ...hasControls ? { onClick: this.handlePause } : null };
 
     return (
       <div className="videoNode" >
         <div className="videoNode__videoWrapper" {...clickPauseAbility}>
-          {video}
+          <Video />
         </div>
-        { muteIcon }
+        <MuteIcon />
         { controls }
       </div>
     );
