@@ -4,7 +4,7 @@ import LayoutContext from 'containers/Layout/LayoutContext';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
-import './Nav.css';
+import './Nav.scss';
 
 class Nav extends React.Component {
   static contextType = LayoutContext

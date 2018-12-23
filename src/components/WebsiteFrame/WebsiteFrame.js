@@ -1,6 +1,6 @@
 import React from 'react';
 import PercentRadii from 'containers/PercentRadii/PercentRadii';
-import './WebsiteFrame.css';
+import './WebsiteFrame.scss';
 
 const WebsiteFrame = (props) => {
   const dotColor = props.dotColor || '#fff';

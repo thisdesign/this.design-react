@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import CursorContext from 'components/CursorDot/CursorContext';
-import './CursorDot.css';
+import './CursorDot.scss';
 import icons from './icons';
 
 class CursorDot extends Component {

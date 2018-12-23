@@ -1,7 +1,7 @@
-import 'styles/reset.css';
-import 'styles/fonts.css';
-import 'styles/typography.css';
-import 'styles/layout.css';
+import 'styles/reset.scss';
+import 'styles/fonts.scss';
+import 'styles/typography.scss';
+import 'styles/layout.scss';
 
 import React from 'react';
 import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
@@ -9,7 +9,7 @@ import Loading from 'components/Loading/Loading';
 import Layout from 'containers/Layout/Layout';
 import flatten from 'array-flatten';
 
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   state = {

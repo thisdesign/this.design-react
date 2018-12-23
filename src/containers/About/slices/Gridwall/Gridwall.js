@@ -1,6 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
-import './Gridwall.css';
+import './Gridwall.scss';
 
 
 const Gridwall = (props) => {

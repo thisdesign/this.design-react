@@ -1,7 +1,7 @@
 import React from 'react';
 import Waypoint from 'react-waypoint';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
-import './Gallery.css';
+import './Gallery.scss';
 
 export default class Gallery extends React.Component {
   state = {

@@ -3,7 +3,7 @@ import Loading from 'components/Loading/Loading';
 import isMobile from 'util/isMobile';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import PropTypes from 'prop-types';
-import './Homepage.css';
+import './Homepage.scss';
 
 class Homepage extends Component {
   static contextType = LayoutContext;

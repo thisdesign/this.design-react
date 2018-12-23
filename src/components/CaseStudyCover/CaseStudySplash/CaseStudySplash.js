@@ -2,8 +2,8 @@ import React from 'react';
 import isMobile from 'util/isMobile';
 import AuxiliaryItems from './AuxiliaryItems/AuxiliaryItems';
 import SplashBackground from './SplashBackground/SplashBackground';
-import './imagePositions.css';
-import './CaseStudySplash.css';
+import './imagePositions.scss';
+import './CaseStudySplash.scss';
 
 
 const CaseStudySplash = ({ data }) => {

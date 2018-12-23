@@ -1,7 +1,7 @@
 import React from 'react';
 import uuidv1 from 'uuid/v1';
 import { RichText } from 'prismic-reactjs';
-import './Columns.css';
+import './Columns.scss';
 
 
 const Columns = (props) => {

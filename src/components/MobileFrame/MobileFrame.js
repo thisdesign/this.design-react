@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import PercentRadii from 'containers/PercentRadii/PercentRadii';
-import './MobileFrame.css';
+import './MobileFrame.scss';
 
 const MobileFrame = props => (
   <PercentRadii className="mobileFrame" percent={10}>

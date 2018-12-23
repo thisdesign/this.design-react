@@ -1,6 +1,6 @@
 import React from 'react';
 import Mute from '../icons/Mute';
-import './MuteControl.css';
+import './MuteControl.scss';
 
 const MuteControl = props => (
   <div

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import VideoNode from 'components/VideoNode/VideoNode';
-import './Website.css';
+import './Website.scss';
 
 const Website = ({
   layout, background, frameColor, dotColor, imageUrl, videoUrl, title,

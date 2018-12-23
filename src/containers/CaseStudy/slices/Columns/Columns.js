@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
-import './Columns.css';
+import './Columns.scss';
 
 const Columns = ({
   size,

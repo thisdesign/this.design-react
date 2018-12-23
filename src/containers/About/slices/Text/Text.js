@@ -1,6 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
-import './Text.css';
+import './Text.scss';
 
 
 const Text = (props) => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './Instagram.css';
+import './Instagram.scss';
 
 export default class Instagram extends React.Component {
   state = {

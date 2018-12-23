@@ -2,7 +2,7 @@ import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
 import sizeCheck from '../../util/sizeCheck';
-import './CaseStudyCover.css';
+import './CaseStudyCover.scss';
 
 const CaseStudyCover = (props) => {
   const { color } = props.data;

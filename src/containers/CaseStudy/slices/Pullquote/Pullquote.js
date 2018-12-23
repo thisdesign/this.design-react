@@ -1,5 +1,5 @@
 import React from 'react';
-import './Pullquote.css';
+import './Pullquote.scss';
 
 const Pullquote = (props) => {
   const { quote, source } = props.data.value[0];

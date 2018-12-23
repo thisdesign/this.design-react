@@ -1,5 +1,5 @@
 import React from 'react';
-import './Image.css';
+import './Image.scss';
 
 const Image = ({
   isFullScreen, offset, url, title, mobileUrl,

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Waypoint from 'react-waypoint';
-import './VideoNode.css';
+import './VideoNode.scss';
 import MuteControl from './MuteControl/MuteControl';
 import VideoControls from './VideoControls/VideoControls';
 

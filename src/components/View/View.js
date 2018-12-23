@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import './View.css';
+import './View.scss';
 
 const View = ({
   view, viewName, children, aside,

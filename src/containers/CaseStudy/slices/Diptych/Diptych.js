@@ -1,6 +1,6 @@
 import React from 'react';
 import isMobile from 'util/isMobile';
-import './Diptych.css';
+import './Diptych.scss';
 
 const Diptych = ({ images }) => {
   const Image = ({ url, title, offset }) => (

@@ -2,7 +2,7 @@ import React from 'react';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import Slices from './slices/Slices';
-import './CaseStudy.css';
+import './CaseStudy.scss';
 
 const caseStudy = ({
   doc, next, advanceQueue, isAnimating, isHome, handleOpen,

@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import './VideoControls.css';
+import './VideoControls.scss';
 import MuteControl from '../MuteControl/MuteControl';
 import Play from '../icons/Play';
 

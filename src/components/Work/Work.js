@@ -2,7 +2,7 @@ import React from 'react';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import { Link } from 'react-router-dom';
-import './Work.css';
+import './Work.scss';
 
 const Work = () => {
   const WorkThumbnail = ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Waypoint from 'react-waypoint';
-import './WaypointAnim.css';
+import './WaypointAnim.scss';
 
 export default class WaypointAnim extends React.Component {
   state = {

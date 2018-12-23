@@ -1,6 +1,6 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
-import './Conclusion.css';
+import './Conclusion.scss';
 
 const Conclusion = (props) => {
   const data = props.data.primary;

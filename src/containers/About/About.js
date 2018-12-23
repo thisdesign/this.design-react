@@ -7,7 +7,7 @@ import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
 import Conclusion from './slices/Conclusion/Conclusion';
 import Gridwall from './slices/Gridwall/Gridwall';
-import './About.css';
+import './About.scss';
 
 export default class About extends React.Component {
   state = {

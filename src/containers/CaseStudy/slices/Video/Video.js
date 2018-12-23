@@ -1,7 +1,7 @@
 import React from 'react';
 import VideoNode from 'components/VideoNode/VideoNode';
 import sizeCheck from 'util/sizeCheck';
-import './Video.css';
+import './Video.scss';
 
 const Video = (props) => {
   const data = props.data.value[0];

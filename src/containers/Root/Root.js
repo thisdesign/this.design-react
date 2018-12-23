@@ -25,14 +25,14 @@ class Root extends React.Component {
   render() {
     const { isHome, projectLaunchStatus } = this.props;
     return (
-      <React.Fragment>
+      <>
         {isHome &&
           <Homepage
             shim
             openingFromHome={this.state.isAnimating}
           />
         }
-        <React.Fragment>
+        <>
           {projectLaunchStatus !== 'ready' && <Loading />}
           {projectLaunchStatus !== 'transitioning' &&
           <CaseStudyQueue
@@ -40,8 +40,8 @@ class Root extends React.Component {
             handleOpen={this.handleOpen}
             isHome={isHome}
           />}
-        </React.Fragment>
-      </React.Fragment>
+        </>
+      </>
     );
   }
 }
