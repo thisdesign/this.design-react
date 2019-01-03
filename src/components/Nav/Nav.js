@@ -6,44 +6,44 @@ import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
 import './Nav.scss';
 
-class Nav extends React.Component {
-  static contextType = LayoutContext
-  render() {
-    const { scrolledPastCsCover, view, currentCaseStudy } = this.context;
-    const linkTo = (link) => {
-      if (view === 'root') {
-        return `/${link}`;
-      } else if (currentCaseStudy) {
-        return `/work/${currentCaseStudy}`;
-      }
-      return '/';
-    };
+const Nav = ({ view, currentCaseStudy, navInverted }) => {
+  const linkTo = (link) => {
+    if (view === 'root') {
+      return `/${link}`;
+    } else if (currentCaseStudy) {
+      return `/work/${currentCaseStudy}`;
+    }
+    return '/';
+  };
 
-    const navLinks = ['work', 'about'];
-    const navState = [
-      scrolledPastCsCover && view === 'root'
-        ? 'nav--dark'
-        : '',
-      `-view-is-${view}`,
-    ].join(' ');
+  const navState = [
+    navInverted && view === 'root'
+      ? 'nav--dark'
+      : '',
+    `-view-is-${view}`,
+  ].join(' ');
 
-    return (
-      <nav className={`nav -wrap-nav ${navState}`}>
-        <div className="nav__inner">
-          {navLinks.map(link => (
-            <div className="nav__item" key={link} >
-              <CursorAnchor textId={view === 'root' ? link : 'close'}>
-                <Link to={(() => linkTo(link))()} >
-                  {link === 'work' && <GridIcon view={view} />}
-                  {link === 'about' && <AboutIcon view={view} />}
-                </Link>
-              </CursorAnchor>
-            </div>
+  return (
+    <nav className={`nav -wrap-nav ${navState}`}>
+      <div className="nav__inner">
+        {['work', 'about'].map(link => (
+          <div className="nav__item" key={link} >
+            <CursorAnchor textId={view === 'root' ? link : 'close'}>
+              <Link to={(() => linkTo(link))()} >
+                {link === 'work' && <GridIcon view={view} />}
+                {link === 'about' && <AboutIcon view={view} />}
+              </Link>
+            </CursorAnchor>
+          </div>
           ))}
-        </div>
-      </nav>
-    );
-  }
-}
+      </div>
+    </nav>
+  );
+};
 
-export default Nav;
+export default React.forwardRef((props, ref) => (
+  <LayoutContext.Consumer>
+    {({ navInverted, view, currentCaseStudy }) =>
+      <Nav {...props} {...{ navInverted, view, currentCaseStudy }} ref={ref} />}
+  </LayoutContext.Consumer>
+));

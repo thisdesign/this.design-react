@@ -1,5 +1,6 @@
 import React from 'react';
-import CursorAnchor from 'components/CursorDot/CursorAnchor';
+import NavChanger from './_NavChanger';
+import Shim from './_Shim';
 import CaseStudyCover from '../../components/CaseStudyCover/CaseStudyCover';
 import Slices from './slices/Slices';
 import './CaseStudy.scss';
@@ -14,15 +15,6 @@ const caseStudy = ({
     backgroundColor: doc.data.background_color,
   };
 
-  const Shim = () => (
-    <CursorAnchor
-      className={`casestudy__shim ${isHome ? '-isHome' : ''}`}
-      onClick={advanceQueue}
-      detached
-      textId="launch"
-    />
-  );
-
   const articleClasses = [
     'casestudy',
     next ? 'casestudy--next' : '',
@@ -34,12 +26,17 @@ const caseStudy = ({
     <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
-        {(!next && !isHome) && <Slices sliceData={doc.data.content} title={title} />}
+        {(!next && !isHome) && (
+          <>
+            <NavChanger />
+            <Slices sliceData={doc.data.content} title={title} />
+          </>
+        )}
       </div>
-      <Shim />
+      <Shim advanceQueue={advanceQueue} isHome={isHome} />
     </article>
-
   );
 };
+
 
 export default React.memo(caseStudy);

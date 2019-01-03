@@ -12,10 +12,19 @@ class Layout extends Component {
   state = {
     scrolledPastCsCover: null,
     projectLaunchStatus: 'ready',
+    navInverted: false,
   };
 
   updateCsScrollPos = (scrolledPastCsCover) => {
     this.setState({ scrolledPastCsCover });
+  }
+
+  invertNav = () => {
+    this.setState({ navInverted: true });
+  }
+
+  revertNav = () => {
+    this.setState({ navInverted: false });
   }
 
   launchProject = (nextUid) => {
@@ -47,6 +56,9 @@ class Layout extends Component {
           siteInfo: this.props.siteInfo,
           caseStudies: this.props.caseStudies,
           launchProject: this.launchProject,
+          navInverted: this.state.navInverted,
+          invertNav: this.invertNav,
+          revertNav: this.revertNav,
         }}
       >
         <Nav />
