@@ -41,17 +41,8 @@ const Slices = ({ sliceData, title }) => {
       case 'website':
         return <Website.Wrapper {...atts} />;
       case 'mobile':
-        [this.data] = data.value;
-        return (
-          <Columns
-            type="columns"
-            audio={this.data.audio}
-            text={RichText.render(this.data.text)}
-            videoUrl={this.data.video.url}
-            right={this.data.right}
-            layout="-mobile"
-          />
-        );
+        console.error('Mobile is depricated, please use columns');
+        return <></>;
       default:
         console.error('nothing built for', data.slice_type); //eslint-disable-line
         return <div type="notFound" />;
