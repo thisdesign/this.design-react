@@ -2,10 +2,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Parallax from 'components/Parallax/Parallax';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
 import VideoNode from '../../../../components/VideoNode/VideoNode';
 import './Columns.scss';
+
 
 const Columns = ({
   size,
@@ -49,11 +51,11 @@ const Columns = ({
   );
 
   const Media = () => (
-    <div speed={4} className={colClass('media')}>
+    <Parallax speed={4} className={colClass('media')}>
       <MediaWrapper>
         <MediaItem />
       </MediaWrapper>
-    </div>
+    </Parallax>
   );
 
   const Text = () => (
