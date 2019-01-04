@@ -8,12 +8,12 @@ export default class Parallax extends React.Component {
   }
 
   componentDidMount() {
-    const el = this.ref.current;
-    const container = document.querySelector('.casestudy');
+    this.controller = new ParallaxController({
+      container: document.querySelector('.casestudy'),
+      el: this.ref.current,
+    });
 
-    this.controller = new ParallaxController({ container, el });
     this.controller.init();
-    console.log(this.controller);
   }
 
   componentWillUnmount() {

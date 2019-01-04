@@ -18,7 +18,7 @@ const _getOffset = (el) => {
   const bounds = el.getBoundingClientRect();
   const idk = ((bounds.top + bounds.height) / 2) - (window.innerHeight / 2);
   const offset = (-idk / 4);
-  return offset;
+  return offset.toFixed(2);
 };
 
 /**
