@@ -24,7 +24,7 @@ const Slices = ({ sliceData, title }) => {
         return <Text value={RichText.render(data.value)} type="text" />;
       case 'columns':
       case 'columns-v2':
-        return <Columns.Wrapper {...atts} />;
+        return <Columns.Wrapper {...atts} type="columns" />;
       case 'image':
       case 'image-v2':
         return <Image.Wrapper {...atts} type="image" />;

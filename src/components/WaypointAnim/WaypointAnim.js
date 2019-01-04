@@ -18,8 +18,8 @@ export default class WaypointAnim extends React.Component {
       <Waypoint
         onEnter={() => this.setState({ visible: true })}
         onLeave={() => this.setState({ visible: false })}
-        topOffset="0%"
-        bottomOffset="20%"
+        topOffset="-100px"
+        bottomOffset="-100px"
       >
         <div className={classNames}>
           {this.props.children}
