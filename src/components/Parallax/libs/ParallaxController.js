@@ -1,32 +1,51 @@
-let ticking = false;
-let el = null;
+// Scrollable container
 let container = null;
 
-const _getBounds = () => el.getBoundingClientRect();
+// Only bind listener once
+let mounted: false;
 
-const _transform = (offset) => {
-  el.style.transform = `translate3d(0,${offset}px, 0)`;
-};
+// All parallax elements to be updated
+let els = [];
 
-const _getOffset = () => {
-  const bounds = _getBounds();
+// Ticking
+let ticking = false;
+
+/**
+ * calculates offset of a DOM element
+ * @param {[type]} el Dom Element
+ */
+const _getOffset = (el) => {
+  const bounds = el.getBoundingClientRect();
   const idk = ((bounds.top + bounds.height) / 2) - (window.innerHeight / 2);
   const offset = (-idk / 4);
   return offset;
 };
-const setOffset = () => {
-  _transform(_getOffset());
+
+/**
+ * Makes changes to DOM and updates
+ * position of Elements
+ */
+const _updateElements = () => {
+  els.forEach((el, i) => {
+    const offset = _getOffset(el);
+    els[i].style.transform = `translate3d(0,${offset}px, 0)`;
+  });
   ticking = false;
 };
 
-
+/**
+ * Manages rAF ticking and calls _updateElements
+ */
 const _handleScroll = () => {
   if (!ticking) {
     ticking = true;
-    window.requestAnimationFrame(setOffset);
+    window.requestAnimationFrame(_updateElements);
   }
 };
 
+/**
+ * Sets up event listener
+ */
 const _addListener = () => {
   container.addEventListener(
     'scroll',
@@ -35,17 +54,34 @@ const _addListener = () => {
   );
 };
 
+const _removeListener = () => {
+  container.removeEventListener(
+    'scroll',
+    _handleScroll,
+    { passive: true },
+  );
+};
+/**
+ * Public methods
+ */
 export default class ParallaxController {
-  constructor({ container: cont, el: elem }) {
-    container = cont;
-    el = elem;
+  constructor(props) {
+    ({ container } = props);
+    this.el = props.el;
   }
 
   init = () => {
-    _addListener();
+    els.push(this.el);
+
+    if (!mounted) {
+      _addListener();
+      mounted = true;
+    }
   }
 
   destroy = () => {
-    console.log('destroy');
+    _removeListener();
+    mounted = false;
+    els = [];
   }
 }
