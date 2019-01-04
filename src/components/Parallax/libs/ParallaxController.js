@@ -1,44 +1,51 @@
+let ticking = false;
+let el = null;
+let container = null;
+
+const _getBounds = () => el.getBoundingClientRect();
+
+const _transform = (offset) => {
+  el.style.transform = `translate3d(0,${offset}px, 0)`;
+};
+
+const _getOffset = () => {
+  const bounds = _getBounds();
+  const idk = ((bounds.top + bounds.height) / 2) - (window.innerHeight / 2);
+  const offset = (-idk / 4);
+  return offset;
+};
+const setOffset = () => {
+  _transform(_getOffset());
+  ticking = false;
+};
+
+
+const _handleScroll = () => {
+  if (!ticking) {
+    ticking = true;
+    window.requestAnimationFrame(setOffset);
+  }
+};
+
+const _addListener = () => {
+  container.addEventListener(
+    'scroll',
+    _handleScroll,
+    { passive: true },
+  );
+};
+
 export default class ParallaxController {
-  constructor({ container, el }) {
-    this.container = container;
-    this.el = el;
-    this.scrollTop = 0;
-    this.ticking = false;
-  }
-
-  addListener = () => {
-    this.container.addEventListener(
-      'scroll',
-      this.handleScroll,
-      { passive: true },
-    );
-  }
-
-  setContainer = (container) => {
-    this.container = container;
-  }
-
-  handleScroll = () => {
-    this.scrollTop = this.container.scrollTop;
-
-    if (!this.ticking) {
-      this.ticking = true;
-      window.requestAnimationFrame(this.setOffset);
-    }
-  }
-
-  setOffset = () => {
-    const bounds = this.getBounds();
-    const idk = ((bounds.top + bounds.height) / 2) - (window.innerHeight / 2);
-    const offset = (-idk / 4);
-    this.el.style.transform = `translate3d(0,${offset}px, 0)`;
-    this.ticking = false;
+  constructor({ container: cont, el: elem }) {
+    container = cont;
+    el = elem;
   }
 
   init = () => {
-    this.addListener();
-    console.log('asdfs');
+    _addListener();
   }
 
-  getBounds = () => this.el.getBoundingClientRect();
+  destroy = () => {
+    console.log('destroy');
+  }
 }
