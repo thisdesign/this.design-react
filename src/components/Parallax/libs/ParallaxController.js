@@ -22,13 +22,27 @@ const _getOffset = (el) => {
 };
 
 /**
+ * Checks if element is in view
+ * @param {[type]} el Dom Element
+ */
+const _isInView = (el) => {
+  const bounds = el.getBoundingClientRect();
+  const isBelowView = bounds.top - window.innerHeight > 0;
+  const isAboveView = bounds.bottom < 0;
+  return !isBelowView && !isAboveView;
+};
+
+/**
  * Makes changes to DOM and updates
  * position of Elements
  */
 const _updateElements = () => {
   els.forEach((el, i) => {
     const offset = _getOffset(el);
-    els[i].style.transform = `translate3d(0,${offset}px, 0)`;
+
+    if (_isInView(el)) {
+      els[i].style.transform = `translate3d(0,${offset}px, 0)`;
+    }
   });
   ticking = false;
 };
@@ -61,6 +75,8 @@ const _removeListener = () => {
     { passive: true },
   );
 };
+
+
 /**
  * Public methods
  */
