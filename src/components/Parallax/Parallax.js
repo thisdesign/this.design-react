@@ -11,6 +11,7 @@ export default class Parallax extends React.Component {
     this.controller = new ParallaxController({
       container: document.querySelector('.casestudy'),
       el: this.ref.current,
+      speed: this.props.speed,
     });
 
     this.controller.init();
@@ -36,3 +37,7 @@ export default class Parallax extends React.Component {
     );
   }
 }
+
+Parallax.defaultProps = {
+  power: -100,
+};

@@ -10,15 +10,17 @@ let els = [];
 // Ticking
 let ticking = false;
 
+// speed of parallax
+let speed = 0;
+
 /**
  * calculates offset of a DOM element
  * @param {[type]} el Dom Element
  */
 const _getOffset = (el) => {
   const bounds = el.getBoundingClientRect();
-  const idk = ((bounds.top + bounds.height) / 2) - (window.innerHeight / 2);
-  const offset = (-idk / 4);
-  return offset.toFixed(2);
+  const distFromCtr = ((window.innerHeight / 2) - ((bounds.height / 2) + bounds.top));
+  return ((distFromCtr / 400) * -speed).toFixed(2);
 };
 
 /**
@@ -82,7 +84,7 @@ const _removeListener = () => {
  */
 export default class ParallaxController {
   constructor(props) {
-    ({ container } = props);
+    ({ container, speed } = props);
     this.el = props.el;
   }
 
