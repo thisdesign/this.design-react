@@ -9,20 +9,28 @@ export default class WaypointAnim extends React.Component {
   }
 
   render() {
+    const {
+      name,
+      className,
+      children,
+      disabled,
+    } = this.props;
+
     const classNames = [
-      this.props.className,
-      `-waypointAnim--${this.props.name}`,
+      className,
+      `-waypointAnim--${name}`,
       this.state.visible ? '-enabled' : '',
     ].join(' ');
+
     return (
       <Waypoint
         onEnter={() => this.setState({ visible: true })}
         onLeave={() => this.setState({ visible: false })}
-        topOffset="-100px"
-        bottomOffset="-100px"
+        topOffset="0px"
+        bottomOffset="0px"
       >
-        <div className={classNames}>
-          {this.props.children}
+        <div className={!disabled ? classNames : className}>
+          {children}
         </div>
       </Waypoint>
     );

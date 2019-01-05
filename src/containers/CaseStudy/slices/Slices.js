@@ -11,7 +11,7 @@ import Website from './Website/WebsiteWrapper';
 import Diptych from './Diptych/DiptychWrapper';
 
 const Slice = ({ children, type }) => (
-  <WaypointAnim className={`casestudy__block casestudy__block--${type}`} >
+  <WaypointAnim disabled={type === 'columns'} className={`casestudy__block casestudy__block--${type}`} >
     {children}
   </WaypointAnim>
 );
