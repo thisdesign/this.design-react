@@ -51,7 +51,7 @@ const Columns = ({
   );
 
   const Media = () => (
-    <Parallax speed={-100} className={colClass('media')}>
+    <Parallax speed={-70} className={colClass('media')}>
       <MediaWrapper>
         <MediaItem />
       </MediaWrapper>
