@@ -10,8 +10,6 @@ const Conclusion = (props) => {
         {RichText.render(data.large_text)}
         {RichText.render(data.contact)}
         {RichText.render(data.address)}
-        <div className="about__conclusion__scrollUp" />
-          )}
       </div>
     </div>
   );
