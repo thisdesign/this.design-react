@@ -5,6 +5,7 @@ import NotFound from '../../components/NotFound/NotFound';
 import Text from './slices/Text/Text';
 import Columns from './slices/Columns/Columns';
 import Instagram from './slices/Instagram/Instagram';
+import Clients from './slices/Clients/ClientsWrapper';
 import Conclusion from './slices/Conclusion/Conclusion';
 import Gridwall from './slices/Gridwall/Gridwall';
 import './About.scss';
@@ -51,6 +52,8 @@ export default class About extends React.Component {
                 return <Gridwall data={slice} />;
               case 'conclusion':
                 return <Conclusion data={slice} />;
+              case 'clients':
+                return <Clients.Wrapper data={slice} />;
               case 'color-start':
                 return null; // used to be <ScrollTrigger />;
               default:
