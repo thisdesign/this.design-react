@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Mute from '../icons/Mute';
 import './MuteControl.scss';
 
-const MuteControl = props => (
+
+const MuteControl = ({ isMuted, toggleMuted }) => (
   <div
-    className={`videoNode__iconWrap ${props.isMuted ? '-muted' : ''}`}
-    onClick={props.handleMuteToggle}
+    className={`videoNode__iconWrap ${isMuted ? '-muted' : ''}`}
+    onClick={toggleMuted}
     role="button"
     tabIndex={0}
   >
@@ -13,8 +15,9 @@ const MuteControl = props => (
   </div>
 );
 
-MuteControl.defaultProps = {
-  isMuted: true,
+MuteControl.propTypes = {
+  isMuted: PropTypes.bool.isRequired,
+  toggleMuted: PropTypes.func.isRequired,
 };
 
 export default MuteControl;

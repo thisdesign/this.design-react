@@ -7,7 +7,7 @@ import Play from '../icons/Play';
 const VideoControls = (props) => {
   const control = 'videoNode__controls__control videoNode__controls__control';
   const {
-    duration, elapsed, percentComplete, handleFullScreen,
+    duration, playedSeconds, percentComplete, handleFullScreen,
   } = props;
 
   const hasPlayed = props.hasPlayed && !props.isPaused ? '-enabled' : '';
@@ -15,18 +15,14 @@ const VideoControls = (props) => {
 
   return (
     <div className={`videoNode__controls ${hasPlayed}`}>
-
       <div className={`videoNode__controls__play ${isPaused}`}>
         <Play />
       </div>
-
       <div className="videoNode__controls--wrapper">
-        <div className="videoNode__controls--progress" >
-          <div className="videoNode__controls--progress__fill" style={{ width: `${percentComplete}%` }} />
-        </div>
+        <Progress percentComplete={percentComplete} />
         <div className="videoNode__controls__controlInner">
           <div className={`${control}--duration`}>
-            <span> {elapsed} </span>
+            <span> {playedSeconds} </span>
             <span className="-spacer" />
             <span> {duration} </span>
           </div>
@@ -49,13 +45,20 @@ const VideoControls = (props) => {
   );
 };
 
+const Progress = ({ percentComplete }) => (
+  <div className="videoNode__controls--progress" >
+    <div className="videoNode__controls--progress__fill" style={{ width: `${percentComplete}%` }} />
+  </div>
+);
+
 VideoControls.propTypes = {
-  duration: propTypes.string.isRequired,
-  elapsed: propTypes.string.isRequired,
+  duration: propTypes.number.isRequired,
+  playedSeconds: propTypes.number.isRequired,
   percentComplete: propTypes.number.isRequired,
   handleFullScreen: propTypes.func.isRequired,
   isPaused: propTypes.bool.isRequired,
   hasPlayed: propTypes.bool.isRequired,
+  isMuted: propTypes.bool.isRequired,
 };
 
 export default VideoControls;
