@@ -1,6 +1,4 @@
 import React from 'react';
-import screenfull from 'screenfull';
-import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import MuteControl from './MuteControl/MuteControl';
