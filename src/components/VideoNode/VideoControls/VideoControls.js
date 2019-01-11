@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import './VideoControls.scss';
-import MuteControl from '../MuteControl/MuteControl';
+import ControlBar from './_ControlBar';
 import Play from '../icons/Play';
 
 const VideoControls = (props) => {
@@ -24,49 +24,19 @@ const VideoControls = (props) => {
     </div>
   );
 
-  const ControlBar = () => {
-    const Duration = () => (
-      <div className={`${control}--duration`}>
-        <span> {playedSeconds} </span>
-        <span className="-spacer" />
-        <span> {duration} </span>
-      </div>
-    );
-
-    const MuteToggle = () => (
-      <div className={`${control}--muteToggle`}>
-        <MuteControl
-          isMuted={isMuted}
-          toggleMuted={toggleMuted}
-        />
-      </div>
-    );
-
-    const FullScreen = () => (
-      <div className={`${control}--fullscreen`} onClick={onClickFullScreen}>
-        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="#FFF" strokeWidth="1.5" fill="none" >
-            <path d="M1 8V1h7M13 6v7H6" />
-          </g>
-        </svg>
-      </div>
-    );
-
-    return (
-      <div className="videoNode__controls__controlInner">
-        <Duration />
-        <MuteToggle />
-        <FullScreen />
-      </div>
-    );
-  };
-
   return (
     <div className={`videoNode__controls ${hasPlayed}`}>
       <PlayButton />
       <div className="videoNode__controls--wrapper">
         <Progress percentComplete={percentComplete} />
-        <ControlBar />
+        <ControlBar
+          control={control}
+          playedSeconds={playedSeconds}
+          duration={duration}
+          isMuted={isMuted}
+          toggleMuted={toggleMuted}
+          onClickFullScreen={onClickFullScreen}
+        />
       </div>
     </div>
   );
