@@ -5,7 +5,10 @@ import MuteControl from './MuteControl/MuteControl';
 import VideoControls from './VideoControls/VideoControls';
 import './VideoNode.scss';
 
+export const VideoContext = React.createContext();
+
 export default class VideoNode extends React.Component {
+  static contextType = VideoContext;
   static propTypes = {
     url: PropTypes.string.isRequired,
     poster: PropTypes.string,
@@ -76,23 +79,32 @@ export default class VideoNode extends React.Component {
       controls, poster, muteToggle, url,
     } = this.props;
     return (
-      <div className="videoNode" >
-        <ReactPlayer
-          url={url}
-          playing={playing}
-          loop
-          className="videoNode__videoWrapper"
-          muted={muted}
-          playsinline
-          config={{ file: { attributes: { poster }, class: 'videoNode__video' } }}
-          width="100%"
-          height="100%"
-          onClick={this.onClick}
-          onProgress={this.onProgress}
-          onDuration={this.onDuration}
-        />
+      <VideoContext.Provider value={{
+        duration,
+        muted,
+        toggleMuted: this.toggleMuted,
+        onClickFullScreen: this.onClickFullScreen,
+        playedSeconds: playedSeconds || 0,
+        percentComplete: played || 0,
+      }}
+      >
+        <div className="videoNode" >
+          <ReactPlayer
+            url={url}
+            playing={playing}
+            loop
+            className="videoNode__videoWrapper"
+            muted={muted}
+            playsinline
+            config={{ file: { attributes: { poster }, class: 'videoNode__video' } }}
+            width="100%"
+            height="100%"
+            onClick={this.onClick}
+            onProgress={this.onProgress}
+            onDuration={this.onDuration}
+          />
 
-        {controls &&
+          {controls &&
           <VideoControls
             duration={duration}
             playedSeconds={playedSeconds || 0}
@@ -104,10 +116,11 @@ export default class VideoNode extends React.Component {
             toggleMuted={this.toggleMuted}
           />
         }
-        {(!controls && muteToggle) &&
+          {(!controls && muteToggle) &&
           <SoloMute isMuted={muted} toggleMuted={this.toggleMuted} />
         }
-      </div>
+        </div>
+      </VideoContext.Provider>
     );
   }
 }

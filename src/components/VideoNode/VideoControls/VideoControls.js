@@ -5,7 +5,6 @@ import ControlBar from './_ControlBar';
 import Play from '../icons/Play';
 
 const VideoControls = (props) => {
-  const control = 'videoNode__controls__control videoNode__controls__control';
   const {
     duration,
     playedSeconds,
@@ -30,7 +29,6 @@ const VideoControls = (props) => {
       <div className="videoNode__controls--wrapper">
         <Progress percentComplete={percentComplete} />
         <ControlBar
-          control={control}
           playedSeconds={playedSeconds}
           duration={duration}
           isMuted={isMuted}
