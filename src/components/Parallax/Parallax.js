@@ -1,4 +1,5 @@
 import React from 'react';
+import isMobile from 'util/isMobile';
 import ParallaxController from './libs/ParallaxController';
 
 export default class Parallax extends React.Component {
@@ -14,7 +15,10 @@ export default class Parallax extends React.Component {
       speed: this.props.speed,
     });
 
-    this.controller.init();
+    console.log(isMobile);
+    if (!isMobile()) {
+      this.controller.init();
+    }
   }
 
   componentWillUnmount() {
