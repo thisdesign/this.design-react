@@ -56,6 +56,10 @@ export default class VideoNode extends React.Component {
     return this.props.muteToggle ? this.toggleMuted() : null;
   }
 
+  onClickFullScreen = () => {
+    console.log('clicked fullscreen');
+  }
+
   toggleMuted = () => {
     this.setState({ muted: !this.state.muted });
   }
@@ -65,7 +69,6 @@ export default class VideoNode extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const {
       muted, playing, duration, played, playedSeconds, hasPlayed,
     } = this.state;
@@ -92,12 +95,13 @@ export default class VideoNode extends React.Component {
         {controls &&
           <VideoControls
             duration={duration}
-            playedSeconds={playedSeconds}
-            percentComplete={played}
-            handleFullScreen={null}
+            playedSeconds={playedSeconds || 0}
+            percentComplete={played || 0}
+            onClickFullScreen={this.onClickFullScreen}
             isPaused={!playing}
             hasPlayed={hasPlayed}
             isMuted={muted}
+            toggleMuted={this.toggleMuted}
           />
         }
         {(!controls && muteToggle) &&

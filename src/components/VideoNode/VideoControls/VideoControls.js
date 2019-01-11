@@ -7,7 +7,12 @@ import Play from '../icons/Play';
 const VideoControls = (props) => {
   const control = 'videoNode__controls__control videoNode__controls__control';
   const {
-    duration, playedSeconds, percentComplete, handleFullScreen, isMuted,
+    duration,
+    playedSeconds,
+    percentComplete,
+    onClickFullScreen,
+    isMuted,
+    toggleMuted,
   } = props;
 
   const hasPlayed = props.hasPlayed && !props.isPaused ? '-enabled' : '';
@@ -32,13 +37,13 @@ const VideoControls = (props) => {
       <div className={`${control}--muteToggle`}>
         <MuteControl
           isMuted={isMuted}
-          handleMuteToggle={props.handleMuteToggle}
+          toggleMuted={toggleMuted}
         />
       </div>
     );
 
     const FullScreen = () => (
-      <div className={`${control}--fullscreen`} onClick={handleFullScreen}>
+      <div className={`${control}--fullscreen`} onClick={onClickFullScreen}>
         <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#FFF" strokeWidth="1.5" fill="none" >
             <path d="M1 8V1h7M13 6v7H6" />
@@ -77,10 +82,11 @@ VideoControls.propTypes = {
   duration: propTypes.number.isRequired,
   playedSeconds: propTypes.number.isRequired,
   percentComplete: propTypes.number.isRequired,
-  handleFullScreen: propTypes.func.isRequired,
+  onClickFullScreen: propTypes.func.isRequired,
   isPaused: propTypes.bool.isRequired,
   hasPlayed: propTypes.bool.isRequired,
   isMuted: propTypes.bool.isRequired,
+  toggleMuted: propTypes.func.isRequired,
 };
 
 export default VideoControls;
