@@ -103,19 +103,7 @@ export default class VideoNode extends React.Component {
             onProgress={this.onProgress}
             onDuration={this.onDuration}
           />
-
-          {controls &&
-          <VideoControls
-            duration={duration}
-            playedSeconds={playedSeconds || 0}
-            percentComplete={played || 0}
-            onClickFullScreen={this.onClickFullScreen}
-            isPaused={!playing}
-            hasPlayed={hasPlayed}
-            isMuted={muted}
-            toggleMuted={this.toggleMuted}
-          />
-        }
+          {controls && <VideoControls hasPlayed={hasPlayed} isPaused={!playing} /> }
           {(!controls && muteToggle) &&
           <SoloMute isMuted={muted} toggleMuted={this.toggleMuted} />
         }
