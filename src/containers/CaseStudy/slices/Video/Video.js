@@ -1,5 +1,5 @@
 import React from 'react';
-import VideoNode from 'components/VideoNode/VideoNode';
+import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
 import sizeCheck from 'util/sizeCheck';
 import './Video.scss';
 
@@ -14,7 +14,7 @@ const Video = (props) => {
 
   return (
     <div className={`casestudy__video ${isFullScreen ? '-fs' : '-wrap'}`}>
-      <VideoNode
+      <WaypointVideo
         muteToggle={videoHasAudio}
         controls={videoHasControls}
         url={url}

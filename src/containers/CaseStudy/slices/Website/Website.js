@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
-import VideoNode from 'components/VideoNode/VideoNode';
+import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
 import './Website.scss';
 
 const Website = ({
@@ -18,7 +18,7 @@ const Website = ({
       <div className={websiteInnerClasses}>
         <WebsiteFrame frameColor={frameColor} dotColor={dotColor} >
           {videoUrl
-            ? <VideoNode url={videoUrl} />
+            ? <WaypointVideo url={videoUrl} />
             : <img src={imageUrl} alt={title} />
            }
         </WebsiteFrame>

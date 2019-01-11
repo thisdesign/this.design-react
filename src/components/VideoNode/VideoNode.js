@@ -14,20 +14,27 @@ export default class VideoNode extends React.Component {
     poster: PropTypes.string,
     controls: PropTypes.bool,
     muteToggle: PropTypes.bool,
+    playing: PropTypes.bool,
   };
 
   static defaultProps = {
     controls: false,
     muteToggle: false,
     poster: null,
+    playing: true,
   };
 
   state = {
-    muted: true,
-    playing: !this.props.controls,
+    muted: !this.props.controls && true,
+    playing: this.props.controls ? false : this.props.playing,
     duration: 0,
     hasPlayed: false,
   }
+
+  componentDidUpdate(prevProps) {
+    this.handlePlayingUpdate(prevProps);
+  }
+
 
   onHasPlayed = () => {
     this.setState({ hasPlayed: true });
@@ -61,6 +68,12 @@ export default class VideoNode extends React.Component {
 
   onClickFullScreen = () => {
     console.log('clicked fullscreen');
+  }
+
+  handlePlayingUpdate = (prevProps) => {
+    if (prevProps.playing !== this.props.playing) {
+      this.setState({ playing: this.props.playing });
+    }
   }
 
   toggleMuted = () => {

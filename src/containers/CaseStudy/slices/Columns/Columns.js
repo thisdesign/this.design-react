@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Parallax from 'components/Parallax/Parallax';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
-import VideoNode from '../../../../components/VideoNode/VideoNode';
+import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
 import './Columns.scss';
 
 
@@ -46,7 +46,7 @@ const Columns = ({
 
   const MediaItem = () => (
     videoUrl
-      ? <VideoNode muteToggle={hasMute} url={videoUrl} />
+      ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
       : <img src={imageUrl} alt={title} />
   );
 
