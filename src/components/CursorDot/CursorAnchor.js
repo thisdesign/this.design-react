@@ -58,7 +58,7 @@ export default class CursorAnchor extends React.Component {
           onMouseEnter={this.enableHover}
           onClick={this.handleClick}
           onMouseLeave={this.disableHover}
-          className={`${className} cursorAnchor`}
+          className={`${className || ''} cursorAnchor ${this.state.hovered ? '-hovered' : ''}`}
         >
           {children}
           {!detached && <AttachedCursor />}

@@ -35,6 +35,13 @@
     }
   }
 
+  .-hovered {
+    .icon__item {
+      background: white;
+      transition: 200ms;
+    }
+  }
+
   .icon {
     pointer-events: all;
     padding-top: 5px;
@@ -42,7 +49,6 @@
     width: 20px;
     cursor: pointer;
     transition: opacity 300ms $ease-accel;
-
 
     &__item {
       position: absolute;
