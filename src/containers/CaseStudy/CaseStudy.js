@@ -22,13 +22,15 @@ const caseStudy = ({
     isHome ? '-isHome' : '',
   ].join(' ');
 
+  const preserveNavColor = doc.data.preserve_white_nav === 'true';
+
   return (
     <article className={articleClasses} onClick={isHome ? handleOpen : null}>
       <div className="casestudy__body" style={customCmsAtts}>
         <CaseStudyCover data={doc.data} />
         {(!next && !isHome) && (
           <>
-            <NavChanger />
+            {!preserveNavColor && <NavChanger />}
             <Slices sliceData={doc.data.content} title={title} />
           </>
         )}
