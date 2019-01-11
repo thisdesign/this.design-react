@@ -76,6 +76,7 @@
     &--progress__fill {
       height: inherit;
       background: $color-secondary;
+      transition: width 1s linear;
     }
   }
 }

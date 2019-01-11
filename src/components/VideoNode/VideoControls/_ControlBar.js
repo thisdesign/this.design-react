@@ -1,6 +1,7 @@
 import React from 'react';
 import MuteControl from '../MuteControl/MuteControl';
 import { VideoContext } from '../VideoNode';
+import Duration from './_Duration';
 
 const ControlBar = () => {
   const Item = ({ id, children, onClick }) => (
@@ -12,11 +13,11 @@ const ControlBar = () => {
     </div>
   );
 
-  const Duration = ({ playedSeconds, duration }) => (
+  const DurationIndicator = ({ playedSeconds, duration }) => (
     <Item id="duration">
-      <span> {playedSeconds} </span>
+      <span><Duration seconds={playedSeconds} /> </span>
       <span className="-spacer" />
-      <span> {duration} </span>
+      <span><Duration seconds={duration} /></span>
     </Item>
   );
 
@@ -41,7 +42,7 @@ const ControlBar = () => {
       <VideoContext.Consumer>
         {({ onClickFullScreen, playedSeconds, duration }) => (
           <>
-            <Duration playedSeconds={playedSeconds} duration={duration} />
+            <DurationIndicator playedSeconds={playedSeconds} duration={duration} />
             <MuteToggle />
             <FullScreen onClickFullScreen={onClickFullScreen} />
           </>

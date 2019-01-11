@@ -2,8 +2,8 @@ import React from 'react';
 import propTypes from 'prop-types';
 import './VideoControls.scss';
 import ControlBar from './_ControlBar';
+import Progress from './_Progress';
 import Play from '../icons/Play';
-import { VideoContext } from '../VideoNode';
 
 const VideoControls = ({ hasPlayed, isPaused }) => {
   const enabled = hasPlayed && !isPaused ? '-enabled' : '';
@@ -26,15 +26,6 @@ const VideoControls = ({ hasPlayed, isPaused }) => {
   );
 };
 
-const Progress = () => (
-  <VideoContext.Consumer>
-    {({ percentComplete }) => (
-      <div className="videoNode__controls--progress" >
-        <div className="videoNode__controls--progress__fill" style={{ width: `${percentComplete}%` }} />
-      </div>
-    )}
-  </VideoContext.Consumer>
-);
 
 VideoControls.propTypes = {
   hasPlayed: propTypes.bool.isRequired,
