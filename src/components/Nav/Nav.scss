@@ -24,12 +24,14 @@
   &.-view-is-about {
     .icon--grid {
       opacity: 0; // hide 'work' link when view is 'about'
+      visibility: hidden;
     }
   }
 
   &.-view-is-work {
     .icon--about {
       opacity: 0; // hide 'about' link when view is 'work'
+      visibility: hidden;
     }
   }
 
