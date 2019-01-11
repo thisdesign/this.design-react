@@ -24,10 +24,14 @@ export default class Instagram extends React.Component {
     const { data } = this.state;
     if (data) {
       const urls = data.map(img => img.images.standard_resolution.url);
-      const images = urls.map(url => <img className="about__instagram__item" src={url} key={url} alt={url} />);
+      const Images = () => urls.map(url => (
+        <a href="https://instagram.com/this">
+          <img className="about__instagram__item" src={url} key={url} alt={url} />
+        </a>
+      ));
       return (
         <div className="about__instagram -wrap">
-          {images}
+          <Images />
         </div>
       );
     }
