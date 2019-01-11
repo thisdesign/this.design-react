@@ -15,7 +15,6 @@ export default class Parallax extends React.Component {
       speed: this.props.speed,
     });
 
-    console.log(isMobile);
     if (!isMobile()) {
       this.controller.init();
     }
@@ -30,9 +29,7 @@ export default class Parallax extends React.Component {
       children,
       className,
     } = this.props;
-    const {
-      ref,
-    } = this;
+    const { ref } = this;
 
     return (
       <div className={className} ref={ref}>

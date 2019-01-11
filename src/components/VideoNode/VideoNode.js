@@ -73,7 +73,14 @@ export default class VideoNode extends React.Component {
   }
 
   onClickFullScreen = () => {
-    screenfull.request(findDOMNode(this.refs.player));
+    const videoNode = this.ref.current.querySelector('video');
+    if (videoNode.requestFullscreen) {
+      videoNode.requestFullscreen();
+    } else if (videoNode.mozRequestFullScreen) {
+      videoNode.mozRequestFullScreen();
+    } else if (videoNode.webkitRequestFullscreen) {
+      videoNode.webkitRequestFullscreen();
+    }
   }
 
   handlePlayingUpdate = (prevProps) => {
@@ -107,9 +114,8 @@ export default class VideoNode extends React.Component {
         percentComplete: played || 0,
       }}
       >
-        <div className="videoNode" >
+        <div className="videoNode" ref={this.ref}>
           <ReactPlayer
-            ref="player"
             url={url}
             playing={playing}
             loop
