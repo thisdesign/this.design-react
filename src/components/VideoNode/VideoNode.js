@@ -1,23 +1,29 @@
 import React from 'react';
+import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import './VideoNode.scss';
 
-
-const VideoNode = (props) => {
-  console.log(props);
+const VideoNode = ({
+  url, poster, controls, muteToggle,
+}) => {
+  console.log({ url }, { poster }, { controls }, { muteToggle });
   return (
     <div className="videoNode" >
-      <div className="videoNode__videoWrapper">
-        {/* Video goes here */}
-      </div>
-      {/* Mute icon goes here */}
-      {/* Controls go here */}
+      <ReactPlayer
+        url={url}
+        playing
+        loop
+        muted
+        playsinline
+        width="100%"
+        height="auto"
+        className="videoNode__videoWrapper"
+      />
     </div>
   );
 };
 
 export default VideoNode;
-
 
 VideoNode.propTypes = {
   url: PropTypes.string.isRequired,
