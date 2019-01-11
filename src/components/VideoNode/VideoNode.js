@@ -1,4 +1,6 @@
 import React from 'react';
+import screenfull from 'screenfull';
+import { findDOMNode } from 'react-dom';
 import ReactPlayer from 'react-player';
 import PropTypes from 'prop-types';
 import MuteControl from './MuteControl/MuteControl';
@@ -6,7 +8,6 @@ import VideoControls from './VideoControls/VideoControls';
 import './VideoNode.scss';
 
 export const VideoContext = React.createContext();
-
 export default class VideoNode extends React.Component {
   static contextType = VideoContext;
   static propTypes = {
@@ -23,6 +24,11 @@ export default class VideoNode extends React.Component {
     poster: null,
     playing: true,
   };
+
+  constructor(props) {
+    super(props);
+    this.ref = React.createRef();
+  }
 
   state = {
     muted: !this.props.controls && true,
@@ -67,7 +73,7 @@ export default class VideoNode extends React.Component {
   }
 
   onClickFullScreen = () => {
-    console.log('clicked fullscreen');
+    screenfull.request(findDOMNode(this.refs.player));
   }
 
   handlePlayingUpdate = (prevProps) => {
@@ -103,6 +109,7 @@ export default class VideoNode extends React.Component {
       >
         <div className="videoNode" >
           <ReactPlayer
+            ref="player"
             url={url}
             playing={playing}
             loop

@@ -20,6 +20,7 @@
     "react-player": "^1.8.0",
     "react-router-dom": "^4.3.1",
     "react-waypoint": "^8.1.0",
+    "screenfull": "^4.0.0",
     "uuid": "^3.3.2",
     "whatwg-fetch": "~2.0.3"
   },
