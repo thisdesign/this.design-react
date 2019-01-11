@@ -7,39 +7,61 @@ import Play from '../icons/Play';
 const VideoControls = (props) => {
   const control = 'videoNode__controls__control videoNode__controls__control';
   const {
-    duration, playedSeconds, percentComplete, handleFullScreen,
+    duration, playedSeconds, percentComplete, handleFullScreen, isMuted,
   } = props;
 
   const hasPlayed = props.hasPlayed && !props.isPaused ? '-enabled' : '';
   const isPaused = props.isPaused ? '-isPaused' : '';
 
+  const PlayButton = () => (
+    <div className={`videoNode__controls__play ${isPaused}`}>
+      <Play />
+    </div>
+  );
+
+  const ControlBar = () => {
+    const Duration = () => (
+      <div className={`${control}--duration`}>
+        <span> {playedSeconds} </span>
+        <span className="-spacer" />
+        <span> {duration} </span>
+      </div>
+    );
+
+    const MuteToggle = () => (
+      <div className={`${control}--muteToggle`}>
+        <MuteControl
+          isMuted={isMuted}
+          handleMuteToggle={props.handleMuteToggle}
+        />
+      </div>
+    );
+
+    const FullScreen = () => (
+      <div className={`${control}--fullscreen`} onClick={handleFullScreen}>
+        <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#FFF" strokeWidth="1.5" fill="none" >
+            <path d="M1 8V1h7M13 6v7H6" />
+          </g>
+        </svg>
+      </div>
+    );
+
+    return (
+      <div className="videoNode__controls__controlInner">
+        <Duration />
+        <MuteToggle />
+        <FullScreen />
+      </div>
+    );
+  };
+
   return (
     <div className={`videoNode__controls ${hasPlayed}`}>
-      <div className={`videoNode__controls__play ${isPaused}`}>
-        <Play />
-      </div>
+      <PlayButton />
       <div className="videoNode__controls--wrapper">
         <Progress percentComplete={percentComplete} />
-        <div className="videoNode__controls__controlInner">
-          <div className={`${control}--duration`}>
-            <span> {playedSeconds} </span>
-            <span className="-spacer" />
-            <span> {duration} </span>
-          </div>
-          <div className={`${control}--muteToggle`}>
-            <MuteControl
-              isMuted={props.isMuted}
-              handleMuteToggle={props.handleMuteToggle}
-            />
-          </div>
-          <div className={`${control}--fullscreen`} onClick={handleFullScreen}>
-            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
-              <g stroke="#FFF" strokeWidth="1.5" fill="none" >
-                <path d="M1 8V1h7M13 6v7H6" />
-              </g>
-            </svg>
-          </div>
-        </div>
+        <ControlBar />
       </div>
     </div>
   );
