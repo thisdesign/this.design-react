@@ -30,7 +30,7 @@ const caseStudy = ({
         <CaseStudyCover data={doc.data} />
         {(!next && !isHome) && (
           <>
-            {!preserveNavColor && <NavChanger />}
+            <NavChanger disabled={preserveNavColor} />
             <Slices sliceData={doc.data.content} title={title} />
           </>
         )}
