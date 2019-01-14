@@ -1,20 +1,31 @@
 import React from 'react';
 import uuidv1 from 'uuid/v1';
+import { FullHeightWrapper, ColumnWrapper, Column } from 'containers/About/styles';
 import { RichText } from 'prismic-reactjs';
 import './Columns.scss';
 
 
-const Columns = (props) => {
-  const { items } = props.data;
-  const { layout, classnames } = props.data.primary;
+const Columns = ({ data }) => {
+  const { items } = data;
+  const getColumnCount = () => {
+    switch (data.primary.layout) {
+      case 'col-2': return 2;
+      case 'col-3': return 3;
+      case 'col-4': return 4;
+      default: return 3;
+    }
+  };
+
   return (
-    <div className={`about__columns -grid -wrap--lg -left -top ${classnames || ''} ${layout ? `-${layout}` : ''}`}>
-      {items.map(item => (
-        <div className="about__columns__col" key={uuidv1()}>
-          {RichText.render(item.text)}
-        </div>
+    <FullHeightWrapper>
+      <ColumnWrapper>
+        {items.map(item => (
+          <Column key={uuidv1()} items={getColumnCount()}>
+            {RichText.render(item.text)}
+          </Column>
       ))}
-    </div>
+      </ColumnWrapper>
+    </FullHeightWrapper>
   );
 };
 

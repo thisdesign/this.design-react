@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Wrapper, SectionTitle, ColumnWrapper, Column } from 'containers/About/styles';
+import { FullHeightWrapper, SectionTitle, ColumnWrapper, Column } from 'containers/About/styles';
 
 const Clients = ({ imageUrls, title }) => (
-  <Wrapper bottomPadding>
+  <FullHeightWrapper>
     <SectionTitle>{title}</SectionTitle>
     <ColumnWrapper>
       <Logos imageUrls={imageUrls} />
     </ColumnWrapper>
-  </Wrapper>
+  </FullHeightWrapper>
 );
 
 const Logos = ({ imageUrls }) => (
@@ -21,7 +21,7 @@ const Logos = ({ imageUrls }) => (
 
 const Image = styled.img`
   margin: 0px auto;
-  width: 50%;
+  width: 50%!important;
 `;
 
 export default Clients;
