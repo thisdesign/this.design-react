@@ -8,6 +8,7 @@ import Instagram from './slices/Instagram/Instagram';
 import Clients from './slices/Clients/ClientsWrapper';
 import Conclusion from './slices/Conclusion/Conclusion';
 import Gridwall from './slices/Gridwall/Gridwall';
+import Timeline from './slices/Timeline/Timeline';
 import './About.scss';
 
 export default class About extends React.Component {
@@ -56,6 +57,8 @@ export default class About extends React.Component {
                 return <Clients.Wrapper data={slice} />;
               case 'color-start':
                 return null; // used to be <ScrollTrigger />;
+              case 'link_to_timeline':
+                return <Timeline prismicCtx={this.props.prismicCtx} />;
               default:
                 return <p className="future">{slice.slice_type} goes here</p>;
             }
