@@ -1,7 +1,7 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import styled, { css } from 'styled-components';
-import { SectionTitle } from 'containers/About/styles';
+import { SectionTitle, Wrapper, ColumnWrapper, Column } from 'containers/About/styles';
 
 export default class Timeline extends React.Component {
   state={
@@ -27,11 +27,11 @@ export default class Timeline extends React.Component {
   render() {
     if (this.state.years) {
       return (
-        <div className="about__block -wrap--lg -wrap -spaceBelow">
+        <Wrapper className="about__block">
           <SectionTitle>The work we&apos;ve done</SectionTitle>
           {this.state.years.map(({ yearName, projects }) =>
             <Year key={yearName} yearName={yearName} projects={projects} />)}
-        </div>
+        </Wrapper>
       );
     }
     return null;
@@ -43,11 +43,11 @@ const Year = ({ yearName, projects }) => (
     <h2>{yearName}</h2>
     <ColumnWrapper>
       {projects.map(({ name, description, roles }) => (
-        <Column key={RichText.asText(name)}>
+        <TimelineCol key={RichText.asText(name)} items={3}>
           <ProjectTitle>{RichText.render(name)}</ProjectTitle>
           <ProjectDesc>{RichText.asText(description)}</ProjectDesc>
           <ProjectRoles>{RichText.asText(roles)}</ProjectRoles>
-        </Column>
+        </TimelineCol>
       ))}
     </ColumnWrapper>
   </YearWrapper>
@@ -55,6 +55,10 @@ const Year = ({ yearName, projects }) => (
 
 const small = css`
   font-size: .9em;
+`;
+
+const TimelineCol = styled(Column)`
+  margin-bottom: 1rem;
 `;
 
 const YearWrapper = styled.div`
@@ -68,20 +72,6 @@ const ProjectRoles = styled.div`
 
 const ProjectDesc = styled.div`
   ${small}
-`;
-
-const ColumnWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -1rem;
-`;
-
-const Column = styled.div`
-  width: 33%;
-  margin: 1rem 0;
-  line-height: 1.75;
-  padding: 0 1rem;
-  box-sizing: border-box;
 `;
 
 const ProjectTitle = styled.h4`

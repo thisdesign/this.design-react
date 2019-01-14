@@ -1,21 +1,27 @@
 import React from 'react';
-import './clients.scss';
+import styled from 'styled-components';
+import { Wrapper, SectionTitle, ColumnWrapper, Column } from 'containers/About/styles';
 
 const Clients = ({ imageUrls, title }) => (
-  <div className="about__block -wrap--lg -wrap">
-    <h3 className="about__h3">{title}</h3>
-    <div className="about__clients__grid">
+  <Wrapper bottomPadding>
+    <SectionTitle>{title}</SectionTitle>
+    <ColumnWrapper>
       <Logos imageUrls={imageUrls} />
-    </div>
-  </div>
+    </ColumnWrapper>
+  </Wrapper>
 );
 
 const Logos = ({ imageUrls }) => (
   imageUrls.map(img => (
-    <div className="about__clients__grid--item" key={img}>
-      <img src={img} alt="This Design | Portland, OR" />
-    </div>
+    <Column key={img}>
+      <Image src={img} alt="This Design | Portland, OR" />
+    </Column>
   ))
 );
+
+const Image = styled.img`
+  margin: 0px auto;
+  width: 50%;
+`;
 
 export default Clients;
