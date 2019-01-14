@@ -17,7 +17,7 @@ export const Wrapper = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 -1rem;
+  margin: 0 -2rem;
 `;
 
 export const Column = styled.div`
@@ -29,7 +29,7 @@ export const Column = styled.div`
       default: return '33.3%';
     }
   }}
-  padding: 0 1rem;
+  padding: 0 2rem;
   box-sizing: border-box;
 `;
 
