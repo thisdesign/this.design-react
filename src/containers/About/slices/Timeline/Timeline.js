@@ -14,6 +14,8 @@ export default class Timeline extends React.Component {
     this.props.prismicCtx.api.getSingle('timeline').then((doc) => {
       if (doc) {
         this.setState({
+          loaded: true,
+          current: { items: doc.data.current },
           years: doc.data.body.map(item => ({
             yearName: RichText.asText(item.primary.year),
             projects: item.items,
@@ -23,12 +25,12 @@ export default class Timeline extends React.Component {
     });
   }
 
-
   render() {
-    if (this.state.years) {
+    if (this.state.loaded) {
       return (
-        <Wrapper className="about__block">
+        <Wrapper>
           <SectionTitle>The work we&apos;ve done</SectionTitle>
+          <CurrentProjects categories={this.state.current.items} />
           {this.state.years.map(({ yearName, projects }) =>
             <Year key={yearName} yearName={yearName} projects={projects} />)}
         </Wrapper>
@@ -37,6 +39,17 @@ export default class Timeline extends React.Component {
     return null;
   }
 }
+
+const CurrentProjects = ({ categories }) => (
+  <ColumnWrapper>
+    { categories.map(({ category, items }) => (
+      <TimelineCol key={category} items={4}>
+        <h4>{category}</h4>
+        {RichText.render(items)}
+      </TimelineCol>
+      ))}
+  </ColumnWrapper>
+);
 
 const Year = ({ yearName, projects }) => (
   <YearWrapper>
@@ -59,6 +72,7 @@ const small = css`
 
 const TimelineCol = styled(Column)`
   margin-bottom: 1rem;
+  line-height: 1.75;
 `;
 
 const YearWrapper = styled.div`
