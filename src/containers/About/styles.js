@@ -6,10 +6,12 @@ export const SectionTitle = styled.h3`
   text-align: center;
 `;
 
+const BORDERS = false;
+
 export const Wrapper = styled.div`
   margin: 0px auto;
-  /*border: 1px solid orange;*/
   padding: 2rem;
+  border: ${BORDERS ? '1px solid orange' : 'none'};
 
   @media (min-width: 768px){
     max-width: 1500px;
@@ -22,9 +24,10 @@ const FullHeight = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /*border: 1px solid red; */
   padding: 10vh 0;
   box-sizing: border-box;
+
+  border: ${BORDERS ? '1px solid red' : 'none'};
 `;
 
 export const FullHeightWrapper = ({ children, large }) => (
@@ -37,7 +40,7 @@ export const ColumnWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 -2rem;
-  /*border: 1px solid green; */
+  border: ${BORDERS ? '1px solid green' : 'none'};
 `;
 
 export const Column = styled.div`
@@ -54,7 +57,7 @@ export const Column = styled.div`
   }
   padding: 0 2rem;
   box-sizing: border-box;
-  /*border: 1px solid blue;*/
+  border: ${BORDERS ? '1px solid blue' : 'none'};
 
   img {
     width: 100%;

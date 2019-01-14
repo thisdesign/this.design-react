@@ -1,7 +1,7 @@
 import React from 'react';
 import { RichText } from 'prismic-reactjs';
 import styled, { css } from 'styled-components';
-import { SectionTitle, Wrapper, ColumnWrapper, Column } from 'containers/About/styles';
+import { SectionTitle, Wrapper, ColumnWrapper, Column, FullHeightWrapper } from 'containers/About/styles';
 
 export default class Timeline extends React.Component {
   state={
@@ -28,12 +28,13 @@ export default class Timeline extends React.Component {
   render() {
     if (this.state.loaded) {
       return (
-        <Wrapper>
-          <SectionTitle>The work we&apos;ve done</SectionTitle>
+        <>
           <CurrentProjects categories={this.state.current.items} />
-          {this.state.years.map(({ yearName, projects }) =>
-            <Year key={yearName} yearName={yearName} projects={projects} />)}
-        </Wrapper>
+          <FullHeightWrapper large>
+            {this.state.years.map(({ yearName, projects }) =>
+              <Year key={yearName} yearName={yearName} projects={projects} />)}
+          </FullHeightWrapper>
+        </>
       );
     }
     return null;
@@ -41,14 +42,17 @@ export default class Timeline extends React.Component {
 }
 
 const CurrentProjects = ({ categories }) => (
-  <ColumnWrapper>
-    { categories.map(({ category, items }) => (
-      <TimelineCol key={category} items={4}>
-        <h4>{category}</h4>
-        {RichText.render(items)}
-      </TimelineCol>
+  <FullHeightWrapper large>
+    <SectionTitle>The work we&apos;ve done</SectionTitle>
+    <ColumnWrapper>
+      { categories.map(({ category, items }) => (
+        <TimelineCol key={category} items={4}>
+          <h4>{category}</h4>
+          {RichText.render(items)}
+        </TimelineCol>
       ))}
-  </ColumnWrapper>
+    </ColumnWrapper>
+  </FullHeightWrapper>
 );
 
 const Year = ({ yearName, projects }) => (
