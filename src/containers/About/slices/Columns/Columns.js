@@ -20,7 +20,7 @@ const Columns = ({ data }) => {
     <FullHeightWrapper>
       <ColumnWrapper>
         {items.map(item => (
-          <Column key={uuidv1()} items={getColumnCount()}>
+          <Column key={uuidv1()} items={getColumnCount()} fullMobile>
             {RichText.render(item.text)}
           </Column>
       ))}

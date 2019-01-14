@@ -41,7 +41,9 @@ export const ColumnWrapper = styled.div`
 `;
 
 export const Column = styled.div`
-  width: ${({ items }) => {
+  width: ${({ fullMobile }) => (fullMobile ? '100%' : '50%')}
+  @media (min-width: 768px){
+    width: ${({ items }) => {
     switch (items) {
       case 2: return '50%';
       case 3: return '33.3%';
@@ -49,6 +51,7 @@ export const Column = styled.div`
       default: return '33.3%';
     }
   }}
+  }
   padding: 0 2rem;
   box-sizing: border-box;
   /*border: 1px solid blue;*/
