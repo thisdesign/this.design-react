@@ -3,13 +3,11 @@
 .-waypointAnim {
   &--fadeIn {
     opacity: 0;
-    transform: translate3d(0, 90px, 0);
-    transition: 900ms opacity $ease-decel, 1200ms transform $ease-decel;
-
+    transform: translateZ(0);
+    transition: 600ms opacity $ease-decel 100ms;
 
     &.-enabled {
       opacity: 1;
-      transform: translate3d(0, 0, 0);
     }
   }
 }
