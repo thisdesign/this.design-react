@@ -12,66 +12,61 @@ class CaseStudyQueue extends Component {
   }
 
   componentWillMount() {
-    this.switchQueue();
-    this.check404();
+    this._switchQueue();
+    this._handle404();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.switchQueue();
+      this._switchQueue();
     }
   }
 
-  getCurrentIndex = () => {
-    const { caseStudies, currentCaseStudy } = this.context;
-    return caseStudies.map(cs => cs.uid).indexOf(currentCaseStudy);
+  _getCurrentIndex = () => (
+    this.context.caseStudies
+      .map(cs => cs.uid)
+      .indexOf(this.context.currentCaseStudy))
+
+  _getNextIndex = () => (this._isLastCaseStudy() ? 0 : this._getNextIndex());
+
+  _getNextUid = () => this.context.caseStudies[this._getNextIndex()].uid
+
+  _getNextIndex = () => this._getCurrentIndex() + 1
+
+  _isLastCaseStudy = () => this._getNextIndex() === this.context.caseStudies.length
+
+  _isNotFound = () => this._getCurrentIndex() === -1 || this._getNextIndex() === -1
+
+  _handle404 = () => {
+    this.context.handleNotFound(this._isNotFound());
   }
 
-  getNextIndex = () => {
-    const nextIndex = this.getCurrentIndex() + 1;
-    return (nextIndex === this.context.caseStudies.length) // if last
-      ? 0
-      : nextIndex;
-  };
-
-  getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
-
-  check404 = () => {
-    this.context.handleNotFound(this.notFound());
-  }
-
-  notFound = () =>
-    this.getCurrentIndex() === -1 ||
-    this.getNextIndex() === -1
-
-  switchQueue = () => {
-    const found = !this.notFound();
+  _switchQueue = () => {
     this.setState({
       visibleProjects: [
-        this.context.caseStudies[found ? this.getCurrentIndex() : 0],
-        this.context.caseStudies[found ? this.getNextIndex() : null],
+        this.context.caseStudies[!this._isNotFound() ? this._getCurrentIndex() : 0],
+        this.context.caseStudies[!this._isNotFound() ? this._getNextIndex() : null],
       ],
     });
   }
 
-  updateUrl = (uid) => { this.props.history.push(uid); }
+  _updateUrl = (uid) => { this.props.history.push(uid); }
 
-  disableNotFound = () => this.context.handleNotFound(false)
+  _disableNotFound = () => this.context.handleNotFound(false)
 
-  stopAnimation = () => this.setState({ isAnimating: false })
+  _startAnimation = () => this.setState({ isAnimating: true })
 
-  changeCaseStudy = () => {
-    this.updateUrl(`/work/${this.getNextUid()}`);
-    this.disableNotFound();
-    this.stopAnimation();
+  _stopAnimation = () => this.setState({ isAnimating: false })
+
+  _handleTransitionEnd = () => {
+    this._updateUrl(`/work/${this._getNextUid()}`);
+    this._disableNotFound();
+    this._stopAnimation();
   }
 
   advanceQueue = () => {
-    this.setState({ isAnimating: true });
-
-    setTimeout(() => {
-      this.changeCaseStudy();
-    }, 600);
+    this._startAnimation();
+    setTimeout(() => { this._handleTransitionEnd(); }, 600);
   }
 
   render() {
