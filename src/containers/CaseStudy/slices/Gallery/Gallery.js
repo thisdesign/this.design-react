@@ -1,5 +1,6 @@
 import React from 'react';
 import Waypoint from 'react-waypoint';
+import styled, { css } from 'styled-components';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
 import './Gallery.scss';
 
@@ -92,62 +93,99 @@ export default class Gallery extends React.Component {
     const { currentImageIndex, ratio } = this.state;
     const { images } = this.props;
 
-    const galleryItems = images.map((img, index) => {
-      const imageIsCurrent = index === currentImageIndex;
-      const classes = [
-        'caseStudy__gallery__img',
-        imageIsCurrent
-          ? 'caseStudy__gallery__img--current'
-          : '',
-      ].join(' ');
+    const galleryItems = images.map((img, index) => (
+      <Image
+        src={img.url}
+        key={img.url}
+        alt={this.props.title}
+        current={index === currentImageIndex}
+        animate={this.props.animate}
+      />
+    ));
 
-      return (
-        <img
-          src={img.url}
-          key={img.url}
-          alt={this.props.title}
-          className={classes}
-        />
-      );
-    });
-
-    const classes = [
-      'caseStudy__gallery grid',
-      '-wrap',
-      this.props.animate === 'false'
-        ? 'caseStudy__gallery--noZoom'
-        : '',
-    ].join(' ');
+    const classes = ['grid', '-wrap'].join(' ');
 
     return (
       <Waypoint
         onEnter={this.enableVisibility}
         onLeave={this.disableVisibility}
       >
-        <div className={classes}>
-          <div
-            className="caseStudy__gallery__imageContainer"
-            style={{ paddingTop: `${ratio}%` }}
-          >
-            <div className="caseStudy__gallery__nav">
-              <div
-                className="caseStudy__gallery__nav__item--prev caseStudy__gallery__nav__item"
-                onClick={this.handlePrevImage}
-              />
-              <div
-                className="caseStudy__gallery__nav__item--next caseStudy__gallery__nav__item"
-                onClick={this.handleNextImage}
-              />
-            </div>
-            {galleryItems}
-          </div>
-          <GalleryIndicators
-            images={images}
-            currentImageIndex={currentImageIndex}
-            goToImage={this.goToImage}
-          />
+        <div>
+          <GalleryWrapper className={classes}>
+            <ImageContainer ratio={ratio} className="ImageContainer">
+              <OverlayNav className="OverlayNav">
+                <NavItem.Prev onClick={this.handlePrevImage} className="NavItem-Prev" />
+                <NavItem.Next onClick={this.handleNextImage} className="NavItem-Next" />
+              </OverlayNav>
+              {galleryItems}
+            </ImageContainer>
+            <GalleryIndicators
+              images={images}
+              currentImageIndex={currentImageIndex}
+              goToImage={this.goToImage}
+            />
+          </GalleryWrapper>
         </div>
       </Waypoint>
     );
   }
 }
+
+const OverlayNav = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+`;
+
+const NavItem = styled.div`
+  height: 100%;
+  position: absolute;
+}`;
+
+NavItem.Prev = styled(NavItem)`
+  left: 0;
+  width: 25%;
+  cursor: w-resize;
+`;
+
+NavItem.Next = styled(NavItem)`
+  left: 25%;
+  width: 75%;
+  cursor: e-resize;
+`;
+
+const ImageContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  outline: none;
+  cursor: pointer;
+  padding-top: ${({ ratio }) => `${ratio}%`}}}
+`;
+
+const Image = styled.img`
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: scale(1.035);
+  width: 100%;
+  opacity: 0;
+
+  ${({ animate }) => animate && css`
+    transition:
+      900ms opacity cubic-bezier(.4, 0, .2, 1),
+      900ms transform cubic-bezier(.4, 0, .2, 1);
+  `}
+
+  ${({ current }) => current && css`
+    opacity: 1;
+    transform: scale(1);
+  `}
+`;
+
+const GalleryWrapper = styled.div`
+  position: relative;
+`;

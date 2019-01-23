@@ -1,15 +1,6 @@
 @import '../../../../styles/variables.scss';
 
 .caseStudy__gallery {
-  position: relative;
-
-  &__imageContainer {
-    position: relative;
-    overflow: hidden;
-    outline: none;
-    cursor: pointer;
-  }
-
   &__indicators {
     display: flex;
 
@@ -57,48 +48,6 @@
       &::after {
         content: '';
         background: $black;
-      }
-    }
-  }
-
-  &__img {
-    bottom: 0;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transform: scale(1.035);
-    width: 100%;
-    opacity: 0;
-    transition: $anim-med opacity $ease-standard, $anim-med transform $ease-standard;
-
-    &--current {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  &__nav {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 10;
-
-    &__item {
-      height: 100%;
-      position: absolute;
-
-      &--prev {
-        left: 0;
-        width: 25%;
-        cursor: w-resize;
-      }
-
-      &--next {
-        left: 25%;
-        width: 75%;
-        cursor: e-resize;
       }
     }
   }
