@@ -1,29 +1,15 @@
 import React from 'react';
+import { Indicators, Indicator } from './_blocks';
 
-const GalleryIndicators = (props) => {
-  const indicators = props.images.map((img, index) => (
-    <div
-      className="caseStudy__gallery__indicator"
-      key={img.url}
-      onClick={() => props.goToImage(index)}
-    />
-  ));
-
-  const currentIndicator = (
-    <div
-      className="caseStudy__gallery__indicator caseStudy__gallery__indicator--current"
-      style={{ transform: `translate3d(${props.currentImageIndex * 100}%, 0, 0)` }}
-    />
-  );
-
-  return (
-    <div className="caseStudy__gallery__indicators">
-      <div className="caseStudy__gallery__indicators__inner">
-        {currentIndicator}
-        {indicators}
-      </div>
-    </div>
-  );
-};
+const GalleryIndicators = props => (
+  <Indicators>
+    <Indicators.Inner>
+      <Indicator.Current index={props.currentImageIndex} />
+      {props.images.map((img, index) => (
+        <Indicator key={img.url} onClick={() => props.goToImage(index)} />
+        ))}
+    </Indicators.Inner>
+  </Indicators>
+);
 
 export default GalleryIndicators;

@@ -103,15 +103,13 @@ export default class Gallery extends React.Component {
       />
     ));
 
-    const classes = ['grid', '-wrap'].join(' ');
-
     return (
       <Waypoint
         onEnter={this.enableVisibility}
         onLeave={this.disableVisibility}
       >
         <div>
-          <GalleryWrapper className={classes}>
+          <GalleryWrapper className="GalleryWrapper grid -wrap">
             <ImageContainer ratio={ratio} className="ImageContainer">
               <OverlayNav className="OverlayNav">
                 <NavItem.Prev onClick={this.handlePrevImage} className="NavItem-Prev" />

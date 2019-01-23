@@ -11,7 +11,6 @@ Gallery.Wrapper = ({ data, title }) => {
 
   return (
     <Gallery animate={animate} images={images} title={title} />
-
   );
 };
 
