@@ -62,7 +62,6 @@ class App extends React.Component {
       });
     });
 
-    // Promise.all(imgStatuses).then(() => console.log('done'));
     return imgStatuses;
   }
 
@@ -95,6 +94,10 @@ class App extends React.Component {
     });
   }
 
+  handleNotFound = (cond) => {
+    this.setState({ notFound: cond });
+  }
+
   render() {
     const {
       siteInfo,
@@ -111,6 +114,7 @@ class App extends React.Component {
           view={this.props.view}
           prismicCtx={this.props.prismicCtx}
           currentCaseStudy={this.state.currentCaseStudy}
+          handleNotFound={this.handleNotFound}
         />
       );
     }

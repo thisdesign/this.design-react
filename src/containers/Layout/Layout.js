@@ -59,6 +59,7 @@ class Layout extends Component {
           navInverted: this.state.navInverted,
           invertNav: this.invertNav,
           revertNav: this.revertNav,
+          handleNotFound: this.props.handleNotFound,
         }}
       >
         <Nav />

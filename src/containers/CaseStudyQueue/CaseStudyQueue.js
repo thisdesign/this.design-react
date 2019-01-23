@@ -13,6 +13,7 @@ class CaseStudyQueue extends Component {
 
   componentWillMount() {
     this.switchQueue();
+    this.check404();
   }
 
   componentDidUpdate(prevProps) {
@@ -35,24 +36,34 @@ class CaseStudyQueue extends Component {
 
   getNextUid = () => this.context.caseStudies[this.getNextIndex()].uid
 
+  check404 = () => {
+    this.context.handleNotFound(this.notFound());
+  }
+
+  notFound = () =>
+    this.getCurrentIndex() === -1 ||
+    this.getNextIndex() === -1
+
   switchQueue = () => {
-    const areFound = this.getCurrentIndex() !== -1 && this.getNextIndex() !== -1;
+    const found = !this.notFound();
     this.setState({
       visibleProjects: [
-        this.context.caseStudies[areFound ? this.getCurrentIndex() : 0],
-        this.context.caseStudies[areFound ? this.getNextIndex() : null],
+        this.context.caseStudies[found ? this.getCurrentIndex() : 0],
+        this.context.caseStudies[found ? this.getNextIndex() : null],
       ],
     });
   }
 
-  updateUrl = (uid) => {
-    this.props.history.push(uid);
-  }
+  updateUrl = (uid) => { this.props.history.push(uid); }
+
+  disableNotFound = () => this.context.handleNotFound(false)
+
+  stopAnimation = () => this.setState({ isAnimating: false })
 
   changeCaseStudy = () => {
-    this.props.history.push(`/work/${this.getNextUid()}`);
-    this.updateUrl(this.context.currentCaseStudy);
-    this.setState({ isAnimating: false });
+    this.updateUrl(`/work/${this.getNextUid()}`);
+    this.disableNotFound();
+    this.stopAnimation();
   }
 
   advanceQueue = () => {
