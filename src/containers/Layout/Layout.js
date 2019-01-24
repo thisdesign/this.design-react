@@ -15,10 +15,6 @@ class Layout extends Component {
     navInverted: false,
   };
 
-  updateCsScrollPos = (scrolledPastCsCover) => {
-    this.setState({ scrolledPastCsCover });
-  }
-
   invertNav = () => {
     this.setState({ navInverted: true });
   }
@@ -45,7 +41,7 @@ class Layout extends Component {
   render() {
     const { view } = this.props;
     const { projectLaunchStatus } = this.state;
-    console.log('props', this.props);
+    console.log(this.props);
     return (
       <LayoutContext.Provider
         value={{

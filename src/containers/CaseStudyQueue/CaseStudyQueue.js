@@ -5,30 +5,7 @@ import LayoutContext from 'containers/Layout/LayoutContext';
 
 class CaseStudyQueue extends Component {
   state = {
-    visibleProjects: [],
     isAnimating: false,
-  }
-
-  componentWillMount() {
-    this._switchQueue();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps !== this.props) {
-      this._switchQueue();
-    }
-  }
-
-  _switchQueue = () => {
-    const {
-      unselected, currentIndex, caseStudies, nextIndex,
-    } = this.context.csData;
-
-    this.setState({
-      visibleProjects: unselected
-        ? [caseStudies[0], null] // if home
-        : [caseStudies[currentIndex], caseStudies[nextIndex]], // otherwise
-    });
   }
 
   _updateUrl = (uid) => { this.props.history.push(uid); }
@@ -48,18 +25,21 @@ class CaseStudyQueue extends Component {
   }
 
   render() {
-    const { isAnimating, visibleProjects } = this.state;
-    const { openingFromHome } = this.props;
+    const {
+      caseStudies, currentIndex, nextIndex, unselected,
+    } = this.context.csData;
+
+    const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
 
     return (
-      this.state.visibleProjects.map((cs, i) => (
-        cs &&
+      csTrack.map((arrayContents, i) => (
+        arrayContents !== null &&
         <CaseStudy
-          key={cs.id}
+          key={arrayContents}
           next={i === 1}
           advanceQueue={this.advanceQueue}
-          doc={visibleProjects[i]}
-          isAnimating={isAnimating || openingFromHome}
+          doc={caseStudies[arrayContents]}
+          isAnimating={this.state.isAnimating || this.props.openingFromHome}
           isHome={this.props.isHome}
           handleOpen={this.props.handleOpen}
         />
