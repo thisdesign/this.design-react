@@ -41,7 +41,6 @@ class Layout extends Component {
   render() {
     const { view } = this.props;
     const { projectLaunchStatus } = this.state;
-    console.log(this.props);
     return (
       <LayoutContext.Provider
         value={{
