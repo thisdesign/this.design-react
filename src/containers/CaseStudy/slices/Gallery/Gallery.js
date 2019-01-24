@@ -4,7 +4,6 @@ import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import styled, { css } from 'styled-components';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
-import './Gallery.scss';
 
 export default class Gallery extends React.Component {
   static contextType = LayoutContext;
