@@ -43,9 +43,7 @@ class Layout extends Component {
   }
 
   render() {
-    const {
-      view, notFound, currentCaseStudy,
-    } = this.props;
+    const { view } = this.props;
     const { projectLaunchStatus } = this.state;
     console.log('props', this.props);
     return (
@@ -70,7 +68,7 @@ class Layout extends Component {
           <View viewName="root" view={view}>
             <Root
               projectLaunchStatus={projectLaunchStatus}
-              isHome={!(!notFound && currentCaseStudy)}
+              isHome={this.props.csData.unselected}
             />
           </View>
           <View aside viewName="about" view={view}>

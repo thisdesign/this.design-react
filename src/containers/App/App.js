@@ -122,10 +122,9 @@ class App extends React.Component {
     } = this.state;
 
     if (siteInfo && caseStudies) {
-      console.log(this._csIsNotFound());
       return (
         <Layout
-          notFound={dataNotFound}
+          notFound={dataNotFound || this._csIsNotFound()}
           caseStudies={caseStudies}
           siteInfo={siteInfo}
           view={this.props.view}
@@ -135,11 +134,11 @@ class App extends React.Component {
           csIndex={this._getCsIndex()}
           csData={{
             unselected: this._csIsUnselected(),
-            caseStudies: this.state.caseStudies,
             currentIndex: this._getCsIndex(),
             currentUid: this.state.currentCaseStudy,
             nextIndex: this._getNextUsableIndex(),
             nextUid: this._getNextUid(),
+            caseStudies: this.state.caseStudies,
             isDark: this._hasCurrentData() ? this._getCsDarkState() : null,
           }}
         />
