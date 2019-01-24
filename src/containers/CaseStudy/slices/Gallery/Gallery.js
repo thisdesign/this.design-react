@@ -1,10 +1,12 @@
 import React from 'react';
 import Waypoint from 'react-waypoint';
+import LayoutContext from 'containers/Layout/LayoutContext';
 import styled, { css } from 'styled-components';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
 import './Gallery.scss';
 
 export default class Gallery extends React.Component {
+  static contextType = LayoutContext;
   state = {
     currentImageIndex: 0,
     ratio: 0,
@@ -15,6 +17,7 @@ export default class Gallery extends React.Component {
     this.setVars();
     this.cycleImages();
     this.setRatio();
+    console.log('context from gallery', this.context);
   }
 
   componentWillUnmount() {

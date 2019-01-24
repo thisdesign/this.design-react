@@ -24,7 +24,8 @@ export const Indicator = styled.div`
   &::after {
     content: '';
     width: ${_indicatorWidth}px
-    background: #ddd;
+    background: black;
+    opacity: .10;
     height: 3px;
     margin: 0 auto;
     display: block;
@@ -36,12 +37,11 @@ Indicator.Current = styled(Indicator)`
   left: 0;
   top: 0;
   position: absolute;
-  opacity: .75;
   transform:  translate3d(${({ index }) => index * 100}%, 0, 0);
 
   &::after {
     content: '';
-    background: black;
+    opacity: .6;
   }
 `;
 

@@ -18,7 +18,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.setCaseStudy();
+    this._setCaseStudy();
   }
 
   componentDidUpdate(prevProps) {
@@ -26,22 +26,18 @@ class App extends React.Component {
     const isNewUid = (this.props.uid !== prevProps.uid) && this.props.uid !== undefined;
 
     if (hasLoadedCtx) {
-      this.loadSiteContext(this.props);
-      this.loadSiteInfo(this.props);
+      this._loadSiteContext(this.props);
+      this._loadSiteInfo(this.props);
       this.props.prismicCtx.toolbar();
     }
-    if (isNewUid) { this.setCaseStudy(); }
+    if (isNewUid) { this._setCaseStudy(); }
   }
 
-  setCaseStudy = () => {
+  _setCaseStudy = () => {
     this.setState({ currentCaseStudy: this.props.uid });
   }
 
-  setNotFound = () => {
-    this.setState({ notFound: true });
-  }
-
-  getImages = doc => flatten(doc.results.map((item) => {
+  _getImages = doc => flatten(doc.results.map((item) => {
     const header = item.data.header[0];
     return [
       header.image1.url,
@@ -50,8 +46,8 @@ class App extends React.Component {
     ];
   })).filter(el => el !== undefined)
 
-  loadImages = (doc) => {
-    const imgs = this.getImages(doc);
+  _preloadImages = (doc) => {
+    const imgs = this._getImages(doc);
     const imgStatuses = [];
     imgs.forEach((url, i) => {
       imgStatuses[i] = new Promise((resolve) => {
@@ -65,24 +61,24 @@ class App extends React.Component {
     return imgStatuses;
   }
 
-  loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
+  _loadSiteContext = (props = this.props) => props.prismicCtx.api.getByUID('context', 'home').then((doc) => {
     if (doc) {
       const ids = doc.data.case_study_list.map(cs => cs.case_study_item.id);
-      this.loadCaseStudies(ids);
+      this._loadCaseStudies(ids);
     } else {
       this.setState({ notFound: true });
     }
   })
 
 
-  loadCaseStudies = (ids) => {
+  _loadCaseStudies = (ids) => {
     this.props.prismicCtx.api.getByIDs(ids).then((doc) => {
       this.setState({ caseStudies: doc.results });
-      this.loadImages(doc);
+      this._preloadImages(doc);
     });
   }
 
-  loadSiteInfo = (props) => {
+  _loadSiteInfo = (props) => {
     props.prismicCtx.api.getSingle('site').then((doc) => {
       if (doc) {
         this.setState({ siteInfo: doc });
@@ -97,6 +93,22 @@ class App extends React.Component {
   handleNotFound = (cond) => {
     this.setState({ notFound: cond });
   }
+
+  _getContextUids = () => this.state.caseStudies.map(cs => cs.uid)
+
+  _getCsIndex = () => (
+    this._getContextUids().indexOf(this.state.currentCaseStudy)
+  )
+
+  _getCurrentCsDoc = () => (
+    this.state.currentCaseStudy &&
+    this.state.caseStudies[this._getCsIndex()]
+  )
+
+  _getCsDarkState = () => (
+    this.state.currentCaseStudy &&
+    this._getCurrentCsDoc().data.preserve_white_nav === 'true'
+  )
 
   render() {
     const {
@@ -115,6 +127,8 @@ class App extends React.Component {
           prismicCtx={this.props.prismicCtx}
           currentCaseStudy={this.state.currentCaseStudy}
           handleNotFound={this.handleNotFound}
+          csIsDark={this._getCsDarkState()}
+          csIndex={this._getCsIndex()}
         />
       );
     }

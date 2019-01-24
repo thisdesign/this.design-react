@@ -43,15 +43,14 @@ class Layout extends Component {
   }
 
   render() {
-    const { view, notFound, currentCaseStudy } = this.props;
+    const {
+      view, notFound, currentCaseStudy,
+    } = this.props;
     const { projectLaunchStatus } = this.state;
     return (
       <LayoutContext.Provider
         value={{
-          notFound,
-          currentCaseStudy,
-          view,
-          projectLaunchStatus,
+          ...this.props,
           scrolledPastCsCover: this.state.scrolledPastCsCover,
           siteInfo: this.props.siteInfo,
           caseStudies: this.props.caseStudies,
