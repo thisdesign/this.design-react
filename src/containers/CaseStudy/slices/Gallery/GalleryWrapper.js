@@ -14,7 +14,7 @@ Gallery.Wrapper = ({ data, title }) => {
   const ratio = Math.min(..._ratios) * 100;
 
   return (
-    <Gallery animate={animate} imageUrls={imageUrls} ratio={ratio} title={title} />
+    <Gallery animate={!(!animate)} imageUrls={imageUrls} ratio={ratio} title={title} />
   );
 };
 
