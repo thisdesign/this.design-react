@@ -4,8 +4,6 @@ import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
 
 class CaseStudyQueue extends Component {
-  // static contextType = LayoutContext;
-
   state = {
     visibleProjects: [],
     isAnimating: false,
@@ -13,7 +11,6 @@ class CaseStudyQueue extends Component {
 
   componentWillMount() {
     this._switchQueue();
-    this._handle404();
   }
 
   componentDidUpdate(prevProps) {
@@ -22,45 +19,26 @@ class CaseStudyQueue extends Component {
     }
   }
 
-  _getCurrentIndex = () => (
-    this.context.caseStudies
-      .map(cs => cs.uid)
-      .indexOf(this.context.currentCaseStudy))
-
-  _getNextIndex = () => (this._isLastCaseStudy() ? 0 : this._getNextIndex());
-
-  _getNextUid = () => this.context.caseStudies[this._getNextIndex()].uid
-
-  _getNextIndex = () => this._getCurrentIndex() + 1
-
-  _isLastCaseStudy = () => this._getNextIndex() === this.context.caseStudies.length
-
-  _isNotFound = () => this._getCurrentIndex() === -1 || this._getNextIndex() === -1
-
-  _handle404 = () => {
-    this.context.handleNotFound(this._isNotFound());
-  }
-
   _switchQueue = () => {
+    const {
+      unselected, currentIndex, caseStudies, nextIndex,
+    } = this.context.csData;
+
     this.setState({
-      visibleProjects: [
-        this.context.caseStudies[!this._isNotFound() ? this._getCurrentIndex() : 0],
-        this.context.caseStudies[!this._isNotFound() ? this._getNextIndex() : null],
-      ],
+      visibleProjects: unselected
+        ? [caseStudies[0], null] // if home
+        : [caseStudies[currentIndex], caseStudies[nextIndex]], // otherwise
     });
   }
 
   _updateUrl = (uid) => { this.props.history.push(uid); }
-
-  _disableNotFound = () => this.context.handleNotFound(false)
 
   _startAnimation = () => this.setState({ isAnimating: true })
 
   _stopAnimation = () => this.setState({ isAnimating: false })
 
   _handleTransitionEnd = () => {
-    this._updateUrl(`/work/${this._getNextUid()}`);
-    this._disableNotFound();
+    this._updateUrl(`/work/${this.context.csData.nextUid}`);
     this._stopAnimation();
   }
 

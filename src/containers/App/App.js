@@ -14,7 +14,7 @@ import './App.scss';
 class App extends React.Component {
   state = {
     siteInfo: null,
-    notFound: false,
+    dataNotFound: false,
   };
 
   componentDidMount() {
@@ -66,7 +66,7 @@ class App extends React.Component {
       const ids = doc.data.case_study_list.map(cs => cs.case_study_item.id);
       this._loadCaseStudies(ids);
     } else {
-      this.setState({ notFound: true });
+      this.setState({ dataNotFound: true });
     }
   })
 
@@ -84,51 +84,64 @@ class App extends React.Component {
         this.setState({ siteInfo: doc });
       } else {
         this.setState({
-          notFound: !doc,
+          dataNotFound: !doc,
         });
       }
     });
   }
 
-  handleNotFound = (cond) => {
-    this.setState({ notFound: cond });
-  }
-
   _getContextUids = () => this.state.caseStudies.map(cs => cs.uid)
 
-  _getCsIndex = () => (
-    this._getContextUids().indexOf(this.state.currentCaseStudy)
-  )
+  _getCurrentCsDoc = () => this.state.caseStudies[this._getCsIndex()]
 
-  _getCurrentCsDoc = () => (
-    this.state.currentCaseStudy &&
-    this.state.caseStudies[this._getCsIndex()]
-  )
+  _getCsDarkState = () => this._getCurrentCsDoc().data.preserve_white_nav === 'true'
 
-  _getCsDarkState = () => (
-    this.state.currentCaseStudy &&
-    this._getCurrentCsDoc().data.preserve_white_nav === 'true'
-  )
+  _getCurrentCaseStudies = () => this.state.caseStudies
+
+  _getNextUsableIndex = () => (this._isLastCaseStudy() ? 0 : this._getNextIndex());
+
+  _getNextUid = () => this.state.caseStudies[this._getNextUsableIndex()].uid
+
+  _getNextIndex = () => this._getCsIndex() + 1
+
+  _getCsIndex = () => this._getContextUids().indexOf(this.state.currentCaseStudy)
+
+  _isLastCaseStudy = () => this._getNextIndex() === this._getCurrentCaseStudies().length
+
+  _csIsUnselected = () => this._getCsIndex() === -1
+
+  _csIsNotFound = () => this._getContextUids().indexOf(this.props.uid) === -1
+
+  _hasCurrentData = () => !this._csIsNotFound() && !this._csIsUnselected()
 
   render() {
     const {
       siteInfo,
-      notFound,
+      dataNotFound,
       caseStudies,
     } = this.state;
 
     if (siteInfo && caseStudies) {
+      console.log(this._csIsNotFound());
       return (
         <Layout
-          notFound={notFound}
+          notFound={dataNotFound}
           caseStudies={caseStudies}
           siteInfo={siteInfo}
           view={this.props.view}
           prismicCtx={this.props.prismicCtx}
-          currentCaseStudy={this.state.currentCaseStudy}
+          currentCaseStudy={this.state.currentCaseStudy} // rm
           handleNotFound={this.handleNotFound}
-          csIsDark={this._getCsDarkState()}
           csIndex={this._getCsIndex()}
+          csData={{
+            unselected: this._csIsUnselected(),
+            caseStudies: this.state.caseStudies,
+            currentIndex: this._getCsIndex(),
+            currentUid: this.state.currentCaseStudy,
+            nextIndex: this._getNextUsableIndex(),
+            nextUid: this._getNextUid(),
+            isDark: this._hasCurrentData() ? this._getCsDarkState() : null,
+          }}
         />
       );
     }
