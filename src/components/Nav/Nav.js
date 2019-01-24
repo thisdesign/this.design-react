@@ -6,12 +6,12 @@ import GridIcon from './GridIcon/GridIcon';
 import AboutIcon from './AboutIcon/AboutIcon';
 import './Nav.scss';
 
-const Nav = ({ view, currentCaseStudy, navInverted }) => {
+const Nav = ({ view, csData, navInverted }) => {
   const linkTo = (link) => {
     if (view === 'root') {
       return `/${link}`;
-    } else if (currentCaseStudy) {
-      return `/work/${currentCaseStudy}`;
+    } else if (csData.currentUid) {
+      return `/work/${csData.currentUid}`;
     }
     return '/';
   };
@@ -43,7 +43,7 @@ const Nav = ({ view, currentCaseStudy, navInverted }) => {
 
 export default React.forwardRef((props, ref) => (
   <LayoutContext.Consumer>
-    {({ navInverted, view, currentCaseStudy }) =>
-      <Nav {...props} {...{ navInverted, view, currentCaseStudy }} ref={ref} />}
+    {({ view, csData, navInverted }) =>
+      <Nav {...props} {...{ view, csData, navInverted }} ref={ref} />}
   </LayoutContext.Consumer>
 ));

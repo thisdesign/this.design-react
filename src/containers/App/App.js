@@ -125,13 +125,9 @@ class App extends React.Component {
       return (
         <Layout
           notFound={dataNotFound || this._csIsNotFound()}
-          caseStudies={caseStudies}
           siteInfo={siteInfo}
           view={this.props.view}
           prismicCtx={this.props.prismicCtx}
-          currentCaseStudy={this.state.currentCaseStudy} // rm
-          handleNotFound={this.handleNotFound}
-          csIndex={this._getCsIndex()}
           csData={{
             unselected: this._csIsUnselected(),
             currentIndex: this._getCsIndex(),

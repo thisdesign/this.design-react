@@ -17,7 +17,6 @@ export default class Gallery extends React.Component {
     this.setVars();
     this.cycleImages();
     this.setRatio();
-    console.log('context from gallery', this.context);
   }
 
   componentWillUnmount() {
