@@ -64,4 +64,7 @@ export const Column = styled.div`
   }
 `;
 
+export const About = styled.div``;
+
+
 export default null;
