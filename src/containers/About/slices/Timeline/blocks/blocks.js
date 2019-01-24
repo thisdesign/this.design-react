@@ -1,11 +1,11 @@
 import styled, { css } from 'styled-components';
-import { Column } from 'containers/About/styles';
+import { About } from 'containers/About/styles';
 
 const small = css`
   font-size: .9em;
 `;
 
-export const Project = styled(Column)`
+export const Project = styled(About.Column)`
   margin-bottom: 1rem;
   line-height: 1.75;
 `;

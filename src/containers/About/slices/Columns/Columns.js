@@ -1,6 +1,6 @@
 import React from 'react';
 import uuidv1 from 'uuid/v1';
-import { FullHeightWrapper, ColumnWrapper, Column } from 'containers/About/styles';
+import { About } from 'containers/About/styles';
 import { RichText } from 'prismic-reactjs';
 import './Columns.scss';
 
@@ -17,15 +17,15 @@ const Columns = ({ data }) => {
   };
 
   return (
-    <FullHeightWrapper>
-      <ColumnWrapper>
+    <About.FullHeightWrapper>
+      <About.ColumnWrapper>
         {items.map(item => (
-          <Column key={uuidv1()} items={getColumnCount()} fullMobile>
+          <About.Column key={uuidv1()} items={getColumnCount()} fullMobile>
             {RichText.render(item.text)}
-          </Column>
+          </About.Column>
       ))}
-      </ColumnWrapper>
-    </FullHeightWrapper>
+      </About.ColumnWrapper>
+    </About.FullHeightWrapper>
   );
 };
 

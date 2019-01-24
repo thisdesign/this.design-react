@@ -1,21 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FullHeightWrapper, SectionTitle, ColumnWrapper, Column } from 'containers/About/styles';
+import { About } from 'containers/About/styles';
+
 
 const Clients = ({ imageUrls, title }) => (
-  <FullHeightWrapper>
-    <SectionTitle>{title}</SectionTitle>
-    <ColumnWrapper>
+  <About.FullHeightWrapper>
+    <About.SectionTitle>
+      {title}
+    </About.SectionTitle>
+    <About.ColumnWrapper>
       <Logos imageUrls={imageUrls} />
-    </ColumnWrapper>
-  </FullHeightWrapper>
+    </About.ColumnWrapper>
+  </About.FullHeightWrapper>
 );
 
 const Logos = ({ imageUrls }) => (
   imageUrls.map(img => (
-    <Column key={img}>
+    <About.Column key={img}>
       <Image src={img} alt="This Design | Portland, OR" />
-    </Column>
+    </About.Column>
   ))
 );
 

@@ -1,14 +1,16 @@
 import styled from 'styled-components';
 import React from 'react';
 
-export const SectionTitle = styled.h3`
+export const About = {};
+
+About.SectionTitle = styled.h3`
   padding-bottom: 60px;
   text-align: center;
 `;
 
 const BORDERS = false;
 
-export const Wrapper = styled.div`
+About.Wrapper = styled.div`
   margin: 0px auto;
   padding: 2rem;
   border: ${BORDERS ? '1px solid orange' : 'none'};
@@ -19,7 +21,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-const FullHeight = styled.div`
+About.FullHeight = styled.div`
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -30,20 +32,20 @@ const FullHeight = styled.div`
   border: ${BORDERS ? '1px solid red' : 'none'};
 `;
 
-export const FullHeightWrapper = ({ children, large }) => (
-  <FullHeight>
-    <Wrapper large={large}>{children}</Wrapper>
-  </FullHeight>
+About.FullHeightWrapper = ({ children, large }) => (
+  <About.FullHeight>
+    <About.Wrapper large={large}>{children}</About.Wrapper>
+  </About.FullHeight>
 );
 
-export const ColumnWrapper = styled.div`
+About.ColumnWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 0 -2rem;
   border: ${BORDERS ? '1px solid green' : 'none'};
 `;
 
-export const Column = styled.div`
+About.Column = styled.div`
   width: ${({ fullMobile }) => (fullMobile ? '100%' : '50%')}
   @media (min-width: 768px){
     width: ${({ items }) => {
@@ -63,8 +65,6 @@ export const Column = styled.div`
     width: 100%;
   }
 `;
-
-export const About = styled.div``;
 
 
 export default null;
