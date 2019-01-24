@@ -24,7 +24,7 @@ export const Indicator = styled.div`
   &::after {
     content: '';
     width: ${_indicatorWidth}px
-    background: black;
+    background: ${({ dark }) => (dark ? 'white' : 'black')}
     opacity: .10;
     height: 3px;
     margin: 0 auto;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import styled, { css } from 'styled-components';
@@ -7,16 +8,22 @@ import './Gallery.scss';
 
 export default class Gallery extends React.Component {
   static contextType = LayoutContext;
+
+  static propTypes = {
+    animate: PropTypes.bool.isRequired,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+    ratio: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+  }
+
   state = {
     currentImageIndex: 0,
-    ratio: 0,
     isVisible: false,
   }
 
   componentWillMount() {
     this.setVars();
     this.cycleImages();
-    this.setRatio();
   }
 
   componentWillUnmount() {
@@ -25,18 +32,13 @@ export default class Gallery extends React.Component {
 
   setVars = () => {
     const { currentImageIndex } = this.state;
-    this.lastImage = this.props.images.length - 1;
+    this.lastImage = this.props.imageUrls.length - 1;
     this.isFirstImage = currentImageIndex <= 0;
     this.isLastImage = this.lastImage > currentImageIndex;
     this.nextImage = currentImageIndex + 1;
     this.previousImage = currentImageIndex - 1;
   }
 
-  setRatio = () => {
-    const ratios = this.props.images.map(image => image.dimensions.height / image.dimensions.width);
-    const smallestRatio = Math.min(...ratios) * 100;
-    this.setState({ ratio: smallestRatio });
-  }
 
   cycleImages = () => {
     if (this.state.isVisible) {
@@ -71,7 +73,6 @@ export default class Gallery extends React.Component {
     }
   }
 
-
   handlePrevImage = () => {
     this.setVars();
     if (this.isFirstImage) {
@@ -92,19 +93,20 @@ export default class Gallery extends React.Component {
   }
 
   render() {
-    const { currentImageIndex, ratio } = this.state;
-    const { images } = this.props;
+    const { currentImageIndex } = this.state;
+    const {
+      imageUrls, ratio, title, animate,
+    } = this.props;
 
-    const galleryItems = images.map((img, index) => (
+    const galleryItems = imageUrls.map((url, index) => (
       <Image
-        src={img.url}
-        key={img.url}
-        alt={this.props.title}
+        src={url}
+        key={url}
+        alt={title}
         current={index === currentImageIndex}
-        animate={this.props.animate}
+        animate={animate}
       />
     ));
-
     return (
       <Waypoint
         onEnter={this.enableVisibility}
@@ -120,9 +122,10 @@ export default class Gallery extends React.Component {
               {galleryItems}
             </ImageContainer>
             <GalleryIndicators
-              images={images}
+              imageUrls={imageUrls}
               currentImageIndex={currentImageIndex}
               goToImage={this.goToImage}
+              dark={this.context.csData.isDark}
             />
           </GalleryWrapper>
         </div>

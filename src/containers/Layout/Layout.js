@@ -46,13 +46,10 @@ class Layout extends Component {
         value={{
           ...this.props,
           scrolledPastCsCover: this.state.scrolledPastCsCover,
-          siteInfo: this.props.siteInfo,
-          caseStudies: this.props.caseStudies,
           launchProject: this.launchProject,
           navInverted: this.state.navInverted,
           invertNav: this.invertNav,
           revertNav: this.revertNav,
-          handleNotFound: this.props.handleNotFound,
         }}
       >
         <Nav />
