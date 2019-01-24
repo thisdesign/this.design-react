@@ -27,10 +27,10 @@ const _getOffset = (el) => {
  * Checks if element is in view
  * @param {[type]} el Dom Element
  */
-const _isInView = (el) => {
+const _isInView = (el, bias = 200) => {
   const bounds = el.getBoundingClientRect();
-  const isBelowView = bounds.top - window.innerHeight > 0;
-  const isAboveView = bounds.bottom < 0;
+  const isBelowView = (bounds.top - bias) - window.innerHeight > 0;
+  const isAboveView = bounds.bottom + bias < 0;
   return !isBelowView && !isAboveView;
 };
 

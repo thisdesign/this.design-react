@@ -1,8 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import isMobile from 'util/isMobile';
 import ParallaxController from './libs/ParallaxController';
 
 export default class Parallax extends React.Component {
+  static propTypes = {
+    children: PropTypes.element.isRequired,
+    className: PropTypes.string,
+    speed: PropTypes.number,
+  }
+
+  static defaultProps = {
+    speed: -100,
+    className: null,
+  };
+
   constructor(props) {
     super(props);
     this.ref = React.createRef();
@@ -38,7 +50,3 @@ export default class Parallax extends React.Component {
     );
   }
 }
-
-Parallax.defaultProps = {
-  power: -100,
-};
