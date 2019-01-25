@@ -1,20 +1,25 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import Slices from '../slices/Slices';
 import CaseStudyCover from './CaseStudyCover/CaseStudyCover';
+import Styled from '../styled';
 
 const Partials = {};
 
 Partials.Shim = ({ isHome, advanceQueue }) => (
-  <CursorAnchor
-    className={`casestudy__shim ${isHome ? '-isHome' : ''}`}
-    onClick={advanceQueue}
-    detached
-    textId="launch"
-  />
+  <Styled.Shim home={isHome}>
+    <CursorAnchor onClick={advanceQueue} detached textId="launch" />
+  </Styled.Shim>
 );
+
+Partials.Shim.propTypes = {
+  isHome: PropTypes.bool.isRequired,
+  advanceQueue: PropTypes.func.isRequired,
+};
+
 
 Partials.NavChanger = () => (
   <LayoutContext.Consumer>

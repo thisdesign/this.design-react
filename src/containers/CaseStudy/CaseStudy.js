@@ -6,25 +6,27 @@ import Partials from './partials/index';
 
 const CaseStudy = ({
   doc, next, advanceQueue, isAnimating, isHome, handleOpen,
-}) => (
-  <Styled.CaseStudy
-    className="casestudy"
-    onClick={isHome ? handleOpen : null}
-    next={next}
-    isAnimating={isAnimating}
-    isHome={isHome}
-  >
-    <Styled.Inner
-      className="casestudy__body"
-      textColor={doc.data.text_color}
-      background={doc.data.background_color}
+}) => {
+  const innerProps = {
+    textColor: doc.data.text_color,
+    background: doc.data.background_color,
+  };
+  return (
+    <Styled.CaseStudy
+      className="casestudy"
+      onClick={isHome ? handleOpen : null}
+      next={next}
+      isAnimating={isAnimating}
+      isHome={isHome}
     >
-      <Partials.Cover data={doc.data} />
-      <Partials.Body next={next} isHome={isHome} doc={doc} />
-    </Styled.Inner>
-    <Partials.Shim advanceQueue={advanceQueue} isHome={isHome} />
-  </Styled.CaseStudy>
-);
+      <Styled.Inner {...innerProps}>
+        <Partials.Cover data={doc.data} />
+        <Partials.Body next={next} isHome={isHome} doc={doc} />
+      </Styled.Inner>
+      <Partials.Shim advanceQueue={advanceQueue} isHome={isHome} />
+    </Styled.CaseStudy>
+  );
+};
 
 CaseStudy.propTypes = {
   doc: PropTypes.object.isRequired, //eslint-disable-line

@@ -51,4 +51,15 @@ Styled.Inner = styled.div`
   padding-bottom: ${({ theme }) => theme.margin.lg}
 `;
 
+Styled.Shim = styled.div`
+  position: ${props => (props.home ? 'fixed' : 'relative')};
+  top: 0;
+  left: 0;
+  display: block;
+  height: 400px;
+  width: 100%;
+  z-index: 100;
+  cursor: pointer;
+`;
+
 export default Styled;
