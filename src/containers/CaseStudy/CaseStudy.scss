@@ -75,21 +75,6 @@
     }
   }
 
-  &__shim {
-    position: relative;
-    top: 0;
-    left: 0;
-    display: block;
-    height: 400px;
-    width: 100%;
-    z-index: 100;
-    cursor: pointer;
-
-    &.-isHome {
-      position: fixed;
-    }
-  }
-
   &__block {
     margin-top: $margin-1;
     position: relative;

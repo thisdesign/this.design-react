@@ -4,15 +4,15 @@ import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import Slices from '../slices/Slices';
-import CaseStudyCover from './CaseStudyCover/CaseStudyCover';
+import Cover from './CaseStudyCover/CoverWrapper';
 import Styled from '../styled';
 
 const Partials = {};
 
-Partials.Shim = ({ isHome, advanceQueue }) => (
-  <Styled.Shim home={isHome}>
-    <CursorAnchor onClick={advanceQueue} detached textId="launch" />
-  </Styled.Shim>
+Partials.Shim = ({ isHome, advanceQueue }) => ( // make one elem
+  <CursorAnchor onClick={advanceQueue} detached textId="launch">
+    <Styled.Shim home={isHome} />
+  </CursorAnchor>
 );
 
 Partials.Shim.propTypes = {
@@ -47,6 +47,6 @@ Partials.Body = ({ next, isHome, doc }) => (!next && !isHome) && (
 </LayoutContext.Consumer>
 );
 
-Partials.Cover = CaseStudyCover;
+Partials.Cover = Cover.Wrapper;
 
 export default Partials;
