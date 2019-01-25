@@ -4,6 +4,7 @@ import 'styles/typography.scss';
 import 'styles/layout.scss';
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
 import Loading from 'components/Loading/Loading';
 import Layout from 'containers/Layout/Layout';
@@ -12,6 +13,11 @@ import flatten from 'array-flatten';
 import './App.scss';
 
 class App extends React.Component {
+  static propTypes = {
+    uid: PropTypes.string.isRequired,
+    view: PropTypes.string.isRequired,
+  }
+
   state = {
     siteInfo: null,
     dataNotFound: false,
@@ -114,6 +120,10 @@ class App extends React.Component {
 
   _hasCurrentData = () => !this._csIsNotFound() && !this._csIsUnselected()
 
+  _getProjectTitle = () => this._getCurrentCsDoc().data.title
+
+  _getProjectAlt = () => `${this._getProjectTitle()} – This Design – Portland, OR`;
+
   render() {
     const {
       siteInfo,
@@ -129,6 +139,7 @@ class App extends React.Component {
           view={this.props.view}
           prismicCtx={this.props.prismicCtx}
           csData={{
+            currentDoc: this._getCurrentCsDoc(),
             unselected: this._csIsUnselected(),
             currentIndex: this._getCsIndex(),
             currentUid: this.state.currentCaseStudy,
@@ -136,6 +147,7 @@ class App extends React.Component {
             nextUid: this._getNextUid(),
             caseStudies: this.state.caseStudies,
             isDark: this._hasCurrentData() ? this._getCsDarkState() : null,
+            alt: this._getProjectAlt(),
           }}
         />
       );

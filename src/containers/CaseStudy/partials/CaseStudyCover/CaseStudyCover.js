@@ -1,7 +1,7 @@
 import React from 'react';
+import sizeCheck from 'util/sizeCheck';
 import { RichText } from 'prismic-reactjs';
 import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
-import sizeCheck from '../../util/sizeCheck';
 import './CaseStudyCover.scss';
 
 const CaseStudyCover = (props) => {
