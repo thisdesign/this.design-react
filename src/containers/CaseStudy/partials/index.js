@@ -36,9 +36,7 @@ Partials.NavChanger = () => (
   </LayoutContext.Consumer>
 );
 
-Partials.Body = ({
-  isAnimating, next, isHome, doc,
-}) => (!(!next && isAnimating) && !isHome) && (
+Partials.Body = ({ next, isHome, doc }) => (!next && !isHome) && (
 <LayoutContext.Consumer>
   {({ csData }) => (
     <>
