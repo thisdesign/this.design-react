@@ -23,12 +23,12 @@ function Gallery({ animate, imageUrls, ratio }) {
   const setNext = () => setSlide(nextIndex);
   const setPrev = () => setSlide(prevIndex);
 
-  const stopTimer = useTimer(slide, setNext);
+  useTimer(slide, setNext);
 
   return (
     <Waypoint >
       <div>
-        <Styled.Gallery className="GalleryWrapper grid -wrap">
+        <Styled.Gallery className="grid -wrap">
           <Styled.ImageContainer ratio={ratio}>
             { imageUrls.map((url, i) => (
               <Styled.Image
@@ -38,9 +38,9 @@ function Gallery({ animate, imageUrls, ratio }) {
                 previous={prevIndex === i}
                 animate={animate}
               />))}
-            <Styled.OverlayNav className="OverlayNav">
-              <Styled.Prev onClick={setPrev} className="NavItem-Prev" />
-              <Styled.Next onClick={stopTimer}className="NavItem-Next" />
+            <Styled.OverlayNav >
+              <Styled.Prev onClick={setPrev} />
+              <Styled.Next onClick={setNext} />
             </Styled.OverlayNav>
           </Styled.ImageContainer>
           <Styled.Indicators>
