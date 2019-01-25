@@ -4,7 +4,7 @@ import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
 import Slices from '../slices/Slices';
-import Cover from './CaseStudyCover/CoverWrapper';
+import Cover from './CaseStudyCover/Cover';
 import Styled from '../styled';
 
 const Partials = {};
@@ -47,6 +47,6 @@ Partials.Body = ({ next, isHome, doc }) => (!next && !isHome) && (
 </LayoutContext.Consumer>
 );
 
-Partials.Cover = Cover.Wrapper;
+Partials.Cover = Cover;
 
 export default Partials;

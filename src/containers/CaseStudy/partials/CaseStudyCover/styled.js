@@ -29,7 +29,20 @@ Styled.Header = styled.div`
 
 const Item = styled.div`
   margin-bottom: 3.5vh;
+  transition:
+    opacity 600ms ${({ theme }) => theme.ease.standard},
+    transform 600ms ${({ theme }) => theme.ease.standard};
+
+  ${({ itemTitle, next, isAnimating }) => {
+    if (!itemTitle && next) {
+      return css`opacity: 0`;
+    } if (itemTitle && next && !isAnimating) {
+      return css`transform: translateY(calc(100vh - 400px))`;
+    }
+    return null;
+  }}
 `;
+
 
 Styled.Title = styled(Item)`
 `;
@@ -39,6 +52,17 @@ Styled.Desc = styled(Item)`
 
 Styled.Services = styled(Item)`
   ${css(({ theme }) => theme._h3)}
+`;
+
+Styled.Splash = styled.div`
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-image: ${({ image }) => image && `url(${image})`} ;
+  background-size: cover;
+  z-index: 10;
 `;
 
 

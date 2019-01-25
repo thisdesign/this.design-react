@@ -1,34 +1,43 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 // import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
 import Styled from './styled';
+import { CsContext } from '../../CaseStudy';
 
-const Cover = ({
-  description, title, backgroundColor, services,
-}) => (
-  <Styled.Cover>
-    <Styled.Fill backgroundColor={backgroundColor} />
-    <Styled.Header>
-      <Styled.Title>
-        {title}
-      </Styled.Title>
-      <Styled.Desc>
-        {description}
-      </Styled.Desc>
-      <Styled.Services>
-        {services}
-      </Styled.Services>
-    </Styled.Header>
-    {/* <CaseStudySplash data={header} /> */}
-  </Styled.Cover>
+
+const Cover = () => (
+  <CsContext.Consumer>
+    {({ header, next, isAnimating }) => (
+      <Styled.Cover>
+        <Styled.Fill backgroundColor={header.backgroundColor} />
+        <Styled.Header>
+          <Styled.Title next={next} itemTitle isAnimating={isAnimating}>
+            {header.title}
+          </Styled.Title>
+          <Styled.Desc next={next}>
+            {header.description}
+          </Styled.Desc>
+          <Styled.Services next={next}>
+            {header.services}
+          </Styled.Services>
+        </Styled.Header>
+        {/* <CaseStudySplash data={header} /> */}
+        <CsContext.Consumer>{(val) => { console.log(val); }}</CsContext.Consumer>
+        <Splash />
+      </Styled.Cover>
+  )}
+  </CsContext.Consumer>
 );
 
-Cover.propTypes = {
-  backgroundColor: PropTypes.string.isRequired,
-  // videoUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-  title: PropTypes.element.isRequired,
-  description: PropTypes.element.isRequired,
-  services: PropTypes.element.isRequired,
-};
+const Splash = () => (
+  <CsContext.Consumer>
+    {({ header }) => {
+      const { videoUrl, imageUrl } = header.background;
+      return (
+        <Styled.Splash image={!videoUrl && imageUrl} />
+    );
+  }}
+  </CsContext.Consumer>
+
+);
 
 export default React.memo(Cover);

@@ -14,7 +14,7 @@ import './App.scss';
 
 class App extends React.Component {
   static propTypes = {
-    uid: PropTypes.string.isRequired,
+    uid: PropTypes.string,
     view: PropTypes.string.isRequired,
   }
 
@@ -120,10 +120,6 @@ class App extends React.Component {
 
   _hasCurrentData = () => !this._csIsNotFound() && !this._csIsUnselected()
 
-  _getProjectTitle = () => this._getCurrentCsDoc().data.title
-
-  _getProjectAlt = () => `${this._getProjectTitle()} – This Design – Portland, OR`;
-
   render() {
     const {
       siteInfo,
@@ -147,7 +143,6 @@ class App extends React.Component {
             nextUid: this._getNextUid(),
             caseStudies: this.state.caseStudies,
             isDark: this._hasCurrentData() ? this._getCsDarkState() : null,
-            alt: this._getProjectAlt(),
           }}
         />
       );
