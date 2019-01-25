@@ -6,21 +6,22 @@ import { CsContext } from '../../CaseStudy';
 
 const Cover = () => (
   <CsContext.Consumer>
-    {({ header, next, isAnimating }) => (
+    {({
+     header, next, isAnimating, isHome,
+    }) => (
       <Styled.Cover>
         <Styled.Fill backgroundColor={header.backgroundColor} />
         <Styled.Header>
           <Styled.Title next={next} itemTitle isAnimating={isAnimating}>
             {header.title}
           </Styled.Title>
-          <Styled.Desc next={next}>
+          <Styled.Desc next={next} isHome={isHome}>
             {header.description}
           </Styled.Desc>
-          <Styled.Services next={next}>
+          <Styled.Services next={next} isHome={isHome}>
             {header.services}
           </Styled.Services>
         </Styled.Header>
-        {/* <CaseStudySplash data={header} /> */}
         <CsContext.Consumer>{(val) => { console.log(val); }}</CsContext.Consumer>
         <Splash />
       </Styled.Cover>
@@ -33,7 +34,9 @@ const Splash = () => (
     {({ header }) => {
       const { videoUrl, imageUrl } = header.background;
       return (
-        <Styled.Splash image={!videoUrl && imageUrl} />
+        <Styled.Splash image={!videoUrl && imageUrl} >
+          <></>
+        </Styled.Splash>
     );
   }}
   </CsContext.Consumer>

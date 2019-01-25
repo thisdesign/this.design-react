@@ -18,6 +18,7 @@ Styled.Fill = styled.div`
   width: 100%;
   z-index: 10;
 `;
+
 Styled.Header = styled.div`
   ${css(({ theme }) => theme._wrapNav)}
   position: absolute;
@@ -33,8 +34,10 @@ const Item = styled.div`
     opacity 600ms ${({ theme }) => theme.ease.standard},
     transform 600ms ${({ theme }) => theme.ease.standard};
 
-  ${({ itemTitle, next, isAnimating }) => {
-    if (!itemTitle && next) {
+  ${({
+    itemTitle, next, isAnimating, isHome,
+  }) => {
+    if ((!itemTitle && next) || isHome) {
       return css`opacity: 0`;
     } if (itemTitle && next && !isAnimating) {
       return css`transform: translateY(calc(100vh - 400px))`;
@@ -42,7 +45,6 @@ const Item = styled.div`
     return null;
   }}
 `;
-
 
 Styled.Title = styled(Item)`
 `;

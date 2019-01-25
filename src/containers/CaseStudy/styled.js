@@ -3,13 +3,13 @@ import styled, { css, keyframes } from 'styled-components';
 const Styled = {};
 
 const slideUp = keyframes`
-  from {
-    transform: translate3d(0, 0, 0);
-  }
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, -100vh, 0); }
+`;
 
-  to {
-    transform: translate3d(0, -100vh, 0);
-  }
+const slideUpHome = keyframes`
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(0, calc(-100vh + 400px), 0); }
 `;
 
 Styled.CaseStudy = styled.article`
@@ -22,8 +22,8 @@ Styled.CaseStudy = styled.article`
   overflow: auto;
   transform: translate3d(0, 0, 0);
 
-  ${props => props.home && css`
-    height: 400px;
+  ${({ isHome, isAnimating }) => isHome && css`
+    height: ${isAnimating ? '100vh' : '400px'};
     overflow: hidden;
   `}
 
@@ -37,7 +37,7 @@ Styled.CaseStudy = styled.article`
     animation: ${({ theme }) => {
     const time = theme.timing.csTransition;
     const ease = theme.ease.standard;
-    const animName = isHome ? null : slideUp;
+    const animName = isHome ? slideUpHome : slideUp;
     return css`${time}ms ${animName} ${ease}`;
   }};
   `}
