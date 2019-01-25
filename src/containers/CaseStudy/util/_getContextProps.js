@@ -12,6 +12,7 @@ const _getContextProps = (data) => {
     video1,
     floating_media_width: auxWidth,
     mobileImage,
+    layout2,
   } = data.header[0];
 
   const header = {
@@ -20,12 +21,13 @@ const _getContextProps = (data) => {
     description: RichText.render(copy),
     services: RichText.render(services),
     auxItem: {
-      videoUrl: video1.url,
+      videoUrl: video2.url,
       imageUrl: image2.url,
       width: auxWidth,
+      position: layout2,
     },
     background: {
-      videoUrl: video2.url,
+      videoUrl: video1.url,
       imageUrl: image1.url,
       mobileImage: mobileImage.url,
     },
@@ -44,6 +46,7 @@ export const _contextPropTypes = {
         videoUrl: PropTypes.string,
         imageUrl: PropTypes.string,
         width: PropTypes.number,
+        position: PropTypes.string,
       }).isRequired,
       background: PropTypes.objectOf(PropTypes.string),
     }).isRequired,

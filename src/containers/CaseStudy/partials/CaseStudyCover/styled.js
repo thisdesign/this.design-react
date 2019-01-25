@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import _setPositionStyles from '../../util/_setPositionStyles';
 
 const Styled = {};
 
@@ -64,8 +65,28 @@ Styled.Splash = styled.div`
   width: 100%;
   background-image: ${({ image }) => image && `url(${image})`} ;
   background-size: cover;
+  background-position: center center;
   z-index: 10;
 `;
 
+Styled.Video = styled.video`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+`;
+
+Styled.AuxWrapper = styled.div`
+  position: absolute;
+  width: auto;
+  max-width: 100%;
+  z-index: 10;
+  width: ${props => props.width}vw
+  ${({ position }) => _setPositionStyles(position)}
+`;
+
+Styled.AuxImg = styled.img`
+  width: 100%;
+`;
 
 export default Styled;

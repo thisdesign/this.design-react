@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
 import Styled from './styled';
 import { CsContext } from '../../CaseStudy';
@@ -22,7 +23,6 @@ const Cover = () => (
             {header.services}
           </Styled.Services>
         </Styled.Header>
-        <CsContext.Consumer>{(val) => { console.log(val); }}</CsContext.Consumer>
         <Splash />
       </Styled.Cover>
   )}
@@ -35,12 +35,44 @@ const Splash = () => (
       const { videoUrl, imageUrl } = header.background;
       return (
         <Styled.Splash image={!videoUrl && imageUrl} >
-          <></>
+          <Video src={videoUrl} bg name="BG Video" />
+          <AuxiliaryItem />
         </Styled.Splash>
     );
   }}
   </CsContext.Consumer>
-
 );
+
+const AuxiliaryItem = () => (
+  <CsContext.Consumer>
+    {({ header, alt }) => {
+      const {
+       width, videoUrl, position, imageUrl,
+      } = header.auxItem;
+      return (
+        <Styled.AuxWrapper width={width} position={position} data-name="Aux Item Container">
+          {imageUrl && <Styled.AuxImg src={imageUrl} alt={alt} />}
+          <Video src={videoUrl} name="Aux Video" />
+        </Styled.AuxWrapper>
+    );
+}}
+  </CsContext.Consumer>
+);
+
+const Video = ({ src, name }) => (
+  src ?
+    <Styled.Video autoPlay muted loop data-name={name}>
+      <source src={src} />
+    </Styled.Video>
+    : null
+);
+
+Video.defaultProps = {
+  src: null,
+};
+
+Video.propTypes = {
+  src: PropTypes.string,
+};
 
 export default React.memo(Cover);

@@ -8,13 +8,14 @@ import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 const CaseStudy = ({
   doc, next, advanceQueue, isAnimating, isHome, handleOpen,
 }) => {
-  const innerProps = {
+  const customStyle = {
     textColor: doc.data.text_color,
     background: doc.data.background_color,
   };
+  const alt = `${doc.data.title} - This Design - Portland OR`;
   return (
     <CsContext.Provider value={{
-      isAnimating, isHome, next, ..._getContextProps(doc.data),
+      isAnimating, isHome, next, ..._getContextProps(doc.data), alt,
     }}
     >
       <Styled.CaseStudy
@@ -24,7 +25,7 @@ const CaseStudy = ({
         isAnimating={isAnimating}
         isHome={isHome}
       >
-        <Styled.Inner {...innerProps}>
+        <Styled.Inner {...customStyle}>
           <Partials.Cover isHome={isHome} data={doc.data} />
           <Partials.Body next={next} isHome={isHome} doc={doc} />
         </Styled.Inner>
