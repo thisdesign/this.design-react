@@ -5,7 +5,6 @@ import Cover from './Cover';
 /* eslint-disable react/prop-types */
 
 Cover.Wrapper = ({ data }) => {
-  console.log(data);
   const { title, copy, services } = data.header[0];
   return (
     <Cover

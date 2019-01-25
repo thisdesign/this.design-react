@@ -1,26 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 // import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
-import './CaseStudyCover.scss';
+import Styled from './styled';
 
 const Cover = ({
   description, title, backgroundColor, services,
 }) => (
-  <div className="casestudy__cover" >
-    <div className="casestudy__fill" style={{ background: backgroundColor }} />
-    <div className="casestudy__header -wrap-nav">
-      <div className="casestudy__header__item casestudy__header__item--title">
+  <Styled.Cover>
+    <Styled.Fill backgroundColor={backgroundColor} />
+    <Styled.Header>
+      <Styled.Title>
         {title}
-      </div>
-      <div className="casestudy__header__item casestudy__header__item--description">
+      </Styled.Title>
+      <Styled.Desc>
         {description}
-      </div>
-      <div className="casestudy__header__item casestudy__header__item--services h3">
+      </Styled.Desc>
+      <Styled.Services>
         {services}
-      </div>
-    </div>
+      </Styled.Services>
+    </Styled.Header>
     {/* <CaseStudySplash data={header} /> */}
-  </div>
+  </Styled.Cover>
 );
 
 Cover.propTypes = {

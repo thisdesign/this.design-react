@@ -14,6 +14,17 @@ const theme = {
   margin: {
     lg: '4em',
   },
+
+  _h3: `
+    font-size: .5em;
+    line-height: 2.25;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-family: calibre-regular;
+  `,
+  _wrapNav: `
+    padding: 0 80px
+  `,
 };
 
 export default theme;
