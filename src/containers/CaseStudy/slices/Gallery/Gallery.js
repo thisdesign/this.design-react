@@ -8,7 +8,7 @@ const useTimer = (slide, setNext) => {
     () => {
       const interval = setInterval(() => {
         setNext();
-      }, 1000);
+      }, 2000);
       return () => { clearInterval(interval); };
     },
     [slide],
