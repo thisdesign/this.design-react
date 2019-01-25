@@ -26,7 +26,7 @@ const CaseStudy = ({
       >
         <Styled.Inner {...innerProps}>
           <Partials.Cover isHome={isHome} data={doc.data} />
-          <Partials.Body next={next} isHome={isHome} doc={doc} />
+          <Partials.Body next={isAnimating} isAnimating={isAnimating} isHome={isHome} doc={doc} />
         </Styled.Inner>
         <Partials.Shim advanceQueue={advanceQueue} isHome={isHome} />
       </Styled.CaseStudy>
