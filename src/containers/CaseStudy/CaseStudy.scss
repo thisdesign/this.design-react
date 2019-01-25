@@ -1,15 +1,15 @@
 @import '../../styles/variables.scss';
 
-@-webkit-keyframes slideUp {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, -100vh, 0);
-    // transform: translate3d(0, calc(-100vh + 400px), 0);
-  }
-}
+// @-webkit-keyframes slideUp {
+//   from {
+//     transform: translate3d(0, 0, 0);
+//   }
+//
+//   to {
+//     transform: translate3d(0, -100vh, 0);
+//     // transform: translate3d(0, calc(-100vh + 400px), 0);
+//   }
+// }
 
 @-webkit-keyframes slideUpHome {
   from {
@@ -22,23 +22,15 @@
 }
 
 .casestudy {
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 30;
-  position: relative;
-  overflow: auto;
-  transform: translate3d(0, 0, 0);
 
   &.-isHome {
-    height: 400px;
-    overflow: hidden;
+    // height: 400px;
+    // overflow: hidden;
 
-    &.-isAnimating {
-      animation: slideUpHome 600ms $ease-standard;
-      height: 100vh;
-    }
+    // &.-isAnimating {
+    //   animation: slideUpHome 600ms $ease-standard;
+    //   height: 100vh;
+    // }
 
     .casestudy__header__item {
       opacity: 0;
@@ -67,9 +59,9 @@
   }
 
   &--next {
-    z-index: 10;
-    pointer-events: none;
-    position: fixed;
+    // z-index: 10;
+    // pointer-events: none;
+    // position: fixed;
 
     .casestudy__header__item {
       opacity: 0;
@@ -114,10 +106,4 @@
     }
   }
 
-  &__body {
-    transform: translateZ(0);
-    background: $case-study-bg;
-    padding-bottom: $margin-1;
-    position: relative;
-  }
 }

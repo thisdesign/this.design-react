@@ -17,7 +17,7 @@ export const Indicator = styled.div`
   width: ${_indicatorWidth + (_indicatorMargin * 2)}px;
   height: 3px;
   display: inline-block;
-  transition: 200ms transform cubic-bezier(.4, 0, .2, 1);
+  transition: ${({ theme }) => `200ms transform ${theme.ease.standard}`};
   cursor: pointer;
   margin: 0 auto;
 
