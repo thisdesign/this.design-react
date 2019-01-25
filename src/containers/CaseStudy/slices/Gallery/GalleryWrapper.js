@@ -1,8 +1,8 @@
 import React from 'react';
-import Gallery from './Gallery';
+import Gallery from './HooksGallery';
 /* eslint-disable react/prop-types */
 
-Gallery.Wrapper = ({ data, title }) => {
+Gallery.Wrapper = ({ data }) => {
   const api = data.value
     ? data.value // v1 structure
     : data.items; // v2 structure
@@ -14,7 +14,7 @@ Gallery.Wrapper = ({ data, title }) => {
   const ratio = Math.min(..._ratios) * 100;
 
   return (
-    <Gallery animate={!(!animate)} imageUrls={imageUrls} ratio={ratio} title={title} />
+    <Gallery animate={!(!animate)} imageUrls={imageUrls} ratio={ratio} />
   );
 };
 

@@ -44,7 +44,7 @@ class Layout extends Component {
     const { view } = this.props;
     const { projectLaunchStatus } = this.state;
     return (
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{ ...theme, ...{ dark: this.props.csData.isDark } }}>
         <LayoutContext.Provider
           value={{
           ...this.props,
