@@ -76,7 +76,6 @@ Styled.Gallery = styled.div`
   position: relative;
 `;
 
-
 Styled.Indicators = styled.div`
   display: flex;
 `;
