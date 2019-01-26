@@ -12,7 +12,7 @@ const theme = {
     csTransition: 600,
   },
   margin: {
-    lg: '4em',
+    lg: '5em',
   },
 
   _h3: `
