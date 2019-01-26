@@ -1,12 +1,12 @@
 /* eslint react/no-unused-prop-types: 0 */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import Parallax from 'components/Parallax/Parallax';
+import { ThemeProvider } from 'styled-components';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
 import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
-import './Columns.scss';
+import Styled from './styled';
 
 
 const Columns = ({
@@ -19,20 +19,6 @@ const Columns = ({
   text,
   layout,
 }) => {
-  const classes = [
-    'caseStudy__colBlock',
-    '-grid',
-    '-wrap',
-    isRight ? 'caseStudy__colBlock--right' : '',
-    size === 'large' ? 'caseStudy__colBlock--largeImage' : '',
-    size === 'small' ? 'caseStudy__colBlock--smallImage' : '',
-  ].join(' ');
-
-  const colClass = (modifier) => {
-    const base = 'caseStudy__colBlock__col';
-    return `${base} ${base}--${modifier} -padding`;
-  };
-
   const MediaWrapper = ({ children }) => {
     switch (layout) {
       case '-website':
@@ -43,36 +29,28 @@ const Columns = ({
         return children;
     }
   };
-
-  const MediaItem = () => (
-    videoUrl
-      ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
-      : <img src={imageUrl} alt={title} />
-  );
-
-  const Media = () => (
-    <Parallax speed={-90} className={colClass('media')}>
-      <MediaWrapper>
-        <MediaItem />
-      </MediaWrapper>
-    </Parallax>
-  );
-
-  const Text = () => (
-    <div className={colClass('text')}>
-      {text}
-    </div>
-  );
-
+  console.log(size);
   const columnItems = [
-    <Media key="media" />,
-    <Text key="text" />,
+    <Styled.Media speed={-90} key="media">
+      <MediaWrapper layout={layout}>
+        { videoUrl
+            ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
+            : <img src={imageUrl} alt={title} />
+          }
+      </MediaWrapper>
+    </Styled.Media>,
+    <Styled.Text key="text">
+      {text}
+    </Styled.Text>,
   ];
 
   return (
-    <div className={classes}>
-      { isRight ? columnItems.reverse() : columnItems }
-    </div>);
+    <ThemeProvider theme={{ size }}>
+      <Styled.Columns>
+        { isRight ? columnItems.reverse() : columnItems }
+      </Styled.Columns>
+    </ThemeProvider>
+  );
 };
 
 Columns.defaultProps = {
@@ -91,6 +69,7 @@ Columns.propTypes = {
   hasMute: PropTypes.bool,
   videoUrl: PropTypes.string,
   imageUrl: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
 
 export default React.memo(Columns);

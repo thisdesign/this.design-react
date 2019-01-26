@@ -10,13 +10,13 @@ Columns.Wrapper = ({ data }) => {
   const getSize = () => {
     switch (api.layout) {
       case '-column--2of3':
-        return 'large';
+        return 'LARGE';
       case '-column--1of3':
       case '-website':
       case '-mobile':
-        return 'small';
+        return 'SMALL';
       default:
-        return null;
+        return 'MEDIUM';
     }
   };
 
