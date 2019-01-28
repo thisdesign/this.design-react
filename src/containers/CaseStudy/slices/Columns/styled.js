@@ -21,7 +21,7 @@ const setColWidth = (size, id) => {
     }
   };
   if (id === 'MEDIA') return getMediaWidth();
-  if (id === 'TEXT') return getMediaWidth() - 100;
+  if (id === 'TEXT') return 100 - getMediaWidth();
   throw new Error('Choose either TEXT or MEDIA');
 };
 
@@ -43,7 +43,7 @@ Styled.Media = styled(Parallax)`
   ${_col} ${_padding}
   max-width: 80em;
   flex-basis: ${props => setColWidth(props.theme.size, 'MEDIA')}%;
-  
+
   ${media.desktop`margin: 90px auto;`}
 
   img,
