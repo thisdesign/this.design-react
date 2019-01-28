@@ -1,3 +1,7 @@
+const margin = {
+  lg: '5em',
+};
+
 const theme = {
   color: {
     bodyLt: '#111',
@@ -11,9 +15,7 @@ const theme = {
   timing: {
     csTransition: 600,
   },
-  margin: {
-    lg: '5em',
-  },
+  ...{ margin },
 
   _h3: `
     font-size: .5em;
@@ -31,10 +33,23 @@ const theme = {
   _wrap: `
     margin: 0px auto;
     @media (min-width: 768px){
+      padding: 0 8%;
       max-width: 1500px;
       width: 80%;
     }
   `,
+
+  _grid: `
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    @media (min-width: 768px){
+      display: flex;
+    }
+  `,
 };
+
 
 export default theme;

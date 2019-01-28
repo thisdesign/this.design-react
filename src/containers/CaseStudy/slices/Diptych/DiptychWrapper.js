@@ -8,11 +8,11 @@ Diptych.Wrapper = (props) => {
 
   const images = [
     {
-      url: api.image1.url,
+      src: api.image1.url,
       offset: api.offset1,
     },
     {
-      url: api.image2.url,
+      src: api.image2.url,
       offset: api.offset2,
     },
   ];
