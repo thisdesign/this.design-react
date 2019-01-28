@@ -5,10 +5,11 @@ import Work from 'components/Work/Work';
 import View from 'components/View/View';
 import About from 'containers/About/About';
 import config from 'util/config';
+import theme from 'styles/theme';
 import delay from 'util/delay';
 import Root from 'containers/Root/Root';
+
 import LayoutContext from './LayoutContext';
-import theme from './theme';
 
 class Layout extends Component {
   state = {
