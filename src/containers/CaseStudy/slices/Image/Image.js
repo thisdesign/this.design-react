@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import ResponsiveImage from 'components/ResponsiveImage/ResponsiveImage';
 import { CsContext } from 'containers/CaseStudy/CaseStudy';
 import PropTypes from 'prop-types';
-import './Image.scss';
 import Styled from './styled';
 
 const Image = ({
