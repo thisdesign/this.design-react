@@ -28,12 +28,18 @@ const theme = {
     padding: 0 80px
   `,
   _padding: `
-    padding: 0 4%;
+    @media (min-width: 768px){
+      padding: 0 4%;
+    }
   `,
   _wrap: `
     margin: 0px auto;
+
+    @media (max-width: 768px){
+      padding: 0 8%!important;
+    }
+
     @media (min-width: 768px){
-      padding: 0 8%;
       max-width: 1500px;
       width: 80%;
     }
