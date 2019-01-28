@@ -81,8 +81,8 @@ Styled.AuxWrapper = styled.div`
   width: auto;
   max-width: 100%;
   z-index: 10;
-  width: ${props => props.width}vw
-  ${({ position }) => _setPositionStyles(position)}
+  width: ${props => props.width}vw;
+  ${({ position }) => _setPositionStyles(position)};
 `;
 
 Styled.AuxImg = styled.img`
