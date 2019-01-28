@@ -34,7 +34,7 @@ const theme = {
   `,
 
   _wrapNav: `
-    padding: 0 80px
+    padding: 0 80px;
   `,
 
   _padding: `
@@ -59,7 +59,6 @@ const theme = {
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    border: 1px solid blue;
     display: block;
 
     ${media.tablet`display: flex;`}
