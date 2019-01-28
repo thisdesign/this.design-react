@@ -113,10 +113,10 @@ export default class Gallery extends React.Component {
       >
         <div>
           <GalleryWrapper className="GalleryWrapper grid -wrap">
-            <ImageContainer ratio={ratio} className="ImageContainer">
-              <OverlayNav className="OverlayNav">
-                <NavItem.Prev onClick={this.handlePrevImage} className="NavItem-Prev" />
-                <NavItem.Next onClick={this.handleNextImage} className="NavItem-Next" />
+            <ImageContainer ratio={ratio}>
+              <OverlayNav>
+                <NavItem.Prev onClick={this.handlePrevImage} />
+                <NavItem.Next onClick={this.handleNextImage} />
               </OverlayNav>
               {galleryItems}
             </ImageContainer>
