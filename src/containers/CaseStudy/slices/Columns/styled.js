@@ -1,22 +1,38 @@
 import styled, { css } from 'styled-components/macro';
 import Parallax from 'components/Parallax/Parallax';
+import getTheme from 'util/getTheme';
+import media from 'styles/media';
+
+const _wrap = getTheme('_wrap');
+const _grid = getTheme('_grid');
+const _padding = getTheme('_padding');
 
 const Styled = {};
+
+const setColWidth = (size, id) => {
+  const getMediaWidth = () => {
+    switch (size) {
+      case 'SMALL':
+        return 33.33;
+      case 'LARGE':
+        return 66.66;
+      default:
+        return 50;
+    }
+  };
+  if (id === 'MEDIA') return getMediaWidth();
+  if (id === 'TEXT') return getMediaWidth() - 100;
+  throw new Error('Choose either TEXT or MEDIA');
+};
 
 const _col = css`
   flex-basis: 50%;
 `;
 
-const _padding = css`
-  ${({ theme }) => theme._padding}
-`;
-
-const _wrap = css`
-  ${({ theme }) => theme._wrap}
-`;
-
 Styled.Text = styled.div`
-  ${_col} ${_padding}
+  ${_padding}
+  flex-basis: ${props => setColWidth(props.theme.size, 'TEXT')}%;
+
   &>div{
     max-width: 25em;
     margin: 0 auto;
@@ -26,7 +42,9 @@ Styled.Text = styled.div`
 Styled.Media = styled(Parallax)`
   ${_col} ${_padding}
   max-width: 80em;
-  margin: 90px auto;
+  flex-basis: ${props => setColWidth(props.theme.size, 'MEDIA')}%;
+  
+  ${media.desktop`margin: 90px auto;`}
 
   img,
   video {
@@ -35,8 +53,7 @@ Styled.Media = styled(Parallax)`
 `;
 
 Styled.Columns = styled.div`
+  ${_grid}
   ${_wrap}
-  display: flex;
-  align-items: center;
 `;
 export default Styled;
