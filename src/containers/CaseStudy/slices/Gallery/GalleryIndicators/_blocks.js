@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
 const _indicatorWidth = 40;
 const _indicatorMargin = 5;

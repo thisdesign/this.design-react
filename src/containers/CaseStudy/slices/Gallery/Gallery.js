@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Waypoint from 'react-waypoint';
 import LayoutContext from 'containers/Layout/LayoutContext';
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import GalleryIndicators from './GalleryIndicators/GalleryIndicators';
 
 export default class Gallery extends React.Component {
