@@ -8,6 +8,8 @@ Styled.Cover = styled.div`
   width: 100%;
   position: relative;
   color: white;
+  overflow: hidden;
+  z-index: 0;
 `;
 
 Styled.Fill = styled.div`
