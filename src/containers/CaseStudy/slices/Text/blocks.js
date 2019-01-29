@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components/macro';
 import getTheme from 'util/getTheme';
 
 const _wrap = getTheme('_wrap');

@@ -8,7 +8,7 @@ Website.Wrapper = ({ data }) => {
   return (
     <Website
       background={background}
-      imageUrl={screenshot.url}
+      src={screenshot.url}
       layout={layout}
       videoUrl={video.url}
       frameColor={frameColor}

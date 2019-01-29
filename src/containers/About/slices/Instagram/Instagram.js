@@ -16,7 +16,11 @@ export default class Instagram extends React.Component {
     const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}&count=${count}`;
 
     fetch(url)
-      .then(res => res.json())
+      .then((res) => {
+        if (res.status !== 503) {
+          res.json();
+        }
+      })
       .then(doc => (doc && doc.data) && this.setState({ data: doc.data }));
   }
 

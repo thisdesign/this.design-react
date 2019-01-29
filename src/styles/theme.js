@@ -54,6 +54,14 @@ const theme = {
     `}
   `,
 
+  _wrapDub: `
+    margin: 0px auto;
+    padding: 0 8%;
+
+    max-width: 960px;
+    width: 66.67%;
+  `,
+
   _grid: `
     margin: 0 auto;
     align-items: center;
