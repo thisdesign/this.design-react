@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { ThemeProvider } from 'styled-components';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components/macro';
+
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
@@ -10,26 +12,19 @@ import Root from 'containers/Root/Root';
 import LayoutContext from './LayoutContext';
 import theme from './theme';
 
-class Layout extends Component {
-  state = {
-    scrolledPastCsCover: null,
-    projectLaunchStatus: 'ready',
-    navInverted: false,
-  };
+function Layout(props) {
+  const { view } = props;
 
-  invertNav = () => {
-    this.setState({ navInverted: true });
-  }
+  const [navInverted, setNavInvertState] = useState(false);
+  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
 
-  revertNav = () => {
-    this.setState({ navInverted: false });
-  }
+  const revertNav = () => setNavInvertState(false);
+  const invertNav = () => setNavInvertState(true);
 
-  launchProject = (nextUid) => {
-    const update = statusName =>
-      this.setState({ projectLaunchStatus: statusName });
-
-    if (nextUid !== this.props.currentCaseStudy) {
+  const launchProject = (nextUid) => {
+    const isNew = nextUid !== props.csData.currentUid;
+    const update = setProjectLaunchStatus;
+    if (isNew) {
       update('transitioning');
       delay(config.projectLaunchDur).then(() => {
         update('afterload');
@@ -38,8 +33,9 @@ class Layout extends Component {
         update('ready');
       });
     }
-  }
+  };
 
+<<<<<<< HEAD
   render() {
     const { view } = this.props;
     const { projectLaunchStatus } = this.state;
@@ -53,26 +49,53 @@ class Layout extends Component {
           navInverted: this.state.navInverted,
           invertNav: this.invertNav,
           revertNav: this.revertNav,
+=======
+  return (
+    <ThemeProvider theme={theme}>
+      <LayoutContext.Provider
+        value={{
+          ...props,
+          launchProject,
+          navInverted,
+          invertNav,
+          revertNav,
+>>>>>>> master
         }}
-        >
-          <Nav />
-          <main className={`views -view-is-${view}`}>
-            <View aside viewName="work" view={view}>
-              <Work />
-            </View>
-            <View viewName="root" view={view}>
-              <Root
-                projectLaunchStatus={projectLaunchStatus}
-                isHome={this.props.csData.unselected}
-              />
-            </View>
-            <View aside viewName="about" view={view}>
-              <About prismicCtx={this.props.prismicCtx} />
-            </View>
-          </main>
-        </LayoutContext.Provider>
-      </ThemeProvider>);
-  }
+      >
+        <Nav />
+        <main className={`views -view-is-${view}`}>
+          <View aside viewName="work" view={view}>
+            <Work />
+          </View>
+          <View viewName="root" view={view}>
+            <Root
+              projectLaunchStatus={projectLaunchStatus}
+              isHome={props.csData.unselected}
+            />
+          </View>
+          <View aside viewName="about" view={view}>
+            <About prismicCtx={props.prismicCtx} />
+          </View>
+        </main>
+      </LayoutContext.Provider>
+    </ThemeProvider>);
 }
 
-export default Layout;
+
+Layout.propTypes = {
+  csData: PropTypes.shape({
+    caseStudies: PropTypes.array,
+    currentDoc: PropTypes.object,
+    currentIndex: PropTypes.number,
+    currentUid: PropTypes.string,
+    isDark: PropTypes.bool,
+    nextIndex: PropTypes.number,
+    nextUid: PropTypes.string,
+    unselected: PropTypes.bool,
+  }).isRequired,
+  notFound: PropTypes.bool.isRequired, //eslint-disable-line
+  siteInfo: PropTypes.object, //eslint-disable-line
+  prismicCtx: PropTypes.object, //eslint-disable-line
+  view: PropTypes.string.isRequired,
+};
+export default React.memo(Layout);
