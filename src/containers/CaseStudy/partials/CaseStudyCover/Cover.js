@@ -61,7 +61,7 @@ const AuxiliaryItem = () => (
 
 const Video = ({ src, name }) => (
   src ?
-    <Styled.Video autoPlay muted loop data-name={name}>
+    <Styled.Video autoPlay muted loop playsinline data-name={name}>
       <source src={src} />
     </Styled.Video>
     : null
