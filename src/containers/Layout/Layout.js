@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { ThemeProvider } from 'styled-components';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components/macro';
+
 import Nav from 'components/Nav/Nav';
 import Work from 'components/Work/Work';
 import View from 'components/View/View';
@@ -29,7 +31,7 @@ class Layout extends Component {
     const update = statusName =>
       this.setState({ projectLaunchStatus: statusName });
 
-    if (nextUid !== this.props.currentCaseStudy) {
+    if (nextUid !== this.props.csData.currentUid) {
       update('transitioning');
       delay(config.projectLaunchDur).then(() => {
         update('afterload');
@@ -39,6 +41,7 @@ class Layout extends Component {
       });
     }
   }
+
 
   render() {
     const { view } = this.props;
@@ -75,4 +78,21 @@ class Layout extends Component {
   }
 }
 
+
+Layout.propTypes = {
+  csData: PropTypes.shape({
+    caseStudies: PropTypes.array,
+    currentDoc: PropTypes.object,
+    currentIndex: PropTypes.number,
+    currentUid: PropTypes.string,
+    isDark: PropTypes.bool,
+    nextIndex: PropTypes.number,
+    nextUid: PropTypes.string,
+    unselected: PropTypes.bool,
+  }).isRequired,
+  notFound: PropTypes.bool.isRequired, //eslint-disable-line
+  siteInfo: PropTypes.object, //eslint-disable-line
+  prismicCtx: PropTypes.object, //eslint-disable-line
+  view: PropTypes.string.isRequired,
+};
 export default Layout;
