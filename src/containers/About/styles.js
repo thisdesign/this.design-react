@@ -46,7 +46,7 @@ About.ColumnWrapper = styled.div`
 `;
 
 About.Column = styled.div`
-  width: ${({ fullMobile }) => (fullMobile ? '100%' : '50%')}
+  width: ${({ fullMobile }) => (fullMobile ? '100%' : '50%')};
   @media (min-width: 768px){
     width: ${({ items }) => {
     switch (items) {
@@ -55,7 +55,7 @@ About.Column = styled.div`
       case 4: return '25%';
       default: return '33.3%';
     }
-  }}
+  }};
   }
   padding: 0 2rem;
   box-sizing: border-box;
