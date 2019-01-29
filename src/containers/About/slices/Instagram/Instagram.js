@@ -1,44 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import LayoutContext from 'containers/Layout/LayoutContext';
+import useFetch from 'util/useFetch';
+import api from './api';
 import './Instagram.scss';
 
-export default class Instagram extends React.Component {
-  state = {
-    data: null,
-  };
+function Instagram() {
+  const { view } = useContext(LayoutContext);
+  const response = view === 'about' && useFetch(api);
+  const urls = response && response.data.map(img => img.images.standard_resolution.url);
 
-  componentDidMount() {
-    this.fetchAPI();
-  }
-
-  fetchAPI() {
-    const count = 9;
-    const token = '3688536766.d35a26c.42cc89b44e6f497ea2a4feb2615ac5e6';
-    const url = `https://api.instagram.com/v1/users/self/media/recent/?access_token=${token}&count=${count}`;
-
-    fetch(url)
-      .then((res) => {
-        if (res.status !== 503) {
-          res.json();
-        }
-      })
-      .then(doc => (doc && doc.data) && this.setState({ data: doc.data }));
-  }
-
-  render() {
-    const { data } = this.state;
-    if (data) {
-      const urls = data.map(img => img.images.standard_resolution.url);
-      const Images = () => urls.map(url => (
-        <a href="https://instagram.com/this" key={url}>
-          <img className="about__instagram__item" src={url} alt="This Design" />
+  return (
+    <div className="about__instagram -wrap">
+      {urls && urls.map(imgUrl => (
+        <a href="https://instagram.com/this" key={imgUrl}>
+          <img className="about__instagram__item" src={imgUrl} alt="This Design" />
         </a>
-      ));
-      return (
-        <div className="about__instagram -wrap">
-          <Images />
-        </div>
-      );
-    }
-    return null;
-  }
+        ))
+      }
+    </div>
+  );
 }
+
+export default React.memo(Instagram);
