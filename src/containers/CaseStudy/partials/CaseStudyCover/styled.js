@@ -3,6 +3,15 @@ import _setPositionStyles from '../../util/_setPositionStyles';
 
 const Styled = {};
 
+
+const zIndex = {
+  media: 0,
+  aux: 20,
+  fill: 0,
+  splash: 10, // main
+  header: 30,
+};
+
 Styled.Cover = styled.div`
   height: 100vh;
   width: 100%;
@@ -18,7 +27,7 @@ Styled.Fill = styled.div`
   position: absolute;
   top: 0;
   width: 100%;
-  z-index: 10;
+  z-index: ${zIndex.fill};
 `;
 
 Styled.Header = styled.div`
@@ -27,8 +36,7 @@ Styled.Header = styled.div`
   left: 0;
   padding-top: 160px;
   top: 0;
-  z-index: 40;
-  max-width: 15em;
+  z-index: ${zIndex.header};
 `;
 
 const Item = styled.div`
@@ -68,7 +76,7 @@ Styled.Splash = styled.div`
   background-image: ${({ image }) => image && `url(${image})`} ;
   background-size: cover;
   background-position: center center;
-  z-index: 10;
+  z-index: ${zIndex.splash};
 `;
 
 Styled.Video = styled.video`
@@ -76,14 +84,15 @@ Styled.Video = styled.video`
   width: 100%;
   object-fit: cover;
   display: block;
-  z-index: 0;
+  position: relative;
+  z-index: ${zIndex.media}
 `;
 
 Styled.AuxWrapper = styled.div`
   position: absolute;
   width: auto;
   max-width: 100%;
-  z-index: 10;
+  z-index: ${zIndex.aux};
   width: ${props => props.width}vw;
   ${({ position }) => _setPositionStyles(position)};
 `;
