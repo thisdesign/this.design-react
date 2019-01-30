@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/macro';
 import Parallax from 'components/Parallax/Parallax';
 import getTheme from 'util/getTheme';
-import media from 'styles/media';
+import media, { sizes } from 'styles/media';
 
 const _wrap = getTheme('_wrap');
 const _grid = getTheme('_grid');
@@ -31,7 +31,10 @@ const _col = css`
 
 Styled.Text = styled.div`
   ${_padding}
-  flex-basis: ${props => setColWidth(props.theme.size, 'TEXT')}%;
+  flex-basis:50%;
+  @media (min-width: ${sizes.desktop}px){
+    flex-basis: ${props => setColWidth(props.theme.size, 'TEXT')}
+  }
 
   &>div{
     max-width: 25em;
@@ -42,9 +45,11 @@ Styled.Text = styled.div`
 Styled.Media = styled(Parallax)`
   ${_col} ${_padding}
   max-width: 80em;
-  flex-basis: ${props => setColWidth(props.theme.size, 'MEDIA')}%;
-
-  ${media.desktop`margin: 90px auto;`}
+  flex-basis: 50%;
+  @media (min-width: ${sizes.desktop}px){
+    flex-basis: ${props => setColWidth(props.theme.size, 'MEDIA')}%;
+    margin: 90px auto;
+  }
 
   img,
   video {
