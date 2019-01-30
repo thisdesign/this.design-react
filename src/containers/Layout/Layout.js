@@ -36,21 +36,6 @@ function Layout(props) {
     }
   };
 
-<<<<<<< HEAD
-  render() {
-    const { view } = this.props;
-    const { projectLaunchStatus } = this.state;
-    return (
-      <ThemeProvider theme={{ ...theme, ...{ dark: this.props.csData.isDark } }}>
-        <LayoutContext.Provider
-          value={{
-          ...this.props,
-          scrolledPastCsCover: this.state.scrolledPastCsCover,
-          launchProject: this.launchProject,
-          navInverted: this.state.navInverted,
-          invertNav: this.invertNav,
-          revertNav: this.revertNav,
-=======
   return (
     <ThemeProvider theme={theme}>
       <LayoutContext.Provider
@@ -60,7 +45,6 @@ function Layout(props) {
           navInverted,
           invertNav,
           revertNav,
->>>>>>> master
         }}
       >
         <Nav />
