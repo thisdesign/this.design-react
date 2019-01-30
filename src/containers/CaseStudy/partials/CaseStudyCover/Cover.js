@@ -5,9 +5,8 @@ import isMobile from 'util/isMobile';
 import Styled from './styled';
 import { CsContext } from '../../CaseStudy';
 
-
 const mobile = isMobile();
-console.log(mobile);
+
 const Cover = () => {
   const {
     header, next, isAnimating, isHome,
@@ -45,25 +44,22 @@ const Splash = () => {
   return <Styled.Splash image={mobileImage} />;
 };
 
-const AuxiliaryItem = () => (
-  <CsContext.Consumer>
-    {({ header, alt }) => {
-      const {
-       width, videoUrl, position, imageUrl,
-      } = header.auxItem;
-      return (
-        <Styled.AuxWrapper width={width} position={position} data-name="Aux Item Container">
-          {imageUrl && <Styled.AuxImg src={imageUrl} alt={alt} />}
-          <Video src={videoUrl} name="Aux Video" />
-        </Styled.AuxWrapper>
-    );
-}}
-  </CsContext.Consumer>
-);
+const AuxiliaryItem = () => {
+  const { header, alt } = useContext(CsContext);
+  const {
+    width, videoUrl, position, imageUrl,
+  } = header.auxItem;
+  return (
+    <Styled.AuxWrapper width={width} position={position} data-name="Aux Item Container">
+      {imageUrl && <Styled.AuxImg src={imageUrl} alt={alt} />}
+      <Video src={videoUrl} name="Aux Video" />
+    </Styled.AuxWrapper>
+  );
+};
 
-const Video = ({ src, name }) => (
+const Video = ({ src }) => (
   src ?
-    <Styled.Video autoPlay muted loop playsinline data-name={name}>
+    <Styled.Video autoPlay muted loop playsinline>
       <source src={src} />
     </Styled.Video>
     : null
