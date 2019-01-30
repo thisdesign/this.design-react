@@ -28,6 +28,7 @@ Styled.Header = styled.div`
   padding-top: 160px;
   top: 0;
   z-index: 40;
+  max-width: 15em;
 `;
 
 const Item = styled.div`
