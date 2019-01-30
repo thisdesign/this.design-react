@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { ThemeProvider } from 'styled-components';
 import Waypoint from 'react-waypoint';
 import PropTypes from 'prop-types';
+import ResponsiveImage from 'components/ResponsiveImage/ResponsiveImage';
 
 import { CsContext } from 'containers/CaseStudy/CaseStudy';
 import Styled from './styled';
@@ -51,14 +52,15 @@ function Gallery({ animate, imageUrls, ratio }) {
         <ThemeProvider theme={{ dark }}>
           <Styled.Gallery className="grid -wrap">
             <Styled.ImageContainer ratio={ratio}>
-              { imageUrls.map((url, i) => (
-                <Styled.Image
-                  src={url}
-                  key={url}
-                  current={slide === i}
-                  previous={prevIndex === i}
-                  animate={animate}
-                />))}
+              { imageUrls.map(({ standard, mobile, desktop }, i) => (
+                <ResponsiveImage key={standard} {...{ mobile, desktop }}>
+                  <Styled.Image
+                    src={standard}
+                    current={slide === i}
+                    previous={prevIndex === i}
+                    animate={animate}
+                  />
+                </ResponsiveImage>))}
               <Styled.OverlayNav >
                 <Styled.Prev onClick={() => handleNav('PREV')} />
                 <Styled.Next onClick={() => handleNav('NEXT')} />
@@ -66,9 +68,9 @@ function Gallery({ animate, imageUrls, ratio }) {
             </Styled.ImageContainer>
             <Styled.Indicators>
               <Styled.Indicators.Inner>
-                {imageUrls.map((url, i) => (
-                  <Styled.Indicator key={url} onClick={() => handleNav(i)} />
-              ))}
+                {imageUrls.map(({ standard }, i) => (
+                  <Styled.Indicator key={standard} onClick={() => handleNav(i)} />
+                ))}
                 <Styled.Indicator.Current index={slide} />
               </Styled.Indicators.Inner>
             </Styled.Indicators>
@@ -81,7 +83,11 @@ function Gallery({ animate, imageUrls, ratio }) {
 
 Gallery.propTypes = {
   animate: PropTypes.bool.isRequired,
-  imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  imageUrls: PropTypes.arrayOf(PropTypes.shape({
+    standard: PropTypes.string.isRequired,
+    mobile: PropTypes.string,
+    desktop: PropTypes.string,
+  })).isRequired,
   ratio: PropTypes.number.isRequired,
 };
 
