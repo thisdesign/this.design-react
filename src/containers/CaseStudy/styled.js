@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components/macro';
 
 const Styled = {};
 
@@ -45,10 +45,10 @@ Styled.CaseStudy = styled.article`
 
 Styled.Inner = styled.div`
   color: ${({ textColor }) => textColor};
-  background-color: ${({ background, theme }) => (background || theme.color.caseStudyBg)}
+  background-color: ${({ background, theme }) => (background || theme.color.caseStudyBg)};
   transform: translateZ(0);
   position: relative;
-  padding-bottom: ${({ theme }) => theme.margin.lg}
+  padding-bottom: ${({ theme }) => theme.margin.lg};
 `;
 
 Styled.Shim = styled.div`

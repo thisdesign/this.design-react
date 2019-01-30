@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from 'styled-components/macro';
 import _setPositionStyles from '../../util/_setPositionStyles';
 
 const Styled = {};
@@ -8,6 +8,8 @@ Styled.Cover = styled.div`
   width: 100%;
   position: relative;
   color: white;
+  overflow: hidden;
+  z-index: 0;
 `;
 
 Styled.Fill = styled.div`
@@ -81,8 +83,8 @@ Styled.AuxWrapper = styled.div`
   width: auto;
   max-width: 100%;
   z-index: 10;
-  width: ${props => props.width}vw
-  ${({ position }) => _setPositionStyles(position)}
+  width: ${props => props.width}vw;
+  ${({ position }) => _setPositionStyles(position)};
 `;
 
 Styled.AuxImg = styled.img`

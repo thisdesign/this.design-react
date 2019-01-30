@@ -1,8 +1,0 @@
-@import '../../../../styles/breakpoints.scss';
-
-.casestudy__text {
-  @include breakpoint(sm) {
-    max-width: 680px !important;
-  }
-  margin: 0 auto;
-}

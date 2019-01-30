@@ -1,46 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
-import './Website.scss';
+import { CsContext } from 'containers/CaseStudy/CaseStudy';
+import Styled from './blocks';
 
 const Website = ({
-  layout, background, frameColor, dotColor, imageUrl, videoUrl, title,
+  layout, background, frameColor, dotColor, src, videoUrl,
 }) => {
-  const websiteInnerClasses = [
-    'website__inner',
-    layout === 'small' ? '-wrap--dub' : '-wrap',
-    background ? '-backgroundEnabled' : '-centered',
-  ].join(' ');
-
+  const { alt } = useContext(CsContext);
   return (
-    <div className="website -padding" style={{ backgroundColor: background }}>
-      <div className={websiteInnerClasses}>
-        <WebsiteFrame frameColor={frameColor} dotColor={dotColor} >
+    <Styled.Website {...{ background }}>
+      <Styled.WebsiteInner {...{ layout }}>
+        <WebsiteFrame {...{ frameColor, dotColor }}>
           {videoUrl
             ? <WaypointVideo url={videoUrl} />
-            : <img src={imageUrl} alt={title} />
+            : <Styled.Img src={src} alt={alt} />
            }
         </WebsiteFrame>
-      </div>
-    </div>
+      </Styled.WebsiteInner>
+    </Styled.Website>
   );
 };
 
 Website.defaultProps = {
   background: null,
-  imageUrl: null,
+  src: null,
   layout: null,
   videoUrl: null,
   frameColor: null,
+  dotColor: null,
 };
 
 Website.propTypes = {
   videoUrl: PropTypes.string,
   background: PropTypes.string,
-  imageUrl: PropTypes.string,
+  src: PropTypes.string,
   layout: PropTypes.string,
   frameColor: PropTypes.string,
+  dotColor: PropTypes.string,
 };
 
 export default React.memo(Website);

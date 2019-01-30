@@ -1,8 +1,9 @@
 import React from 'react';
-import './Text.scss';
 
-const Text = ({ value }) => (
-  <div className="casestudy__text -wrap">{value}</div>
+import Styled from './blocks';
+
+const Text = ({ value }) => ( //eslint-disable-line 
+  <Styled.Text>{value}</Styled.Text>
 );
 
 export default React.memo(Text);

@@ -1,34 +1,39 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import isMobile from 'util/isMobile';
-import './Diptych.scss';
+
+import { CsContext } from 'containers/CaseStudy/CaseStudy';
+import Styled from './blocks';
 
 const Diptych = ({ images }) => {
-  const Image = ({ url, title, offset }) => (
-    <div className="casestudy__diptych__item -padding">
-      {url &&
-        <img
-          src={url}
-          alt={title}
-          style={{ transform: `translateX(${offset}%)` }}
-        />
-      } {
-        // If no image, put a spacer in except on mobile
-        !url && !isMobile() && <div className="casestudy__diptych__spacer" />
-      }
-    </div>
-  );
-
-  const Images = () => (
-    images.map(({ url, title, offset }, i) => (
-      <Image key={url || i} url={url} title={title} offset={!isMobile() ? offset : null} />
-    ))
-  );
-
+  const { alt } = useContext(CsContext);
   return (
-    <div className="-grid -wrap casestudy__diptych">
-      <Images />
-    </div>
+    <Styled.Diptych>
+      { images.map(({ src, offset }, i) => (
+        <Styled.DiptychItem key={src || i}>
+          {src && <Styled.Img {...{ src, alt, offset }} /> }
+          {
+            // If no image, put a spacer in except on mobile
+            !src && !isMobile() && <Styled.Spacer />
+          }
+        </Styled.DiptychItem>
+      ))}
+    </Styled.Diptych>
   );
+};
+
+Diptych.defaultProps = {
+  images: [
+    { src: null, offset: 0 },
+    { src: null, offset: 0 },
+  ],
+};
+
+Diptych.propTypes = {
+  images: PropTypes.arrayOf(PropTypes.shape({
+    src: PropTypes.string,
+    offset: PropTypes.number,
+  })),
 };
 
 export default React.memo(Diptych);

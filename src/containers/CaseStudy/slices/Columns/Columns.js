@@ -1,13 +1,11 @@
-/* eslint react/no-unused-prop-types: 0 */
-
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import Parallax from 'components/Parallax/Parallax';
+import { ThemeProvider } from 'styled-components/macro';
 import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
 import MobileFrame from 'components/MobileFrame/MobileFrame';
 import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
-import './Columns.scss';
-
+import { CsContext } from 'containers/CaseStudy/CaseStudy';
+import Styled from './styled';
 
 const Columns = ({
   size,
@@ -15,64 +13,42 @@ const Columns = ({
   videoUrl,
   imageUrl,
   hasMute,
-  title,
   text,
   layout,
 }) => {
-  const classes = [
-    'caseStudy__colBlock',
-    '-grid',
-    '-wrap',
-    isRight ? 'caseStudy__colBlock--right' : '',
-    size === 'large' ? 'caseStudy__colBlock--largeImage' : '',
-    size === 'small' ? 'caseStudy__colBlock--smallImage' : '',
-  ].join(' ');
-
-  const colClass = (modifier) => {
-    const base = 'caseStudy__colBlock__col';
-    return `${base} ${base}--${modifier} -padding`;
-  };
-
-  const MediaWrapper = ({ children }) => {
-    switch (layout) {
-      case '-website':
-        return <WebsiteFrame>{children}</WebsiteFrame>;
-      case '-mobile':
-        return <MobileFrame>{children}</MobileFrame>;
-      default:
-        return children;
-    }
-  };
-
-  const MediaItem = () => (
-    videoUrl
-      ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
-      : <img src={imageUrl} alt={title} />
-  );
-
-  const Media = () => (
-    <Parallax speed={-90} className={colClass('media')}>
-      <MediaWrapper>
-        <MediaItem />
-      </MediaWrapper>
-    </Parallax>
-  );
-
-  const Text = () => (
-    <div className={colClass('text')}>
-      {text}
-    </div>
-  );
-
+  const { alt } = useContext(CsContext);
   const columnItems = [
-    <Media key="media" />,
-    <Text key="text" />,
+    <Styled.Media speed={-90} key="media">
+      <MediaWrapper layout={layout}>
+        { videoUrl
+            ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
+            : <img src={imageUrl} alt={alt} />
+          }
+      </MediaWrapper>
+    </Styled.Media>,
+    <Styled.Text key="text">
+      {text}
+    </Styled.Text>,
   ];
 
   return (
-    <div className={classes}>
-      { isRight ? columnItems.reverse() : columnItems }
-    </div>);
+    <ThemeProvider theme={{ size }}>
+      <Styled.Columns>
+        { isRight ? columnItems.reverse() : columnItems }
+      </Styled.Columns>
+    </ThemeProvider>
+  );
+};
+
+const MediaWrapper = ({ children, layout }) => {
+  switch (layout) {
+    case '-website':
+      return <WebsiteFrame>{children}</WebsiteFrame>;
+    case '-mobile':
+      return <MobileFrame>{children}</MobileFrame>;
+    default:
+      return children;
+  }
 };
 
 Columns.defaultProps = {
@@ -82,6 +58,7 @@ Columns.defaultProps = {
   hasMute: false,
   videoUrl: undefined,
   imageUrl: undefined,
+  layout: undefined,
 };
 
 Columns.propTypes = {
@@ -91,6 +68,7 @@ Columns.propTypes = {
   hasMute: PropTypes.bool,
   videoUrl: PropTypes.string,
   imageUrl: PropTypes.string,
+  layout: PropTypes.string,
 };
 
 export default React.memo(Columns);

@@ -6,23 +6,32 @@ Image.Wrapper = (props) => {
     ? props.data.value[0] // v1 structure
     : props.data.primary; // v2 structure
 
-  const url = api.image ? api.image.url : api.file.url;
-  const { offset, position, layout } = api;
-  const isFullScreen = layout === 'fullscreen';
+  const src = api.image ? api.image.url : api.file.url;
+  const { offset, layout } = api;
 
-  const mobileSize = 'size_760';
-  const mobileUrl = api.image && api.image[mobileSize] && api.image[mobileSize].url;
+  const fullscreen = layout === 'fullscreen';
+
+  const mobileUrl = api.image && api.image.mobile && api.image.mobile.url;
+  const desktopUrl = api.image && api.image.desktop && api.image.desktop.url;
+  const fwUrl = api.image && api.image['main-fs'] && api.image['main-fs'].url;
+
+  const responsiveUrls = {
+    mobile: mobileUrl,
+    fullWidth: fwUrl,
+    desktop: desktopUrl,
+  };
 
   return (
     <Image
-      offset={offset}
-      position={position}
-      isFullScreen={isFullScreen}
-      url={url}
-      mobileUrl={mobileUrl}
-      {...props}
+      {...{
+        mobileUrl,
+        src,
+        responsiveUrls,
+        fullscreen,
+        offset,
+        props,
+      }}
     />
-
   );
 };
 
