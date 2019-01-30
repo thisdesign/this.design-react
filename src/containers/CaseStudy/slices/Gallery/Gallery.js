@@ -3,30 +3,44 @@ import Waypoint from 'react-waypoint';
 import PropTypes from 'prop-types';
 import Styled from './styled';
 
-const useTimer = (slide, setNext) => {
+const useTimer = ({ slide, setNext, animating }) => {
   useEffect(
     () => {
-      const interval = setInterval(() => {
-        setNext();
-      }, 3000);
-      return () => { clearInterval(interval); };
+      let interval;
+      if (animating) {
+        interval = setInterval(() => { setNext(); }, 2500);
+      }
+      return () => {
+        if (interval) clearInterval(interval);
+      };
     },
-    [slide],
+    [slide, animating],
   );
 };
 
 function Gallery({ animate, imageUrls, ratio }) {
   const [slide, setSlide] = useState(0);
+  const [animating, setAnimating] = useState(false);
   const prevIndex = slide ? slide - 1 : imageUrls.length - 1;
   const nextIndex = (slide + 1) % imageUrls.length;
 
   const setNext = () => setSlide(nextIndex);
   const setPrev = () => setSlide(prevIndex);
 
-  useTimer(slide, setNext);
+  const handleNav = (dir) => {
+    if (dir === 'NEXT') setNext();
+    else if (dir === 'PREV') setPrev();
+    else setSlide(dir);
+    setAnimating(false);
+  };
+
+  useTimer({ slide, setNext, animating });
 
   return (
-    <Waypoint >
+    <Waypoint
+      onEnter={() => setAnimating(true)}
+      onLeave={() => setAnimating(false)}
+    >
       <div>
         <Styled.Gallery className="grid -wrap">
           <Styled.ImageContainer ratio={ratio}>
@@ -39,14 +53,14 @@ function Gallery({ animate, imageUrls, ratio }) {
                 animate={animate}
               />))}
             <Styled.OverlayNav >
-              <Styled.Prev onClick={setPrev} />
-              <Styled.Next onClick={setNext} />
+              <Styled.Prev onClick={() => handleNav('PREV')} />
+              <Styled.Next onClick={() => handleNav('NEXT')} />
             </Styled.OverlayNav>
           </Styled.ImageContainer>
           <Styled.Indicators>
             <Styled.Indicators.Inner>
               {imageUrls.map((url, i) => (
-                <Styled.Indicator key={url} onClick={() => setSlide(i)} />
+                <Styled.Indicator key={url} onClick={() => handleNav(i)} />
               ))}
               <Styled.Indicator.Current index={slide} />
             </Styled.Indicators.Inner>
