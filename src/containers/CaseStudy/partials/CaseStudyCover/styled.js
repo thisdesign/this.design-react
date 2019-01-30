@@ -8,7 +8,6 @@ Styled.Cover = styled.div`
   width: 100%;
   position: relative;
   color: white;
-  overflow: hidden;
   z-index: 0;
 `;
 
@@ -29,6 +28,7 @@ Styled.Header = styled.div`
   padding-top: 160px;
   top: 0;
   z-index: 40;
+  max-width: 15em;
 `;
 
 const Item = styled.div`
@@ -76,6 +76,7 @@ Styled.Video = styled.video`
   width: 100%;
   object-fit: cover;
   display: block;
+  z-index: 0;
 `;
 
 Styled.AuxWrapper = styled.div`
