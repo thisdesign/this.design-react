@@ -34,7 +34,13 @@ const theme = {
   `,
 
   _wrapNav: `
-    padding: 0 80px;
+    padding-left 40px;
+    padding-right: 40px;
+    
+    ${media.tablet`
+      padding-left 80px;
+      padding-right: 80px;
+    `};
   `,
 
   _padding: `
