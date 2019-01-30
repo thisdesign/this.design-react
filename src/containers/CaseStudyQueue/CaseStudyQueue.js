@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
@@ -46,6 +48,13 @@ class CaseStudyQueue extends Component {
       )));
   }
 }
+
+CaseStudyQueue.propTypes = {
+  history: PropTypes.object, //eslint-disable-line
+  openingFromHome: PropTypes.bool.isRequired,
+  isHome: PropTypes.bool.isRequired,
+  handleOpen: PropTypes.func.isRequired,
+};
 
 const CaseStudyQueueWithRouter = withRouter(CaseStudyQueue);
 CaseStudyQueueWithRouter.WrappedComponent.contextType = LayoutContext;
