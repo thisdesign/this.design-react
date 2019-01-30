@@ -32,7 +32,9 @@ const _getContextProps = (data) => {
       mobileImage: mobileImage.url,
     },
   };
-  return { ...{ header } };
+  const dark = data.preserve_white_nav === 'true';
+
+  return { ...{ header, dark } };
 };
 
 export const _contextPropTypes = {
@@ -50,6 +52,8 @@ export const _contextPropTypes = {
       }).isRequired,
       background: PropTypes.objectOf(PropTypes.string),
     }).isRequired,
+    dark: PropTypes.bool.isRequired,
+
   }),
 };
 export default _getContextProps;
