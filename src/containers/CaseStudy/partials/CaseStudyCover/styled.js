@@ -75,6 +75,7 @@ Styled.Video = styled.video`
   width: 100%;
   object-fit: cover;
   display: block;
+  z-index: 0;
 `;
 
 Styled.AuxWrapper = styled.div`
