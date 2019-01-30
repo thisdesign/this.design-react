@@ -1,52 +1,49 @@
-import React, { Component } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
 
-class CaseStudyQueue extends Component {
-  state = {
-    isAnimating: false,
-  }
 
-  _updateUrl = (uid) => { this.props.history.push(uid); }
+function CaseStudyQueue({
+  history,
+  openingFromHome,
+  isHome,
+  handleOpen,
+}) {
+  const {
+    caseStudies, currentIndex, nextIndex, unselected, nextUid,
+  } = useContext(LayoutContext).csData;
 
-  _startAnimation = () => this.setState({ isAnimating: true })
+  const [isAnimating, setIsAnimating] = useState(false);
+  const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
+  const _startAnimation = () => setIsAnimating(true);
+  const _stopAnimation = () => setIsAnimating(false);
+  const _updateUrl = (uid) => { history.push(uid); };
+  const _handleTransitionEnd = () => {
+    _updateUrl(`/work/${nextUid}`);
+    _stopAnimation();
+  };
 
-  _stopAnimation = () => this.setState({ isAnimating: false })
+  const advanceQueue = () => {
+    _startAnimation();
+    setTimeout(() => { _handleTransitionEnd(); }, 600);
+  };
 
-  _handleTransitionEnd = () => {
-    this._updateUrl(`/work/${this.context.csData.nextUid}`);
-    this._stopAnimation();
-  }
-
-  advanceQueue = () => {
-    this._startAnimation();
-    setTimeout(() => { this._handleTransitionEnd(); }, 600);
-  }
-
-  render() {
-    const {
-      caseStudies, currentIndex, nextIndex, unselected,
-    } = this.context.csData;
-
-    const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
-
-    return (
-      csTrack.map((arrayContents, i) => (
-        arrayContents !== null &&
-        <CaseStudy
-          key={arrayContents}
-          next={i === 1}
-          advanceQueue={this.advanceQueue}
-          doc={caseStudies[arrayContents]}
-          isAnimating={this.state.isAnimating || this.props.openingFromHome}
-          isHome={this.props.isHome}
-          handleOpen={this.props.handleOpen}
-        />
-      )));
-  }
+  return (
+    csTrack.map((arrayContents, i) => (
+      arrayContents !== null &&
+      <CaseStudy
+        key={arrayContents}
+        next={i === 1}
+        advanceQueue={advanceQueue}
+        doc={caseStudies[arrayContents]}
+        isAnimating={isAnimating || openingFromHome}
+        isHome={isHome}
+        handleOpen={handleOpen}
+      />
+    )));
 }
 
 CaseStudyQueue.propTypes = {
@@ -56,6 +53,5 @@ CaseStudyQueue.propTypes = {
   handleOpen: PropTypes.func.isRequired,
 };
 
-const CaseStudyQueueWithRouter = withRouter(CaseStudyQueue);
-CaseStudyQueueWithRouter.WrappedComponent.contextType = LayoutContext;
-export default CaseStudyQueueWithRouter;
+
+export default withRouter(CaseStudyQueue);
