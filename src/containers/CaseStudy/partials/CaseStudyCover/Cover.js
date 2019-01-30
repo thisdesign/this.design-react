@@ -1,47 +1,49 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 // import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
+import isMobile from 'util/isMobile';
 import Styled from './styled';
 import { CsContext } from '../../CaseStudy';
 
 
-const Cover = () => (
-  <CsContext.Consumer>
-    {({
-     header, next, isAnimating, isHome,
-    }) => (
-      <Styled.Cover>
-        <Styled.Fill backgroundColor={header.backgroundColor} />
-        <Styled.Header>
-          <Styled.Title next={next} itemTitle isAnimating={isAnimating}>
-            {header.title}
-          </Styled.Title>
-          <Styled.Desc next={next} isHome={isHome}>
-            {header.description}
-          </Styled.Desc>
-          <Styled.Services next={next} isHome={isHome}>
-            {header.services}
-          </Styled.Services>
-        </Styled.Header>
-        <Splash />
-      </Styled.Cover>
-  )}
-  </CsContext.Consumer>
-);
+const mobile = isMobile();
+console.log(mobile);
+const Cover = () => {
+  const {
+    header, next, isAnimating, isHome,
+  } = useContext(CsContext);
+  return (
+    <Styled.Cover>
+      <Styled.Fill backgroundColor={header.backgroundColor} />
+      <Styled.Header>
+        <Styled.Title next={next} itemTitle isAnimating={isAnimating}>
+          {header.title}
+        </Styled.Title>
+        <Styled.Desc next={next} isHome={isHome}>
+          {header.description}
+        </Styled.Desc>
+        <Styled.Services next={next} isHome={isHome}>
+          {header.services}
+        </Styled.Services>
+      </Styled.Header>
+      <Splash />
+    </Styled.Cover>
+  );
+};
 
-const Splash = () => (
-  <CsContext.Consumer>
-    {({ header }) => {
-      const { videoUrl, imageUrl } = header.background;
-      return (
-        <Styled.Splash image={!videoUrl && imageUrl} >
-          <Video src={videoUrl} bg name="BG Video" />
-          <AuxiliaryItem />
-        </Styled.Splash>
+const Splash = () => {
+  const { header } = useContext(CsContext);
+  const { videoUrl, imageUrl, mobileImage } = header.background;
+  if (!mobile) {
+    return (
+      <Styled.Splash image={!videoUrl && imageUrl} >
+        <Video src={videoUrl} bg name="BG Video" />
+        <AuxiliaryItem />
+      </Styled.Splash>
     );
-  }}
-  </CsContext.Consumer>
-);
+  }
+  return <Styled.Splash image={mobileImage} />;
+};
 
 const AuxiliaryItem = () => (
   <CsContext.Consumer>
