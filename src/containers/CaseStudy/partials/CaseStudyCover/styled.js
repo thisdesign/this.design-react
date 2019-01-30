@@ -36,6 +36,7 @@ Styled.Header = styled.div`
   left: 0;
   padding-top: 160px;
   top: 0;
+  max-width: 15em;
   z-index: ${zIndex.header};
 `;
 
