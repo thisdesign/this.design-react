@@ -3,35 +3,33 @@ import 'styles/fonts.scss';
 import 'styles/typography.scss';
 import 'styles/layout.scss';
 
-// import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 // import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
 // import Loading from 'components/Loading/Loading';
-// import Layout from 'containers/Layout/Layout';
+import Layout from 'containers/Layout/Layout';
 // import flatten from 'array-flatten';
 
 import getContextValue from './getContextValue';
 import useSiteData from './useSiteData';
 import './App.scss';
 
-// const AppContext = React.createContext();
+const AppContext = React.createContext();
 
 
 function App({
   prismicCtx, uid, view,
 }) {
-  const {
-    siteInfo,
-    caseStudies,
-    notFound,
-  } = useSiteData({ prismicCtx, uid, view });
+  const { siteInfo, caseStudies, notFound } = useSiteData({ prismicCtx });
 
-  console.log({
-    siteInfo,
-    caseStudies,
-    notFound,
-  });
-
+  if (siteInfo && caseStudies) {
+    const appContext = getContextValue({ caseStudies, uid, notFound });
+    return (
+      <AppContext.Provider value={appContext}>
+        <Layout view={view} />
+      </AppContext.Provider>
+    );
+  }
   return null;
 }
 
