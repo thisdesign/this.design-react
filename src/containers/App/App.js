@@ -3,15 +3,16 @@ import 'styles/fonts.scss';
 import 'styles/typography.scss';
 import 'styles/layout.scss';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
 import Loading from 'components/Loading/Loading';
 import Layout from 'containers/Layout/Layout';
 import flatten from 'array-flatten';
 
+import getContextValue from './getContextValue';
 import './App.scss';
-
+/*
 class App extends React.Component {
   static propTypes = {
     uid: PropTypes.string,
@@ -153,5 +154,80 @@ class App extends React.Component {
       </PreviewRouter>);
   }
 }
+
+*/
+
+
+//
+// _loadCaseStudies = (ids) => {
+//   this.props.prismicCtx.api.getByIDs(ids).then((doc) => {
+//     this.setState({ caseStudies: doc.results });
+//     this._preloadImages(doc);
+//   });
+// }
+// _loadSiteInfo = (props) => {
+//   props.prismicCtx.api.getSingle('site').then((doc) => {
+//     if (doc) {
+//       this.setState({ siteInfo: doc });
+//     } else {
+//       this.setState({
+//         dataNotFound: !doc,
+//       });
+//     }
+//   });
+// }
+//
+
+const AppContext = React.createContext();
+
+
+function App({
+  prismicCtx, uid, view,
+}) {
+  const [siteInfo, setSiteInfo] = useState(null);
+  const [caseStudies, setCaseStudies] = useState(null);
+  const [notFound, setNotFound] = useState(false);
+
+
+  const fetchSite = async () => prismicCtx.api.getSingle('site').then(doc => doc);
+  const fetchContext = async () => prismicCtx.api.getByUID('context', 'home').then(doc => doc);
+  const fetchCaseStudies = async () => {
+    const context = await fetchContext();
+    const ids = context.data.case_study_list.map(cs => cs.case_study_item.id);
+    return prismicCtx.api.getByIDs(ids).then(doc => doc.results);
+  };
+
+
+  function checkNotFound(item) {
+    if (item) return item;
+    setNotFound(true);
+    return null;
+  }
+
+  async function getSiteData() {
+    setSiteInfo(checkNotFound(await fetchSite()));
+    setCaseStudies(checkNotFound(await fetchCaseStudies()));
+  }
+
+  useEffect(() => {
+    if (prismicCtx) {
+      getSiteData();
+    }
+  }, [prismicCtx]);
+
+
+  if (siteInfo && caseStudies) {
+    const context = getContextValue({ caseStudies, uid });
+    console.log(context);
+    return null;
+  }
+  return null;
+}
+
+App.propTypes = {
+  uid: PropTypes.string,
+  view: PropTypes.string.isRequired,
+  prismicCtx: PropTypes.object, //eslint-disable-line
+};
 
 export default App;
