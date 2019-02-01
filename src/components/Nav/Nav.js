@@ -9,8 +9,6 @@ import './Nav.scss';
 const Nav = () => {
   const { view, navInverted, csData: { currentUid } } = useContext(LayoutContext);
 
-  console.log({ view, navInverted, csData: { currentUid } });
-
   const linkTo = (link) => {
     if (view === 'root') {
       return `/${link}`;
