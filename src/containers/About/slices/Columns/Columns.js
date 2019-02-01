@@ -2,7 +2,6 @@ import React from 'react';
 import uuidv1 from 'uuid/v1';
 import { About } from 'containers/About/styles';
 import { RichText } from 'prismic-reactjs';
-import './Columns.scss';
 
 
 const Columns = ({ data }) => {
@@ -16,8 +15,15 @@ const Columns = ({ data }) => {
     }
   };
 
+  const title = data.primary.section_title;
+
   return (
     <About.FullHeightWrapper>
+      {title &&
+        <About.SectionTitle>
+          {title}
+        </About.SectionTitle>
+      }
       <About.ColumnWrapper>
         {items.map(item => (
           <About.Column key={uuidv1()} items={getColumnCount()} fullMobile>
