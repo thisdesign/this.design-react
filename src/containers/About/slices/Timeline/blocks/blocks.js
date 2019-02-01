@@ -11,7 +11,11 @@ export const Project = styled(About.Column)`
 `;
 
 export const YearWrapper = styled.div`
-  margin: 4rem 0;
+  margin: 9em 0;
+
+  h2 {
+    margin-bottom: 3em;
+  }
 `;
 
 Project.Roles = styled.div`
