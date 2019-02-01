@@ -5,17 +5,11 @@ import 'styles/layout.scss';
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import PreviewRouter from 'containers/PrismicApp/PreviewRouter/PreviewRouter';
-// import Loading from 'components/Loading/Loading';
 import Layout from 'containers/Layout/Layout';
-// import flatten from 'array-flatten';
 
 import getContextValue from './getContextValue';
 import useSiteData from './useSiteData';
 import './App.scss';
-
-const AppContext = React.createContext();
-
 
 function App({
   prismicCtx, uid, view,
@@ -25,13 +19,19 @@ function App({
   if (siteInfo && caseStudies) {
     const appContext = getContextValue({ caseStudies, uid, notFound });
     return (
-      <AppContext.Provider value={appContext}>
-        <Layout view={view} />
-      </AppContext.Provider>
+      <Layout
+        notFound={false}
+        {...appContext}
+        {...{ siteInfo, view, prismicCtx }}
+      />
     );
   }
   return null;
 }
+
+App.defaultProps = {
+  uid: null,
+};
 
 App.propTypes = {
   uid: PropTypes.string,

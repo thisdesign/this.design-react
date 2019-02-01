@@ -31,18 +31,19 @@ function CaseStudyQueue({
     setTimeout(() => { _handleTransitionEnd(); }, 600);
   };
 
+  console.log({ currentIndex, nextIndex });
   return (
     csTrack.map((arrayContents, i) => (
       arrayContents !== null &&
-      <CaseStudy
-        key={arrayContents}
-        next={i === 1}
-        advanceQueue={advanceQueue}
-        doc={caseStudies[arrayContents]}
-        isAnimating={isAnimating || openingFromHome}
-        isHome={isHome}
-        handleOpen={handleOpen}
-      />
+        <CaseStudy
+          key={arrayContents}
+          next={i === 1}
+          advanceQueue={advanceQueue}
+          doc={caseStudies[arrayContents]}
+          isAnimating={isAnimating || openingFromHome}
+          isHome={isHome}
+          handleOpen={handleOpen}
+        />
     )));
 }
 
