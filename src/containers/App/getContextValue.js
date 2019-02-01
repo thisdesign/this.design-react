@@ -13,7 +13,7 @@ export default function getContextValue({ caseStudies, uid }) {
   if (!unselected) {
     const currentCsDoc = caseStudies[csIndex];
     const csDarkState = currentCsDoc.data.preserve_white_nav === 'true';
-    const nextIndex = csIndex + 1;
+    const nextIndex = (csIndex + 1) % caseStudies.length;
     const isLastCaseStudy = nextIndex === caseStudies.length;
     const nextUsableIndex = isLastCaseStudy ? 0 : nextIndex;
     const nextUid = caseStudies[nextUsableIndex].uid;
