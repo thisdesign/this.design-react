@@ -14,9 +14,11 @@ import './App.scss';
 function App({
   prismicCtx, uid, view,
 }) {
-  const { siteInfo, caseStudies, notFound } = useSiteData({ prismicCtx });
+  const {
+    siteInfo, caseStudies, notFound, loaded,
+  } = useSiteData({ prismicCtx });
 
-  if (siteInfo && caseStudies) {
+  if (loaded) {
     const appContext = getContextValue({ caseStudies, uid, notFound });
     return (
       <Layout

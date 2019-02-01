@@ -4,6 +4,7 @@ export default function useData({ prismicCtx }) {
   const [siteInfo, setSiteInfo] = useState(null);
   const [caseStudies, setCaseStudies] = useState(null);
   const [notFound, setNotFound] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
 
   const fetchSite = async () => prismicCtx.api.getSingle('site').then(doc => doc);
@@ -26,9 +27,15 @@ export default function useData({ prismicCtx }) {
     setCaseStudies(checkNotFound(await fetchCaseStudies()));
   }
 
+  async function awaitLoad() {
+    await getSiteData();
+    setLoaded(true);
+  }
+
   useEffect(() => {
     if (prismicCtx) {
       getSiteData();
+      awaitLoad();
     }
   }, [prismicCtx]);
 
@@ -36,5 +43,6 @@ export default function useData({ prismicCtx }) {
     siteInfo,
     caseStudies,
     notFound,
+    loaded,
   };
 }
