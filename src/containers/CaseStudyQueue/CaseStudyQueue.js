@@ -31,7 +31,6 @@ function CaseStudyQueue({
     setTimeout(() => { _handleTransitionEnd(); }, 600);
   };
 
-  console.log({ currentIndex, nextIndex });
   return (
     csTrack.map((arrayContents, i) => (
       arrayContents !== null &&

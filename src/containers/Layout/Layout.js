@@ -13,9 +13,7 @@ import Root from 'containers/Root/Root';
 
 import LayoutContext from './LayoutContext';
 
-function Layout(props) {
-  const { view } = props;
-
+function Layout({ view, csData, prismicCtx }) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
 
@@ -23,7 +21,7 @@ function Layout(props) {
   const invertNav = () => setNavInvertState(true);
 
   const launchProject = (nextUid) => {
-    const isNew = nextUid !== props.csData.currentUid;
+    const isNew = nextUid !== csData.currentUid;
     const update = setProjectLaunchStatus;
     if (isNew) {
       update('transitioning');
@@ -40,7 +38,7 @@ function Layout(props) {
     <ThemeProvider theme={theme}>
       <LayoutContext.Provider
         value={{
-          ...props,
+          ...{ view, csData, prismicCtx },
           launchProject,
           navInverted,
           invertNav,
@@ -55,11 +53,11 @@ function Layout(props) {
           <View viewName="root" view={view}>
             <Root
               projectLaunchStatus={projectLaunchStatus}
-              isHome={props.csData.unselected}
+              isHome={csData.unselected}
             />
           </View>
           <View aside viewName="about" view={view}>
-            <About prismicCtx={props.prismicCtx} />
+            <About prismicCtx={prismicCtx} />
           </View>
         </main>
       </LayoutContext.Provider>

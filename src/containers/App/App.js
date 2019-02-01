@@ -39,4 +39,4 @@ App.propTypes = {
   prismicCtx: PropTypes.object, //eslint-disable-line
 };
 
-export default App;
+export default React.memo(App);

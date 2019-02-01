@@ -7,7 +7,7 @@ export default function getContextValue({ caseStudies, uid }) {
   let csData = {
     caseStudies,
     unselected,
-    currentIndex: unselected ? null : csIndex,
+    currentIndex: unselected ? undefined : csIndex,
   };
 
   if (!unselected) {
