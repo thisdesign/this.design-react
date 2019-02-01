@@ -40,7 +40,6 @@ class Homepage extends Component {
     const urls = siteInfo.data[isMobile() ? 'video_group_mobile' : 'video_group'].map(vid => vid.link.url);
     const randomUrl = urls[Math.floor(Math.random() * urls.length)];
     const videoLoaded = this.state.videoLoaded !== false;
-
     const classes = [
       'homepage',
       this.props.openingFromHome ? '-isAnimating' : '',

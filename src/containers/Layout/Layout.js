@@ -13,7 +13,9 @@ import Root from 'containers/Root/Root';
 
 import LayoutContext from './LayoutContext';
 
-function Layout({ view, csData, prismicCtx }) {
+function Layout({
+  view, csData, prismicCtx, siteInfo,
+}) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
 
@@ -38,7 +40,12 @@ function Layout({ view, csData, prismicCtx }) {
     <ThemeProvider theme={theme}>
       <LayoutContext.Provider
         value={{
-          ...{ view, csData, prismicCtx },
+          ...{
+            view,
+            csData,
+            prismicCtx,
+            siteInfo,
+          },
           launchProject,
           navInverted,
           invertNav,
