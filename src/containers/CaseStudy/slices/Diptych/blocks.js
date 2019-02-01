@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro';
 import getTheme from 'util/getTheme';
+import theme from 'styles/theme';
 
 const Styled = {};
 
@@ -14,17 +15,17 @@ Styled.Diptych = styled.div`
 `;
 
 
-// casestudy__diptych__item -padding
 Styled.DiptychItem = styled.div`
   ${_padding}
   flex-basis: 50%;
+  margin-top: ${theme.margin.md};
+  margin-bottom: ${theme.margin.md};
 `;
 
 Styled.Img = styled.img`
   width: 100%;
 `;
 
-// casestudy__diptych__spacer
 Styled.Spacer = styled.div`
 
 `;

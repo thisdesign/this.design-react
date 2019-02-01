@@ -2,6 +2,7 @@ import media from 'styles/media';
 
 const margin = {
   lg: '5em',
+  md: '2em',
 };
 
 const theme = {
@@ -36,7 +37,7 @@ const theme = {
   _wrapNav: `
     padding-left 40px;
     padding-right: 40px;
-    
+
     ${media.tablet`
       padding-left 80px;
       padding-right: 80px;
