@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "array-flatten": "^2.1.1",
+    "hex-rgb": "^3.0.0",
     "highlight.js": "~9.12.0",
     "i": "^0.3.6",
     "js-cookie": "^2.2.0",

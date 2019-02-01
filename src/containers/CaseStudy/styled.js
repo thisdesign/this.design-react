@@ -1,4 +1,5 @@
 import styled, { css, keyframes } from 'styled-components/macro';
+import hexRgb from 'hex-rgb';
 
 const Styled = {};
 
@@ -49,6 +50,15 @@ Styled.Inner = styled.div`
   transform: translateZ(0);
   position: relative;
   padding-bottom: ${({ theme }) => theme.margin.lg};
+
+  ${({ textColor }) => textColor && css`
+  a {
+    border-bottom:1px solid ${(props) => {
+    const { red, green, blue } = hexRgb(props.textColor);
+    return `rgba(${red}, ${green}, ${blue}, 0.2)`;
+  }};
+  }`
+}
 `;
 
 Styled.Shim = styled.div`
