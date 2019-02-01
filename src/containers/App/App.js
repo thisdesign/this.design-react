@@ -15,14 +15,18 @@ function App({
   prismicCtx, uid, view,
 }) {
   const {
-    siteInfo, caseStudies, notFound, loaded,
-  } = useSiteData({ prismicCtx });
+    siteInfo,
+    caseStudies,
+    notFound,
+    loaded,
+    currentCs,
+  } = useSiteData({ prismicCtx, uid });
 
   if (loaded) {
-    const appContext = getContextValue({ caseStudies, uid, notFound });
+    const appContext = getContextValue({ caseStudies, currentCs });
     return (
       <Layout
-        notFound={false}
+        notFound={notFound}
         {...appContext}
         {...{ siteInfo, view, prismicCtx }}
       />

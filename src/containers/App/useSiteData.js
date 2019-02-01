@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-export default function useData({ prismicCtx }) {
+export default function useData({ prismicCtx, uid }) {
   const [siteInfo, setSiteInfo] = useState(null);
   const [caseStudies, setCaseStudies] = useState(null);
   const [notFound, setNotFound] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
+  const [currentCs, setCurrentCs] = useState(undefined);
 
   const fetchSite = async () => prismicCtx.api.getSingle('site').then(doc => doc);
   const fetchContext = async () => prismicCtx.api.getByUID('context', 'home').then(doc => doc);
@@ -39,10 +39,15 @@ export default function useData({ prismicCtx }) {
     }
   }, [prismicCtx]);
 
+  useEffect(() => {
+    if (uid) setCurrentCs(uid);
+  }, [uid]);
+
   return {
     siteInfo,
     caseStudies,
     notFound,
     loaded,
+    currentCs,
   };
 }
