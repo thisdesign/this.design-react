@@ -9,34 +9,32 @@ import LayoutContext from 'containers/Layout/LayoutContext';
 
 function Root({ projectLaunchStatus, history }) {
   const [openingFromHome, setOpeningFromHome] = useState(false);
-  const [isHome, setIsHome] = useState(true);
 
-  const { caseStudies } = useContext(LayoutContext).csData;
 
-  const initHomeOpen = () => setOpeningFromHome(true);
+  const { caseStudies, unselected } = useContext(LayoutContext).csData;
+
 
   const commitHomeOpen = () => {
+    history.push(`/work/${caseStudies[0].uid}`);
     setOpeningFromHome(false);
-    setIsHome(false);
-    // history.push(`/work/${caseStudies[0].uid}`);
+  };
+
+  const initHomeOpen = () => {
+    setOpeningFromHome(true);
+    setTimeout(commitHomeOpen, 600);
   };
 
   return (
     <>
-      {isHome &&
-        <div>
-          <Homepage shim {...{ openingFromHome }} />
-        </div>
+      {unselected &&
+        <Homepage shim {...{ openingFromHome }} />
       }
       <>
         {projectLaunchStatus !== 'ready' && <Loading />}
         {projectLaunchStatus !== 'transitioning' &&
           <CaseStudyQueue
             {...{
-              openingFromHome,
-              initHomeOpen,
-              commitHomeOpen,
-              isHome,
+              openingFromHome, initHomeOpen, commitHomeOpen,
             }}
           />
         }
