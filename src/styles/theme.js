@@ -3,6 +3,8 @@ import media from 'styles/media';
 const margin = {
   lg: '5em',
   md: '2em',
+  nav: '80px',
+  navMobile: '40px',
 };
 
 const theme = {
