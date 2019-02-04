@@ -9,11 +9,6 @@ Styled.Homepage = styled.div`
   position: relative;
   z-index: 40;
   overflow: hidden;
-
-  ${props => props.animating && css`
-    transition: transform ${theme.ease.standard} 600ms;
-    transform: translate3d(0, calc(-100vh + 400px), 0);
-  `}
 `;
 
 Styled.Inner = styled.div`

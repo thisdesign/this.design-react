@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Loading from 'components/Loading/Loading';
 import PropTypes from 'prop-types';
-import Styled from './styled';
 import HomepageWrapper from './HomepageWrapper';
+import Styled from './styled';
+import Posed from './posed';
 
 function Homepage({ openingFromHome, randomUrl }) {
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -13,14 +14,14 @@ function Homepage({ openingFromHome, randomUrl }) {
   }, []);
 
   return (
-    <Styled.Homepage animating={openingFromHome}>
+    <Posed.Homepage pose={openingFromHome ? 'animating' : 'normal'}>
       {!videoLoaded && <Loading />}
       <Styled.Inner>
         <Styled.Video autoPlay loop muted playsInline ref={ref}>
           <source src={randomUrl} type="video/mp4" />
         </Styled.Video>
       </Styled.Inner>
-    </Styled.Homepage>
+    </Posed.Homepage>
   );
 }
 
