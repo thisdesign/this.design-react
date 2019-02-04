@@ -1,33 +1,41 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-
-import LayoutContext from 'containers/Layout/LayoutContext';
-
 import './CaseStudy.scss';
+
 import Styled from './styled';
+import Posed from './posed';
+
 import Partials from './partials/index';
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 
 const CaseStudy = ({
-  doc, next, advanceQueue, isAnimating, initHomeOpen, commitHomeOpen,
+  doc,
+  next,
+  advanceQueue,
+  openingFromHome,
+  initHomeOpen,
+  commitHomeOpen,
+  isHome,
 }) => {
   const customStyle = {
     textColor: doc.data.text_color,
     background: doc.data.background_color,
   };
   const alt = `${doc.data.title} - This Design - Portland OR`;
-  const { unselected: isHome } = useContext(LayoutContext).csData;
+  console.log({ isHome });
   return (
     <CsContext.Provider value={{
-      isAnimating, isHome, next, ..._getContextProps(doc.data), alt,
+      openingFromHome, isHome, next, ..._getContextProps(doc.data), alt,
     }}
     >
-      <Styled.CaseStudy
+      <Posed.CaseStudy
         className="casestudy"
-        onClick={isHome ? initHomeOpen : null}
+        onClick={initHomeOpen}
+        pose={openingFromHome ? 'animatingFromHome' : 'normal'}
+        onPoseComplete={commitHomeOpen}
         {...{
           next,
-          isAnimating,
+          openingFromHome,
           isHome,
         }}
       >
@@ -36,7 +44,7 @@ const CaseStudy = ({
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
         <Partials.Shim {...{ advanceQueue, isHome }} />
-      </Styled.CaseStudy>
+      </Posed.CaseStudy>
     </CsContext.Provider>
   );
 };
@@ -45,9 +53,10 @@ CaseStudy.propTypes = {
   doc: PropTypes.object.isRequired, //eslint-disable-line
   next: PropTypes.bool.isRequired,
   advanceQueue: PropTypes.func.isRequired,
-  isAnimating: PropTypes.bool.isRequired,
+  openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
   commitHomeOpen: PropTypes.func.isRequired,
+  isHome: PropTypes.bool.isRequired,
 };
 
 export const CsContext = React.createContext();

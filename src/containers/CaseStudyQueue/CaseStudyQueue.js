@@ -11,6 +11,7 @@ function CaseStudyQueue({
   openingFromHome,
   initHomeOpen,
   commitHomeOpen,
+  isHome,
 }) {
   const {
     caseStudies,
@@ -44,6 +45,7 @@ function CaseStudyQueue({
             advanceQueue,
             isAnimating,
             openingFromHome,
+            isHome,
           }}
         />
     )));
