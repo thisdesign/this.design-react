@@ -13,8 +13,8 @@ Styled.CaseStudy = styled.article`
   overflow: auto;
   transform: translate3d(0, 0, 0);
 
-  ${({ isHome, isAnimating }) => isHome && css`
-    height: ${isAnimating ? '100vh' : '400px'};
+  ${({ isHome, openingFromHome }) => isHome && css`
+    height: ${openingFromHome ? '100vh' : '400px'};
     overflow: hidden;
   `}
 

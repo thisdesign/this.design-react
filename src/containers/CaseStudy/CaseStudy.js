@@ -25,14 +25,22 @@ const CaseStudy = ({
 
   return (
     <CsContext.Provider value={{
-      openingFromHome, isHome, next, ..._getContextProps(doc.data), alt,
+      ..._getContextProps(doc.data),
+      openingFromHome,
+      isHome,
+      next,
+      alt,
+      csTransitioning,
     }}
     >
       <Posed.CaseStudy
         className="casestudy"
         onClick={isHome ? initHomeOpen : null}
         pose={getPose({
-          next, isHome, openingFromHome, csTransitioning,
+          next,
+          isHome,
+          openingFromHome,
+          csTransitioning,
         })}
         isShim={next || isHome}
         {...{
@@ -42,7 +50,7 @@ const CaseStudy = ({
         }}
       >
         <Styled.Inner {...customStyle}>
-          <Partials.Cover isHome={isHome} data={doc.data} />
+          <Partials.Cover data={doc.data} />
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
         <Partials.Shim {...{ initCsChange, isHome }} />

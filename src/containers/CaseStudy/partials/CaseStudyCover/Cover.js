@@ -9,19 +9,19 @@ const mobile = isMobile();
 
 const Cover = () => {
   const {
-    header, next, isAnimating, isHome,
+    header, next, csTransitioning, isHome,
   } = useContext(CsContext);
   return (
     <Styled.Cover>
       <Styled.Fill backgroundColor={header.backgroundColor} />
       <Styled.Header>
-        <Styled.Title next={next} itemTitle isAnimating={isAnimating}>
+        <Styled.Title itemTitle {...{ csTransitioning, next }}>
           {header.title}
         </Styled.Title>
-        <Styled.Desc next={next} isHome={isHome}>
+        <Styled.Desc {...{ next, isHome }}>
           {header.description}
         </Styled.Desc>
-        <Styled.Services next={next} isHome={isHome}>
+        <Styled.Services {...{ next, isHome }}>
           {header.services}
         </Styled.Services>
       </Styled.Header>
@@ -29,6 +29,7 @@ const Cover = () => {
     </Styled.Cover>
   );
 };
+
 
 const Splash = () => {
   const { header } = useContext(CsContext);

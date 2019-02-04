@@ -47,11 +47,11 @@ const Item = styled.div`
     transform 600ms ${({ theme }) => theme.ease.standard};
 
   ${({
-    itemTitle, next, isAnimating, isHome,
+    itemTitle, next, csTransitioning, isHome,
   }) => {
     if ((!itemTitle && next) || isHome) {
       return css`opacity: 0`;
-    } if (itemTitle && next && !isAnimating) {
+    } if (itemTitle && next && !csTransitioning) {
       return css`transform: translateY(calc(100vh - 400px))`;
     }
     return null;
