@@ -19,10 +19,6 @@ const theme = {
     accel: 'cubic-bezier(.4, 0, 1, 1)',
   },
 
-  timing: {
-    csTransition: 600,
-  },
-
   ...{
     margin,
     media,
@@ -80,6 +76,11 @@ const theme = {
 
     ${media.tablet`display: flex;`}
   `,
+
+  rootTransition: {
+    duration: 600,
+    ease: [0.4, 0, 0.2, 1],
+  },
 };
 
 export default theme;

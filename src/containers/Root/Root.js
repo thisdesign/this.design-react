@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
-import Homepage from 'containers/Homepage/Homepage';
+import HomepageWrapper from 'containers/Homepage/Homepage';
 import { withRouter } from 'react-router-dom';
 import Loading from 'components/Loading/Loading';
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
 import LayoutContext from 'containers/Layout/LayoutContext';
+import theme from 'styles/theme';
 
 
 function Root({ projectLaunchStatus, history }) {
@@ -21,13 +22,13 @@ function Root({ projectLaunchStatus, history }) {
 
   const initHomeOpen = () => {
     setOpeningFromHome(true);
-    setTimeout(commitHomeOpen, 600);
+    setTimeout(commitHomeOpen, theme.rootTransition.duration);
   };
 
   return (
     <>
       {unselected &&
-        <Homepage shim {...{ openingFromHome }} />
+        <HomepageWrapper shim {...{ openingFromHome }} />
       }
       <>
         {projectLaunchStatus !== 'ready' && <Loading />}

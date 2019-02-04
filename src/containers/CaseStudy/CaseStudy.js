@@ -4,16 +4,17 @@ import LayoutContext from 'containers/Layout/LayoutContext';
 
 import './CaseStudy.scss';
 import Styled from './styled';
-import Posed from './posed';
+import Posed, { getPose } from './posed';
 import Partials from './partials/index';
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 
 const CaseStudy = ({
   doc,
   next,
-  advanceQueue,
+  initCsChange,
   openingFromHome,
   initHomeOpen,
+  csTransitioning,
 }) => {
   const customStyle = {
     textColor: doc.data.text_color,
@@ -29,8 +30,10 @@ const CaseStudy = ({
     >
       <Posed.CaseStudy
         className="casestudy"
-        onClick={initHomeOpen}
-        pose={openingFromHome ? 'animatingFromHome' : 'normal'}
+        onClick={isHome ? initHomeOpen : null}
+        pose={getPose({
+          next, isHome, openingFromHome, csTransitioning,
+        })}
         isShim={next || isHome}
         {...{
           next,
@@ -42,7 +45,7 @@ const CaseStudy = ({
           <Partials.Cover isHome={isHome} data={doc.data} />
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
-        <Partials.Shim {...{ advanceQueue, isHome }} />
+        <Partials.Shim {...{ initCsChange, isHome }} />
       </Posed.CaseStudy>
     </CsContext.Provider>
   );
@@ -51,9 +54,10 @@ const CaseStudy = ({
 CaseStudy.propTypes = {
   doc: PropTypes.object.isRequired, //eslint-disable-line
   next: PropTypes.bool.isRequired,
-  advanceQueue: PropTypes.func.isRequired,
+  initCsChange: PropTypes.func.isRequired,
   openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
+  csTransitioning: PropTypes.bool.isRequired,
 };
 
 export const CsContext = React.createContext();

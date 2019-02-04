@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import { withRouter } from 'react-router-dom';
 import LayoutContext from 'containers/Layout/LayoutContext';
+import theme from 'styles/theme';
 
 
 function CaseStudyQueue({
-  // history,
+  history,
   openingFromHome,
   initHomeOpen,
   commitHomeOpen,
@@ -18,19 +19,21 @@ function CaseStudyQueue({
     currentIndex,
     nextIndex,
     unselected,
-    // nextUid,
+    nextUid,
   } = useContext(LayoutContext).csData;
 
   const [isAnimating, setIsAnimating] = useState(false);
   const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
 
-  // const commitQueueChange = () => {
-  //   history.push(`/work/${nextUid}`);
-  //   setIsAnimating(false);
-  // };
+  const commitQueueChange = () => {
+    history.push(`/work/${nextUid}`);
+    setIsAnimating(false);
+  };
 
-  // change name to initQueueChange
-  const advanceQueue = () => setIsAnimating(true);
+  const initCsChange = () => {
+    setTimeout(commitQueueChange, theme.rootTransition.duration);
+    setIsAnimating(true);
+  };
 
   return (
     csTrack.map((arrayContents, i) => (
@@ -39,10 +42,11 @@ function CaseStudyQueue({
           key={arrayContents}
           next={i === 1}
           doc={caseStudies[arrayContents]}
+          csTransitioning={isAnimating}
           {...{
             initHomeOpen,
             commitHomeOpen,
-            advanceQueue,
+            initCsChange,
             isAnimating,
             openingFromHome,
             isHome,

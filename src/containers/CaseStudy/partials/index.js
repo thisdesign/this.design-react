@@ -9,15 +9,15 @@ import Styled from '../styled';
 
 const Partials = {};
 
-Partials.Shim = ({ isHome, advanceQueue }) => ( // make one elem
-  <CursorAnchor onClick={isHome ? advanceQueue : null} detached textId="launch">
+Partials.Shim = ({ isHome, initCsChange }) => ( // make one elem
+  <CursorAnchor onClick={!isHome ? initCsChange : null} detached textId="launch">
     <Styled.Shim home={isHome} />
   </CursorAnchor>
 );
 
 Partials.Shim.propTypes = {
   isHome: PropTypes.bool.isRequired,
-  advanceQueue: PropTypes.func.isRequired,
+  initCsChange: PropTypes.func.isRequired,
 };
 
 
