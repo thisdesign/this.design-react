@@ -7,29 +7,29 @@ import LayoutContext from 'containers/Layout/LayoutContext';
 
 
 function CaseStudyQueue({
-  history,
+  // history,
   openingFromHome,
-  isHome,
-  handleOpen,
+  initHomeOpen,
+  commitHomeOpen,
 }) {
   const {
-    caseStudies, currentIndex, nextIndex, unselected, nextUid,
+    caseStudies,
+    currentIndex,
+    nextIndex,
+    unselected,
+    // nextUid,
   } = useContext(LayoutContext).csData;
 
   const [isAnimating, setIsAnimating] = useState(false);
   const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
-  const _startAnimation = () => setIsAnimating(true);
-  const _stopAnimation = () => setIsAnimating(false);
-  const _updateUrl = (uid) => { history.push(uid); };
-  const _handleTransitionEnd = () => {
-    _updateUrl(`/work/${nextUid}`);
-    _stopAnimation();
-  };
 
-  const advanceQueue = () => {
-    _startAnimation();
-    setTimeout(() => { _handleTransitionEnd(); }, 600);
-  };
+  // const commitQueueChange = () => {
+  //   history.push(`/work/${nextUid}`);
+  //   setIsAnimating(false);
+  // };
+
+  // change name to initQueueChange
+  const advanceQueue = () => setIsAnimating(true);
 
   return (
     csTrack.map((arrayContents, i) => (
@@ -37,11 +37,14 @@ function CaseStudyQueue({
         <CaseStudy
           key={arrayContents}
           next={i === 1}
-          advanceQueue={advanceQueue}
           doc={caseStudies[arrayContents]}
-          isAnimating={isAnimating || openingFromHome}
-          isHome={isHome}
-          handleOpen={handleOpen}
+          {...{
+            initHomeOpen,
+            commitHomeOpen,
+            advanceQueue,
+            isAnimating,
+            openingFromHome,
+          }}
         />
     )));
 }
@@ -49,8 +52,8 @@ function CaseStudyQueue({
 CaseStudyQueue.propTypes = {
   history: PropTypes.object, //eslint-disable-line
   openingFromHome: PropTypes.bool.isRequired,
-  isHome: PropTypes.bool.isRequired,
-  handleOpen: PropTypes.func.isRequired,
+  initHomeOpen: PropTypes.func.isRequired,
+  commitHomeOpen: PropTypes.func.isRequired,
 };
 
 

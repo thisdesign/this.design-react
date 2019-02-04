@@ -58,10 +58,7 @@ function Layout({
             <Work />
           </View>
           <View viewName="root" view={view}>
-            <Root
-              projectLaunchStatus={projectLaunchStatus}
-              isHome={csData.unselected}
-            />
+            <Root projectLaunchStatus={projectLaunchStatus} />
           </View>
           <View aside viewName="about" view={view}>
             <About prismicCtx={prismicCtx} />

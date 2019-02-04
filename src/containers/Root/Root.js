@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import Homepage from 'containers/Homepage/Homepage';
 import { withRouter } from 'react-router-dom';
 import Loading from 'components/Loading/Loading';
@@ -6,48 +6,40 @@ import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue';
 import PropTypes from 'prop-types';
 import LayoutContext from 'containers/Layout/LayoutContext';
 
-class Root extends React.Component {
-  static contextType = LayoutContext
 
-  state = {
-    isAnimating: false,
-  }
+function Root({ projectLaunchStatus, history }) {
+  const [openingFromHome, setOpeningFromHome] = useState(false);
 
-  handleOpen = () => {
-    this.setState({ isAnimating: true });
+  const { caseStudies, unselected } = useContext(LayoutContext).csData;
 
-    setTimeout(() => {
-      this.props.history.push(`/work/${this.context.csData.caseStudies[0].uid}`);
-      this.setState({ isAnimating: false });
-    }, 600);
-  }
+  const initHomeOpen = () => setOpeningFromHome(true);
 
-  render() {
-    const { isHome, projectLaunchStatus } = this.props;
-    return (
+  const commitHomeOpen = () => {
+    setOpeningFromHome(false);
+    history.push(`/work/${caseStudies[0].uid}`);
+  };
+
+  return (
+    <>
+      {unselected &&
+        <Homepage shim {...{ openingFromHome }} />
+      }
       <>
-        {isHome &&
-          <Homepage
-            shim
-            openingFromHome={this.state.isAnimating}
+        {projectLaunchStatus !== 'ready' && <Loading />}
+        {projectLaunchStatus !== 'transitioning' &&
+          <CaseStudyQueue
+            {...{
+              openingFromHome, initHomeOpen, commitHomeOpen,
+            }}
           />
         }
-        <>
-          {projectLaunchStatus !== 'ready' && <Loading />}
-          {projectLaunchStatus !== 'transitioning' &&
-          <CaseStudyQueue
-            openingFromHome={this.state.isAnimating}
-            handleOpen={this.handleOpen}
-            isHome={isHome}
-          />}
-        </>
       </>
-    );
-  }
+    </>
+  );
 }
 Root.propTypes = {
-  isHome: PropTypes.bool.isRequired,
+  history: PropTypes.object.isRequired, //eslint-disable-line
   projectLaunchStatus: PropTypes.string.isRequired,
 };
 
-export default Object.assign(withRouter(Root), { contextType: undefined });
+export default withRouter(Root);

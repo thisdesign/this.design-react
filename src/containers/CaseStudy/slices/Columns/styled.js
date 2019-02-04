@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components/macro';
 import Parallax from 'components/Parallax/Parallax';
 import getTheme from 'util/getTheme';
-import media, { sizes } from 'styles/media';
+import { sizes } from 'styles/media';
 
 const _wrap = getTheme('_wrap');
 const _grid = getTheme('_grid');

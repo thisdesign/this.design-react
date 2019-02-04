@@ -10,7 +10,7 @@ import Styled from '../styled';
 const Partials = {};
 
 Partials.Shim = ({ isHome, advanceQueue }) => ( // make one elem
-  <CursorAnchor onClick={advanceQueue} detached textId="launch">
+  <CursorAnchor onClick={isHome ? advanceQueue : null} detached textId="launch">
     <Styled.Shim home={isHome} />
   </CursorAnchor>
 );
