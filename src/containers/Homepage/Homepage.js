@@ -1,67 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Loading from 'components/Loading/Loading';
-import isMobile from 'util/isMobile';
-import LayoutContext from 'containers/Layout/LayoutContext';
 import PropTypes from 'prop-types';
-import './Homepage.scss';
+import Styled from './styled';
+import HomepageWrapper from './HomepageWrapper';
 
-class Homepage extends Component {
-  static contextType = LayoutContext;
+function Homepage({ openingFromHome, randomUrl }) {
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const ref = useRef();
 
-  constructor(props) {
-    super(props);
-    this.video = React.createRef();
-  }
+  useEffect(() => {
+    ref.current.onloadeddata = () => setVideoLoaded(true);
+  }, []);
 
-  state = {
-    videoLoaded: null,
-  }
-
-  componentDidMount() {
-    if (this.video && this.video.current) {
-      this.hideVideoLoad();
-    }
-  }
-
-  hideVideoLoad = () => {
-    this.setState({ videoLoaded: false }, () => {
-      this.showVideoOnLoad();
-    });
-  }
-
-  showVideoOnLoad = () => {
-    this.video.current.onloadeddata = () => {
-      this.setState({ videoLoaded: true });
-    };
-  }
-
-  render() {
-    const { siteInfo } = this.context;
-    const urls = siteInfo.data[isMobile() ? 'video_group_mobile' : 'video_group'].map(vid => vid.link.url);
-    const randomUrl = urls[Math.floor(Math.random() * urls.length)];
-    const videoLoaded = this.state.videoLoaded !== false;
-    const classes = [
-      'homepage',
-      this.props.openingFromHome ? '-isAnimating' : '',
-    ].join(' ');
-
-    return (
-      <div className={classes}>
-        {!videoLoaded && <Loading />}
-        <div className="homepage__inner">
-          <video autoPlay loop muted playsInline className="homepage__inner__video" ref={this.video}>
-            <source src={randomUrl} type="video/mp4" />
-          </video>
-        </div>
-      </div>
-    );
-  }
+  return (
+    <Styled.Homepage animating={openingFromHome}>
+      {!videoLoaded && <Loading />}
+      <Styled.Inner>
+        <Styled.Video autoPlay loop muted playsInline ref={ref}>
+          <source src={randomUrl} type="video/mp4" />
+        </Styled.Video>
+      </Styled.Inner>
+    </Styled.Homepage>
+  );
 }
 
-Homepage.defaultProps = {
-  data: PropTypes.shape({
-    url: PropTypes.string.isRequired,
-  }),
+Homepage.propTypes = {
+  openingFromHome: PropTypes.bool.isRequired,
+  randomUrl: PropTypes.string.isRequired,
 };
 
-export default Homepage;
+export { Homepage };
+export default HomepageWrapper;
