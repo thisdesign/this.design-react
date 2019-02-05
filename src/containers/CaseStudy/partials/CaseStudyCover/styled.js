@@ -38,6 +38,7 @@ Styled.Header = styled.div`
   top: 0;
   max-width: 15em;
   z-index: ${zIndex.header};
+  transform: translate3d(0,0,0);
 `;
 
 const Item = styled.div`
