@@ -4,7 +4,7 @@ body {
   color: #111;
   font-family: 'calibre-light', arial, sans-serif;
   font-size: 19px;
-  line-height: 2.25;
+  line-height: 2;
   font-stretch: normal;
   font-style: normal;
   overflow: hidden;
@@ -94,5 +94,5 @@ p {
 }
 
 p br {
-  display: none;
+  // display: none;
 }
