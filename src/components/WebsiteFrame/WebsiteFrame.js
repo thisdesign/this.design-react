@@ -1,22 +1,12 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef } from 'react';
+import useDOMWidth from 'hooks/useDOMWidth';
 import PropTypes from 'prop-types';
 import Styled from './styled';
 
+
 const WebsiteFrame = ({ dotColor, frameColor, children }) => {
-  const [width, setWidth] = useState(0);
-  const [windowWidth, setWindowWidth] = useState(0);
   const ref = createRef();
-
-  useEffect(() => {
-    const handler = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handler);
-    return () => window.removeEventListener('resize', handler);
-  }, [windowWidth]);
-
-  useEffect(() => {
-    setWidth(ref.current.offsetWidth);
-  }, [windowWidth]);
-
+  const width = useDOMWidth(ref);
 
   return (
     <Styled.WebsiteFrame calcWidth={width}>
