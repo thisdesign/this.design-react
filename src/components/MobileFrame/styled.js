@@ -1,9 +1,15 @@
-.mobileFrame {
+import styled from 'styled-components/macro';
+
+const Styled = {};
+
+
+Styled.MobileFrame = styled.div`
   width: 90%;
   margin: 0 auto;
   overflow: hidden;
   position: relative;
   box-shadow: 0 20px 70px rgba(0, 0, 0, .25);
+  border-radius: ${props => props.radius}px;
 
   > * {
     margin: -.1px;
@@ -21,3 +27,7 @@
     z-index: 1;
   }
 }
+`;
+
+
+export default Styled;

@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { createRef } from 'react';
+import useBorderRadiusPercent from 'hooks/useBorderRadiusPercent';
 import PropTypes from 'prop-types';
-import PercentRadii from 'containers/PercentRadii/PercentRadii';
-import './MobileFrame.scss';
+import Styled from './styled';
 
-const MobileFrame = props => (
-  <PercentRadii className="mobileFrame" percent={10}>
-    {props.children}
-  </PercentRadii>
-);
+const MobileFrame = ({ children }) => {
+  const ref = createRef();
+  const radius = useBorderRadiusPercent(ref, 10);
 
+  return (
+    <Styled.MobileFrame ref={ref} radius={radius}>
+      {children}
+    </Styled.MobileFrame>
+  );
+};
 MobileFrame.propTypes = {
   children: PropTypes.node.isRequired,
 };
