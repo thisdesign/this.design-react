@@ -46,6 +46,12 @@ Styled.Media = styled(Parallax)`
   ${_col} ${_padding}
   max-width: 80em;
   flex-basis: 50%;
+
+  > div {
+    /* removes weird non crop on mobile */
+    transform: translate3d(0,0,0);
+  }
+
   @media (min-width: ${sizes.desktop}px){
     flex-basis: ${props => setColWidth(props.theme.size, 'MEDIA')}%;
     margin: 90px auto;
