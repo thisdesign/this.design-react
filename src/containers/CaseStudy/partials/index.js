@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import CursorAnchor from 'components/CursorDot/CursorAnchor';
 import Waypoint from 'react-waypoint';
@@ -21,20 +21,24 @@ Partials.Shim.propTypes = {
 };
 
 
-Partials.NavChanger = () => (
-  <LayoutContext.Consumer>
-    {({ invertNav, revertNav, csData }) => (
-      <Waypoint onPositionChange={({ currentPosition }) => {
-        if (currentPosition === 'above' && !csData.isDark) {
+const NavChanger = () => {
+  const {
+    invertNav,
+    revertNav,
+    csData: { csDarkState },
+  } = useContext(LayoutContext);
+
+  return (
+    <Waypoint onPositionChange={({ currentPosition }) => {
+        if (currentPosition === 'above' && !csDarkState) {
           invertNav();
         } else {
           revertNav();
         }
       }}
-      />
-    )}
-  </LayoutContext.Consumer>
-);
+    />
+  );
+};
 
 Partials.Body = ({ next, isHome, doc }) => (!next && !isHome) && (
 <LayoutContext.Consumer>
@@ -47,6 +51,7 @@ Partials.Body = ({ next, isHome, doc }) => (!next && !isHome) && (
 </LayoutContext.Consumer>
 );
 
+Partials.NavChanger = NavChanger;
 Partials.Cover = Cover;
 
 export default Partials;
