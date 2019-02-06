@@ -3,6 +3,7 @@
 .videoNode {
   position: relative;
   cursor: pointer;
+  overflow: hidden;
 
   video {
     width: 100%;
