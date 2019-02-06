@@ -11,8 +11,8 @@ Website.Wrapper = ({ data }) => {
       src={screenshot.url}
       layout={layout}
       videoUrl={video.url}
-      frameColor={frameColor}
-      dotColor={dotColor}
+      frameColor={frameColor || undefined}
+      dotColor={dotColor || undefined}
       type="website"
     />
 

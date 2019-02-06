@@ -29,8 +29,8 @@ Website.defaultProps = {
   src: null,
   layout: null,
   videoUrl: null,
-  frameColor: null,
-  dotColor: null,
+  frameColor: undefined,
+  dotColor: undefined,
 };
 
 Website.propTypes = {
