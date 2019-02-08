@@ -14,7 +14,7 @@ Styled.CaseStudy = styled.article`
   transform: translate3d(0, 0, 0);
 
   ${({ isHome, openingFromHome }) => isHome && css`
-    height: ${openingFromHome ? '100vh' : '400px'};
+    height: ${openingFromHome ? 'var(--windowHeight)' : '400px'};
     overflow: hidden;
   `}
 

@@ -6,11 +6,11 @@ const Posed = {};
 
 Posed.CaseStudy = posed(Styled.CaseStudy)({
   animatingFromHome: {
-    y: 'calc(-100vh + 400px)',
+    y: 'calc((var(--windowHeight) * -1) + 400px)',
     transition: theme.rootTransition,
   },
   animatingCs: {
-    y: '-100vh',
+    y: 'calc(var(--windowHeight) * -1)',
     transition: theme.rootTransition,
   },
   normal: { y: '0vh', transition: { duration: 0 } },

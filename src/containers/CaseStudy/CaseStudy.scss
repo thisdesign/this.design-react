@@ -1,28 +1,6 @@
 @import '../../styles/variables.scss';
 
-// @-webkit-keyframes slideUp {
-//   from {
-//     transform: translate3d(0, 0, 0);
-//   }
-//
-//   to {
-//     transform: translate3d(0, -100vh, 0);
-//     // transform: translate3d(0, calc(-100vh + 400px), 0);
-//   }
-// }
-
-@-webkit-keyframes slideUpHome {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, calc(-100vh + 400px), 0);
-  }
-}
-
 .casestudy {
-
   &__block {
     margin-top: $margin-1;
     position: relative;
@@ -38,5 +16,4 @@
       transform: translateY(0);
     }
   }
-
 }

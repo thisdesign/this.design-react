@@ -13,7 +13,7 @@ const zIndex = {
 };
 
 Styled.Cover = styled.div`
-  height: 100vh;
+  height: var(--windowHeight);
   width: 100%;
   position: relative;
   color: white;
@@ -22,7 +22,7 @@ Styled.Cover = styled.div`
 
 Styled.Fill = styled.div`
   background-color: ${({ backgroundColor }) => backgroundColor || '#161616'};
-  height: calc(100vh + 30vw);
+  height: calc(var(--windowHeight) + 30vw);
   left: 0;
   position: absolute;
   top: 0;
@@ -53,7 +53,7 @@ const Item = styled.div`
     if ((!itemTitle && next) || isHome) {
       return css`opacity: 0`;
     } if (itemTitle && next && !csTransitioning) {
-      return css`transform: translateY(calc(100vh - 400px))`;
+      return css`transform: translateY(calc(var(--windowHeight) - 400px))`;
     }
     return null;
   }}

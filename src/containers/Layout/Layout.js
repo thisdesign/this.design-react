@@ -10,6 +10,8 @@ import config from 'util/config';
 import theme from 'styles/theme';
 import delay from 'util/delay';
 import Root from 'containers/Root/Root';
+import useWindowSize from 'hooks/useWindowSize';
+
 
 import LayoutContext from './LayoutContext';
 
@@ -35,6 +37,11 @@ function Layout({
       });
     }
   };
+
+  document.documentElement.style.setProperty(
+    '--windowHeight',
+    `${useWindowSize().height}px`,
+  );
 
   return (
     <ThemeProvider theme={theme}>
