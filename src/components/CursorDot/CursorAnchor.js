@@ -11,11 +11,6 @@ export default function CursorAnchor({
   const { updateCursor } = useContext(CursorContext);
   const [enabled, handleHover] = useState(false);
 
-  function handleClick() {
-    handleHover(false);
-    if (onClick) { onClick(); }
-  }
-
   const enableCursor = () => {
     handleHover(true);
     updateCursor({
@@ -28,6 +23,11 @@ export default function CursorAnchor({
     updateCursor({ enabled: false, icon: null });
     handleHover(false);
   };
+
+  function handleClick() {
+    disableCursor();
+    if (onClick) { onClick(); }
+  }
 
   if (!isMobile()) {
     return (
