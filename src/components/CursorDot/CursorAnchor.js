@@ -1,86 +1,70 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import isMobile from 'util/isMobile';
 import CursorContext from 'components/CursorDot/CursorContext';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import icons from './icons';
 
-export default class CursorAnchor extends React.Component {
-  static contextType = CursorContext;
 
-  state= {
-    hovered: false,
+export default function CursorAnchor({
+  children, onClick, detached, textId, className,
+}) {
+  const { updateCursor } = useContext(CursorContext);
+  const [enabled, handleHover] = useState(false);
+
+  function handleClick() {
+    handleHover(false);
+    if (onClick) { onClick(); }
   }
 
-  componentWillMount() {
-    if (!(this.props.textId in icons)) {
-      console.error(`${this.props.textId} was not found in icons.js`); // eslint-disable-line
-    }
-  }
-
-
-  enableHover = () => {
-    this.context.updateCursor({
+  const enableCursor = () => {
+    handleHover(true);
+    updateCursor({
       enabled: true,
-      icon: this.props.detached && this.props.textId,
-    });
-    this.setState({ hovered: true });
-  };
-
-  disableHover = () => {
-    this.setState({ hovered: false });
-    this.context.updateCursor({
-      enabled: false,
-      icon: null,
+      icon: detached && textId,
     });
   };
 
-  handleClick = () => {
-    if (this.props.onClick) { this.props.onClick(); }
-    this.disableHover();
-  }
+  const disableCursor = () => {
+    updateCursor({ enabled: false, icon: null });
+    handleHover(false);
+  };
 
-  render() {
-    const {
-      className, detached, children, textId,
-    } = this.props;
-
-    const AttachedCursor = () => (
-      <div className="cursorAnchor__wrapper">
-        <div className={`cursor__text ${this.state.hovered && 'cursor__text--enabled'}`}>
-          { icons[textId] }
-        </div>
-      </div>
-    );
-
-    if (!isMobile()) {
-      return (
-        <div
-          onMouseEnter={this.enableHover}
-          onClick={this.handleClick}
-          onMouseLeave={this.disableHover}
-          className={`${className || ''} cursorAnchor ${this.state.hovered ? '-hovered' : ''}`}
-        >
-          {children}
-          {!detached && <AttachedCursor />}
-        </div>
-      );
-    }
+  if (!isMobile()) {
     return (
       <div
-        onClick={this.props.onClick}
-        className={`${className && className} cursorAnchor`}
+        onMouseEnter={enableCursor}
+        onMouseLeave={disableCursor}
+        onClick={handleClick}
+        className={`${className || ''} cursorAnchor ${enabled ? '-hovered' : ''}`}
       >
         {children}
+        {!detached && <AttachedCursor {...{ enabled, textId }} />}
       </div>
     );
   }
+  return (
+    <div
+      onClick={onClick}
+      className={`${className && className} cursorAnchor`}
+    >
+      {children}
+    </div>
+  );
 }
+
+const AttachedCursor = ({ textId, enabled }) => (
+  <div className="cursorAnchor__wrapper">
+    <div className={`cursor__text ${enabled && 'cursor__text--enabled'}`}>
+      { icons[textId] }
+    </div>
+  </div>
+);
 
 CursorAnchor.defaultProps = {
   detached: false,
 };
 
 CursorAnchor.propTypes = {
-  textId: propTypes.string.isRequired,
-  detached: propTypes.bool,
+  textId: PropTypes.string.isRequired,
+  detached: PropTypes.bool,
 };
