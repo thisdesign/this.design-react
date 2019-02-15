@@ -1,13 +1,10 @@
-import React, { useContext } from 'react';
-
-import LayoutContext from 'containers/Layout/LayoutContext';
+import React from 'react';
 import useFetch from 'util/useFetch';
 import api from './api';
 import './Instagram.scss';
 
 function Instagram() {
-  const { view } = useContext(LayoutContext);
-  const response = view === 'about' && useFetch(api);
+  const response = useFetch(api);
   const urls = response && response.data.map(img => img.images.standard_resolution.url);
 
   return (

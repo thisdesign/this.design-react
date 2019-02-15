@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
+import fetchJsonp from 'fetch-jsonp';
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
 
   const getData = async () => {
-    const response = await fetch(url);
+    const response = await fetchJsonp(url);
     setData(await response.json());
   };
 
