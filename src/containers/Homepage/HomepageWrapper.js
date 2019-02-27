@@ -12,7 +12,18 @@ function HomepageWrapper({ openingFromHome }) { //eslint-disable-line
   ].map(vid => vid.link.url);
   const randomUrl = urls[Math.floor(Math.random() * urls.length)];
 
-  return <Homepage openingFromHome={openingFromHome} randomUrl={randomUrl} />;
+  const reelEnabled = siteInfo.data.reel_enabled === 'True';
+  const reelUrl = siteInfo.data.studio_reel.url;
+
+  return (
+    <Homepage
+      {...{
+        reelEnabled,
+        reelUrl,
+        randomUrl,
+        openingFromHome,
+      }}
+    />);
 }
 
 export default HomepageWrapper;
