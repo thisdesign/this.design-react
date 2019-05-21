@@ -42,13 +42,15 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
     "--windowHeight",
     `${useWindowSize().height}px`
   );
-  console.log({ currentIndex });
+
   return (
     <ThemeProvider theme={theme}>
       <LayoutContext.Provider
         value={{
           ...{
-            view
+            view,
+            currentUid,
+            currentIndex
             // siteInfo
           },
           launchProject,
@@ -57,7 +59,7 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
           revertNav
         }}
       >
-        {/* <Nav /> */}
+        <Nav />
         <main className={`views -view-is-${view}`}>
           <View aside viewName="work" view={view}>
             {/* <Work /> */}

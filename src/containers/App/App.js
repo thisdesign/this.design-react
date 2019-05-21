@@ -64,6 +64,8 @@ function App() {
               render={() => <Layout view="root" currentUid={cs.uid} />}
             />
           ))}
+          <Route exact path="/work/" render={() => <Layout view="work" />} />
+          <Route exact path="/about/" render={() => <Layout view="about" />} />
         </Switch>
       </BrowserRouter>
     );
