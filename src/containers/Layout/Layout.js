@@ -51,7 +51,6 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
             view,
             currentUid,
             currentIndex
-            // siteInfo
           },
           launchProject,
           navInverted,
@@ -65,11 +64,10 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
             {/* <Work /> */}
           </View>
           <View viewName="root" view={view}>
-            currentUid: {currentUid}
-            {/* <Root projectLaunchStatus={projectLaunchStatus} /> */}
+            <Root projectLaunchStatus={projectLaunchStatus} />
           </View>
           <View aside viewName="about" view={view}>
-            {/* <About prismicCtx={prismicCtx} /> */}
+            {/* <About /> */}
           </View>
         </main>
       </LayoutContext.Provider>
