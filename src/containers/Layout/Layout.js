@@ -14,7 +14,7 @@ import useWindowSize from "hooks/useWindowSize";
 
 import LayoutContext from "./LayoutContext";
 
-function Layout({ view, siteInfo }) {
+function Layout({ view, currentUid, siteInfo, currentIndex }) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState("ready");
 
@@ -42,7 +42,7 @@ function Layout({ view, siteInfo }) {
     "--windowHeight",
     `${useWindowSize().height}px`
   );
-
+  console.log({ currentIndex });
   return (
     <ThemeProvider theme={theme}>
       <LayoutContext.Provider
@@ -63,6 +63,7 @@ function Layout({ view, siteInfo }) {
             {/* <Work /> */}
           </View>
           <View viewName="root" view={view}>
+            currentUid: {currentUid}
             {/* <Root projectLaunchStatus={projectLaunchStatus} /> */}
           </View>
           <View aside viewName="about" view={view}>

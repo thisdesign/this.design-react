@@ -47,7 +47,23 @@ function App() {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" render={() => <Layout />} />
+          <Route exact path="/" render={() => <Layout view="root" />} />
+          {data.contextCaseStudies.map((cs, i) => (
+            <Route
+              exact
+              path={`/work/${cs.uid}`}
+              render={() => (
+                <Layout view="root" currentUid={cs.uid} currentIndex={i} />
+              )}
+            />
+          ))}
+          {data.caseStudies.map(cs => (
+            <Route
+              exact
+              path={`/work/${cs.uid}`}
+              render={() => <Layout view="root" currentUid={cs.uid} />}
+            />
+          ))}
         </Switch>
       </BrowserRouter>
     );
