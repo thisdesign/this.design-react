@@ -2,9 +2,11 @@ import "styles/reset.scss";
 import "styles/fonts.scss";
 import "styles/typography.scss";
 import "styles/layout.scss";
+
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import Prismic from "prismic-javascript";
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import Layout from "../Layout/Layout";
 import "./App.scss";
 
 function useApiData() {
@@ -39,23 +41,13 @@ function useApiData() {
 }
 
 function App() {
-  const state = useApiData();
+  const data = useApiData();
 
-  if (state) {
+  if (data) {
     return (
       <BrowserRouter>
         <Switch>
-          <Route
-            exact
-            path="/"
-            render={() => (
-              <div>
-                {state.contextCaseStudies.map(({ data, uid }) => (
-                  <Link to={`/work/${uid}`}>{data.title}</Link>
-                ))}
-              </div>
-            )}
-          />
+          <Route exact path="/" render={() => <Layout />} />
         </Switch>
       </BrowserRouter>
     );
