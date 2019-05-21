@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Prismic from 'prismic-javascript';
 
 export default function useData({ prismicCtx, uid }) {
   const [siteInfo, setSiteInfo] = useState(null);
@@ -7,14 +8,26 @@ export default function useData({ prismicCtx, uid }) {
   const [loaded, setLoaded] = useState(false);
   const [currentCs, setCurrentCs] = useState(undefined);
 
-  const fetchSite = async () => prismicCtx.api.getSingle('site').then(doc => doc);
-  const fetchContext = async () => prismicCtx.api.getByUID('context', 'home').then(doc => doc);
-  const fetchCaseStudies = async () => {
+  const fetchSite = async () =>
+    prismicCtx.api.getSingle('site').then(doc => doc);
+
+  const fetchContext = async () =>
+    prismicCtx.api.getByUID('context', 'home').then(doc => doc);
+
+  const getPublishedCaseStudies = async () => {
+    const api = async () =>
+      prismicCtx.api.query(Prismic.Predicates.at('document.type', 'casestudy'));
+
+    return api();
+  };
+
+  const ContextCaseStudies = async () => {
     const context = await fetchContext();
+    console.log(getPublishedCaseStudies());
+
     const ids = context.data.case_study_list.map(cs => cs.case_study_item.id);
     return prismicCtx.api.getByIDs(ids).then(doc => doc.results);
   };
-
 
   function checkNotFound(item) {
     if (item) return item;
@@ -24,7 +37,7 @@ export default function useData({ prismicCtx, uid }) {
 
   async function getSiteData() {
     setSiteInfo(checkNotFound(await fetchSite()));
-    setCaseStudies(checkNotFound(await fetchCaseStudies()));
+    setCaseStudies(checkNotFound(await ContextCaseStudies()));
   }
 
   async function awaitLoad() {
@@ -32,16 +45,22 @@ export default function useData({ prismicCtx, uid }) {
     setLoaded(true);
   }
 
-  useEffect(() => {
-    if (prismicCtx) {
-      getSiteData();
-      awaitLoad();
-    }
-  }, [prismicCtx]);
+  useEffect(
+    () => {
+      if (prismicCtx) {
+        getSiteData();
+        awaitLoad();
+      }
+    },
+    [prismicCtx],
+  );
 
-  useEffect(() => {
-    if (uid) setCurrentCs(uid);
-  }, [uid]);
+  useEffect(
+    () => {
+      if (uid) setCurrentCs(uid);
+    },
+    [uid],
+  );
 
   return {
     siteInfo,

@@ -12,7 +12,6 @@ import delay from 'util/delay';
 import Root from 'containers/Root/Root';
 import useWindowSize from 'hooks/useWindowSize';
 
-
 import LayoutContext from './LayoutContext';
 
 function Layout({
@@ -29,12 +28,14 @@ function Layout({
     const update = setProjectLaunchStatus;
     if (isNew) {
       update('transitioning');
-      delay(config.projectLaunchDur).then(() => {
-        update('afterload');
-        return delay(config.afterLaunchDur);
-      }).then(() => {
-        update('ready');
-      });
+      delay(config.projectLaunchDur)
+        .then(() => {
+          update('afterload');
+          return delay(config.afterLaunchDur);
+        })
+        .then(() => {
+          update('ready');
+        });
     }
   };
 
@@ -72,9 +73,9 @@ function Layout({
           </View>
         </main>
       </LayoutContext.Provider>
-    </ThemeProvider>);
+    </ThemeProvider>
+  );
 }
-
 
 Layout.propTypes = {
   csData: PropTypes.shape({
