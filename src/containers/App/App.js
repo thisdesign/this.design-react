@@ -1,47 +1,51 @@
-import 'styles/reset.scss';
-import 'styles/fonts.scss';
-import 'styles/typography.scss';
-import 'styles/layout.scss';
-import Prismic from 'prismic-javascript';
+import "styles/reset.scss";
+import "styles/fonts.scss";
+import "styles/typography.scss";
+import "styles/layout.scss";
+import Prismic from "prismic-javascript";
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 
-import './App.scss';
+import "./App.scss";
 
-async function useApiData() {
-  const api = await Prismic.api('https://thisstaging.prismic.io/api/v2');
-  const caseStudies = await api
-    .query([Prismic.Predicates.at('document.type', 'casestudy')], {
-      pageSize: 100,
-    })
-    .then(res => res.results);
+function useApiData() {
+  const [state, setState] = useState();
 
-  const contextUids = await api
-    .getByUID('context', 'home')
-    .then(doc => doc)
-    .then(res => res.data.case_study_list.map(cs => cs.case_study_item.uid));
+  async function getData() {
+    const api = await Prismic.api("https://thisstaging.prismic.io/api/v2");
 
-  const contextCaseStudies = contextUids.map(uid => caseStudies[caseStudies.map(data => data.uid).indexOf(uid)]);
+    const caseStudies = await api
+      .query([Prismic.Predicates.at("document.type", "casestudy")], {
+        pageSize: 100
+      })
+      .then(res => res.results);
 
-  console.log(contextCaseStudies);
-  return { api };
+    const contextUids = await api
+      .getByUID("context", "home")
+      .then(doc => doc)
+      .then(res => res.data.case_study_list.map(cs => cs.case_study_item.uid));
+
+    const contextCaseStudies = contextUids.map(
+      uid => caseStudies[caseStudies.map(data => data.uid).indexOf(uid)]
+    );
+
+    setState({ contextCaseStudies, contextUids, caseStudies });
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return state;
 }
 
-function App({ prismicCtx, uid, view }) {
-  const { api } = useApiData();
+function App() {
+  const state = useApiData();
+
+  console.log(state);
 
   return null;
 }
-
-App.defaultProps = {
-  uid: null,
-};
-
-App.propTypes = {
-  uid: PropTypes.string,
-  view: PropTypes.string.isRequired,
-  prismicCtx: PropTypes.object //eslint-disable-line
-};
 
 export default React.memo(App);
