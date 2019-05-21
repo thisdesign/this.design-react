@@ -3,10 +3,8 @@ import "styles/fonts.scss";
 import "styles/typography.scss";
 import "styles/layout.scss";
 import Prismic from "prismic-javascript";
-
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 import "./App.scss";
 
 function useApiData() {
@@ -43,9 +41,26 @@ function useApiData() {
 function App() {
   const state = useApiData();
 
-  console.log(state);
-
-  return null;
+  if (state) {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <div>
+                {state.contextCaseStudies.map(({ data, uid }) => (
+                  <Link to={`/work/${uid}`}>{data.title}</Link>
+                ))}
+              </div>
+            )}
+          />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
+  return <div>Loading</div>;
 }
 
 export default React.memo(App);
