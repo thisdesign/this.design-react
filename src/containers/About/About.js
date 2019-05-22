@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, memo } from "react";
 import { ApiDataCtx } from "containers/App/App";
 import uuidv1 from "uuid/v1";
 import Text from "./slices/Text/Text";
@@ -48,4 +48,4 @@ function About() {
   );
 }
 
-export default About;
+export default memo(About);
