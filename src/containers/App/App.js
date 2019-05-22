@@ -13,7 +13,6 @@ export const ApiDataCtx = createContext();
 function App() {
   const data = useApi();
 
-  console.log(data);
   if (data) {
     return (
       <ApiDataCtx.Provider value={data}>

@@ -2,26 +2,28 @@ import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ApiDataCtx } from "../App/App";
 import Layout from "../Layout/Layout";
-// import PropTypes from 'prop-types'
 
 function Router() {
-  const data = useContext(ApiDataCtx);
+  const { contextCaseStudies, caseStudies } = useContext(ApiDataCtx);
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" render={() => <Layout view="root" />} />
-        {data.contextCaseStudies.map((cs, i) => (
+        {contextCaseStudies.map((cs, i) => (
           <Route
             exact
+            key={cs.uid}
             path={`/work/${cs.uid}`}
             render={() => (
               <Layout view="root" currentUid={cs.uid} currentIndex={i} />
             )}
           />
         ))}
-        {data.caseStudies.map(cs => (
+        {caseStudies.map(cs => (
           <Route
             exact
+            key={cs.uid}
             path={`/work/${cs.uid}`}
             render={() => <Layout view="root" currentUid={cs.uid} />}
           />
@@ -32,7 +34,5 @@ function Router() {
     </BrowserRouter>
   );
 }
-
-// Router.propTypes = {}
 
 export default Router;

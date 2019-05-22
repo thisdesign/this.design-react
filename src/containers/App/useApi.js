@@ -22,7 +22,9 @@ export default function useApi() {
       uid => caseStudies[caseStudies.map(data => data.uid).indexOf(uid)]
     );
 
-    setState({ contextCaseStudies, contextUids, caseStudies });
+    const siteInfo = await api.getSingle("site").then(doc => doc.data);
+
+    setState({ contextCaseStudies, contextUids, caseStudies, siteInfo });
   }
 
   useEffect(() => {
