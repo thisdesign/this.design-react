@@ -12,22 +12,9 @@ import theme from "styles/theme";
 import config from "util/config";
 import delay from "util/delay";
 import useWindowSize from "hooks/useWindowSize";
+import useRouterData from "./useRouterData";
 
 export const LayoutContext = React.createContext();
-
-function useRouterData({
-  currentUid: routerUid,
-  currentIndex: routeDerrivedIndex
-}) {
-  return {
-    caseStudySelected: null,
-    inContext: null,
-    nextUid: null,
-    currentUid: null,
-    nextIndex: null,
-    currentIndex: null
-  };
-}
 
 function Layout({ view, currentUid, currentIndex }) {
   const [navInverted, setNavInvertState] = useState(false);
@@ -94,4 +81,4 @@ function Layout({ view, currentUid, currentIndex }) {
 Layout.propTypes = {
   view: PropTypes.string.isRequired
 };
-export default React.memo(Layout);
+export default Layout;
