@@ -5,12 +5,16 @@ import Loading from "components/Loading/Loading";
 import CaseStudyQueue from "containers/CaseStudyQueue/CaseStudyQueue";
 import PropTypes from "prop-types";
 import { ApiDataCtx } from "containers/App/App";
+import { LayoutContext } from "containers/Layout/Layout";
 import theme from "styles/theme";
 
 function Root({ projectLaunchStatus, history }) {
   const [openingFromHome, setOpeningFromHome] = useState(false);
 
   const { caseStudies } = useContext(ApiDataCtx);
+  const data = useContext(LayoutContext);
+
+  console.log(data);
 
   const commitHomeOpen = () => {
     history.push(`/work/${caseStudies[0].uid}`);

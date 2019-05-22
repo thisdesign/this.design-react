@@ -15,12 +15,28 @@ import useWindowSize from "hooks/useWindowSize";
 
 export const LayoutContext = React.createContext();
 
-function Layout({ view }) {
+function useRouterData({
+  currentUid: routerUid,
+  currentIndex: routeDerrivedIndex
+}) {
+  return {
+    caseStudySelected: null,
+    inContext: null,
+    nextUid: null,
+    currentUid: null,
+    nextIndex: null,
+    currentIndex: null
+  };
+}
+
+function Layout({ view, currentUid, currentIndex }) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState("ready");
 
   const revertNav = () => setNavInvertState(false);
   const invertNav = () => setNavInvertState(true);
+
+  const csState = useRouterData({ currentUid, currentIndex });
 
   const launchProject = nextUid => {
     // const isNew = nextUid !== csData.currentUid;
@@ -50,6 +66,7 @@ function Layout({ view }) {
         <LayoutContext.Provider
           value={{
             ...{ view },
+            ...{ csState },
             launchProject,
             navInverted,
             invertNav,
