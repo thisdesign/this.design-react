@@ -1,25 +1,24 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from "react";
+import PropTypes from "prop-types";
 
-import CaseStudy from 'containers/CaseStudy/CaseStudy';
-import { withRouter } from 'react-router-dom';
-import LayoutContext from 'containers/Layout/LayoutContext';
-import theme from 'styles/theme';
-
+import CaseStudy from "containers/CaseStudy/CaseStudy";
+import { withRouter } from "react-router-dom";
+import { LayoutContext } from "containers/Layout/Layout";
+import theme from "styles/theme";
 
 function CaseStudyQueue({
   history,
   openingFromHome,
   initHomeOpen,
   commitHomeOpen,
-  isHome,
+  isHome
 }) {
   const {
     caseStudies,
     currentIndex,
     nextIndex,
     unselected,
-    nextUid,
+    nextUid
   } = useContext(LayoutContext).csData;
 
   const [isAnimating, setIsAnimating] = useState(false);
@@ -35,9 +34,9 @@ function CaseStudyQueue({
     setIsAnimating(true);
   };
 
-  return (
-    csTrack.map((arrayContents, i) => (
-      arrayContents !== null &&
+  return csTrack.map(
+    (arrayContents, i) =>
+      arrayContents !== null && (
         <CaseStudy
           key={arrayContents}
           next={i === 1}
@@ -49,18 +48,18 @@ function CaseStudyQueue({
             initCsChange,
             isAnimating,
             openingFromHome,
-            isHome,
+            isHome
           }}
         />
-    )));
+      )
+  );
 }
 
 CaseStudyQueue.propTypes = {
   history: PropTypes.object, //eslint-disable-line
   openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
-  commitHomeOpen: PropTypes.func.isRequired,
+  commitHomeOpen: PropTypes.func.isRequired
 };
-
 
 export default withRouter(CaseStudyQueue);
