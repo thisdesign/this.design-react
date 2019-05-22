@@ -34,20 +34,20 @@ const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => (
     onClick={() => launchProject(uid)}
   >
     <div className="work__link__wrapper">
-      {/* <CursorAnchor textId="launch" detached> */}
-      <img
-        className="work__link__item"
-        src={thumbnail.url}
-        alt={thumbnail.alt}
-        nopin="nopin"
-      />
-      <img
-        className="work__link__item--svg"
-        nopin="nopin"
-        src={svg.url}
-        alt={svg.alt}
-      />
-      {/* </CursorAnchor> */}
+      <CursorAnchor textId="launch" detached>
+        <img
+          className="work__link__item"
+          src={thumbnail.url}
+          alt={thumbnail.alt}
+          nopin="nopin"
+        />
+        <img
+          className="work__link__item--svg"
+          nopin="nopin"
+          src={svg.url}
+          alt={svg.alt}
+        />
+      </CursorAnchor>
     </div>
     <p className="work__link__item--title">{title}</p>
   </Link>

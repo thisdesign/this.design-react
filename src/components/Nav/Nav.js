@@ -28,12 +28,12 @@ const Nav = () => {
       <div className="nav__inner">
         {["work", "about"].map(link => (
           <div className="nav__item" key={link}>
-            {/* <CursorAnchor textId={view === "root" ? link : "close"}> */}
-            <Link to={(() => linkTo(link))()}>
-              {link === "work" && <GridIcon view={view} />}
-              {link === "about" && <AboutIcon view={view} />}
-            </Link>
-            {/* </CursorAnchor> */}
+            <CursorAnchor textId={view === "root" ? link : "close"}>
+              <Link to={(() => linkTo(link))()}>
+                {link === "work" && <GridIcon view={view} />}
+                {link === "about" && <AboutIcon view={view} />}
+              </Link>
+            </CursorAnchor>
           </div>
         ))}
       </div>

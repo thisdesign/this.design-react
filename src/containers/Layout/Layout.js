@@ -6,10 +6,11 @@ import Nav from "components/Nav/Nav";
 import Work from "components/Work/Work";
 import View from "components/View/View";
 import About from "containers/About/About";
-import config from "util/config";
-import theme from "styles/theme";
-import delay from "util/delay";
 import Root from "containers/Root/Root";
+import CursorDotProvider from "components/CursorDot/CursorDotProvider";
+import theme from "styles/theme";
+import config from "util/config";
+import delay from "util/delay";
 import useWindowSize from "hooks/useWindowSize";
 
 export const LayoutContext = React.createContext();
@@ -44,34 +45,36 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <LayoutContext.Provider
-        value={{
-          ...{
-            view,
-            currentUid,
-            currentIndex
-          },
-          launchProject,
-          navInverted,
-          invertNav,
-          revertNav
-        }}
-      >
-        <Nav />
-        <main className={`views -view-is-${view}`}>
-          <View aside viewName="work" view={view}>
-            <Work />
-          </View>
-          <View viewName="root" view={view}>
-            <Root projectLaunchStatus={projectLaunchStatus} />
-          </View>
-          <View aside viewName="about" view={view}>
-            {/* <About /> */}
-          </View>
-        </main>
-      </LayoutContext.Provider>
-    </ThemeProvider>
+    <CursorDotProvider>
+      <ThemeProvider theme={theme}>
+        <LayoutContext.Provider
+          value={{
+            ...{
+              view,
+              currentUid,
+              currentIndex
+            },
+            launchProject,
+            navInverted,
+            invertNav,
+            revertNav
+          }}
+        >
+          <Nav />
+          <main className={`views -view-is-${view}`}>
+            <View aside viewName="work" view={view}>
+              <Work />
+            </View>
+            <View viewName="root" view={view}>
+              <Root projectLaunchStatus={projectLaunchStatus} />
+            </View>
+            <View aside viewName="about" view={view}>
+              {/* <About /> */}
+            </View>
+          </main>
+        </LayoutContext.Provider>
+      </ThemeProvider>
+    </CursorDotProvider>
   );
 }
 
