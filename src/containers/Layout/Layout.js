@@ -12,7 +12,7 @@ import delay from "util/delay";
 import Root from "containers/Root/Root";
 import useWindowSize from "hooks/useWindowSize";
 
-import LayoutContext from "./LayoutContext";
+export const LayoutContext = React.createContext();
 
 function Layout({ view, currentUid, siteInfo, currentIndex }) {
   const [navInverted, setNavInvertState] = useState(false);
@@ -61,7 +61,7 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
         <Nav />
         <main className={`views -view-is-${view}`}>
           <View aside viewName="work" view={view}>
-            {/* <Work /> */}
+            <Work />
           </View>
           <View viewName="root" view={view}>
             <Root projectLaunchStatus={projectLaunchStatus} />
@@ -76,19 +76,19 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
 }
 
 Layout.propTypes = {
-  csData: PropTypes.shape({
-    caseStudies: PropTypes.array,
-    currentDoc: PropTypes.object,
-    currentIndex: PropTypes.number,
-    currentUid: PropTypes.string,
-    isDark: PropTypes.bool,
-    nextIndex: PropTypes.number,
-    nextUid: PropTypes.string,
-    unselected: PropTypes.bool
-  }).isRequired,
-  notFound: PropTypes.bool.isRequired, //eslint-disable-line
-  siteInfo: PropTypes.object, //eslint-disable-line
-  prismicCtx: PropTypes.object, //eslint-disable-line
+  // csData: PropTypes.shape({
+  //   caseStudies: PropTypes.array,
+  //   currentDoc: PropTypes.object,
+  //   currentIndex: PropTypes.number,
+  //   currentUid: PropTypes.string,
+  //   isDark: PropTypes.bool,
+  //   nextIndex: PropTypes.number,
+  //   nextUid: PropTypes.string,
+  //   unselected: PropTypes.bool
+  // }).isRequired,
+  // notFound: PropTypes.bool.isRequired, //eslint-disable-line
+  // siteInfo: PropTypes.object, //eslint-disable-line
+  // prismicCtx: PropTypes.object, //eslint-disable-line
   view: PropTypes.string.isRequired
 };
 export default React.memo(Layout);

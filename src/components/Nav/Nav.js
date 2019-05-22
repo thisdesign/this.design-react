@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import LayoutContext from "containers/Layout/LayoutContext";
+import { LayoutContext } from "containers/Layout/Layout";
 import CursorAnchor from "components/CursorDot/CursorAnchor";
 import GridIcon from "./GridIcon/GridIcon";
 import AboutIcon from "./AboutIcon/AboutIcon";
