@@ -24,7 +24,16 @@ export default function useApi() {
 
     const siteInfo = await api.getSingle("site").then(doc => doc.data);
 
-    setState({ contextCaseStudies, contextUids, caseStudies, siteInfo });
+    const about = await api.getSingle("about").then(doc => doc.data);
+
+    setState({
+      contextCaseStudies,
+      contextUids,
+      caseStudies,
+      siteInfo,
+      about,
+      api
+    });
   }
 
   useEffect(() => {

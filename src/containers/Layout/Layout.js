@@ -15,7 +15,7 @@ import useWindowSize from "hooks/useWindowSize";
 
 export const LayoutContext = React.createContext();
 
-function Layout({ view, currentUid, siteInfo, currentIndex }) {
+function Layout({ view }) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState("ready");
 
@@ -49,11 +49,7 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
       <ThemeProvider theme={theme}>
         <LayoutContext.Provider
           value={{
-            ...{
-              view,
-              currentUid,
-              currentIndex
-            },
+            ...{ view },
             launchProject,
             navInverted,
             invertNav,
@@ -69,7 +65,7 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
               <Root projectLaunchStatus={projectLaunchStatus} />
             </View>
             <View aside viewName="about" view={view}>
-              {/* <About /> */}
+              <About />
             </View>
           </main>
         </LayoutContext.Provider>
@@ -79,19 +75,6 @@ function Layout({ view, currentUid, siteInfo, currentIndex }) {
 }
 
 Layout.propTypes = {
-  // csData: PropTypes.shape({
-  //   caseStudies: PropTypes.array,
-  //   currentDoc: PropTypes.object,
-  //   currentIndex: PropTypes.number,
-  //   currentUid: PropTypes.string,
-  //   isDark: PropTypes.bool,
-  //   nextIndex: PropTypes.number,
-  //   nextUid: PropTypes.string,
-  //   unselected: PropTypes.bool
-  // }).isRequired,
-  // notFound: PropTypes.bool.isRequired, //eslint-disable-line
-  // siteInfo: PropTypes.object, //eslint-disable-line
-  // prismicCtx: PropTypes.object, //eslint-disable-line
   view: PropTypes.string.isRequired
 };
 export default React.memo(Layout);
