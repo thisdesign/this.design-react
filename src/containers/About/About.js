@@ -15,7 +15,7 @@ function About() {
   const { about } = useContext(ApiDataCtx);
 
   return (
-    <Styled.Wrapper>
+    <Styled.Wrapper className="view__child">
       {about.content
         .map(slice => {
           switch (slice.slice_type) {
