@@ -24,7 +24,7 @@ function Root({ projectLaunchStatus, history }) {
 
   return (
     <>
-      {/* {<HomepageWrapper shim {...{ openingFromHome }} />} */}
+      {<HomepageWrapper shim {...{ openingFromHome }} />}
       <>
         {/* {projectLaunchStatus !== "transitioning" && (
           <CaseStudyQueue
