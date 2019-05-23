@@ -16,14 +16,14 @@ import useRouterData from "./useRouterData";
 
 export const LayoutContext = React.createContext();
 
-function Layout({ view, currentUid, currentIndex }) {
+function Layout({ view, pathUid }) {
   const [navInverted, setNavInvertState] = useState(false);
   const [projectLaunchStatus, setProjectLaunchStatus] = useState("ready");
 
   const revertNav = () => setNavInvertState(false);
   const invertNav = () => setNavInvertState(true);
 
-  const csState = useRouterData({ currentUid, currentIndex });
+  const csState = useRouterData({ pathUid });
 
   const launchProject = nextUid => {
     // const isNew = nextUid !== csData.currentUid;

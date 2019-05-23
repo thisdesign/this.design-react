@@ -4,32 +4,21 @@ import { ApiDataCtx } from "../App/App";
 import Layout from "../Layout/Layout";
 
 function Router() {
-  const { contextCaseStudies, caseStudies } = useContext(ApiDataCtx);
-
+  const { contextUids, caseStudies } = useContext(ApiDataCtx);
+  const caseStudyUids = caseStudies.map(cs => cs.uid);
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path="/" render={() => <Layout view="root" />} />
-        {contextCaseStudies.map((cs, i) => (
-          <Route
-            exact
-            key={cs.uid}
-            path={`/work/${cs.uid}`}
-            render={() => (
-              <Layout view="root" currentUid={cs.uid} currentIndex={i} />
-            )}
-          />
-        ))}
-        {caseStudies.map(cs => (
-          <Route
-            exact
-            key={cs.uid}
-            path={`/work/${cs.uid}`}
-            render={() => <Layout view="root" currentUid={cs.uid} />}
-          />
-        ))}
-        <Route exact path="/work/" render={() => <Layout view="work" />} />
-        <Route exact path="/about/" render={() => <Layout view="about" />} />
+        <Route
+          exact
+          path="/work/:uid"
+          render={({ match }) => (
+            <Layout view="root" isWorkView pathUid={match.params.uid} />
+          )}
+        />
+        <Route path="/work/" render={() => <Layout view="work" />} />
+        <Route path="/about/" render={() => <Layout view="about" />} />
+        <Route path="/" render={() => <Layout view="root" />} />
       </Switch>
     </BrowserRouter>
   );

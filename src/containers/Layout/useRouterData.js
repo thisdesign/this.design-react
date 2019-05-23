@@ -1,27 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext } from "react";
+import { ApiDataCtx } from "containers/App/App";
 
-export default function useRouterData({ currentIndex: routeDerrivedIndex }) {
-  const [currentIndex, setCurrentIndex] = useState(routeDerrivedIndex);
+export default function useRouterData({ pathUid }) {
+  const { contextUids, caseStudies } = useContext(ApiDataCtx);
+  const caseStudyUids = caseStudies.map(cs => cs.uid);
 
-  console.log(routeDerrivedIndex);
-  useEffect(
-    () => {
-      if (routeDerrivedIndex !== undefined) {
-        setCurrentIndex(routeDerrivedIndex);
-      }
+  const notFound = pathUid && caseStudyUids.indexOf(pathUid) === -1;
+  const inContext = contextUids.indexOf(pathUid) === -1;
 
-      return () => {
-        console.log("unmounted");
-      };
-    },
-    [routeDerrivedIndex]
-  );
   return {
-    caseStudySelected: null,
-    inContext: null,
-    nextUid: null,
+    notFound,
+    caseStudySelected: !!pathUid,
+    inContext,
     currentUid: null,
-    nextIndex: null,
-    currentIndex
+    nextUid: null,
+    nextIndex: null
   };
 }
