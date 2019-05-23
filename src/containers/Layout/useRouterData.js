@@ -1,19 +1,30 @@
-import { useContext } from "react";
-import { ApiDataCtx } from "containers/App/App";
+import { useContext, useState, useEffect } from 'react';
+import { ApiDataCtx } from 'containers/App/App';
 
 export default function useRouterData({ pathUid }) {
-  const { contextUids, caseStudies } = useContext(ApiDataCtx);
-  const caseStudyUids = caseStudies.map(cs => cs.uid);
+  const { contextUids } = useContext(ApiDataCtx);
+  const [currentUid, setCurrentUid] = useState(pathUid);
 
-  const notFound = pathUid && caseStudyUids.indexOf(pathUid) === -1;
-  const inContext = contextUids.indexOf(pathUid) === -1;
+  const currentIndex = (() => {
+    const index = contextUids.indexOf(currentUid);
+    return index > -1 ? index : null;
+  })();
+
+  useEffect(
+    () => {
+      if (pathUid !== undefined) {
+        setCurrentUid(pathUid);
+      }
+    },
+    [pathUid]
+  );
 
   return {
-    notFound,
-    caseStudySelected: !!pathUid,
-    inContext,
-    currentUid: null,
-    nextUid: null,
-    nextIndex: null
+    caseStudySelected: !!currentUid,
+    inContext: currentIndex > -1,
+    currentUid,
+    currentIndex,
+    // nextUid: null,
+    // nextIndex: null,
   };
 }

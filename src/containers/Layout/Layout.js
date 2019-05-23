@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { ThemeProvider } from "styled-components/macro";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components/macro';
 
-import Nav from "components/Nav/Nav";
-import Work from "components/Work/Work";
-import View from "components/View/View";
-import About from "containers/About/About";
-import Root from "containers/Root/Root";
-import CursorDotProvider from "components/CursorDot/CursorDotProvider";
-import theme from "styles/theme";
-import config from "util/config";
-import delay from "util/delay";
-import useWindowSize from "hooks/useWindowSize";
-import useRouterData from "./useRouterData";
+import Nav from 'components/Nav/Nav';
+import Work from 'components/Work/Work';
+import View from 'components/View/View';
+import About from 'containers/About/About';
+import Root from 'containers/Root/Root';
+import CursorDotProvider from 'components/CursorDot/CursorDotProvider';
+import theme from 'styles/theme';
+import config from 'util/config';
+import delay from 'util/delay';
+import useWindowSize from 'hooks/useWindowSize';
+import useRouterData from './useRouterData';
 
 export const LayoutContext = React.createContext();
 
 function Layout({ view, pathUid }) {
   const [navInverted, setNavInvertState] = useState(false);
-  const [projectLaunchStatus, setProjectLaunchStatus] = useState("ready");
+  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
 
   const revertNav = () => setNavInvertState(false);
   const invertNav = () => setNavInvertState(true);
@@ -30,20 +30,20 @@ function Layout({ view, pathUid }) {
     const isNew = true;
     const update = setProjectLaunchStatus;
     if (isNew) {
-      update("transitioning");
+      update('transitioning');
       delay(config.projectLaunchDur)
         .then(() => {
-          update("afterload");
+          update('afterload');
           return delay(config.afterLaunchDur);
         })
         .then(() => {
-          update("ready");
+          update('ready');
         });
     }
   };
 
   document.documentElement.style.setProperty(
-    "--windowHeight",
+    '--windowHeight',
     `${useWindowSize().height}px`
   );
 
@@ -57,7 +57,7 @@ function Layout({ view, pathUid }) {
             launchProject,
             navInverted,
             invertNav,
-            revertNav
+            revertNav,
           }}
         >
           <Nav />
@@ -79,6 +79,7 @@ function Layout({ view, pathUid }) {
 }
 
 Layout.propTypes = {
-  view: PropTypes.string.isRequired
+  view: PropTypes.string.isRequired,
 };
+
 export default Layout;
