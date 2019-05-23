@@ -4,17 +4,15 @@ import { ApiDataCtx } from 'containers/App/App';
 
 export default function useCtx() {
   const { csState } = useContext(LayoutContext);
-  const { contextUids, contextCaseStudies } = useContext(ApiDataCtx);
-
+  const { contextUids } = useContext(ApiDataCtx);
   const { caseStudySelected } = csState;
 
-  console.log(contextUids, contextCaseStudies);
-
-  const currentIndex = 0;
-  const nextIndex = 1;
+  const currentIndex = 1;
+  const nextIndex = 2;
 
   const nextUid = 'loraf';
-  const csTrack = caseStudySelected ? [0, null] : [currentIndex, nextIndex];
+
+  const csTrack = caseStudySelected ? [currentIndex, nextIndex] : [0, null];
 
   return { csTrack, nextUid };
 }

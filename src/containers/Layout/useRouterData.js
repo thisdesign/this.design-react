@@ -21,7 +21,7 @@ export default function useRouterData({ pathUid }) {
 
   return {
     caseStudySelected: !!currentUid,
-    inContext: currentIndex > -1,
+    inContext: !!currentIndex,
     currentUid,
     currentIndex,
     // nextUid: null,
