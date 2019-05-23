@@ -6,7 +6,6 @@ import theme from 'styles/theme';
 import { ApiDataCtx } from 'containers/App/App';
 import { LayoutContext } from 'containers/Layout/Layout';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
-import useCtx from './useCtx';
 
 function CaseStudyQueue({
   history,
@@ -17,12 +16,16 @@ function CaseStudyQueue({
 }) {
   const [isAnimating, setIsAnimating] = useState(false);
 
+  const {
+    inContext,
+    currentUid,
+    caseStudySelected,
+    nextIndex,
+    nextUid,
+    currentIndex,
+  } = useContext(LayoutContext).csState;
   const { caseStudies, contextCaseStudies } = useContext(ApiDataCtx);
-  const { inContext, currentUid } = useContext(LayoutContext).csState;
-
-  console.log();
-
-  const { csTrack, nextUid } = useCtx();
+  const csTrack = caseStudySelected ? [currentIndex, nextIndex] : [0, null];
 
   const commitQueueChange = () => {
     history.push(`/work/${nextUid}`);

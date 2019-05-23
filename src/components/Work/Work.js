@@ -1,10 +1,10 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import { ApiDataCtx } from "containers/App/App";
-import { LayoutContext } from "containers/Layout/Layout";
-import CursorAnchor from "components/CursorDot/CursorAnchor";
-import { Link } from "react-router-dom";
-import "./Work.scss";
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { ApiDataCtx } from 'containers/App/App';
+import { LayoutContext } from 'containers/Layout/Layout';
+import CursorAnchor from 'components/CursorDot/CursorAnchor';
+import { Link } from 'react-router-dom';
+import './Work.scss';
 
 function Work() {
   const { contextCaseStudies } = useContext(ApiDataCtx);
@@ -58,7 +58,7 @@ WorkThumbnail.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   svg: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  launchProject: PropTypes.func.isRequired
+  launchProject: PropTypes.func.isRequired,
 };
 
 export default React.memo(Work);
