@@ -9,40 +9,21 @@ import About from 'containers/About/About';
 import Root from 'containers/Root/Root';
 import CursorDotProvider from 'components/CursorDot/CursorDotProvider';
 import theme from 'styles/theme';
-import config from 'util/config';
-import delay from 'util/delay';
+
 import useWindowSize from 'hooks/useWindowSize';
+
 import useRouterData from './useRouterData';
+import useNavInvert from './useNavInvert';
+import useProjectLaunch from './useProjectLaunch';
 
 export const LayoutContext = React.createContext();
 
 function Layout({ view, pathUid }) {
-  const [navInverted, setNavInvertState] = useState(false);
-  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
-
-  const revertNav = () => setNavInvertState(false);
-  const invertNav = () => setNavInvertState(true);
-
   const csState = useRouterData({ pathUid });
-
-  const launchProject = nextUid => {
-    // const isNew = nextUid !== csData.currentUid;
-    const isNew = true;
-    const update = setProjectLaunchStatus;
-    if (isNew) {
-      update('transitioning');
-      delay(config.projectLaunchDur)
-        .then(() => {
-          update('afterload');
-          return delay(config.afterLaunchDur);
-        })
-        .then(() => {
-          update('ready');
-        });
-    }
-  };
-
-  console.log(csState);
+  const { revertNav, invertNav, navInverted } = useNavInvert();
+  const { launchProject, projectLaunchStatus } = useProjectLaunch({
+    currentUid: csState.currentUid,
+  });
 
   document.documentElement.style.setProperty(
     '--windowHeight',
@@ -68,7 +49,7 @@ function Layout({ view, pathUid }) {
               <Work />
             </View>
             <View viewName="root" view={view}>
-              <Root projectLaunchStatus={projectLaunchStatus} />
+              <Root {...{ projectLaunchStatus }} />
             </View>
             <View aside viewName="about" view={view}>
               <About />
