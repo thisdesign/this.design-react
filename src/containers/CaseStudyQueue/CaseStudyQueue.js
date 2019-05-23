@@ -14,17 +14,17 @@ function CaseStudyQueue({
   commitHomeOpen,
   isHome,
 }) {
-  const { contextCaseStudies } = useContext(ApiDataCtx);
+  const { caseStudies, caseStudyUids } = useContext(ApiDataCtx);
   const { isAnimating, initCsChange } = useCsChange({ history });
   const csTrack = useCsTrack();
 
   return csTrack.map(
-    (arrayContents, i) =>
-      arrayContents !== null && (
+    (uid, i) =>
+      uid !== null && (
         <CaseStudy
-          key={arrayContents}
+          key={uid}
           next={i === 1}
-          doc={contextCaseStudies[arrayContents]}
+          doc={caseStudies[caseStudyUids.indexOf(uid)]}
           csTransitioning={isAnimating}
           {...{
             initHomeOpen,

@@ -3,7 +3,7 @@ import { LayoutContext } from 'containers/Layout/Layout';
 import { ApiDataCtx } from 'containers/App/App';
 
 export default function useCsTrack() {
-  const { contextCaseStudyUids } = useContext(ApiDataCtx);
+  const { contextUids } = useContext(ApiDataCtx);
 
   const {
     inContext,
@@ -19,7 +19,7 @@ export default function useCsTrack() {
     } else if (!caseStudySelected) {
       return [0, null];
     }
-    return [currentUid, contextCaseStudyUids[0]];
+    return [currentUid, contextUids[0]];
   })();
 
   return csTrack;
