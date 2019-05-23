@@ -8,14 +8,7 @@ import Posed, { getPose } from './posed';
 import Partials from './partials/index';
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 
-const CaseStudy = ({
-  doc,
-  next,
-  initCsChange,
-  openingFromHome,
-  initHomeOpen,
-  csTransitioning,
-}) => {
+const CaseStudy = ({ doc, next, openingFromHome, csTransitioning }) => {
   const customStyle = {
     textColor: doc.data.text_color,
     background: doc.data.background_color,
@@ -35,27 +28,11 @@ const CaseStudy = ({
         csTransitioning,
       }}
     >
-      <Posed.CaseStudy
-        className="casestudy"
-        onClick={isHome ? initHomeOpen : null}
-        pose={getPose({
-          next,
-          isHome,
-          openingFromHome,
-          csTransitioning,
-        })}
-        isShim={next || isHome}
-        {...{
-          next,
-          openingFromHome,
-          isHome,
-        }}
-      >
+      <Posed.CaseStudy className="casestudy">
         <Styled.Inner {...customStyle}>
           <Partials.Cover data={doc.data} />
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
-        <Partials.Shim {...{ initCsChange, isHome }} />
       </Posed.CaseStudy>
     </CsContext.Provider>
   );
