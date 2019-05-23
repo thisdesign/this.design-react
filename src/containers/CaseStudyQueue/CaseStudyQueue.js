@@ -1,11 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import theme from 'styles/theme';
 import { ApiDataCtx } from 'containers/App/App';
-import { LayoutContext } from 'containers/Layout/Layout';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
+import useCsChange from './useCsChange';
+import useCsTrack from './useCsTrack';
 
 function CaseStudyQueue({
   history,
@@ -14,63 +14,28 @@ function CaseStudyQueue({
   commitHomeOpen,
   isHome,
 }) {
-  const [isAnimating, setIsAnimating] = useState(false);
+  const { contextCaseStudies } = useContext(ApiDataCtx);
+  const { isAnimating, initCsChange } = useCsChange({ history });
+  const csTrack = useCsTrack();
 
-  const {
-    inContext,
-    currentUid,
-    caseStudySelected,
-    nextIndex,
-    nextUid,
-    currentIndex,
-  } = useContext(LayoutContext).csState;
-  const { caseStudies, contextCaseStudies } = useContext(ApiDataCtx);
-  const csTrack = caseStudySelected ? [currentIndex, nextIndex] : [0, null];
-
-  const commitQueueChange = () => {
-    history.push(`/work/${nextUid}`);
-    setIsAnimating(false);
-  };
-
-  const initCsChange = () => {
-    setTimeout(commitQueueChange, theme.rootTransition.duration);
-    setIsAnimating(true);
-  };
-
-  if (inContext) {
-    return csTrack.map(
-      (arrayContents, i) =>
-        arrayContents !== null && (
-          <CaseStudy
-            key={arrayContents}
-            next={i === 1}
-            doc={contextCaseStudies[arrayContents]}
-            csTransitioning={isAnimating}
-            {...{
-              initHomeOpen,
-              commitHomeOpen,
-              initCsChange,
-              isAnimating,
-              openingFromHome,
-              isHome,
-            }}
-          />
-        )
-    );
-  }
-  return (
-    <CaseStudy
-      doc={caseStudies[caseStudies.map(cs => cs.uid).indexOf(currentUid)]}
-      csTransitioning={false}
-      {...{
-        initHomeOpen,
-        commitHomeOpen,
-        initCsChange,
-        isAnimating,
-        openingFromHome,
-        isHome,
-      }}
-    />
+  return csTrack.map(
+    (arrayContents, i) =>
+      arrayContents !== null && (
+        <CaseStudy
+          key={arrayContents}
+          next={i === 1}
+          doc={contextCaseStudies[arrayContents]}
+          csTransitioning={isAnimating}
+          {...{
+            initHomeOpen,
+            commitHomeOpen,
+            initCsChange,
+            isAnimating,
+            openingFromHome,
+            isHome,
+          }}
+        />
+      )
   );
 }
 

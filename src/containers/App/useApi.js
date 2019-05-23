@@ -1,20 +1,20 @@
-import Prismic from "prismic-javascript";
-import { useState, useEffect } from "react";
+import Prismic from 'prismic-javascript';
+import { useState, useEffect } from 'react';
 
 export default function useApi() {
   const [state, setState] = useState();
 
   async function getData() {
-    const api = await Prismic.api("https://thisstaging.prismic.io/api/v2");
+    const api = await Prismic.api('https://thisstaging.prismic.io/api/v2');
 
     const caseStudies = await api
-      .query([Prismic.Predicates.at("document.type", "casestudy")], {
-        pageSize: 100
+      .query([Prismic.Predicates.at('document.type', 'casestudy')], {
+        pageSize: 100,
       })
       .then(res => res.results);
 
     const contextUids = await api
-      .getByUID("context", "home")
+      .getByUID('context', 'home')
       .then(doc => doc)
       .then(res => res.data.case_study_list.map(cs => cs.case_study_item.uid));
 
@@ -22,17 +22,20 @@ export default function useApi() {
       uid => caseStudies[caseStudies.map(data => data.uid).indexOf(uid)]
     );
 
-    const siteInfo = await api.getSingle("site").then(doc => doc.data);
+    const contextCaseStudyUids = contextCaseStudies.map(cs => cs.uid);
 
-    const about = await api.getSingle("about").then(doc => doc.data);
+    const siteInfo = await api.getSingle('site').then(doc => doc.data);
+
+    const about = await api.getSingle('about').then(doc => doc.data);
 
     setState({
+      contextCaseStudyUids,
       contextCaseStudies,
       contextUids,
       caseStudies,
       siteInfo,
       about,
-      api
+      api,
     });
   }
 

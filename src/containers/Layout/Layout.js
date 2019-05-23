@@ -61,8 +61,13 @@ function Layout({ view, pathUid }) {
   );
 }
 
+Layout.defaultProps = {
+  pathUid: null,
+};
+
 Layout.propTypes = {
   view: PropTypes.string.isRequired,
+  pathUid: PropTypes.string,
 };
 
 export default Layout;
