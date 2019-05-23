@@ -19,12 +19,23 @@ export default function useRouterData({ pathUid }) {
     [pathUid]
   );
 
+  const next =
+    currentIndex !== null
+      ? (() => {
+          const nextIndex = (currentIndex + 1) % contextUids.length;
+          const nextUid = contextUids[nextIndex];
+          return {
+            currentIndex,
+            nextIndex,
+            nextUid,
+          };
+        })()
+      : null;
+
   return {
     caseStudySelected: !!currentUid,
-    inContext: !!currentIndex,
+    inContext: currentIndex !== null,
     currentUid,
-    currentIndex,
-    // nextUid: null,
-    // nextIndex: null,
+    ...next,
   };
 }

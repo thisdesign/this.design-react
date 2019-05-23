@@ -42,6 +42,8 @@ function Layout({ view, pathUid }) {
     }
   };
 
+  console.log(csState);
+
   document.documentElement.style.setProperty(
     '--windowHeight',
     `${useWindowSize().height}px`

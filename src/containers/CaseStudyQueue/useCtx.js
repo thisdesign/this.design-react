@@ -7,8 +7,8 @@ export default function useCtx() {
   const { contextUids } = useContext(ApiDataCtx);
   const { caseStudySelected } = csState;
 
-  const currentIndex = 1;
-  const nextIndex = 2;
+  const currentIndex = 0;
+  const nextIndex = 1;
 
   const nextUid = 'loraf';
 

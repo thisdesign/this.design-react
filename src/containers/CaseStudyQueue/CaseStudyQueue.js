@@ -17,7 +17,7 @@ function CaseStudyQueue({
 }) {
   const [isAnimating, setIsAnimating] = useState(false);
 
-  const { caseStudies } = useContext(ApiDataCtx);
+  const { caseStudies, contextCaseStudies } = useContext(ApiDataCtx);
   const { inContext, currentUid } = useContext(LayoutContext).csState;
 
   console.log();
@@ -41,7 +41,7 @@ function CaseStudyQueue({
           <CaseStudy
             key={arrayContents}
             next={i === 1}
-            doc={caseStudies[arrayContents]}
+            doc={contextCaseStudies[arrayContents]}
             csTransitioning={isAnimating}
             {...{
               initHomeOpen,
