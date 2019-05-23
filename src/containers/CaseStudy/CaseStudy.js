@@ -8,14 +8,20 @@ import Posed, { getPose } from './posed';
 import Partials from './partials/index';
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 
-const CaseStudy = ({ doc, next, openingFromHome, csTransitioning }) => {
+const CaseStudy = ({
+  doc,
+  next,
+  initCsChange,
+  openingFromHome,
+  initHomeOpen,
+  csTransitioning,
+}) => {
   const customStyle = {
     textColor: doc.data.text_color,
     background: doc.data.background_color,
   };
   const alt = `${doc.data.title} - This Design - Portland OR`;
-  const { caseStudySelected } = useContext(LayoutContext).csState;
-  const isHome = !caseStudySelected;
+  const { unselected: isHome } = useContext(LayoutContext).csState;
 
   return (
     <CsContext.Provider
@@ -28,11 +34,27 @@ const CaseStudy = ({ doc, next, openingFromHome, csTransitioning }) => {
         csTransitioning,
       }}
     >
-      <Posed.CaseStudy className="casestudy">
+      <Posed.CaseStudy
+        className="casestudy"
+        onClick={isHome ? initHomeOpen : null}
+        pose={getPose({
+          next,
+          isHome,
+          openingFromHome,
+          csTransitioning,
+        })}
+        isShim={next || isHome}
+        {...{
+          next,
+          openingFromHome,
+          isHome,
+        }}
+      >
         <Styled.Inner {...customStyle}>
           <Partials.Cover data={doc.data} />
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
+        <Partials.Shim {...{ initCsChange, isHome }} />
       </Posed.CaseStudy>
     </CsContext.Provider>
   );
