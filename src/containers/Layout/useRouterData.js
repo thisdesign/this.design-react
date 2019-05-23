@@ -12,7 +12,7 @@ export default function useRouterData({ pathUid }) {
 
   useEffect(
     () => {
-      if (pathUid !== undefined) {
+      if (pathUid !== null) {
         setCurrentUid(pathUid);
       }
     },
