@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import PropTypes from "prop-types";
-import { LayoutContext } from "containers/Layout/Layout";
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+import { LayoutContext } from 'containers/Layout/Layout';
 
-import "./CaseStudy.scss";
-import Styled from "./styled";
-import Posed, { getPose } from "./posed";
-import Partials from "./partials/index";
-import _getContextProps, { _contextPropTypes } from "./util/_getContextProps";
+import './CaseStudy.scss';
+import Styled from './styled';
+import Posed, { getPose } from './posed';
+import Partials from './partials/index';
+import _getContextProps, { _contextPropTypes } from './util/_getContextProps';
 
 const CaseStudy = ({
   doc,
@@ -14,14 +14,15 @@ const CaseStudy = ({
   initCsChange,
   openingFromHome,
   initHomeOpen,
-  csTransitioning
+  csTransitioning,
 }) => {
   const customStyle = {
     textColor: doc.data.text_color,
-    background: doc.data.background_color
+    background: doc.data.background_color,
   };
   const alt = `${doc.data.title} - This Design - Portland OR`;
-  const { unselected: isHome } = useContext(LayoutContext).csData;
+  const { caseStudySelected } = useContext(LayoutContext).csState;
+  const isHome = !caseStudySelected;
 
   return (
     <CsContext.Provider
@@ -31,7 +32,7 @@ const CaseStudy = ({
         isHome,
         next,
         alt,
-        csTransitioning
+        csTransitioning,
       }}
     >
       <Posed.CaseStudy
@@ -41,13 +42,13 @@ const CaseStudy = ({
           next,
           isHome,
           openingFromHome,
-          csTransitioning
+          csTransitioning,
         })}
         isShim={next || isHome}
         {...{
           next,
           openingFromHome,
-          isHome
+          isHome,
         }}
       >
         <Styled.Inner {...customStyle}>
@@ -66,7 +67,7 @@ CaseStudy.propTypes = {
   initCsChange: PropTypes.func.isRequired,
   openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
-  csTransitioning: PropTypes.bool.isRequired
+  csTransitioning: PropTypes.bool.isRequired,
 };
 
 export const CsContext = React.createContext();

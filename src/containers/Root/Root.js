@@ -28,15 +28,15 @@ function Root({ projectLaunchStatus, history }) {
     <>
       {<HomepageWrapper shim {...{ openingFromHome }} />}
       <>
-        {/* {projectLaunchStatus !== "transitioning" && (
+        {projectLaunchStatus !== 'transitioning' && (
           <CaseStudyQueue
             {...{
               openingFromHome,
               initHomeOpen,
-              commitHomeOpen
+              commitHomeOpen,
             }}
           />
-        )} */}
+        )}
       </>
     </>
   );
