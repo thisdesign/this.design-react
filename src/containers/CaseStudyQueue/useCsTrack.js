@@ -13,12 +13,15 @@ export default function useCsTrack() {
     currentIndex,
   } = useContext(LayoutContext).csState;
 
+  console.log();
   const csTrack = (() => {
     if (inContext) {
-      return [currentIndex, nextIndex];
+      return [contextUids[currentIndex], contextUids[nextIndex]];
+      // If not in context
     } else if (!caseStudySelected) {
-      return [0, null];
+      return [contextUids[0], null];
     }
+    // If not in context
     return [currentUid, contextUids[0]];
   })();
 

@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { BrowserRouter, Switch, Route, matchPath } from "react-router-dom";
-import { ApiDataCtx } from "../App/App";
-import Layout from "../Layout/Layout";
+import React, { useContext } from 'react';
+import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom';
+import { ApiDataCtx } from '../App/App';
+import Layout from '../Layout/Layout';
 
 function Router() {
   const { caseStudies } = useContext(ApiDataCtx);
@@ -15,13 +15,13 @@ function Router() {
             <Layout
               view="root"
               isWorkView
-              pathUid={matchPath(match.url, { path: "/work/:uid" }).params.uid}
+              pathUid={matchPath(match.url, { path: '/work/:uid' }).params.uid}
             />
           )}
         />
         <Route exact path="/work/" render={() => <Layout view="work" />} />
         <Route exact path="/about/" render={() => <Layout view="about" />} />
-        <Route path="/" render={() => <Layout view="root" />} />
+        <Route path="/" render={() => <Layout view="root" isHome />} />
       </Switch>
     </BrowserRouter>
   );

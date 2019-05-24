@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import { ApiDataCtx } from 'containers/App/App';
+import { LayoutContext } from 'containers/Layout/Layout';
 import CaseStudy from 'containers/CaseStudy/CaseStudy';
 import useCsChange from './useCsChange';
 import useCsTrack from './useCsTrack';
@@ -12,12 +13,13 @@ function CaseStudyQueue({
   openingFromHome,
   initHomeOpen,
   commitHomeOpen,
-  isHome,
 }) {
   const { caseStudies, caseStudyUids } = useContext(ApiDataCtx);
   const { isAnimating, initCsChange } = useCsChange({ history });
   const csTrack = useCsTrack();
+  const { isHome } = useContext(LayoutContext).csState;
 
+  console.log(csTrack);
   return csTrack.map(
     (uid, i) =>
       uid !== null && (
