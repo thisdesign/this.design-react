@@ -1,6 +1,5 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-// import CaseStudySplash from './CaseStudySplash/CaseStudySplash';
 import isMobile from 'util/isMobile'
 import Styled from './styled'
 import { CsContext } from '../../CaseStudy'

@@ -1,46 +1,31 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-
-import CaseStudy from 'containers/CaseStudy/CaseStudy'
 import { withRouter } from 'react-router-dom'
-import LayoutContext from 'containers/Layout/LayoutContext'
-import theme from 'styles/theme'
+
+import { ApiDataCtx } from 'containers/App/App'
+import { LayoutContext } from 'containers/Layout/Layout'
+import CaseStudy from 'containers/CaseStudy/CaseStudy'
+import useCsChange from './useCsChange'
+import useCsTrack from './useCsTrack'
 
 function CaseStudyQueue({
   history,
   openingFromHome,
   initHomeOpen,
   commitHomeOpen,
-  isHome,
 }) {
-  const {
-    caseStudies,
-    currentIndex,
-    nextIndex,
-    unselected,
-    nextUid,
-  } = useContext(LayoutContext).csData
-
-  const [isAnimating, setIsAnimating] = useState(false)
-  const csTrack = unselected ? [0, null] : [currentIndex, nextIndex]
-
-  const commitQueueChange = () => {
-    history.push(`/work/${nextUid}`)
-    setIsAnimating(false)
-  }
-
-  const initCsChange = () => {
-    setTimeout(commitQueueChange, theme.rootTransition.duration)
-    setIsAnimating(true)
-  }
+  const { caseStudies, caseStudyUids } = useContext(ApiDataCtx)
+  const { isAnimating, initCsChange } = useCsChange({ history })
+  const csTrack = useCsTrack()
+  const { isHome } = useContext(LayoutContext).csState
 
   return csTrack.map(
-    (arrayContents, i) =>
-      arrayContents !== null && (
+    (uid, i) =>
+      uid !== null && (
         <CaseStudy
-          key={arrayContents}
+          key={uid}
           next={i === 1}
-          doc={caseStudies[arrayContents]}
+          doc={caseStudies[caseStudyUids.indexOf(uid)]}
           csTransitioning={isAnimating}
           {...{
             initHomeOpen,

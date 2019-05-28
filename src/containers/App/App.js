@@ -3,41 +3,39 @@ import 'styles/fonts.scss'
 import 'styles/typography.scss'
 import 'styles/layout.scss'
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import Layout from 'containers/Layout/Layout'
-
-import getContextValue from './getContextValue'
-import useSiteData from './useSiteData'
+import React, { createContext } from 'react'
+import { BrowserRouter, Route } from 'react-router-dom'
+import Loading from 'components/Loading/Loading'
+import Router from '../Router/Router'
+import useApi from './useApi'
 import './App.scss'
 
-function App({ prismicCtx, uid, view }) {
-  const { siteInfo, caseStudies, notFound, loaded, currentCs } = useSiteData({
-    prismicCtx,
-    uid,
-  })
+export const ApiDataCtx = createContext()
 
-  if (loaded) {
-    const appContext = getContextValue({ caseStudies, currentCs })
+function DataFetch({ context }) {
+  const data = useApi({ context })
+
+  if (data) {
     return (
-      <Layout
-        notFound={notFound}
-        {...appContext}
-        {...{ siteInfo, view, prismicCtx }}
-      />
+      <ApiDataCtx.Provider value={data}>
+        <Router />
+      </ApiDataCtx.Provider>
     )
   }
-  return null
+  return <Loading />
 }
 
-App.defaultProps = {
-  uid: null,
+function App() {
+  return (
+    <BrowserRouter>
+      <Route
+        path={['/@:context', '/']}
+        render={({ match }) => {
+          console.log(match)
+          return <DataFetch context={match.params.context} />
+        }}
+      />
+    </BrowserRouter>
+  )
 }
-
-App.propTypes = {
-  uid: PropTypes.string,
-  view: PropTypes.string.isRequired,
-  prismicCtx: PropTypes.object, //eslint-disable-line
-}
-
 export default React.memo(App)

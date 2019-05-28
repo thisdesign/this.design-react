@@ -1,19 +1,21 @@
 import React, { useState, useContext } from 'react'
 import HomepageWrapper from 'containers/Homepage/Homepage'
 import { withRouter } from 'react-router-dom'
-import Loading from 'components/Loading/Loading'
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue'
 import PropTypes from 'prop-types'
-import LayoutContext from 'containers/Layout/LayoutContext'
+import Loading from 'components/Loading/Loading'
+import { ApiDataCtx } from 'containers/App/App'
+import { LayoutContext } from 'containers/Layout/Layout'
 import theme from 'styles/theme'
 
 function Root({ projectLaunchStatus, history }) {
   const [openingFromHome, setOpeningFromHome] = useState(false)
 
-  const { caseStudies, unselected } = useContext(LayoutContext).csData
+  const { contextCaseStudies } = useContext(ApiDataCtx)
+  const { caseStudySelected } = useContext(LayoutContext).csState
 
   const commitHomeOpen = () => {
-    history.push(`/work/${caseStudies[0].uid}`)
+    history.push(`/work/${contextCaseStudies[0].uid}`)
     setOpeningFromHome(false)
   }
 
@@ -24,7 +26,7 @@ function Root({ projectLaunchStatus, history }) {
 
   return (
     <>
-      {unselected && <HomepageWrapper shim {...{ openingFromHome }} />}
+      {!caseStudySelected && <HomepageWrapper shim {...{ openingFromHome }} />}
       <>
         {projectLaunchStatus !== 'ready' && <Loading />}
         {projectLaunchStatus !== 'transitioning' && (

@@ -6,36 +6,25 @@ import Nav from 'components/Nav/Nav'
 import Work from 'components/Work/Work'
 import View from 'components/View/View'
 import About from 'containers/About/About'
-import config from 'util/config'
-import theme from 'styles/theme'
-import delay from 'util/delay'
 import Root from 'containers/Root/Root'
+import CursorDotProvider from 'components/CursorDot/CursorDotProvider'
+import theme from 'styles/theme'
+
 import useWindowSize from 'hooks/useWindowSize'
 
-import LayoutContext from './LayoutContext'
+import useRouterData from './useRouterData'
+import useNavInvert from './useNavInvert'
+import useProjectLaunch from './useProjectLaunch'
 
-function Layout({ view, csData, prismicCtx, siteInfo }) {
-  const [navInverted, setNavInvertState] = useState(false)
-  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready')
+export const LayoutContext = React.createContext()
 
-  const revertNav = () => setNavInvertState(false)
-  const invertNav = () => setNavInvertState(true)
+function Layout({ view, pathUid }) {
+  const csState = useRouterData({ pathUid })
 
-  const launchProject = nextUid => {
-    const isNew = nextUid !== csData.currentUid
-    const update = setProjectLaunchStatus
-    if (isNew) {
-      update('transitioning')
-      delay(config.projectLaunchDur)
-        .then(() => {
-          update('afterload')
-          return delay(config.afterLaunchDur)
-        })
-        .then(() => {
-          update('ready')
-        })
-    }
-  }
+  const { revertNav, invertNav, navInverted } = useNavInvert()
+  const { launchProject, projectLaunchStatus } = useProjectLaunch({
+    currentUid: csState.currentUid,
+  })
 
   document.documentElement.style.setProperty(
     '--windowHeight',
@@ -43,52 +32,43 @@ function Layout({ view, csData, prismicCtx, siteInfo }) {
   )
 
   return (
-    <ThemeProvider theme={theme}>
-      <LayoutContext.Provider
-        value={{
-          ...{
-            view,
-            csData,
-            prismicCtx,
-            siteInfo,
-          },
-          launchProject,
-          navInverted,
-          invertNav,
-          revertNav,
-        }}
-      >
-        <Nav />
-        <main className={`views -view-is-${view}`}>
-          <View aside viewName="work" view={view}>
-            <Work />
-          </View>
-          <View viewName="root" view={view}>
-            <Root projectLaunchStatus={projectLaunchStatus} />
-          </View>
-          <View aside viewName="about" view={view}>
-            <About prismicCtx={prismicCtx} />
-          </View>
-        </main>
-      </LayoutContext.Provider>
-    </ThemeProvider>
+    <CursorDotProvider>
+      <ThemeProvider theme={theme}>
+        <LayoutContext.Provider
+          value={{
+            ...{ view },
+            ...{ csState: { ...csState } },
+            launchProject,
+            navInverted,
+            invertNav,
+            revertNav,
+          }}
+        >
+          <Nav />
+          <main className={`views -view-is-${view}`}>
+            <View aside viewName="work" view={view}>
+              <Work />
+            </View>
+            <View viewName="root" view={view}>
+              <Root {...{ projectLaunchStatus }} />
+            </View>
+            <View aside viewName="about" view={view}>
+              <About />
+            </View>
+          </main>
+        </LayoutContext.Provider>
+      </ThemeProvider>
+    </CursorDotProvider>
   )
 }
 
-Layout.propTypes = {
-  csData: PropTypes.shape({
-    caseStudies: PropTypes.array,
-    currentDoc: PropTypes.object,
-    currentIndex: PropTypes.number,
-    currentUid: PropTypes.string,
-    isDark: PropTypes.bool,
-    nextIndex: PropTypes.number,
-    nextUid: PropTypes.string,
-    unselected: PropTypes.bool,
-  }).isRequired,
-  notFound: PropTypes.bool.isRequired, //eslint-disable-line
-  siteInfo: PropTypes.object, //eslint-disable-line
-  prismicCtx: PropTypes.object, //eslint-disable-line
-  view: PropTypes.string.isRequired,
+Layout.defaultProps = {
+  pathUid: null,
 }
-export default React.memo(Layout)
+
+Layout.propTypes = {
+  view: PropTypes.string.isRequired,
+  pathUid: PropTypes.string,
+}
+
+export default Layout

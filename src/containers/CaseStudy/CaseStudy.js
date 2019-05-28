@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
-import LayoutContext from 'containers/Layout/LayoutContext'
+import { LayoutContext } from 'containers/Layout/Layout'
 
 import './CaseStudy.scss'
 import Styled from './styled'
@@ -21,7 +21,8 @@ const CaseStudy = ({
     background: doc.data.background_color,
   }
   const alt = `${doc.data.title} - This Design - Portland OR`
-  const { unselected: isHome } = useContext(LayoutContext).csData
+  const { caseStudySelected } = useContext(LayoutContext).csState
+  const isHome = !caseStudySelected
 
   return (
     <CsContext.Provider

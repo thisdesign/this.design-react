@@ -1,33 +1,30 @@
-import React from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import App from '../../containers/App/App'
+import React, { useContext } from 'react'
+import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom'
+import { ApiDataCtx } from '../App/App'
+import Layout from '../Layout/Layout'
 
-const Router = ({ prismicCtx }) => (
-  <BrowserRouter>
-    <Switch>
-      <Route
-        exact
-        path="/work/"
-        render={() => <App view="work" prismicCtx={prismicCtx} />}
-      />
-      <Route
-        exact
-        path="/work/:uid"
-        render={({ match }) => (
-          <App view="root" uid={match.params.uid} prismicCtx={prismicCtx} />
-        )}
-      />
-      <Route
-        exact
-        path="/about"
-        render={() => <App view="about" prismicCtx={prismicCtx} />}
-      />
-      <Route
-        path="/"
-        render={() => <App view="root" prismicCtx={prismicCtx} />}
-      />
-    </Switch>
-  </BrowserRouter>
-)
+function Router() {
+  const { caseStudies } = useContext(ApiDataCtx)
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route
+          exact
+          path={caseStudies.map(cs => `/work/${cs.uid}`)}
+          render={({ match }) => (
+            <Layout
+              view="root"
+              isWorkView
+              pathUid={matchPath(match.url, { path: '/work/:uid' }).params.uid}
+            />
+          )}
+        />
+        <Route exact path="/work/" render={() => <Layout view="work" />} />
+        <Route exact path="/about/" render={() => <Layout view="about" />} />
+        <Route path="/" render={() => <Layout view="root" isHome />} />
+      </Switch>
+    </BrowserRouter>
+  )
+}
 
-export default Router
+export default React.memo(Router)

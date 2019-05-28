@@ -1,18 +1,19 @@
 import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
 import isMobile from 'util/isMobile'
-import LayoutContext from 'containers/Layout/LayoutContext'
+import { ApiDataCtx } from 'containers/App/App'
 import { Homepage } from './Homepage'
 
 function HomepageWrapper({ openingFromHome }) {
-  //eslint-disable-line
-  const { siteInfo } = useContext(LayoutContext)
-  const urls = siteInfo.data[
-    isMobile() ? 'video_group_mobile' : 'video_group'
-  ].map(vid => vid.link.url)
+  const { siteInfo } = useContext(ApiDataCtx)
+
+  const urls = siteInfo[isMobile() ? 'video_group_mobile' : 'video_group'].map(
+    vid => vid.link.url
+  )
   const randomUrl = urls[Math.floor(Math.random() * urls.length)]
 
-  const reelEnabled = siteInfo.data.reel_enabled === 'True'
-  const reelUrl = siteInfo.data.studio_reel.url
+  const reelEnabled = siteInfo.reel_enabled === 'True'
+  const reelUrl = siteInfo.studio_reel.url
 
   return (
     <Homepage
@@ -26,4 +27,7 @@ function HomepageWrapper({ openingFromHome }) {
   )
 }
 
+HomepageWrapper.propTypes = {
+  openingFromHome: PropTypes.bool.isRequired,
+}
 export default HomepageWrapper
