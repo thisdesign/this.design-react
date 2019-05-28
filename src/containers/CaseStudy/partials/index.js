@@ -6,6 +6,7 @@ import { LayoutContext } from 'containers/Layout/Layout'
 import Slices from '../slices/Slices'
 import Cover from './CaseStudyCover/Cover'
 import Styled from '../styled'
+import { CsContext } from '../CaseStudy'
 
 const Partials = {}
 
@@ -42,20 +43,19 @@ const NavChanger = () => {
   )
 }
 
-Partials.Body = ({ next, isHome, doc }) =>
-  !next &&
-  !isHome && (
-    <LayoutContext.Consumer>
-      {() => (
-        <>
-          <Partials.NavChanger />
-          <Slices sliceData={doc.data.content} />
-        </>
-      )}
-    </LayoutContext.Consumer>
-  )
+const Body = ({ next, isHome, doc }) => {
+  const data = useContext(CsContext)
+  const { dark } = data
+  return !next && !isHome ? (
+    <>
+      {!dark && <Partials.NavChanger />}
+      <Slices sliceData={doc.data.content} />
+    </>
+  ) : null
+}
 
 Partials.NavChanger = NavChanger
 Partials.Cover = Cover
+Partials.Body = Body
 
 export default Partials
