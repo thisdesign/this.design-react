@@ -19,7 +19,6 @@ function CaseStudyQueue({
   const csTrack = useCsTrack();
   const { isHome } = useContext(LayoutContext).csState;
 
-  console.log(csTrack);
   return csTrack.map(
     (uid, i) =>
       uid !== null && (
