@@ -1,14 +1,14 @@
-import styled, { css } from 'styled-components/macro';
-import { About } from 'containers/About/styles';
+import styled, { css } from 'styled-components/macro'
+import { About } from 'containers/About/styles'
 
 const small = css`
-  font-size: .9em;
-`;
+  font-size: 0.9em;
+`
 
 export const Project = styled(About.Column)`
   margin-bottom: 1rem;
   line-height: 1.75;
-`;
+`
 
 export const YearWrapper = styled.div`
   margin: 9em 0;
@@ -16,26 +16,26 @@ export const YearWrapper = styled.div`
   h2 {
     margin-bottom: 3em;
   }
-`;
+`
 
 Project.Roles = styled.div`
   ${small}
   font-style: italic;
-`;
+`
 
 Project.Desc = styled.div`
   ${small}
-`;
+`
 
 Project.Title = styled.h4`
   a,
   p {
-    color: white!important;
+    color: white !important;
   }
 
-  a{
+  a {
     text-decoration: underline;
   }
-`;
+`
 
-export default null;
+export default null

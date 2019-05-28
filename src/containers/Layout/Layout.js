@@ -1,47 +1,46 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components/macro';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { ThemeProvider } from 'styled-components/macro'
 
-import Nav from 'components/Nav/Nav';
-import Work from 'components/Work/Work';
-import View from 'components/View/View';
-import About from 'containers/About/About';
-import config from 'util/config';
-import theme from 'styles/theme';
-import delay from 'util/delay';
-import Root from 'containers/Root/Root';
-import useWindowSize from 'hooks/useWindowSize';
+import Nav from 'components/Nav/Nav'
+import Work from 'components/Work/Work'
+import View from 'components/View/View'
+import About from 'containers/About/About'
+import config from 'util/config'
+import theme from 'styles/theme'
+import delay from 'util/delay'
+import Root from 'containers/Root/Root'
+import useWindowSize from 'hooks/useWindowSize'
 
+import LayoutContext from './LayoutContext'
 
-import LayoutContext from './LayoutContext';
+function Layout({ view, csData, prismicCtx, siteInfo }) {
+  const [navInverted, setNavInvertState] = useState(false)
+  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready')
 
-function Layout({
-  view, csData, prismicCtx, siteInfo,
-}) {
-  const [navInverted, setNavInvertState] = useState(false);
-  const [projectLaunchStatus, setProjectLaunchStatus] = useState('ready');
+  const revertNav = () => setNavInvertState(false)
+  const invertNav = () => setNavInvertState(true)
 
-  const revertNav = () => setNavInvertState(false);
-  const invertNav = () => setNavInvertState(true);
-
-  const launchProject = (nextUid) => {
-    const isNew = nextUid !== csData.currentUid;
-    const update = setProjectLaunchStatus;
+  const launchProject = nextUid => {
+    const isNew = nextUid !== csData.currentUid
+    const update = setProjectLaunchStatus
     if (isNew) {
-      update('transitioning');
-      delay(config.projectLaunchDur).then(() => {
-        update('afterload');
-        return delay(config.afterLaunchDur);
-      }).then(() => {
-        update('ready');
-      });
+      update('transitioning')
+      delay(config.projectLaunchDur)
+        .then(() => {
+          update('afterload')
+          return delay(config.afterLaunchDur)
+        })
+        .then(() => {
+          update('ready')
+        })
     }
-  };
+  }
 
   document.documentElement.style.setProperty(
     '--windowHeight',
-    `${useWindowSize().height}px`,
-  );
+    `${useWindowSize().height}px`
+  )
 
   return (
     <ThemeProvider theme={theme}>
@@ -72,9 +71,9 @@ function Layout({
           </View>
         </main>
       </LayoutContext.Provider>
-    </ThemeProvider>);
+    </ThemeProvider>
+  )
 }
-
 
 Layout.propTypes = {
   csData: PropTypes.shape({
@@ -91,5 +90,5 @@ Layout.propTypes = {
   siteInfo: PropTypes.object, //eslint-disable-line
   prismicCtx: PropTypes.object, //eslint-disable-line
   view: PropTypes.string.isRequired,
-};
-export default React.memo(Layout);
+}
+export default React.memo(Layout)

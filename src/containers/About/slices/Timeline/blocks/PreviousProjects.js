@@ -1,15 +1,15 @@
-import React from 'react';
-import { RichText } from 'prismic-reactjs';
-import { About } from 'containers/About/styles';
-import { YearWrapper, Project } from './blocks';
+import React from 'react'
+import { RichText } from 'prismic-reactjs'
+import { About } from 'containers/About/styles'
+import { YearWrapper, Project } from './blocks'
 
 const PreviousProjects = ({ years }) => (
   <About.FullHeightWrapper large>
-    {years.map(({ yearName, projects }) =>
-      <Year key={yearName} yearName={yearName} projects={projects} />)}
+    {years.map(({ yearName, projects }) => (
+      <Year key={yearName} yearName={yearName} projects={projects} />
+    ))}
   </About.FullHeightWrapper>
-);
-
+)
 
 export const Year = ({ yearName, projects }) => (
   <YearWrapper>
@@ -24,6 +24,6 @@ export const Year = ({ yearName, projects }) => (
       ))}
     </About.ColumnWrapper>
   </YearWrapper>
-);
+)
 
-export default PreviousProjects;
+export default PreviousProjects

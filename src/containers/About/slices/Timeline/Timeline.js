@@ -1,17 +1,17 @@
-import React from 'react';
-import { RichText } from 'prismic-reactjs';
-import CurrentProjects from './blocks/CurrentProjects';
-import PreviousProjects from './blocks/PreviousProjects';
+import React from 'react'
+import { RichText } from 'prismic-reactjs'
+import CurrentProjects from './blocks/CurrentProjects'
+import PreviousProjects from './blocks/PreviousProjects'
 
 export default class Timeline extends React.Component {
-  state={
+  state = {
     years: null,
   }
   componentDidMount() {
-    this.getTimelineDoc();
+    this.getTimelineDoc()
   }
   getTimelineDoc() {
-    this.props.prismicCtx.api.getSingle('timeline').then((doc) => {
+    this.props.prismicCtx.api.getSingle('timeline').then(doc => {
       if (doc) {
         this.setState({
           loaded: true,
@@ -20,9 +20,9 @@ export default class Timeline extends React.Component {
             yearName: RichText.asText(item.primary.year),
             projects: item.items,
           })),
-        });
+        })
       }
-    });
+    })
   }
 
   render() {
@@ -32,8 +32,8 @@ export default class Timeline extends React.Component {
           <CurrentProjects categories={this.state.current.items} />
           <PreviousProjects years={this.state.years} />
         </>
-      );
+      )
     }
-    return null;
+    return null
   }
 }

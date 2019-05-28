@@ -1,12 +1,11 @@
-import React, { createRef } from 'react';
-import useDOMWidth from 'hooks/useDOMWidth';
-import PropTypes from 'prop-types';
-import Styled from './styled';
-
+import React, { createRef } from 'react'
+import useDOMWidth from 'hooks/useDOMWidth'
+import PropTypes from 'prop-types'
+import Styled from './styled'
 
 const WebsiteFrame = ({ dotColor, frameColor, children }) => {
-  const ref = createRef();
-  const width = useDOMWidth(ref);
+  const ref = createRef()
+  const width = useDOMWidth(ref)
 
   return (
     <Styled.WebsiteFrame calcWidth={width}>
@@ -20,17 +19,17 @@ const WebsiteFrame = ({ dotColor, frameColor, children }) => {
         {children}
       </div>
     </Styled.WebsiteFrame>
-  );
-};
+  )
+}
 
 WebsiteFrame.defaultProps = {
   dotColor: '#fff',
   frameColor: '#D8D8D8',
-};
+}
 
 WebsiteFrame.propTypes = {
   dotColor: PropTypes.string,
   frameColor: PropTypes.string,
   children: PropTypes.element.isRequired,
-};
-export default WebsiteFrame;
+}
+export default WebsiteFrame

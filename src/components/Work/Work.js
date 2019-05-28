@@ -1,13 +1,11 @@
-import React from 'react';
-import CursorAnchor from 'components/CursorDot/CursorAnchor';
-import LayoutContext from 'containers/Layout/LayoutContext';
-import { Link } from 'react-router-dom';
-import './Work.scss';
+import React from 'react'
+import CursorAnchor from 'components/CursorDot/CursorAnchor'
+import LayoutContext from 'containers/Layout/LayoutContext'
+import { Link } from 'react-router-dom'
+import './Work.scss'
 
 const Work = () => {
-  const WorkThumbnail = ({
-    uid, thumbnail, svg, title, launchProject,
-  }) => (
+  const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => (
     <Link
       className="work__link"
       to={`/work/${uid}`}
@@ -32,16 +30,13 @@ const Work = () => {
       </div>
       <p className="work__link__item--title">{title}</p>
     </Link>
-  );
+  )
 
   return (
     <div className="work__inner view__child -wrap-nav">
-      <LayoutContext.Consumer>{
-        ({
-          csData,
-          launchProject,
-        }) => csData.caseStudies
-          .map(({ uid, data: { thumbnail, svg, title } }) => (
+      <LayoutContext.Consumer>
+        {({ csData, launchProject }) =>
+          csData.caseStudies.map(({ uid, data: { thumbnail, svg, title } }) => (
             <WorkThumbnail
               key={uid}
               uid={uid}
@@ -50,11 +45,11 @@ const Work = () => {
               title={title}
               launchProject={launchProject}
             />
-        ))
-      }
+          ))
+        }
       </LayoutContext.Consumer>
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(Work);
+export default React.memo(Work)

@@ -1,11 +1,10 @@
-import React, { useContext, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext, useState } from 'react'
+import PropTypes from 'prop-types'
 
-import CaseStudy from 'containers/CaseStudy/CaseStudy';
-import { withRouter } from 'react-router-dom';
-import LayoutContext from 'containers/Layout/LayoutContext';
-import theme from 'styles/theme';
-
+import CaseStudy from 'containers/CaseStudy/CaseStudy'
+import { withRouter } from 'react-router-dom'
+import LayoutContext from 'containers/Layout/LayoutContext'
+import theme from 'styles/theme'
 
 function CaseStudyQueue({
   history,
@@ -20,24 +19,24 @@ function CaseStudyQueue({
     nextIndex,
     unselected,
     nextUid,
-  } = useContext(LayoutContext).csData;
+  } = useContext(LayoutContext).csData
 
-  const [isAnimating, setIsAnimating] = useState(false);
-  const csTrack = unselected ? [0, null] : [currentIndex, nextIndex];
+  const [isAnimating, setIsAnimating] = useState(false)
+  const csTrack = unselected ? [0, null] : [currentIndex, nextIndex]
 
   const commitQueueChange = () => {
-    history.push(`/work/${nextUid}`);
-    setIsAnimating(false);
-  };
+    history.push(`/work/${nextUid}`)
+    setIsAnimating(false)
+  }
 
   const initCsChange = () => {
-    setTimeout(commitQueueChange, theme.rootTransition.duration);
-    setIsAnimating(true);
-  };
+    setTimeout(commitQueueChange, theme.rootTransition.duration)
+    setIsAnimating(true)
+  }
 
-  return (
-    csTrack.map((arrayContents, i) => (
-      arrayContents !== null &&
+  return csTrack.map(
+    (arrayContents, i) =>
+      arrayContents !== null && (
         <CaseStudy
           key={arrayContents}
           next={i === 1}
@@ -52,7 +51,8 @@ function CaseStudyQueue({
             isHome,
           }}
         />
-    )));
+      )
+  )
 }
 
 CaseStudyQueue.propTypes = {
@@ -60,7 +60,6 @@ CaseStudyQueue.propTypes = {
   openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
   commitHomeOpen: PropTypes.func.isRequired,
-};
+}
 
-
-export default withRouter(CaseStudyQueue);
+export default withRouter(CaseStudyQueue)

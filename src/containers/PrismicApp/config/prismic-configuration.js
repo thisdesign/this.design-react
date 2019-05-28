@@ -12,7 +12,7 @@ export default {
   // This function will be used to generate links to Prismic.io documents
   // As your project grows, you should update this function according to your routes
   linkResolver(doc) {
-    if (doc.type === 'casestudy') return `/work/${doc.uid}`;
-    return '/';
+    if (doc.type === 'casestudy') return `/work/${doc.uid}`
+    return '/'
   },
-};
+}

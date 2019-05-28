@@ -1,27 +1,21 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import './View.scss';
+import React from 'react'
+import propTypes from 'prop-types'
+import './View.scss'
 
-const View = ({
-  view, viewName, children, aside,
-}) => {
+const View = ({ view, viewName, children, aside }) => {
   const className = [
     'view',
     viewName,
     view === viewName ? '-is-active' : '',
     aside ? 'view--aside' : '',
-  ].join(' ');
+  ].join(' ')
 
-  return (
-    <div className={className}>
-      {children}
-    </div>
-  );
-};
+  return <div className={className}>{children}</div>
+}
 
 View.defaultProps = {
   aside: false,
-};
+}
 
 View.propTypes = {
   // current app view
@@ -29,5 +23,5 @@ View.propTypes = {
   // what to call the current view
   viewName: propTypes.string.isRequired,
   aside: propTypes.bool,
-};
-export default View;
+}
+export default View

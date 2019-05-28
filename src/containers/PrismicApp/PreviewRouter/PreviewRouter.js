@@ -1,12 +1,6 @@
-import React from 'react';
-import {
-  Switch,
-  Route,
-  withRouter,
-  Redirect,
-} from 'react-router-dom';
-import Preview from 'containers/PrismicApp/Preview/Preview';
-
+import React from 'react'
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom'
+import Preview from 'containers/PrismicApp/Preview/Preview'
 
 const PreviewRouter = ({ children, prismicCtx }) => (
   <Switch>
@@ -17,15 +11,10 @@ const PreviewRouter = ({ children, prismicCtx }) => (
     />
     <Route
       path="/@:ctx"
-      render={({ match }) => (
-        <Redirect to={`/?=${match.params.ctx}`} />
-        )}
+      render={({ match }) => <Redirect to={`/?=${match.params.ctx}`} />}
     />
-    <Route
-      path="/"
-      render={() => children}
-    />
+    <Route path="/" render={() => children} />
   </Switch>
-);
+)
 
-export default withRouter(PreviewRouter);
+export default withRouter(PreviewRouter)

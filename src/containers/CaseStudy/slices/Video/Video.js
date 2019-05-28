@@ -1,16 +1,16 @@
-import React from 'react';
-import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
-import sizeCheck from 'util/sizeCheck';
-import './Video.scss';
+import React from 'react'
+import WaypointVideo from 'components/WaypointVideo/WaypointVideo'
+import sizeCheck from 'util/sizeCheck'
+import './Video.scss'
 
-const Video = (props) => {
-  const data = props.data.value[0];
-  const { url } = data.file;
-  const isFullScreen = data.layout === 'fullscreen';
-  const videoHasAudio = data.audio === 'true';
-  const videoHasControls = data.autoplay !== 'autoplay';
-  const poster = data.poster.url;
-  sizeCheck({ ...data.file }, 7);
+const Video = props => {
+  const data = props.data.value[0]
+  const { url } = data.file
+  const isFullScreen = data.layout === 'fullscreen'
+  const videoHasAudio = data.audio === 'true'
+  const videoHasControls = data.autoplay !== 'autoplay'
+  const poster = data.poster.url
+  sizeCheck({ ...data.file }, 7)
 
   return (
     <div className={`casestudy__video ${isFullScreen ? '-fs' : '-wrap'}`}>
@@ -21,7 +21,7 @@ const Video = (props) => {
         poster={poster}
       />
     </div>
-  );
-};
+  )
+}
 
-export default React.memo(Video);
+export default React.memo(Video)

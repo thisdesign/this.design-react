@@ -1,8 +1,8 @@
-import posed from 'react-pose';
-import theme from 'styles/theme';
-import Styled from './styled';
+import posed from 'react-pose'
+import theme from 'styles/theme'
+import Styled from './styled'
 
-const Posed = {};
+const Posed = {}
 
 Posed.Homepage = posed(Styled.Homepage)({
   animating: {
@@ -10,6 +10,6 @@ Posed.Homepage = posed(Styled.Homepage)({
     transition: theme.rootTransition,
   },
   normal: { y: '0vh', transition: { duration: 0 } },
-});
+})
 
-export default Posed;
+export default Posed

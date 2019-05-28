@@ -1,16 +1,11 @@
-import React, { useContext } from 'react';
-import ResponsiveImage from 'components/ResponsiveImage/ResponsiveImage';
-import { CsContext } from 'containers/CaseStudy/CaseStudy';
-import PropTypes from 'prop-types';
-import Styled from './styled';
+import React, { useContext } from 'react'
+import ResponsiveImage from 'components/ResponsiveImage/ResponsiveImage'
+import { CsContext } from 'containers/CaseStudy/CaseStudy'
+import PropTypes from 'prop-types'
+import Styled from './styled'
 
-const Image = ({
-  src,
-  responsiveUrls,
-  fullscreen,
-  offset,
-}) => {
-  const { alt } = useContext(CsContext);
+const Image = ({ src, responsiveUrls, fullscreen, offset }) => {
+  const { alt } = useContext(CsContext)
   return (
     <Styled.ImageWrapper {...{ fullscreen }}>
       <ResponsiveImage
@@ -19,7 +14,7 @@ const Image = ({
       >
         <Styled.Img
           src={
-            (fullscreen && responsiveUrls.fullWidth)
+            fullscreen && responsiveUrls.fullWidth
               ? responsiveUrls.fullWidth
               : src
           }
@@ -28,8 +23,8 @@ const Image = ({
         />
       </ResponsiveImage>
     </Styled.ImageWrapper>
-  );
-};
+  )
+}
 
 Image.defaultProps = {
   offset: 0,
@@ -38,7 +33,7 @@ Image.defaultProps = {
     fullWidth: null,
     desktop: null,
   },
-};
+}
 
 Image.propTypes = {
   fullscreen: PropTypes.bool.isRequired,
@@ -49,6 +44,6 @@ Image.propTypes = {
     fullWidth: PropTypes.string,
     desktop: PropTypes.string,
   }),
-};
+}
 
-export default React.memo(Image);
+export default React.memo(Image)

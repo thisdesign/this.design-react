@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import isMobile from 'util/isMobile';
-import ParallaxController from './libs/ParallaxController';
+import React from 'react'
+import PropTypes from 'prop-types'
+import isMobile from 'util/isMobile'
+import ParallaxController from './libs/ParallaxController'
 
 export default class Parallax extends React.Component {
   static propTypes = {
@@ -13,11 +13,11 @@ export default class Parallax extends React.Component {
   static defaultProps = {
     speed: -100,
     className: null,
-  };
+  }
 
   constructor(props) {
-    super(props);
-    this.ref = React.createRef();
+    super(props)
+    this.ref = React.createRef()
   }
 
   componentDidMount() {
@@ -25,28 +25,25 @@ export default class Parallax extends React.Component {
       container: document.querySelector('.casestudy'),
       el: this.ref.current,
       speed: this.props.speed,
-    });
+    })
 
     if (!isMobile()) {
-      this.controller.init();
+      this.controller.init()
     }
   }
 
   componentWillUnmount() {
-    this.controller.destroy();
+    this.controller.destroy()
   }
 
   render() {
-    const {
-      children,
-      className,
-    } = this.props;
-    const { ref } = this;
+    const { children, className } = this.props
+    const { ref } = this
 
     return (
       <div className={className} ref={ref}>
         {children}
       </div>
-    );
+    )
   }
 }

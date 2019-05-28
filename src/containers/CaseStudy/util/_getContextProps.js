@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
-import { RichText } from 'prismic-reactjs';
+import PropTypes from 'prop-types'
+import { RichText } from 'prismic-reactjs'
 
-const _getContextProps = (data) => {
+const _getContextProps = data => {
   const {
     title,
     copy,
@@ -13,7 +13,7 @@ const _getContextProps = (data) => {
     floating_media_width: auxWidth,
     mobileImage,
     layout2,
-  } = data.header[0];
+  } = data.header[0]
 
   const header = {
     backgroundColor: data.color,
@@ -31,11 +31,11 @@ const _getContextProps = (data) => {
       imageUrl: image1.url,
       mobileImage: mobileImage.url,
     },
-  };
-  const dark = data.preserve_white_nav === 'true';
+  }
+  const dark = data.preserve_white_nav === 'true'
 
-  return { ...{ header, dark } };
-};
+  return { ...{ header, dark } }
+}
 
 export const _contextPropTypes = {
   value: PropTypes.shape({
@@ -53,7 +53,6 @@ export const _contextPropTypes = {
       background: PropTypes.objectOf(PropTypes.string),
     }).isRequired,
     dark: PropTypes.bool.isRequired,
-
   }),
-};
-export default _getContextProps;
+}
+export default _getContextProps

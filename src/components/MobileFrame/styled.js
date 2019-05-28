@@ -1,7 +1,6 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components/macro'
 
-const Styled = {};
-
+const Styled = {}
 
 Styled.MobileFrame = styled.div`
   width: 90%;
@@ -27,7 +26,6 @@ Styled.MobileFrame = styled.div`
     z-index: 1;
   }
 }
-`;
+`
 
-
-export default Styled;
+export default Styled

@@ -1,7 +1,7 @@
-import styled from 'styled-components/macro';
-import PropTypes from 'prop-types';
+import styled from 'styled-components/macro'
+import PropTypes from 'prop-types'
 
-const Styled = {};
+const Styled = {}
 
 Styled.WebsiteFrame = styled.div`
   overflow: hidden;
@@ -11,10 +11,10 @@ Styled.WebsiteFrame = styled.div`
     width: ${props => props.calcWidth + 3}px;
     display: block;
   }
-`;
+`
 
 Styled.WebsiteFrame.propTypes = {
   calcWidth: PropTypes.number,
-};
+}
 
-export default Styled;
+export default Styled
