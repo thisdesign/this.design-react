@@ -1,6 +1,6 @@
-import { useContext } from 'react';
-import { LayoutContext } from 'containers/Layout/Layout';
-import { ApiDataCtx } from 'containers/App/App';
+import { useContext } from "react";
+import { LayoutContext } from "containers/Layout/Layout";
+import { ApiDataCtx } from "containers/App/App";
 
 export default function useCsTrack() {
   const { contextUids } = useContext(ApiDataCtx);
@@ -10,10 +10,9 @@ export default function useCsTrack() {
     currentUid,
     caseStudySelected,
     nextIndex,
-    currentIndex,
+    currentIndex
   } = useContext(LayoutContext).csState;
 
-  console.log();
   const csTrack = (() => {
     if (inContext) {
       return [contextUids[currentIndex], contextUids[nextIndex]];

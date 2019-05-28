@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from 'react';
-import { ApiDataCtx } from 'containers/App/App';
+import { useContext, useState, useEffect } from "react";
+import { ApiDataCtx } from "containers/App/App";
 
 export default function useRouterData({ pathUid }) {
   const { contextUids } = useContext(ApiDataCtx);
@@ -19,23 +19,21 @@ export default function useRouterData({ pathUid }) {
     [pathUid]
   );
 
-  const next =
-    currentIndex !== null
-      ? (() => {
-          const nextIndex = (currentIndex + 1) % contextUids.length;
-          const nextUid = contextUids[nextIndex];
-          return {
-            currentIndex,
-            nextIndex,
-            nextUid,
-          };
-        })()
-      : null;
+  const next = (() => {
+    const nextIndex =
+      currentIndex !== null ? (currentIndex + 1) % contextUids.length : 0;
+    const nextUid = contextUids[nextIndex];
+    return {
+      currentIndex,
+      nextIndex,
+      nextUid
+    };
+  })();
 
   return {
     caseStudySelected: !!currentUid,
     inContext: currentIndex !== null,
     currentUid,
-    ...next,
+    ...next
   };
 }
