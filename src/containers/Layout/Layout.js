@@ -18,8 +18,9 @@ import useProjectLaunch from './useProjectLaunch'
 
 export const LayoutContext = React.createContext()
 
-function Layout({ view, pathUid, isHome }) {
+function Layout({ view, pathUid }) {
   const csState = useRouterData({ pathUid })
+
   const { revertNav, invertNav, navInverted } = useNavInvert()
   const { launchProject, projectLaunchStatus } = useProjectLaunch({
     currentUid: csState.currentUid,
@@ -36,7 +37,7 @@ function Layout({ view, pathUid, isHome }) {
         <LayoutContext.Provider
           value={{
             ...{ view },
-            ...{ csState: { ...csState, isHome } },
+            ...{ csState: { ...csState } },
             launchProject,
             navInverted,
             invertNav,

@@ -11,11 +11,11 @@ import theme from 'styles/theme'
 function Root({ projectLaunchStatus, history }) {
   const [openingFromHome, setOpeningFromHome] = useState(false)
 
-  const { caseStudies } = useContext(ApiDataCtx)
+  const { contextCaseStudies } = useContext(ApiDataCtx)
   const { caseStudySelected } = useContext(LayoutContext).csState
 
   const commitHomeOpen = () => {
-    history.push(`/work/${caseStudies[0].uid}`)
+    history.push(`/work/${contextCaseStudies[0].uid}`)
     setOpeningFromHome(false)
   }
 

@@ -21,7 +21,8 @@ const CaseStudy = ({
     background: doc.data.background_color,
   }
   const alt = `${doc.data.title} - This Design - Portland OR`
-  const { unselected: isHome } = useContext(LayoutContext).csState
+  const { caseStudySelected } = useContext(LayoutContext).csState
+  const isHome = !caseStudySelected
 
   return (
     <CsContext.Provider
