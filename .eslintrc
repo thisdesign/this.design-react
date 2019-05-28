@@ -1,12 +1,7 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb",
-  "plugins": [
-    "react",
-    "jsx-a11y",
-    "import",
-    "react-hooks"
-  ],
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["react", "jsx-a11y", "import", "react-hooks"],
   "rules": {
     "react/jsx-filename-extension": 0,
     "jsx-a11y/click-events-have-key-events": 0,
@@ -22,7 +17,7 @@
   },
   "env": {
     "browser": true
-    },
+  },
   "settings": {
     "import/resolver": {
       "node": {
