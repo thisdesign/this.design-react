@@ -1,5 +1,5 @@
-import { css } from 'styled-components/macro';
+import { css } from 'styled-components/macro'
 
-const getTheme = key => css(props => props.theme[key]);
+const getTheme = key => css(props => props.theme[key])
 
-export default getTheme;
+export default getTheme

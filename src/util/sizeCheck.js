@@ -8,6 +8,6 @@ const sizeCheck = (file, limit = 5) => {
   // if (file && ((sizeInMb + 2) > limit) && (env.isStaging || env.isLocalhost)) {
   //   error(`${file.name} is too big. It should be under ${limit} MB and is ${sizeInMb} MB`);
   // }
-};
+}
 
-export default sizeCheck;
+export default sizeCheck

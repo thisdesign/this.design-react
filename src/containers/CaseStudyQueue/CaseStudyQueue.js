@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import { withRouter } from 'react-router-dom'
 
-import { ApiDataCtx } from 'containers/App/App';
-import { LayoutContext } from 'containers/Layout/Layout';
-import CaseStudy from 'containers/CaseStudy/CaseStudy';
-import useCsChange from './useCsChange';
-import useCsTrack from './useCsTrack';
+import { ApiDataCtx } from 'containers/App/App'
+import { LayoutContext } from 'containers/Layout/Layout'
+import CaseStudy from 'containers/CaseStudy/CaseStudy'
+import useCsChange from './useCsChange'
+import useCsTrack from './useCsTrack'
 
 function CaseStudyQueue({
   history,
@@ -14,10 +14,10 @@ function CaseStudyQueue({
   initHomeOpen,
   commitHomeOpen,
 }) {
-  const { caseStudies, caseStudyUids } = useContext(ApiDataCtx);
-  const { isAnimating, initCsChange } = useCsChange({ history });
-  const csTrack = useCsTrack();
-  const { isHome } = useContext(LayoutContext).csState;
+  const { caseStudies, caseStudyUids } = useContext(ApiDataCtx)
+  const { isAnimating, initCsChange } = useCsChange({ history })
+  const csTrack = useCsTrack()
+  const { isHome } = useContext(LayoutContext).csState
 
   return csTrack.map(
     (uid, i) =>
@@ -37,7 +37,7 @@ function CaseStudyQueue({
           }}
         />
       )
-  );
+  )
 }
 
 CaseStudyQueue.propTypes = {
@@ -45,6 +45,6 @@ CaseStudyQueue.propTypes = {
   openingFromHome: PropTypes.bool.isRequired,
   initHomeOpen: PropTypes.func.isRequired,
   commitHomeOpen: PropTypes.func.isRequired,
-};
+}
 
-export default withRouter(CaseStudyQueue);
+export default withRouter(CaseStudyQueue)

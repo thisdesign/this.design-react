@@ -1,20 +1,15 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import Waypoint from 'react-waypoint';
-import './WaypointAnim.scss';
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import Waypoint from 'react-waypoint'
+import './WaypointAnim.scss'
 
-export default function WaypointAnim({
-  name,
-  className,
-  children,
-  disabled,
-}) {
-  const [visible, setVisible] = useState(false);
+export default function WaypointAnim({ name, className, children, disabled }) {
+  const [visible, setVisible] = useState(false)
   const classNames = [
     className,
     `-waypointAnim--${name}`,
     visible ? '-enabled' : '',
-  ].join(' ');
+  ].join(' ')
 
   return (
     <Waypoint
@@ -23,21 +18,19 @@ export default function WaypointAnim({
       topOffset="0px"
       bottomOffset="0px"
     >
-      <div className={!disabled ? classNames : className}>
-        {children}
-      </div>
+      <div className={!disabled ? classNames : className}>{children}</div>
     </Waypoint>
-  );
+  )
 }
 
 WaypointAnim.defaultProps = {
   name: 'fadeIn',
   className: '',
   disabled: false,
-};
+}
 WaypointAnim.propTypes = {
   children: PropTypes.node.isRequired,
   name: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
-};
+}

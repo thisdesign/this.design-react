@@ -1,11 +1,11 @@
-import media from 'styles/media';
+import media from 'styles/media'
 
 const margin = {
   lg: '5em',
   md: '2em',
   nav: '80px',
   navMobile: '40px',
-};
+}
 
 const theme = {
   color: {
@@ -81,6 +81,6 @@ const theme = {
     duration: 600,
     ease: [0.4, 0, 0.2, 1],
   },
-};
+}
 
-export default theme;
+export default theme

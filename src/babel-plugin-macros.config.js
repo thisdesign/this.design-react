@@ -3,4 +3,4 @@ module.exports = {
     pure: true,
     fileName: false,
   },
-};
+}

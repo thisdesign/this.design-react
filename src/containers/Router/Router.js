@@ -1,10 +1,10 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom';
-import { ApiDataCtx } from '../App/App';
-import Layout from '../Layout/Layout';
+import React, { useContext } from 'react'
+import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom'
+import { ApiDataCtx } from '../App/App'
+import Layout from '../Layout/Layout'
 
 function Router() {
-  const { caseStudies } = useContext(ApiDataCtx);
+  const { caseStudies } = useContext(ApiDataCtx)
   return (
     <BrowserRouter>
       <Switch>
@@ -24,7 +24,7 @@ function Router() {
         <Route path="/" render={() => <Layout view="root" isHome />} />
       </Switch>
     </BrowserRouter>
-  );
+  )
 }
 
-export default React.memo(Router);
+export default React.memo(Router)

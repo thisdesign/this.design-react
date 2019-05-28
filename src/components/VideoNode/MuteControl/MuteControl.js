@@ -1,8 +1,7 @@
-import React from 'react';
-import Mute from '../icons/Mute';
-import './MuteControl.scss';
-import { VideoContext } from '../VideoNode';
-
+import React from 'react'
+import Mute from '../icons/Mute'
+import './MuteControl.scss'
+import { VideoContext } from '../VideoNode'
 
 const MuteControl = () => (
   <VideoContext.Consumer>
@@ -14,9 +13,9 @@ const MuteControl = () => (
         tabIndex={0}
       >
         <Mute />
-      </div>)}
+      </div>
+    )}
   </VideoContext.Consumer>
-);
+)
 
-
-export default MuteControl;
+export default MuteControl

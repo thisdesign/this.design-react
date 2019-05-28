@@ -1,4 +1,4 @@
-import styled from "styled-components/macro";
+import styled from 'styled-components/macro'
 
 const Wrapper = styled.div`
   color: #575757;
@@ -21,6 +21,6 @@ const Wrapper = styled.div`
     padding-bottom: 60px;
     text-align: center;
   }
-`;
+`
 
-export default { Wrapper };
+export default { Wrapper }

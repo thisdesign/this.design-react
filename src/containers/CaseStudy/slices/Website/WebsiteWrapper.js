@@ -1,10 +1,15 @@
-import React from 'react';
-import Website from './Website';
+import React from 'react'
+import Website from './Website'
 
 Website.Wrapper = ({ data }) => {
   const {
-    background, screenshot, layout, video, frame_color: frameColor, dot_color: dotColor,
-  } = data.primary;
+    background,
+    screenshot,
+    layout,
+    video,
+    frame_color: frameColor,
+    dot_color: dotColor,
+  } = data.primary
   return (
     <Website
       background={background}
@@ -15,8 +20,7 @@ Website.Wrapper = ({ data }) => {
       dotColor={dotColor || undefined}
       type="website"
     />
+  )
+}
 
-  );
-};
-
-export default Website;
+export default Website

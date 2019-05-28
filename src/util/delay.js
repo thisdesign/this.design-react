@@ -1,3 +1,3 @@
-const delay = t => new Promise(resolve => setTimeout(resolve, t));
+const delay = t => new Promise(resolve => setTimeout(resolve, t))
 
-export default delay;
+export default delay

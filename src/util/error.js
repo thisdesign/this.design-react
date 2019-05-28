@@ -1,9 +1,12 @@
-import env from './env';
+import env from './env'
 
-const error = (text) => {
+const error = text => {
   if (env.isLocalhost || env.isStaging) {
-    console.info(`%c${text}`, 'background: red; color: white; padding: 10px; border-radius: 4px; margin: 10px 0;');
+    console.info(
+      `%c${text}`,
+      'background: red; color: white; padding: 10px; border-radius: 4px; margin: 10px 0;'
+    )
   }
-};
+}
 
-export default error;
+export default error

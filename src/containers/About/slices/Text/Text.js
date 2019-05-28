@@ -1,23 +1,18 @@
-import React from 'react';
-import { RichText } from 'prismic-reactjs';
-import './Text.scss';
+import React from 'react'
+import { RichText } from 'prismic-reactjs'
+import './Text.scss'
 
-
-const Text = (props) => {
-  const { text, layout, class_names: classNames } = props.data.primary;
+const Text = props => {
+  const { text, layout, class_names: classNames } = props.data.primary
 
   const classes = [
     'about__text',
     '-grid',
     layout ? `-${layout}` : '',
     classNames || '',
-  ].join(' ');
+  ].join(' ')
 
-  return (
-    <div className={classes}>
-      {RichText.render(text)}
-    </div>
-  );
-};
+  return <div className={classes}>{RichText.render(text)}</div>
+}
 
-export default Text;
+export default Text

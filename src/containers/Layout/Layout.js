@@ -1,34 +1,34 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { ThemeProvider } from "styled-components/macro";
+import React, { useState } from 'react'
+import PropTypes from 'prop-types'
+import { ThemeProvider } from 'styled-components/macro'
 
-import Nav from "components/Nav/Nav";
-import Work from "components/Work/Work";
-import View from "components/View/View";
-import About from "containers/About/About";
-import Root from "containers/Root/Root";
-import CursorDotProvider from "components/CursorDot/CursorDotProvider";
-import theme from "styles/theme";
+import Nav from 'components/Nav/Nav'
+import Work from 'components/Work/Work'
+import View from 'components/View/View'
+import About from 'containers/About/About'
+import Root from 'containers/Root/Root'
+import CursorDotProvider from 'components/CursorDot/CursorDotProvider'
+import theme from 'styles/theme'
 
-import useWindowSize from "hooks/useWindowSize";
+import useWindowSize from 'hooks/useWindowSize'
 
-import useRouterData from "./useRouterData";
-import useNavInvert from "./useNavInvert";
-import useProjectLaunch from "./useProjectLaunch";
+import useRouterData from './useRouterData'
+import useNavInvert from './useNavInvert'
+import useProjectLaunch from './useProjectLaunch'
 
-export const LayoutContext = React.createContext();
+export const LayoutContext = React.createContext()
 
 function Layout({ view, pathUid, isHome }) {
-  const csState = useRouterData({ pathUid });
-  const { revertNav, invertNav, navInverted } = useNavInvert();
+  const csState = useRouterData({ pathUid })
+  const { revertNav, invertNav, navInverted } = useNavInvert()
   const { launchProject, projectLaunchStatus } = useProjectLaunch({
-    currentUid: csState.currentUid
-  });
+    currentUid: csState.currentUid,
+  })
 
   document.documentElement.style.setProperty(
-    "--windowHeight",
+    '--windowHeight',
     `${useWindowSize().height}px`
-  );
+  )
 
   return (
     <CursorDotProvider>
@@ -40,7 +40,7 @@ function Layout({ view, pathUid, isHome }) {
             launchProject,
             navInverted,
             invertNav,
-            revertNav
+            revertNav,
           }}
         >
           <Nav />
@@ -58,16 +58,16 @@ function Layout({ view, pathUid, isHome }) {
         </LayoutContext.Provider>
       </ThemeProvider>
     </CursorDotProvider>
-  );
+  )
 }
 
 Layout.defaultProps = {
-  pathUid: null
-};
+  pathUid: null,
+}
 
 Layout.propTypes = {
   view: PropTypes.string.isRequired,
-  pathUid: PropTypes.string
-};
+  pathUid: PropTypes.string,
+}
 
-export default Layout;
+export default Layout

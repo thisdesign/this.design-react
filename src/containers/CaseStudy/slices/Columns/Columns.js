@@ -1,11 +1,11 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components/macro';
-import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame';
-import MobileFrame from 'components/MobileFrame/MobileFrame';
-import WaypointVideo from 'components/WaypointVideo/WaypointVideo';
-import { CsContext } from 'containers/CaseStudy/CaseStudy';
-import Styled from './styled';
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import { ThemeProvider } from 'styled-components/macro'
+import WebsiteFrame from 'components/WebsiteFrame/WebsiteFrame'
+import MobileFrame from 'components/MobileFrame/MobileFrame'
+import WaypointVideo from 'components/WaypointVideo/WaypointVideo'
+import { CsContext } from 'containers/CaseStudy/CaseStudy'
+import Styled from './styled'
 
 const Columns = ({
   size,
@@ -16,40 +16,39 @@ const Columns = ({
   text,
   layout,
 }) => {
-  const { alt } = useContext(CsContext);
+  const { alt } = useContext(CsContext)
   const columnItems = [
     <Styled.Media speed={-90} key="media">
       <MediaWrapper layout={layout}>
-        { videoUrl
-            ? <WaypointVideo muteToggle={hasMute} url={videoUrl} />
-            : <img src={imageUrl} alt={alt} />
-          }
+        {videoUrl ? (
+          <WaypointVideo muteToggle={hasMute} url={videoUrl} />
+        ) : (
+          <img src={imageUrl} alt={alt} />
+        )}
       </MediaWrapper>
     </Styled.Media>,
-    <Styled.Text key="text">
-      {text}
-    </Styled.Text>,
-  ];
+    <Styled.Text key="text">{text}</Styled.Text>,
+  ]
 
   return (
     <ThemeProvider theme={{ size }}>
       <Styled.Columns>
-        { isRight ? columnItems.reverse() : columnItems }
+        {isRight ? columnItems.reverse() : columnItems}
       </Styled.Columns>
     </ThemeProvider>
-  );
-};
+  )
+}
 
 const MediaWrapper = ({ children, layout }) => {
   switch (layout) {
     case '-website':
-      return <WebsiteFrame>{children}</WebsiteFrame>;
+      return <WebsiteFrame>{children}</WebsiteFrame>
     case '-mobile':
-      return <MobileFrame>{children}</MobileFrame>;
+      return <MobileFrame>{children}</MobileFrame>
     default:
-      return children;
+      return children
   }
-};
+}
 
 Columns.defaultProps = {
   isRight: false,
@@ -59,7 +58,7 @@ Columns.defaultProps = {
   videoUrl: undefined,
   imageUrl: undefined,
   layout: undefined,
-};
+}
 
 Columns.propTypes = {
   text: PropTypes.node,
@@ -69,6 +68,6 @@ Columns.propTypes = {
   videoUrl: PropTypes.string,
   imageUrl: PropTypes.string,
   layout: PropTypes.string,
-};
+}
 
-export default React.memo(Columns);
+export default React.memo(Columns)

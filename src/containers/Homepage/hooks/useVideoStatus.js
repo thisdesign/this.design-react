@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react'
 
 export default function useVideoStatus() {
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const ref = useRef();
+  const [videoLoaded, setVideoLoaded] = useState(false)
+  const ref = useRef()
 
   useEffect(() => {
-    ref.current.onloadeddata = () => setVideoLoaded(true);
-  }, []);
+    ref.current.onloadeddata = () => setVideoLoaded(true)
+  }, [])
 
-  return { videoLoaded, ref };
+  return { videoLoaded, ref }
 }

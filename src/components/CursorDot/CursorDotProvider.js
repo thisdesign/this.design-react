@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import CursorContext from 'components/CursorDot/CursorContext';
-import './CursorDot.scss';
-import icons from './icons';
+import React, { Component } from 'react'
+import CursorContext from 'components/CursorDot/CursorContext'
+import './CursorDot.scss'
+import icons from './icons'
 
 class CursorDot extends Component {
   state = {
@@ -9,37 +9,37 @@ class CursorDot extends Component {
     enabled: false,
   }
   componentDidMount() {
-    this.addListener();
+    this.addListener()
   }
   componentWillUnmount() {
-    this.removeListener();
+    this.removeListener()
   }
 
-  handleMouseMove = (e) => {
-    this.y = e.clientY;
-    this.x = e.clientX;
-    this.calculateStyle();
-  };
+  handleMouseMove = e => {
+    this.y = e.clientY
+    this.x = e.clientX
+    this.calculateStyle()
+  }
 
   calculateStyle = () => {
-    const { x, y } = this;
-    const transform = `translate3d(${x}px, ${y}px, 0)`;
-    this.el.classList.remove('-noMouse');
-    this.el.style.transform = transform;
+    const { x, y } = this
+    const transform = `translate3d(${x}px, ${y}px, 0)`
+    this.el.classList.remove('-noMouse')
+    this.el.style.transform = transform
   }
 
   addListener = () => {
-    window.addEventListener('mousemove', this.handleMouseMove);
+    window.addEventListener('mousemove', this.handleMouseMove)
   }
 
   removeListener = () => {
-    window.removeEventListener('mousemove', this.handleMouseMove);
+    window.removeEventListener('mousemove', this.handleMouseMove)
   }
 
-  updateCursor = (options) => {
-    const enabled = options ? (options.enabled || false) : false;
-    const icon = options ? (options.icon || null) : null;
-    this.setState({ enabled, icon });
+  updateCursor = options => {
+    const enabled = options ? options.enabled || false : false
+    const icon = options ? options.icon || null : null
+    this.setState({ enabled, icon })
   }
 
   render() {
@@ -53,18 +53,26 @@ class CursorDot extends Component {
         <div
           className="cursor"
           style={{ ...this.coords }}
-          ref={(el) => { this.el = el; }}
+          ref={el => {
+            this.el = el
+          }}
         >
-          <div className={` cursor__dot ${this.state.enabled && 'cursor__dot--enabled'}`} />
-          {icons[this.state.icon] &&
-            <div className={`cursor__text ${this.state.enabled && 'cursor__text--enabled'}`}>
+          <div
+            className={` cursor__dot ${this.state.enabled &&
+              'cursor__dot--enabled'}`}
+          />
+          {icons[this.state.icon] && (
+            <div
+              className={`cursor__text ${this.state.enabled &&
+                'cursor__text--enabled'}`}
+            >
               {icons[this.state.icon]}
             </div>
-          }
+          )}
         </div>
       </CursorContext.Provider>
-    );
+    )
   }
 }
 
-export default CursorDot;
+export default CursorDot

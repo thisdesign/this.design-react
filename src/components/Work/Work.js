@@ -1,14 +1,14 @@
-import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { ApiDataCtx } from 'containers/App/App';
-import { LayoutContext } from 'containers/Layout/Layout';
-import CursorAnchor from 'components/CursorDot/CursorAnchor';
-import { Link } from 'react-router-dom';
-import './Work.scss';
+import React, { useContext } from 'react'
+import PropTypes from 'prop-types'
+import { ApiDataCtx } from 'containers/App/App'
+import { LayoutContext } from 'containers/Layout/Layout'
+import CursorAnchor from 'components/CursorDot/CursorAnchor'
+import { Link } from 'react-router-dom'
+import './Work.scss'
 
 function Work() {
-  const { contextCaseStudies } = useContext(ApiDataCtx);
-  const { launchProject } = useContext(LayoutContext);
+  const { contextCaseStudies } = useContext(ApiDataCtx)
+  const { launchProject } = useContext(LayoutContext)
 
   return (
     <div className="work__inner view__child -wrap-nav">
@@ -23,7 +23,7 @@ function Work() {
         />
       ))}
     </div>
-  );
+  )
 }
 
 const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => (
@@ -51,7 +51,7 @@ const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => (
     </div>
     <p className="work__link__item--title">{title}</p>
   </Link>
-);
+)
 
 WorkThumbnail.propTypes = {
   uid: PropTypes.string.isRequired,
@@ -59,6 +59,6 @@ WorkThumbnail.propTypes = {
   svg: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   launchProject: PropTypes.func.isRequired,
-};
+}
 
-export default React.memo(Work);
+export default React.memo(Work)
