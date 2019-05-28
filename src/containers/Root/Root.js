@@ -3,6 +3,7 @@ import HomepageWrapper from 'containers/Homepage/Homepage'
 import { withRouter } from 'react-router-dom'
 import CaseStudyQueue from 'containers/CaseStudyQueue/CaseStudyQueue'
 import PropTypes from 'prop-types'
+import Loading from 'components/Loading/Loading'
 import { ApiDataCtx } from 'containers/App/App'
 import { LayoutContext } from 'containers/Layout/Layout'
 import theme from 'styles/theme'
@@ -27,6 +28,7 @@ function Root({ projectLaunchStatus, history }) {
     <>
       {!caseStudySelected && <HomepageWrapper shim {...{ openingFromHome }} />}
       <>
+        {projectLaunchStatus !== 'ready' && <Loading />}
         {projectLaunchStatus !== 'transitioning' && (
           <CaseStudyQueue
             {...{
