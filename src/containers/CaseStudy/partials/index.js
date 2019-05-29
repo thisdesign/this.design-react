@@ -29,11 +29,12 @@ Partials.Shim.propTypes = {
 
 const NavChanger = () => {
   const { invertNav, revertNav, navInverted } = useContext(LayoutContext)
+  const isDark = useContext(CsContext).dark
 
   return (
     <Waypoint
       onPositionChange={({ currentPosition }) => {
-        if (currentPosition === 'above' && !navInverted) {
+        if (currentPosition === 'above' && !navInverted && !isDark) {
           invertNav()
         } else {
           revertNav()
@@ -44,11 +45,9 @@ const NavChanger = () => {
 }
 
 const Body = ({ next, isHome, doc }) => {
-  const data = useContext(CsContext)
-  const { dark } = data
   return !next && !isHome ? (
     <>
-      {!dark && <Partials.NavChanger />}
+      <Partials.NavChanger />
       <Slices sliceData={doc.data.content} />
     </>
   ) : null
