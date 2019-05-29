@@ -27,6 +27,8 @@ const lineHeights = {
 const fontFaces = {
   body: `'calibre-light', arial, sans-serif`,
   bodyBold: `'calibre-regular', arial, sans-serif`,
+  display: `'domaineDiaplay-black', 'Times New Roman', Times, serif`,
+  serif: `'TiemposHeadlineWeb-Light', 'Times New Roman', Times, serif`,
 }
 
 const grey = ['#111', '#333', '#666', '#999', '#ccc', '#eee', '#f9f9f9']

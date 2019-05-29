@@ -51,7 +51,7 @@ const GlobalStyle = createGlobalStyle`
   .h2 {
     font-size: ${props => props.theme.fontSizes[4]};
     line-height: ${props => props.theme.lineHeights.heading};
-    font-family: 'domaineDiaplay-black';
+    font-family: ${props => props.theme.fontFaces.display};
   }
 
 
@@ -70,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: ${props => props.theme.fontFaces.body};
 
     em {
-      font-family: 'TiemposHeadlineWeb-Light';
+      font-family: ${props => props.theme.fontFaces.serif};
       font-style: italic;
     }
   }
