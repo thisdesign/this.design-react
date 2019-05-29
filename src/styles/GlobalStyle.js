@@ -1,19 +1,19 @@
-import { createGlobalStyle } from 'styled-components/macro'
+import { createGlobalStyle } from 'styled-components'
+import media from './media'
 
 const GlobalStyle = createGlobalStyle`
   body,
   html {
-    font-size: 19px;
-
-    @include breakpoint (sm) {
-      font-size: 17.5px;
-    }
-    @include breakpoint (md) {
+    font-size: 17.5px;
+    ${media.sm`
+      font-size: 19px;
+    `}
+    ${media.md`
       font-size: 20px;
-    }
-    @include breakpoint (lg) {
+    `}
+    ${media.lg`
       font-size: 21.5px;
-    }
+    `}
   }
 
 
