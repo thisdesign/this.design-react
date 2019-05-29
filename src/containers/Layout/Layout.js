@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components/macro'
-
 import Nav from 'components/Nav/Nav'
 import Work from 'components/Work/Work'
 import View from 'components/View/View'
@@ -9,9 +8,7 @@ import About from 'containers/About/About'
 import Root from 'containers/Root/Root'
 import CursorDotProvider from 'components/CursorDot/CursorDotProvider'
 import theme from 'styles/theme'
-
 import useWindowSize from 'hooks/useWindowSize'
-
 import useRouterData from './useRouterData'
 import useNavInvert from './useNavInvert'
 import useProjectLaunch from './useProjectLaunch'

@@ -1,4 +1,11 @@
 import media from 'styles/media'
+import modularScale from './util/modularScale'
+
+const scale = modularScale({
+  base: 1,
+  scale: 4 / 3,
+  stepsDown: 2,
+})
 
 const margin = {
   lg: '5em',
@@ -7,22 +14,21 @@ const margin = {
   navMobile: '40px',
 }
 
+const fontSizes = []
+
+const color = {
+  bodyLt: '#111',
+  caseStudyBg: '#f9f9f9',
+}
+
+const ease = {
+  standard: 'cubic-bezier(.4, 0, .2, 1)',
+  decel: 'cubic-bezier(0, 0, .2, 1)',
+  accel: 'cubic-bezier(.4, 0, 1, 1)',
+}
+
 const theme = {
-  color: {
-    bodyLt: '#111',
-    caseStudyBg: '#f9f9f9',
-  },
-
-  ease: {
-    standard: 'cubic-bezier(.4, 0, .2, 1)',
-    decel: 'cubic-bezier(0, 0, .2, 1)',
-    accel: 'cubic-bezier(.4, 0, 1, 1)',
-  },
-
-  ...{
-    margin,
-    media,
-  },
+  ...{ color, margin, media, ease, fontSizes, scale },
 
   _h3: `
     font-size: .5em;
