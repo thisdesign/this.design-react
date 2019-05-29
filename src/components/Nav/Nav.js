@@ -7,7 +7,11 @@ import AboutIcon from './AboutIcon/AboutIcon'
 import './Nav.scss'
 
 const Nav = () => {
-  const { view, navInverted, currentUid } = useContext(LayoutContext)
+  const {
+    view,
+    navInverted,
+    csState: { currentUid },
+  } = useContext(LayoutContext)
 
   const linkTo = link => {
     if (view === 'root') {
