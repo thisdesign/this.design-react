@@ -41,9 +41,9 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.25;
     font-family: ${props => props.theme.fontFaces.body};
 
-    @include breakpoint (xs) {
+    ${media.xs`
       font-size: 1.4em;
-    }
+    `}
   }
 
 
