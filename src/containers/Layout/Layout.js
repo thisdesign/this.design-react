@@ -8,6 +8,7 @@ import About from 'containers/About/About'
 import Root from 'containers/Root/Root'
 import CursorDotProvider from 'components/CursorDot/CursorDotProvider'
 import theme from 'styles/theme'
+import GlobalStyle from 'styles/GlobalStyle'
 import useWindowSize from 'hooks/useWindowSize'
 import useRouterData from './useRouterData'
 import useNavInvert from './useNavInvert'
@@ -41,6 +42,7 @@ function Layout({ view, pathUid }) {
             revertNav,
           }}
         >
+          <GlobalStyle />
           <Nav />
           <main className={`views -view-is-${view}`}>
             <View aside viewName="work" view={view}>

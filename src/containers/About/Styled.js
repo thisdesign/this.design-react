@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 
 const Wrapper = styled.div`
-  color: #575757;
+  color: ${props => props.theme.color.textLt};
 
   h1,
   h2,
@@ -9,11 +9,11 @@ const Wrapper = styled.div`
   h5,
   h6,
   strong {
-    color: #fff;
+    color: ${props => props.theme.color.white};
   }
 
   a {
-    color: #575757;
+    color: ${props => props.theme.color.textLt};
     text-decoration: none;
   }
 

@@ -3,9 +3,11 @@ import modularScale from './util/modularScale'
 
 const scale = modularScale({
   base: 1,
-  scale: 4 / 3,
-  stepsDown: 2,
+  scale: 1.25,
+  stepsDown: 3,
 })
+
+const fontSizes = scale.map(num => `${num}rem`)
 
 const margin = {
   lg: '5em',
@@ -14,11 +16,26 @@ const margin = {
   navMobile: '40px',
 }
 
-const fontSizes = []
+const lineHeights = {
+  single: 1,
+  heading: 1.25,
+  tight: 1.4,
+  body: 1.85,
+  loose: 2.25,
+}
 
+const fontFaces = {
+  body: `'calibre-light', arial, sans-serif`,
+  bodyBold: `'calibre-regular', arial, sans-serif`,
+}
+
+const grey = ['#111', '#333', '#666', '#999', '#ccc', '#eee', '#f9f9f9']
 const color = {
-  bodyLt: '#111',
-  caseStudyBg: '#f9f9f9',
+  white: '#fff',
+  black: '#000',
+  primary: grey[0],
+  caseStudyBg: grey[6],
+  textLt: grey[2],
 }
 
 const ease = {
@@ -28,14 +45,14 @@ const ease = {
 }
 
 const theme = {
-  ...{ color, margin, media, ease, fontSizes, scale },
+  ...{ color, margin, media, ease, fontSizes, scale, lineHeights, fontFaces },
 
   _h3: `
-    font-size: .5em;
-    line-height: 2.25;
+    font-size: ${fontSizes[0]};
+    line-height: ${lineHeights.loose};
     letter-spacing: 1px;
     text-transform: uppercase;
-    font-family: calibre-regular;
+    font-family: ${fontFaces.bodyBold};
   `,
 
   _wrapNav: `

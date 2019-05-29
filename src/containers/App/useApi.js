@@ -13,7 +13,6 @@ export default function useApi({ context }) {
       })
       .then(res => res.results)
 
-    console.log(context)
     const contextUids = await api
       .getByUID('context', context || 'home')
       .then(doc => doc)

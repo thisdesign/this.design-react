@@ -31,7 +31,6 @@ function App() {
       <Route
         path={['/@:context', '/']}
         render={({ match }) => {
-          console.log(match)
           return <DataFetch context={match.params.context} />
         }}
       />
