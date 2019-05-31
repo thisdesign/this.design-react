@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom'
 import { ApiDataCtx } from '../App/App'
 import Layout from '../Layout/Layout'
+import Preview from './Preview'
 
 function Router() {
   const { caseStudies } = useContext(ApiDataCtx)
@@ -21,6 +22,11 @@ function Router() {
         />
         <Route exact path="/work/" render={() => <Layout view="work" />} />
         <Route exact path="/about/" render={() => <Layout view="about" />} />
+        <Route
+          exact
+          path="/preview/"
+          render={routeProps => <Preview {...routeProps} />}
+        />
         <Route path="/" render={() => <Layout view="root" isHome />} />
       </Switch>
     </BrowserRouter>
