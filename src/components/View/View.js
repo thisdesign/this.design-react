@@ -1,27 +1,30 @@
 import React from 'react'
-import propTypes from 'prop-types'
-import './View.scss'
+import PropTypes from 'prop-types'
+import Styled from './Styled'
 
-const View = ({ view, viewName, children, aside }) => {
-  const className = [
-    'view',
-    viewName,
-    view === viewName ? '-is-active' : '',
-    aside ? 'view--aside' : '',
-  ].join(' ')
-
-  return <div className={className}>{children}</div>
+const View = ({ view: activeView, viewName, children, aside }) => {
+  return (
+    <Styled.View
+      isActive={activeView === viewName}
+      {...{ viewName, aside, activeView }}
+    >
+      {children}
+    </Styled.View>
+  )
 }
 
 View.defaultProps = {
   aside: false,
+  children: null,
 }
 
 View.propTypes = {
   // current app view
-  view: propTypes.string.isRequired,
+  view: PropTypes.string.isRequired,
   // what to call the current view
-  viewName: propTypes.string.isRequired,
-  aside: propTypes.bool,
+  viewName: PropTypes.string.isRequired,
+  aside: PropTypes.bool,
+  children: PropTypes.any,
 }
+
 export default View
