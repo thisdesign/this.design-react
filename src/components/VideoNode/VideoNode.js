@@ -8,6 +8,7 @@ import './VideoNode.scss'
 export const VideoContext = React.createContext()
 export default class VideoNode extends React.Component {
   static contextType = VideoContext
+
   static propTypes = {
     url: PropTypes.string.isRequired,
     poster: PropTypes.string,

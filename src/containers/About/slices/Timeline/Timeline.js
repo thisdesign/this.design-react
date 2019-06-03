@@ -7,9 +7,11 @@ export default class Timeline extends React.Component {
   state = {
     years: null,
   }
+
   componentDidMount() {
     this.getTimelineDoc()
   }
+
   getTimelineDoc() {
     this.props.prismicCtx.api.getSingle('timeline').then(doc => {
       if (doc) {

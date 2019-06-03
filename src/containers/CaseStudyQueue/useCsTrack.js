@@ -17,7 +17,7 @@ export default function useCsTrack() {
     if (inContext) {
       return [contextUids[currentIndex], contextUids[nextIndex]]
       // If not in context
-    } else if (!caseStudySelected) {
+    } if (!caseStudySelected) {
       return [contextUids[0], null]
     }
     // If not in context

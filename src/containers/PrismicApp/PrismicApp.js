@@ -3,7 +3,7 @@ import 'whatwg-fetch'
 import Prismic from 'prismic-javascript'
 import CursorDotProvider from 'components/CursorDot/CursorDotProvider'
 import PrismicConfig from './config/prismic-configuration'
-import Router from '../../containers/Router/Router'
+import Router from "../Router/Router"
 
 class PrismicApp extends React.Component {
   state = {
