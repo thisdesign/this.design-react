@@ -1,5 +1,4 @@
 import styled from 'styled-components/macro'
-import { media } from 'styles'
 
 export const Wrap = styled.div`
   max-width: 1500px;
