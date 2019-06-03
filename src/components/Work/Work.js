@@ -26,37 +26,39 @@ function Work() {
   )
 }
 
-const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => (
-  <Link
-    className="work__link"
-    to={`/work/${uid}`}
-    key={uid}
-    onClick={() => launchProject(uid)}
-  >
-    <div className="work__link__wrapper">
-      <CursorAnchor textId="launch" detached>
-        <img
-          className="work__link__item"
-          src={thumbnail.url}
-          alt={thumbnail.alt}
-          nopin="nopin"
-        />
-        <img
-          className="work__link__item--svg"
-          nopin="nopin"
-          src={svg.url}
-          alt={svg.alt}
-        />
-      </CursorAnchor>
-    </div>
-    <p className="work__link__item--title">{title}</p>
-  </Link>
-)
+const WorkThumbnail = ({ uid, thumbnail, svg, title, launchProject }) => {
+  return (
+    <Link
+      className="work__link"
+      to={`/work/${uid}`}
+      key={uid}
+      onClick={() => launchProject(uid)}
+    >
+      <div className="work__link__wrapper">
+        <CursorAnchor textId="launch" detached>
+          <img
+            className="work__link__item"
+            src={thumbnail.url}
+            alt={thumbnail.alt}
+            nopin="nopin"
+          />
+          <img
+            className="work__link__item--svg"
+            nopin="nopin"
+            src={svg.url}
+            alt={svg.alt}
+          />
+        </CursorAnchor>
+      </div>
+      <p className="work__link__item--title">{title}</p>
+    </Link>
+  )
+}
 
 WorkThumbnail.propTypes = {
   uid: PropTypes.string.isRequired,
-  thumbnail: PropTypes.string.isRequired,
-  svg: PropTypes.string.isRequired,
+  thumbnail: PropTypes.object.isRequired,
+  svg: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   launchProject: PropTypes.func.isRequired,
 }
