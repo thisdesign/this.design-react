@@ -22,10 +22,7 @@
   "settings": {
     "import/resolver": {
       "node": {
-        "moduleDirectory": [
-          "node_modules",
-          "src" // replace with your app-module-path directory
-        ]
+        "moduleDirectory": ["node_modules", "src"]
       }
     }
   }
