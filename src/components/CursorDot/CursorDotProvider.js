@@ -1,80 +1,59 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import CursorContext from 'components/CursorDot/CursorContext'
-import './CursorDot.scss'
-import icons from './icons'
+import styled from 'styled-components/macro'
+import Words from './Words'
 
-class CursorDot extends Component {
-  state = {
-    icon: null,
-    enabled: false,
+const ref = React.createRef()
+
+function CursorDotProvider({ children }) {
+  const [state, setState] = useState({ icon: null, enabled: false })
+
+  const handleMouseMove = e => {
+    const transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0)`
+    ref.current.style.transform = transform
   }
 
-  componentDidMount() {
-    this.addListener()
-  }
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove)
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+    }
+  })
 
-  componentWillUnmount() {
-    this.removeListener()
-  }
-
-  handleMouseMove = e => {
-    this.y = e.clientY
-    this.x = e.clientX
-    this.calculateStyle()
-  }
-
-  calculateStyle = () => {
-    const { x, y } = this
-    const transform = `translate3d(${x}px, ${y}px, 0)`
-    this.el.classList.remove('-noMouse')
-    this.el.style.transform = transform
-  }
-
-  addListener = () => {
-    window.addEventListener('mousemove', this.handleMouseMove)
-  }
-
-  removeListener = () => {
-    window.removeEventListener('mousemove', this.handleMouseMove)
-  }
-
-  updateCursor = options => {
-    const enabled = options ? options.enabled || false : false
-    const icon = options ? options.icon || null : null
-    this.setState({ enabled, icon })
-  }
-
-  render() {
-    return (
-      <CursorContext.Provider
-        value={{
-          updateCursor: this.updateCursor,
-        }}
-      >
-        {this.props.children}
-        <div
-          className="cursor"
-          style={{ ...this.coords }}
-          ref={el => {
-            this.el = el
-          }}
-        >
-          <div
-            className={` cursor__dot ${this.state.enabled &&
-              'cursor__dot--enabled'}`}
-          />
-          {icons[this.state.icon] && (
-            <div
-              className={`cursor__text ${this.state.enabled &&
-                'cursor__text--enabled'}`}
-            >
-              {icons[this.state.icon]}
-            </div>
-          )}
-        </div>
-      </CursorContext.Provider>
-    )
-  }
+  return (
+    <CursorContext.Provider
+      value={{
+        enableFloating: () => null,
+      }}
+    >
+      {children}
+      <FloatingWrapper ref={ref}>
+        <Words enabled={state.enabled} textId="work" />
+      </FloatingWrapper>
+    </CursorContext.Provider>
+  )
 }
 
-export default CursorDot
+CursorDotProvider.propTypes = {
+  children: PropTypes.any.isRequired,
+}
+
+const CURSOR_SIZE = 100
+
+const FloatingWrapper = styled.div`
+  background: blue;
+  border-radius: 50%;
+
+  height: ${CURSOR_SIZE}px;
+  width: ${CURSOR_SIZE}px;
+  left: ${CURSOR_SIZE / -2}px;
+  top: ${CURSOR_SIZE / -2}px;
+  pointer-events: none;
+  position: fixed;
+  z-index: 20;
+
+  ${'' /* transition: transform $anim-fast $ease-decel; */}
+`
+
+export default React.memo(CursorDotProvider)

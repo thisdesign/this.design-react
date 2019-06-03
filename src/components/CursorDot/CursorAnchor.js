@@ -1,74 +1,43 @@
-import React, { useState, useContext } from 'react'
-import isMobile from 'util/isMobile'
+import React, { useState, useContext, forwardRef } from 'react'
 import CursorContext from 'components/CursorDot/CursorContext'
 import PropTypes from 'prop-types'
-import icons from './icons'
+import Styled from './Styled'
+import Words from './Words'
 
-export default function CursorAnchor({
-  children,
-  onClick,
-  detached,
-  textId,
-  className,
-}) {
+const CursorAnchor = ({ children, onClick, textId, detached }) => {
   const { updateCursor } = useContext(CursorContext)
-  const [enabled, handleHover] = useState(false)
+  const [enabled, setEnabled] = useState(false)
 
-  const enableCursor = () => {
-    handleHover(true)
-    updateCursor({
-      enabled: true,
-      icon: detached && textId,
-    })
-  }
+  const enableCursor = () => setEnabled(true)
+  const disableCursor = () => setEnabled(false)
 
-  const disableCursor = () => {
-    updateCursor({ enabled: false, icon: null })
-    handleHover(false)
-  }
-
-  function handleClick() {
+  const handleClick = () => {
     disableCursor()
-    if (onClick) {
-      onClick()
-    }
+    onClick()
   }
 
-  if (!isMobile()) {
-    return (
-      <div
-        onMouseEnter={enableCursor}
-        onMouseLeave={disableCursor}
-        onClick={handleClick}
-        className={`${className || ''} cursorAnchor ${
-          enabled ? '-hovered' : ''
-        }`}
-      >
-        {children}
-        {!detached && <AttachedCursor {...{ enabled, textId }} />}
-      </div>
-    )
-  }
   return (
-    <div onClick={onClick} className={`${className && className} cursorAnchor`}>
+    <Styled.Container
+      onMouseEnter={enableCursor}
+      onClick={handleClick}
+      onMouseLeave={disableCursor}
+    >
       {children}
-    </div>
+      {!detached && <Words {...{ textId }} enabled={enabled} />}
+    </Styled.Container>
   )
 }
 
-const AttachedCursor = ({ textId, enabled }) => (
-  <div className="cursorAnchor__wrapper">
-    <div className={`cursor__text ${enabled && 'cursor__text--enabled'}`}>
-      {icons[textId]}
-    </div>
-  </div>
-)
-
 CursorAnchor.defaultProps = {
+  onClick: () => null,
   detached: false,
 }
 
 CursorAnchor.propTypes = {
-  textId: PropTypes.string.isRequired,
   detached: PropTypes.bool,
+  textId: PropTypes.string.isRequired,
+  children: PropTypes.any.isRequired,
+  onClick: PropTypes.func,
 }
+
+export default CursorAnchor
