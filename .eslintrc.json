@@ -12,7 +12,8 @@
     "jsx-a11y/no-static-element-interactions": 0,
     "no-underscore-dangle": 0,
     "react-hooks/rules-of-hooks": "error",
-    "import/no-cycle": 0
+    "import/no-cycle": 0,
+    "react/no-array-index-key": 0
   },
   "globals": {
     "window": true

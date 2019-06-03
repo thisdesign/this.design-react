@@ -1,4 +1,6 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+/* eslint-disable react/destructuring-assignment */
 
 export default class PercentRadii extends React.Component {
   constructor(props) {
@@ -41,4 +43,11 @@ export default class PercentRadii extends React.Component {
 
 PercentRadii.defaultProps = {
   percent: 5,
+  className: null,
+}
+
+PercentRadii.propTypes = {
+  className: PropTypes.string,
+  percent: PropTypes.number,
+  children: PropTypes.any.isRequired,
 }

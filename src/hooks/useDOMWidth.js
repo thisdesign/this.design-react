@@ -5,9 +5,12 @@ export default function useDOMWidth(ref) {
   const [width, setWidth] = useState(0)
   const windowWidth = useWindowSize().width
 
-  useEffect(() => {
-    setWidth(ref.current.offsetWidth)
-  }, [windowWidth])
+  useEffect(
+    () => {
+      setWidth(ref.current.offsetWidth)
+    },
+    [windowWidth]
+  )
 
   return width
 }

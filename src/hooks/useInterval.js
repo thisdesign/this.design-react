@@ -9,14 +9,17 @@ export default function useInterval(callback, delay) {
   })
 
   // Set up the interval.
-  useEffect(() => {
-    //eslint-disable-line
-    function tick() {
-      savedCallback.current()
-    }
-    if (delay !== null) {
-      const id = setInterval(tick, delay)
-      return () => clearInterval(id)
-    }
-  }, [delay])
+  useEffect(
+    () => {
+      function tick() {
+        savedCallback.current()
+      }
+      if (delay !== null) {
+        const id = setInterval(tick, delay)
+        return () => clearInterval(id)
+      }
+      return () => {}
+    },
+    [delay]
+  )
 }
