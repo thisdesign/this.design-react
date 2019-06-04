@@ -3,8 +3,16 @@ import PropTypes from 'prop-types'
 import Iframe from './Iframe'
 
 function Wrapper({ data }) {
-  const { src, ratio } = data.primary
-  return <Iframe ratio={ratio} src={src.url} />
+  const { src, ratio, pixel_cutoff: cutoff, image } = data.primary
+
+  return (
+    <Iframe
+      ratio={ratio}
+      cutoff={cutoff}
+      src={src.url}
+      image={image.resized.url}
+    />
+  )
 }
 
 Wrapper.propTypes = {
