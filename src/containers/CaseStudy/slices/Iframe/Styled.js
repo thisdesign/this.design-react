@@ -1,7 +1,9 @@
 import styled from 'styled-components/macro'
 import { Wrap } from 'components/Styled'
 
-const Wrapper = styled(Wrap)`
+const Wrapper = styled(Wrap)``
+
+const RatioEnforcer = styled.div`
   position: relative;
   height: 0;
   padding-top: ${props => props.ratio}%;
@@ -17,4 +19,4 @@ const Iframe = styled.iframe`
   display: block;
 `
 
-export default { Wrapper, Iframe }
+export default { Wrapper, Iframe, RatioEnforcer }
