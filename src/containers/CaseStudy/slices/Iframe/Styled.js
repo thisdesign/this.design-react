@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import { Wrap } from 'components/Styled'
 
-const Wrapper = styled(Wrap)``
+const Wrapper = styled(Wrap).attrs(({ full }) => ({ full }))``
 
 const RatioEnforcer = styled.div`
   position: relative;

@@ -5,12 +5,12 @@ import Wrapper from './Wrapper'
 import Styled from './Styled'
 import getRatioPaddingPercent from './util/getRatioPaddingPercent'
 
-function Iframe({ src, ratio, cutoff, image }) {
+function Iframe({ src, ratio, cutoff, image, full }) {
   const { ref, visible } = useCutoff(cutoff)
   const ratioPaddingPercent = getRatioPaddingPercent(ratio)
 
   return (
-    <Styled.Wrapper ref={ref}>
+    <Styled.Wrapper ref={ref} full={full}>
       {visible ? (
         <Styled.RatioEnforcer ratio={ratioPaddingPercent || 16 / 9}>
           <Styled.Iframe src={src} title="iframe" />
@@ -33,6 +33,7 @@ Iframe.propTypes = {
   ratio: PropTypes.string,
   cutoff: PropTypes.number,
   image: PropTypes.string,
+  full: PropTypes.bool.isRequired,
 }
 
 Iframe.Wrapper = Wrapper

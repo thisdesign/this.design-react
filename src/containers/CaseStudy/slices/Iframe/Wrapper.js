@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Iframe from './Iframe'
 
 function Wrapper({ data }) {
-  const { src, ratio, pixel_cutoff: cutoff, image } = data.primary
+  const { src, ratio, pixel_cutoff: cutoff, image, fullscreen } = data.primary
 
   return (
     <Iframe
@@ -11,6 +11,7 @@ function Wrapper({ data }) {
       cutoff={cutoff}
       src={src.url}
       image={image.resized.url}
+      full={fullscreen === 'true'}
     />
   )
 }
