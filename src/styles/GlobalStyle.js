@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     overflow: hidden;
   }
 
-  .strong {
+  strong {
     font-family: ${props => props.theme.fontFaces.bodyBold};
   }
 

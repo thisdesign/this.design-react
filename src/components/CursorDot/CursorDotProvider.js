@@ -8,9 +8,11 @@ class CursorDot extends Component {
     icon: null,
     enabled: false,
   }
+
   componentDidMount() {
     this.addListener()
   }
+
   componentWillUnmount() {
     this.removeListener()
   }

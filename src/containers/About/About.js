@@ -36,7 +36,13 @@ function About() {
             case 'link_to_timeline':
               return <Timeline prismicCtx={this.props.prismicCtx} />
             default:
-              return <p className="future">{slice.slice_type} goes here</p>
+              return (
+                <p className="future">
+                  {slice.slice_type}
+                  
+goes here
+                </p>
+)
           }
         })
         .map(slice => (

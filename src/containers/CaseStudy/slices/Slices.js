@@ -9,6 +9,7 @@ import Video from './Video/Video'
 import Pullquote from './Pullquote/Pullquote'
 import Website from './Website/WebsiteWrapper'
 import Diptych from './Diptych/DiptychWrapper'
+import Iframe from './Iframe/Iframe'
 
 const Slice = ({ children, type }) => (
   <WaypointAnim
@@ -43,6 +44,8 @@ const Slices = ({ sliceData, title }) => {
         return <Pullquote {...atts} type="pullquote" />
       case 'website':
         return <Website.Wrapper {...atts} />
+      case 'iframe':
+        return <Iframe.Wrapper {...atts} />
       case 'mobile':
         console.error('Mobile is depricated, please use columns')
         return <></>

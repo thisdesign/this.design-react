@@ -16,7 +16,7 @@ const Nav = () => {
   const linkTo = link => {
     if (view === 'root') {
       return `/${link}`
-    } else if (currentUid) {
+    } if (currentUid) {
       return `/work/${currentUid}`
     }
     return '/'

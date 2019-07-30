@@ -16,7 +16,7 @@ const ControlBar = () => {
   const DurationIndicator = ({ playedSeconds, duration }) => (
     <Item id="duration">
       <span>
-        <Duration seconds={playedSeconds} />{' '}
+        <Duration seconds={playedSeconds} />
       </span>
       <span className="-spacer" />
       <span>
