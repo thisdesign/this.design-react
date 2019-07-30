@@ -3,7 +3,6 @@ import { ApiDataCtx } from 'containers/App/App'
 import qs from 'qs'
 
 const linkResolver = doc => {
-  console.log('linkResolver', { doc })
   if (doc.type === 'casestudy') return `/work/${doc.uid}`
   if (doc.type === 'context') return `/@${doc.uid}/?reload=true`
   if (doc.type === 'about') return `/about/`
@@ -15,9 +14,8 @@ function Preview(props) {
 
   useEffect(() => {
     const { token } = qs.parse(props.location.search.slice(1))
-    const pureToken = token.split('?')[0]
 
-    api.previewSession(pureToken, linkResolver, '/').then(url => {
+    api.previewSession(token, linkResolver, '/').then(url => {
       props.history.push(url)
       window.location.reload()
     })
