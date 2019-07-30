@@ -13,19 +13,13 @@ const linkResolver = doc => {
 function Preview(props) {
   const { api } = useContext(ApiDataCtx)
 
-  const FAKE_LOCATION =
-    'https://thisstaging.prismic.io/previews/XT-HixEAACAA3y-6?websitePreviewId=XPGHyikAAEEAtXPg'
-
-  console.log(props.location.search)
-
   useEffect(() => {
     const { token } = qs.parse(props.location.search.slice(1))
+    const pureToken = token.split('?')[0]
 
-    // console.log({ token })
-    api.previewSession(token, linkResolver, '/').then(url => {
-      // console.log(url)
-      // props.history.push(url)
-      // window.location.reload()
+    api.previewSession(pureToken, linkResolver, '/').then(url => {
+      props.history.push(url)
+      window.location.reload()
     })
   })
 
