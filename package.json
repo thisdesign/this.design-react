@@ -17,6 +17,7 @@
     "react-player": "^1.8.0",
     "react-pose": "^4.0.6",
     "react-router-dom": "^5.0.0",
+    "react-video-controls": "^0.1.1",
     "react-waypoint": "^8.1.0",
     "styled-components": "^4.2.0",
     "styled-components.macro": "^1.0.0",
