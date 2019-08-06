@@ -9,6 +9,7 @@ import Video from './Video/Video'
 import Pullquote from './Pullquote/Pullquote'
 import Website from './Website/WebsiteWrapper'
 import Diptych from './Diptych/DiptychWrapper'
+import YouTube from './YouTube'
 import Iframe from './Iframe/Iframe'
 
 const Slice = ({ children, type }) => (
@@ -46,6 +47,8 @@ const Slices = ({ sliceData, title }) => {
         return <Website.Wrapper {...atts} />
       case 'iframe':
         return <Iframe.Wrapper {...atts} />
+      case 'youtube_embed':
+        return <YouTube.Wrapper {...atts} type="youtube" />
       case 'mobile':
         console.error('Mobile is depricated, please use columns')
         return <></>
