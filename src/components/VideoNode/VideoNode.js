@@ -86,12 +86,25 @@ function MuteToggle() {
 }
 
 function Controls() {
+  const { state } = useContext(VideoCtx)
+  const { duration, time } = state.formatted
   return (
     <>
       <Styled.SeekBar>
         <Styled.Progress />
       </Styled.SeekBar>
-      <MuteToggle />
+      <Styled.ControlsLayout>
+        <Styled.ControlItem>
+          <Styled.Time>
+            <span>{time}</span>
+            <span>{duration}</span>
+          </Styled.Time>
+        </Styled.ControlItem>
+        <Styled.ControlItem>
+          <MuteToggle />
+        </Styled.ControlItem>
+        <Styled.ControlItem>FULLSCREEN</Styled.ControlItem>
+      </Styled.ControlsLayout>
     </>
   )
 }
