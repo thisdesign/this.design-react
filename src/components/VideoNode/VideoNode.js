@@ -1,17 +1,19 @@
-import React, { memo, useContext } from 'react'
+import React, {
+  memo,
+  useContext,
+  useState,
+  useEffect,
+  createContext,
+} from 'react'
 import PropTypes from 'prop-types'
 import { VideoCtx } from 'react-video-controls'
 import Styled from './Styled'
-import MuteIcon from './icons/Mute'
-// import ReactPlayer from 'react-player'
-// import MuteControl from './MuteControl/MuteControl'
-// import VideoControls from './VideoControls/VideoControls'
 
 export const VideoContext = React.createContext()
 
 const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
   return (
-    <Styled.VideoProvider src={url} muted poster={poster}>
+    <Styled.VideoProvider src={url} muted={!controls} poster={poster}>
       <Player
         shouldPlay={playing}
         muteToggle={muteToggle}
@@ -21,46 +23,77 @@ const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
   )
 })
 
-function useAutoPlay(shouldPlay) {
+function useAutoplay(shouldPlay) {
   const { controls } = useContext(VideoCtx)
-
-  if (shouldPlay) {
-    controls.play()
-  } else {
-    controls.pause()
-  }
-}
-
-function Player({ shouldPlay, muteToggle, controlsEnabled }) {
-  const { video } = useContext(VideoCtx)
-  useAutoPlay(shouldPlay)
-
-  return (
-    <Styled.Wrapper>
-      {muteToggle && !controlsEnabled && <MuteToggle />}
-      {controlsEnabled && <Controls />}
-      {video}
-    </Styled.Wrapper>
+  useEffect(
+    () => {
+      if (shouldPlay) {
+        controls.play()
+      } else {
+        controls.pause()
+      }
+    },
+    [shouldPlay]
   )
 }
 
-function MuteToggle() {
-  const { state, controls } = useContext(VideoCtx)
+const PlayerCtx = createContext()
+function Player({ shouldPlay, muteToggle, controlsEnabled }) {
+  const { video, state, controls } = useContext(VideoCtx)
+  const [hovered, setHovered] = useState()
 
-  function handleClick() {
+  useAutoplay(shouldPlay)
+
+  const muteEnabled = muteToggle && !controlsEnabled
+  const ctrlsActive =
+    (state.isPlaying && hovered) ||
+    state.seeking ||
+    (muteEnabled && state.muted)
+
+  function toggleMute() {
     if (state.muted) controls.unmute()
     else controls.mute()
   }
 
+  function handleClick(e) {
+    e.stopPropagation()
+    if (muteEnabled) return toggleMute()
+    if (controlsEnabled)
+      return state.isPlaying ? controls.pause() : controls.play()
+    return null
+  }
+
   return (
-    <Styled.ControlWrapper>
-      <Styled.Mute muted={state.muted} onClick={handleClick} />
-    </Styled.ControlWrapper>
+    <PlayerCtx.Provider value={{ toggleMute }}>
+      <Styled.Wrapper
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
+        <Styled.ControlWrapper active={ctrlsActive}>
+          {muteEnabled && <MuteToggle />}
+          {controlsEnabled && <Controls />}
+        </Styled.ControlWrapper>
+        <div onClick={handleClick}>{video}</div>
+      </Styled.Wrapper>
+    </PlayerCtx.Provider>
   )
 }
 
+function MuteToggle() {
+  const { state } = useContext(VideoCtx)
+  const { toggleMute } = useContext(PlayerCtx)
+  return <Styled.Mute muted={state.muted} onClick={toggleMute} />
+}
+
 function Controls() {
-  return 'CONTROLS'
+  return (
+    <>
+      <Styled.SeekBar>
+        <Styled.Progress />
+      </Styled.SeekBar>
+      <MuteToggle />
+    </>
+  )
 }
 
 VideoNode.propTypes = {
@@ -70,4 +103,5 @@ VideoNode.propTypes = {
   muteToggle: PropTypes.bool,
   playing: PropTypes.bool,
 }
+
 export default VideoNode
