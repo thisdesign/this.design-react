@@ -1,5 +1,4 @@
 import React from 'react'
-import './play.scss'
 
 export default function Play() {
   return (
