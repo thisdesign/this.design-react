@@ -103,7 +103,9 @@ function Controls() {
         <Styled.ControlItem>
           <MuteToggle />
         </Styled.ControlItem>
-        <Styled.ControlItem>FULLSCREEN</Styled.ControlItem>
+        <Styled.ControlItem>
+          <Styled.Fullscreen />
+        </Styled.ControlItem>
       </Styled.ControlsLayout>
     </>
   )

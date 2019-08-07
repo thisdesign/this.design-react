@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import * as Controls from 'react-video-controls'
 import MuteIcon from './icons/Mute'
+import FullscreenIcon from './icons/Fullscreen'
 
 const VideoProvider = styled(Controls.default)`
   &[poster] {
@@ -35,7 +36,7 @@ const ControlWrapper = styled.div`
 
 const ControlsLayout = styled.div`
   display: flex;
-  padding: 1em;
+  padding: 1em 1.5em;
   align-items: center;
 
   > * {
@@ -46,7 +47,7 @@ const ControlsLayout = styled.div`
 `
 
 const ControlItem = styled.div`
-  margin: 0 0.5em;
+  margin: 0 0.75em;
   display: flex;
   align-items: center;
 
@@ -60,6 +61,9 @@ const ControlItem = styled.div`
 
 const Mute = styled(MuteIcon)`
   width: 1.34rem;
+`
+const Fullscreen = styled(FullscreenIcon)`
+  width: 0.85em;
 `
 
 const Time = styled.div`
@@ -80,7 +84,20 @@ const Time = styled.div`
   }
 `
 
-const SeekBar = styled(Controls.SeekBar)``
+const SeekBar = styled(Controls.SeekBar)`
+  background: rgba(0, 0, 0, 0.07);
+  position: relative;
+  overflow: visible !important;
+
+  /* increase clickable area */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    bottom: -7px;
+    width: 100%;
+  }
+`
 
 const Progress = styled(Controls.SeekBar.Progress)`
   background: orange !important;
@@ -97,4 +114,5 @@ export default {
   Progress,
   Time,
   ControlItem,
+  Fullscreen,
 }
