@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import config from 'site.config'
 import PropTypes from 'prop-types'
 import formatTitle from 'util/formatTitle'
-import
+
 function Head({ description, title, image, path }) {
   const url = `${config.url}${path}`
   return (
