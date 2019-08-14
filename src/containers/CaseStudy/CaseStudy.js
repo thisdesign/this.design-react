@@ -65,7 +65,8 @@ const CaseStudy = ({
   )
 }
 
-const sanitize = str => str.replace(/(\r\n|\n|\r)/gm, ' ')
+const lineBreak = /(\r\n|\n|\r)/gm
+const sanitize = str => str.replace(lineBreak, ' ')
 
 const HeadMeta = () => {
   const { isHome, next, meta } = useContext(CsContext)
