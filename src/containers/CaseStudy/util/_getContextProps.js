@@ -15,6 +15,12 @@ const _getContextProps = data => {
     layout2,
   } = data.header[0]
 
+  const meta = {
+    title: RichText.asText(title),
+    description: RichText.asText(copy),
+    image: data.thumbnail.url,
+  }
+
   const header = {
     backgroundColor: data.color,
     title: RichText.render(title),
@@ -34,7 +40,7 @@ const _getContextProps = data => {
   }
   const dark = data.preserve_white_nav === 'true'
 
-  return { ...{ header, dark } }
+  return { ...{ header, dark, meta } }
 }
 
 export const _contextPropTypes = {
