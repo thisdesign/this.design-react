@@ -71,7 +71,7 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        {!state.isPlaying && (
+        {!state.isPlaying && !state.seeking && (
           <Styled.PlayWrapper>
             <Styled.Play />
           </Styled.PlayWrapper>
