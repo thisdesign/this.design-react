@@ -64,12 +64,19 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
     return null
   }
 
+  console.log()
+
   return (
     <PlayerCtx.Provider value={{ toggleMute }}>
       <Styled.Wrapper
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
+        {!state.isPlaying && (
+          <Styled.PlayWrapper>
+            <Styled.Play />
+          </Styled.PlayWrapper>
+        )}
         <Styled.ControlWrapper active={ctrlsActive}>
           {muteEnabled && (
             <Styled.MutePadding>
