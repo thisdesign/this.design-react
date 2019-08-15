@@ -1,7 +1,7 @@
 import styled from 'styled-components/macro'
 import * as Controls from 'react-video-controls'
 import MuteIcon from './icons/Mute'
-import FullscreenIcon from './icons/Fullscreen'
+import FullscreenIcon from './icons/FullScreen'
 
 const VideoProvider = styled(Controls.default)`
   &[poster] {
