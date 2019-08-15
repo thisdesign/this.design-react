@@ -1,44 +1,9 @@
-import React, {
-  memo,
-  useContext,
-  useState,
-  useEffect,
-  createContext,
-  createRef,
-} from 'react'
+import React, { memo, useContext, useState, createContext } from 'react'
 import PropTypes from 'prop-types'
 import { VideoCtx } from 'react-video-controls'
 import Styled from './Styled'
 import Controls from './Controls'
-
-export const VideoContext = React.createContext()
-
-const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
-  return (
-    <Styled.VideoProvider src={url} muted={!controls}>
-      <Player
-        shouldPlay={playing}
-        muteToggle={muteToggle}
-        controlsEnabled={controls}
-        poster={poster}
-      />
-    </Styled.VideoProvider>
-  )
-})
-
-function useAutoplay(shouldPlay) {
-  const { controls } = useContext(VideoCtx)
-  useEffect(
-    () => {
-      if (shouldPlay) {
-        controls.play()
-      } else {
-        controls.pause()
-      }
-    },
-    [shouldPlay]
-  )
-}
+import useAutoplay from './hooks/useAutoplay'
 
 export const PlayerCtx = createContext()
 
@@ -103,6 +68,19 @@ export function MuteToggle() {
   const { toggleMute } = useContext(PlayerCtx)
   return <Styled.Mute muted={state.muted} onClick={toggleMute} />
 }
+
+const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
+  return (
+    <Styled.VideoProvider src={url} muted={!controls}>
+      <Player
+        shouldPlay={playing}
+        muteToggle={muteToggle}
+        controlsEnabled={controls}
+        poster={poster}
+      />
+    </Styled.VideoProvider>
+  )
+})
 
 VideoNode.propTypes = {
   url: PropTypes.string.isRequired,
