@@ -64,8 +64,6 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
     return null
   }
 
-  console.log()
-
   return (
     <PlayerCtx.Provider value={{ toggleMute }}>
       <Styled.Wrapper
