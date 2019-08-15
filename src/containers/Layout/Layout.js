@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components/macro'
 import Nav from 'components/Nav/Nav'
 import Work from 'components/Work/Work'
+import Head from 'components/Head'
 import View from 'components/View/View'
 import About from 'containers/About/About'
 import Root from 'containers/Root/Root'
@@ -43,6 +44,7 @@ function Layout({ view, pathUid }) {
           }}
         >
           <GlobalStyle />
+          <AppMeta />
           <Nav />
           <main className={`views -view-is-${view}`}>
             <View aside viewName="work" view={view}>
@@ -59,6 +61,17 @@ function Layout({ view, pathUid }) {
       </ThemeProvider>
     </CursorDotProvider>
   )
+}
+
+function AppMeta() {
+  const { view } = useContext(LayoutContext)
+  if (view === 'about') {
+    return <Head title="About" path="/about" />
+  }
+  if (view === 'about') {
+    return <Head title="About" path="/work" />
+  }
+  return <Head path="/" />
 }
 
 Layout.defaultProps = {
