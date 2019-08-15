@@ -21,6 +21,7 @@ const DUR = 300
 const ease = props => props.theme.ease.standard
 
 const ControlWrapper = styled.div`
+  font-size: ${props => props.theme.fontSizes[2]};
   color: ${props => props.theme.color.white};
   letter-spacing: 0.05em;
   position: absolute;
@@ -60,7 +61,7 @@ const ControlItem = styled.div`
 `
 
 const Mute = styled(MuteIcon)`
-  width: 1.34rem;
+  width: 1.34em;
 `
 const Fullscreen = styled(FullscreenIcon)`
   width: 0.85em;
@@ -69,9 +70,10 @@ const Fullscreen = styled(FullscreenIcon)`
 const Time = styled.div`
   display: flex;
   justify-content: space-between;
+  letter-spacing: 0.15em;
 
   position: relative;
-  width: 6.5em;
+  width: 7.5em;
 
   &:before {
     content: '';
@@ -101,7 +103,7 @@ const SeekBar = styled(Controls.SeekBar)`
 
 const Progress = styled(Controls.SeekBar.Progress)`
   background: orange !important;
-  height: 5px !important;
+  height: 3px !important;
 `
 
 export default {
