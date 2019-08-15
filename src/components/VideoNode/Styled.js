@@ -18,6 +18,14 @@ const Wrapper = styled.div`
   user-select: none;
 `
 
+const VideoWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
 const DUR = 300
 const ease = props => props.theme.ease.standard
 
@@ -84,4 +92,5 @@ export default {
   ControlWrapper,
   Fullscreen,
   MutePadding,
+  VideoWrapper,
 }

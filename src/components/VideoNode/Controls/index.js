@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
-import { VideoCtx } from 'react-video-controls'
+import { VideoCtx, Fullscreen } from 'react-video-controls'
 import Styled from './Styled'
 import { MuteToggle } from '../VideoNode'
 
 export default function Controls() {
   const { state } = useContext(VideoCtx)
+
   const { duration, time } = state.formatted
   return (
     <>
@@ -22,7 +23,9 @@ export default function Controls() {
           <MuteToggle />
         </Styled.ControlItem>
         <Styled.ControlItem>
-          <Styled.Fullscreen />
+          <Fullscreen>
+            <Styled.Fullscreen />
+          </Fullscreen>
         </Styled.ControlItem>
       </Styled.ControlsLayout>
     </>

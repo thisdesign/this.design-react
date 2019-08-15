@@ -53,6 +53,7 @@ const ControlItem = styled.div`
     margin-right: 0;
   }
 `
+
 const Fullscreen = styled(FullscreenIcon)`
   width: 0.85em;
 `

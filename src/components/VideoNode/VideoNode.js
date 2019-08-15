@@ -4,6 +4,7 @@ import React, {
   useState,
   useEffect,
   createContext,
+  createRef,
 } from 'react'
 import PropTypes from 'prop-types'
 import { VideoCtx } from 'react-video-controls'
@@ -14,11 +15,12 @@ export const VideoContext = React.createContext()
 
 const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
   return (
-    <Styled.VideoProvider src={url} muted={!controls} poster={poster}>
+    <Styled.VideoProvider src={url} muted={!controls}>
       <Player
         shouldPlay={playing}
         muteToggle={muteToggle}
         controlsEnabled={controls}
+        poster={poster}
       />
     </Styled.VideoProvider>
   )
@@ -38,10 +40,10 @@ function useAutoplay(shouldPlay) {
   )
 }
 
-const PlayerCtx = createContext()
+export const PlayerCtx = createContext()
 
-function Player({ shouldPlay, muteToggle, controlsEnabled }) {
-  const { video, state, controls } = useContext(VideoCtx)
+function Player({ shouldPlay, muteToggle, controlsEnabled, poster }) {
+  const { video, state, controls, wrapperRef } = useContext(VideoCtx)
   const [hovered, setHovered] = useState()
 
   useAutoplay(shouldPlay)
@@ -70,6 +72,7 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
       <Styled.Wrapper
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
+        ref={wrapperRef}
       >
         {!state.isPlaying && !state.seeking && (
           <Styled.PlayWrapper>
@@ -84,7 +87,12 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
           )}
           {controlsEnabled && <Controls />}
         </Styled.ControlWrapper>
-        <div onClick={handleClick}>{video}</div>
+        <Styled.VideoWrapper
+          poster={!state.isPlaying && poster}
+          onClick={handleClick}
+        >
+          {video}
+        </Styled.VideoWrapper>
       </Styled.Wrapper>
     </PlayerCtx.Provider>
   )
