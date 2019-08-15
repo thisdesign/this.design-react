@@ -8,6 +8,7 @@ import React, {
 import PropTypes from 'prop-types'
 import { VideoCtx } from 'react-video-controls'
 import Styled from './Styled'
+import Controls from './Controls'
 
 export const VideoContext = React.createContext()
 
@@ -89,36 +90,10 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
   )
 }
 
-function MuteToggle() {
+export function MuteToggle() {
   const { state } = useContext(VideoCtx)
   const { toggleMute } = useContext(PlayerCtx)
   return <Styled.Mute muted={state.muted} onClick={toggleMute} />
-}
-
-function Controls() {
-  const { state } = useContext(VideoCtx)
-  const { duration, time } = state.formatted
-  return (
-    <>
-      <Styled.SeekBar>
-        <Styled.Progress />
-      </Styled.SeekBar>
-      <Styled.ControlsLayout>
-        <Styled.ControlItem>
-          <Styled.Time>
-            <span>{time}</span>
-            <span>{duration}</span>
-          </Styled.Time>
-        </Styled.ControlItem>
-        <Styled.ControlItem>
-          <MuteToggle />
-        </Styled.ControlItem>
-        <Styled.ControlItem>
-          <Styled.Fullscreen />
-        </Styled.ControlItem>
-      </Styled.ControlsLayout>
-    </>
-  )
 }
 
 VideoNode.propTypes = {
