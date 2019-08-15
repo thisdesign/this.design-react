@@ -38,6 +38,7 @@ function useAutoplay(shouldPlay) {
 }
 
 const PlayerCtx = createContext()
+
 function Player({ shouldPlay, muteToggle, controlsEnabled }) {
   const { video, state, controls } = useContext(VideoCtx)
   const [hovered, setHovered] = useState()
@@ -70,7 +71,11 @@ function Player({ shouldPlay, muteToggle, controlsEnabled }) {
         onMouseLeave={() => setHovered(false)}
       >
         <Styled.ControlWrapper active={ctrlsActive}>
-          {muteEnabled && <MuteToggle />}
+          {muteEnabled && (
+            <Styled.MutePadding>
+              <MuteToggle />
+            </Styled.MutePadding>
+          )}
           {controlsEnabled && <Controls />}
         </Styled.ControlWrapper>
         <div onClick={handleClick}>{video}</div>

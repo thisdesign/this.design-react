@@ -35,9 +35,12 @@ const ControlWrapper = styled.div`
   transition: ${DUR}ms transform ${ease}, ${DUR}ms opacity ${ease};
 `
 
+const MutePadding = styled.div`
+  padding: 0.5em 1em;
+`
 const ControlsLayout = styled.div`
-  display: flex;
   padding: 1em 1.5em;
+  display: flex;
   align-items: center;
 
   > * {
@@ -117,4 +120,5 @@ export default {
   Time,
   ControlItem,
   Fullscreen,
+  MutePadding,
 }
