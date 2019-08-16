@@ -41,9 +41,7 @@
     "build": "npm run sitemap && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "postinstall": "npm run build",
-    "postbuild": "react-snap",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false cd client/ && npm install && npm run build"
+    "postinstall": "npm run build"
   },
   "engines": {
     "node": ">=4.8.1",
