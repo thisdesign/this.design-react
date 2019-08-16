@@ -26,3 +26,5 @@ yarn-error.log*
 
 *.css.map
 src/**/*.css
+
+public/sitemap.xml
