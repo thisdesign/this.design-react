@@ -18,14 +18,14 @@ async function buildSitemap() {
   const sitemap = createSitemap({
     hostname: 'http://this.design',
     urls: [
-      { url: '/work/' },
-      { url: '/about/' },
-      { url: '/' },
-      ...UIDS.map(uid => ({ url: `/${uid}/` })),
+      { url: '/work' },
+      { url: '/about' },
+      ...UIDS.map(uid => ({ url: `/${uid}` })),
     ],
   })
   const xml = sitemap.toXML()
   fs.writeFile('public/sitemap.xml', xml)
+  console.log('sitemap built...')
 }
 
 buildSitemap()
