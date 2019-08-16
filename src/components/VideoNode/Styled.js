@@ -24,6 +24,20 @@ const VideoWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
+
+  &:after {
+    content: '';
+    ${'' /* display: ${props => (props.hasPlayed ? 'none' : 'block')} */}
+    background: url(${props => props.poster});
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
 `
 
 const DUR = 300
@@ -57,8 +71,10 @@ const Fullscreen = styled(FullscreenIcon)`
 
 const PLAY_SIZE = 4.75
 
-const PlayWrapper = styled.div`
+const PlayWrapper = styled(Controls.Play)`
   position: absolute;
+  z-index: 10;
+
   top: 50%;
   left: 50%;
 

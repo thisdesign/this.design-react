@@ -10,6 +10,16 @@ export const PlayerCtx = createContext()
 function Player({ shouldPlay, muteToggle, controlsEnabled, poster }) {
   const { video, state, controls, wrapperRef } = useContext(VideoCtx)
   const [hovered, setHovered] = useState()
+  const [hasPlayed, setHasPlayed] = useState(false)
+
+  React.useEffect(
+    () => {
+      if (state.isPlaying) {
+        setHasPlayed(true)
+      }
+    },
+    [state.isPlaying]
+  )
 
   useAutoplay(shouldPlay)
 
@@ -53,7 +63,8 @@ function Player({ shouldPlay, muteToggle, controlsEnabled, poster }) {
           {controlsEnabled && <Controls />}
         </Styled.ControlWrapper>
         <Styled.VideoWrapper
-          poster={!state.isPlaying && poster}
+          poster={!hasPlayed && poster}
+          hasPayed={hasPlayed}
           onClick={handleClick}
         >
           {video}

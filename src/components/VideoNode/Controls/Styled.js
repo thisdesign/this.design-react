@@ -24,7 +24,7 @@ const Time = styled.div`
 const SeekBar = styled(Controls.SeekBar)`
   background: rgba(0, 0, 0, 0.07);
   position: relative;
-  overflow: visible !important;
+  overflow: visible;
 
   /* increase clickable area */
   &::after {
@@ -37,8 +37,8 @@ const SeekBar = styled(Controls.SeekBar)`
 `
 
 const Progress = styled(Controls.SeekBar.Progress)`
-  background: orange !important;
-  height: 3px !important;
+  background: orange;
+  height: 3px;
 `
 
 const ControlItem = styled.div`
