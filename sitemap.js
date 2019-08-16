@@ -26,6 +26,7 @@ async function buildSitemap() {
   })
   const xml = sitemap.toXML()
   fs.writeFile('public/sitemap.xml', xml)
+  console.log('sitemap built...')
 }
 
 buildSitemap()
