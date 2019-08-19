@@ -47,11 +47,11 @@ function Layout({ view, pathUid }) {
           <AppMeta />
           <Nav />
           <main className={`views -view-is-${view}`}>
-            <View aside viewName="work" view={view}>
-              <Work />
-            </View>
             <View viewName="root" view={view}>
               <Root {...{ projectLaunchStatus }} />
+            </View>
+            <View aside viewName="work" view={view}>
+              <Work />
             </View>
             <View aside viewName="about" view={view}>
               <About />
