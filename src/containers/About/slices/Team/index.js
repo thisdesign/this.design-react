@@ -18,9 +18,11 @@ function Team({ items }) {
           return (
             <ThemeProvider theme={{ large, hovered }} key={item.role}>
               <Styled.Item
-                imageUrl={large ? item.image.url : item.image.portrait.url}
+                landscape={item.image.url}
+                portrait={item.image.portrait.url}
                 onMouseEnter={() => setHoveredIndex(i)}
               >
+                <Styled.Img src={item.image.mobile.url} />
                 <Styled.Overlay>
                   <Styled.TextWrap>
                     <h2>{RichText.asText(item.name)}</h2>
