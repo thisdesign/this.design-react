@@ -16,8 +16,8 @@ About.Wrapper = styled.div`
   border: ${BORDERS ? '1px solid orange' : 'none'};
 
   @media (min-width: 768px) {
-    max-width: 1500px;
-    width: ${({ large }) => (large ? '90%' : '80%')};
+    max-width: 1300px;
+    width: 100%;
   }
 `
 
