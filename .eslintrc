@@ -27,7 +27,7 @@
     "import/resolver": {
       "node": {
         "paths": ["/"],
-        "moduleDirectory": ["node_modules"]
+        "moduleDirectory": ["node_modules", "src"]
       }
     }
   }
