@@ -1,35 +1,68 @@
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-# this.design-react
+## Available Scripts
 
-This is the repo for this.design. It is built on React using `prismic.io` as its’ CMS.
+In the project directory, you can run:
 
-## Layout
+### `npm start`
 
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-![](https://user-images.githubusercontent.com/31973492/47823027-9c428880-dd23-11e8-8912-c70beaab9604.gif)
+The page will reload if you make edits.<br>
+You will also see any lint errors in the console.
 
+### `npm test`
 
-The site is built with three containers. `root`, `about`, and `work`. The main container is `root`, which contains the homepage video as well as the case studies. When the `view` changes, it’s reflected in the DOM by adding a classname to the `.views` wrapper. Those classes are as follows:
+Launches the test runner in the interactive watch mode.<br>
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-| .-view-is-root                                                                                            | .-view-is-about                                                                                           | .-view-is-work                                                                                            |
-| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| ![](https://user-images.githubusercontent.com/31973492/47806187-5b804a80-dcf6-11e8-8bc2-82a96883e7cf.png) | ![](https://user-images.githubusercontent.com/31973492/47806185-5b804a80-dcf6-11e8-95d3-e22d233c3dc0.png) | ![](https://user-images.githubusercontent.com/31973492/47806191-5c18e100-dcf6-11e8-9a25-03ce092ff669.png) |
-| The default view. This is where the homepage and case studies are viewed from.                            | The about view as the name states, is where the about section is held.                                    | The work view is where all of the links to case studies are held                                          |
+### `npm run build`
 
+Builds the app for production to the `build` folder.<br>
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## Routing
+The build is minified and the filenames include the hashes.<br>
+Your app is ready to be deployed!
 
-The site uses React Router v4. Because of the heavy reliance on animation, RR is used imperatively. RR captures the url and changes the `view` and `currentCaseStudy` based on it.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-When the user clicks on a case study from the `work` view, it changes the `view` state and modifies the url accordingly
+### `npm run eject`
 
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-## Prismic
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-[Start here](https://prismic.io/docs/reactjs/getting-started/getting-started-from-scratch) for the full API reference
+Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-#### `prismicCtx`
-This is an object that contains a bunch of Prismic-related items. fetching data from Prismic is done through the `prismicCtx` prop.
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-#### Fetching Data
-Use `props.prismicCtx.api` to use `getByUID`, `getSingle`, `query` ,etc. Full reference here.
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+
+### Analyzing the Bundle Size
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+
+### Making a Progressive Web App
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+
+### Advanced Configuration
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+
+### Deployment
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+
+### `npm run build` fails to minify
+
+This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify

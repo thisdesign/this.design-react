@@ -1,1 +1,2 @@
-Sitemap: http://example.com/sitemap.xml
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
