@@ -21,7 +21,6 @@
     "extends": "react-app"
   },
   "devDependencies": {
-    "babel-eslint": "latest",
     "babel-plugin-styled-components": "^1.10.6",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^17.1.1",
