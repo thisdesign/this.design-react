@@ -1,19 +1,19 @@
 import React, { createContext } from 'react'
-import { useData } from 'structure/DataProvider'
 import GlobalStyle from 'style/GlobalStyle'
 import Nav from 'components/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import theme from 'style/theme'
-import Wrap from 'components/Wrap'
-import Section from 'components/Section'
+import About from 'structure/About'
+import Work from 'structure/Work'
+import Root from 'structure/Root'
 import Styled from './Styled'
+
+const { ViewInner, View } = Styled
 
 export const LayoutCtx = createContext()
 
 function Layout({ view }) {
-  const data = useData()
-
   return (
     <LayoutCtx.Provider value={{ view }}>
       <ThemeProvider theme={theme}>
@@ -22,37 +22,19 @@ function Layout({ view }) {
           <Nav />
           <ThemeProvider theme={{ view }}>
             <>
-              <Styled.View.Root as="main">
-                <Section>
-                  <Wrap>
-                    <h3>root</h3>
-                  </Wrap>
-                </Section>
-              </Styled.View.Root>
-
-              {/* about */}
-              <Styled.View.About>
-                <Styled.ViewInner.About>
-                  <Section>
-                    <Wrap>
-                      <h3>About</h3>
-                    </Wrap>
-                  </Section>
-                </Styled.ViewInner.About>
-              </Styled.View.About>
-
-              {/* work */}
-              <Styled.View.Work>
-                <Styled.ViewInner.Work>
-                  <Section>
-                    <Wrap>
-                      {data.allCaseStudies.map(item => (
-                        <div key={item.uid}>{item.uid}</div>
-                      ))}
-                    </Wrap>
-                  </Section>
-                </Styled.ViewInner.Work>
-              </Styled.View.Work>
+              <View.Root as="main">
+                <Root />
+              </View.Root>
+              <View.About>
+                <ViewInner.About>
+                  <About />
+                </ViewInner.About>
+              </View.About>
+              <View.Work>
+                <ViewInner.Work>
+                  <Work />
+                </ViewInner.Work>
+              </View.Work>
             </>
           </ThemeProvider>
         </>
