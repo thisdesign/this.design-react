@@ -6,14 +6,12 @@ const View = styled.aside`
   min-height: 100vh;
   top: 0;
   left: 0;
-  transition: 500ms transform ease-out;
+  transition: ${props => props.theme.duration.standard}ms transform
+    ${props => props.theme.ease.standard};
   will-change: transform;
-  opacity: 0.5;
 `
 
 View.Root = styled(View)`
-  background: tan;
-  color: orange;
   z-index: 10;
   transform: translate3d(
     ${props => {
@@ -32,8 +30,7 @@ View.Root = styled(View)`
 `
 
 View.Work = styled(View)`
-  background: purple;
-  color: orange;
+  background: ${props => props.theme.colors.white};
   transform: translate3d(
     ${props => {
       switch (props.theme.view) {
@@ -51,8 +48,8 @@ View.Work = styled(View)`
 `
 
 View.About = styled(View)`
-  background: green;
-  color: orange;
+  background: ${props => props.theme.colors.black};
+  color: ${props => props.theme.colors.midGrey};
   transform: translate3d(
     ${props => {
       switch (props.theme.view) {
