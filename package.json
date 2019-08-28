@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "all": "^0.0.0",
+    "esm": "^3.2.25",
     "prismic-javascript": "^2.1.1",
     "prismic-reactjs": "^1.1.0",
     "react": "^16.9.0",
