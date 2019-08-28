@@ -1,10 +1,14 @@
-import React from 'react'
-// import PropTypes from 'prop-types'
+import React, { useContext } from 'react'
+import CaseStudy from 'structure/CaseStudy'
+import { LayoutCtx } from 'structure/Layout'
 
-function Work() {
-  return <div>root</div>
+function Root() {
+  const { currentCsUid } = useContext(LayoutCtx)
+  const isHome = !currentCsUid
+
+  return <>{isHome ? 'HOME' : <CaseStudy uid={currentCsUid} />}</>
 }
 
-// Work.propTypes = {}
+// Root.propTypes = {}
 
-export default Work
+export default Root

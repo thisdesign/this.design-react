@@ -18,12 +18,12 @@ function Layout({ view, workUid }) {
   const currentCsUid = useSaved(workUid)
 
   return (
-    <LayoutCtx.Provider value={{ view }}>
+    <LayoutCtx.Provider value={{ view, currentCsUid }}>
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <Nav />
-          <ThemeProvider theme={{ view, currentCsUid }}>
+          <ThemeProvider theme={{ view }}>
             <>
               <View.Root as="main">
                 <Root />
