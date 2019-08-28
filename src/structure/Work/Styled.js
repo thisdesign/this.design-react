@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import { Link } from 'react-router-dom'
 
 const Wrapper = styled.div`
   display: grid;
@@ -6,7 +7,7 @@ const Wrapper = styled.div`
   grid-gap: ${props => props.theme.margins.navDesktop};
 `
 
-const WorkItem = styled.div``
+const WorkItem = styled(Link)``
 
 const Image = styled.div`
   background-image: url(${props => props.image});

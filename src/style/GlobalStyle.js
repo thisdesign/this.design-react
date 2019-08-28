@@ -5,6 +5,11 @@ const resetSupliment = css`
   * {
     box-sizing: border-box;
   }
+  a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+  }
 `
 
 const type = css`

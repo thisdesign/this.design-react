@@ -28,7 +28,7 @@ function Work() {
 
 function WorkItem({ uid, image, title }) {
   return (
-    <Styled.WorkItem>
+    <Styled.WorkItem to={`/work/${uid}`}>
       <Styled.Image image={image} key={uid}>
         {title}
       </Styled.Image>
