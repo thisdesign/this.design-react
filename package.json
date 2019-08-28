@@ -17,9 +17,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "fetch": "node src/data/storeLocalData.js",
     "start": "npm run fetch && react-scripts start",
-    "build": "npm run fetch && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "npm run fetch && react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
