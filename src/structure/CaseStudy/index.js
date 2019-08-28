@@ -12,6 +12,7 @@ const CaseStudy = memo(({ uid }) => {
   return (
     <CaseStudyCtx.Provider value={csData}>
       <CaseStudyHero />
+      <div>CONTENT HERE!!!!!!!!!!!!</div>
     </CaseStudyCtx.Provider>
   )
 })

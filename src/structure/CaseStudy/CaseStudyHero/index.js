@@ -50,17 +50,21 @@ const CaseStudyHero = memo(() => {
 
 function AuxItem() {
   const { data } = useContext(CaseStudyCtx)
-
   const { auxImage, auxVideo, auxWidth } = useParsedData()
-  return (
-    <Styled.AuxItem auxWidth={auxWidth}>
-      {auxVideo ? (
-        <Video src={auxVideo} />
-      ) : (
-        <img src={auxImage} alt={formatAlt(data.title)} />
-      )}
-    </Styled.AuxItem>
-  )
+  const hasAux = auxVideo || auxImage
+
+  if (hasAux) {
+    return (
+      <Styled.AuxItem auxWidth={auxWidth}>
+        {auxVideo ? (
+          <Video src={auxVideo} />
+        ) : (
+          <img src={auxImage} alt={formatAlt(data.title)} />
+        )}
+      </Styled.AuxItem>
+    )
+  }
+  return null
 }
 
 function Video({ src }) {
