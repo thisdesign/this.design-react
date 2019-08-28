@@ -15,6 +15,7 @@ const duration = {
 }
 
 const margins = {
+  standard: '1rem',
   navDesktop: '4rem',
   section: { md: '8rem' },
 }

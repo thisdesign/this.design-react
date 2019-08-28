@@ -4,7 +4,8 @@ import views from './viewPos'
 const View = styled.aside`
   position: fixed;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   top: 0;
   left: 0;
   transition: ${props => props.theme.duration.standard}ms transform
