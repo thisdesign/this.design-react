@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { CaseStudyCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
@@ -7,7 +7,6 @@ import Styled from './Styled'
 function useParsedData() {
   const { data } = useContext(CaseStudyCtx)
   const header = data.header[0]
-  console.log(data)
 
   return {
     title: RichText.asText(header.title),
@@ -24,7 +23,7 @@ function useParsedData() {
   }
 }
 
-function CaseStudyHero() {
+const CaseStudyHero = memo(() => {
   const {
     title,
     bgColor,
@@ -47,7 +46,7 @@ function CaseStudyHero() {
       </Styled.MainItem>
     </Styled.HeroWrapper>
   )
-}
+})
 
 function AuxItem() {
   const { data } = useContext(CaseStudyCtx)

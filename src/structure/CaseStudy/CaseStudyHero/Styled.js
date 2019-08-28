@@ -1,6 +1,16 @@
 import styled from 'styled-components/macro'
 import Wrap from 'components/Wrap'
 
+/*
+Z-INDEX GUIDE:
+
+  -10...COLOR BLEED
+  0.....MAIN ITEM
+  10....AUX ITEM
+  20....INFO
+
+*/
+
 const HeroWrapper = styled(Wrap.Nav)`
   height: 100vh;
   padding-top: 10rem;
@@ -13,7 +23,7 @@ const HeroWrapper = styled(Wrap.Nav)`
     top: 0;
     left: 0;
     width: 100%;
-    height: 150%;
+    height: 120%;
     background: ${props => props.bgColor};
     z-index: -1;
   }
@@ -24,18 +34,17 @@ const Info = styled.div`
   z-index: 20;
 `
 
-const BackgroundMedia = styled.div``
-
 const AuxItem = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: ${props => props.auxWidth}vw;
-  z-index: 30;
+  z-index: 10;
 `
 
 const MainItem = styled.div`
   position: absolute;
+  z-index: 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -49,4 +58,4 @@ const Video = styled.video`
   width: 100%;
 `
 
-export default { HeroWrapper, Video, BackgroundMedia, AuxItem, Info, MainItem }
+export default { HeroWrapper, Video, AuxItem, Info, MainItem }
