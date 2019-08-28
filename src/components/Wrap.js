@@ -6,7 +6,7 @@ const Wrap = styled.div`
   max-width: 1500px;
 `
 
-Wrap.Nav = styled(Wrap)`
+Wrap.Nav = styled.div`
   padding: 0 ${props => props.theme.margins.navDesktop};
   padding-top: ${props => props.padTop && props.theme.margins.navDesktop};
 `
