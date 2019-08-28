@@ -10,9 +10,6 @@ function Nav() {
           <Link to="/work">Work</Link>
         </li>
         <li>
-          <Link to="/">root</Link>
-        </li>
-        <li>
           <Link to="/about">about</Link>
         </li>
       </ul>

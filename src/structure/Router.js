@@ -9,6 +9,7 @@ function Router() {
         <Route path="/about/" render={() => <Layout view="about" />} />
         <Route path="/work/" render={() => <Layout view="work" />} />
         <Route exact path="/" render={() => <Layout view="root" />} />
+        <Route path="/" render={() => <Layout view="root" notFound />} />
       </Switch>
     </BrowserRouter>
   )

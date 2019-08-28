@@ -1,4 +1,5 @@
 import styled from 'styled-components/macro'
+import views from './viewPos'
 
 const View = styled.aside`
   position: fixed;
@@ -13,57 +14,18 @@ const View = styled.aside`
 
 View.Root = styled(View)`
   z-index: 10;
-  transform: translate3d(
-    ${props => {
-      switch (props.theme.view) {
-        case 'about':
-          return -100
-        case 'work':
-          return 100
-        default:
-          return 0
-      }
-    }}%,
-    0,
-    0
-  );
+  transform: translate3d(${views.root}%, 0, 0);
 `
 
 View.Work = styled(View)`
   background: ${props => props.theme.colors.white};
-  transform: translate3d(
-    ${props => {
-      switch (props.theme.view) {
-        case 'about':
-          return -100
-        case 'work':
-          return 0
-        default:
-          return -50
-      }
-    }}%,
-    0,
-    0
-  );
+  transform: translate3d(${views.work}%, 0, 0);
 `
 
 View.About = styled(View)`
   background: ${props => props.theme.colors.black};
   color: ${props => props.theme.colors.midGrey};
-  transform: translate3d(
-    ${props => {
-      switch (props.theme.view) {
-        case 'about':
-          return 0
-        case 'work':
-          return 100
-        default:
-          return 50
-      }
-    }}%,
-    0,
-    0
-  );
+  transform: translate3d(${views.about}%, 0, 0);
 `
 
 export default { View }
