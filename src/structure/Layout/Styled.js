@@ -28,4 +28,19 @@ View.About = styled(View)`
   transform: translate3d(${views.about}%, 0, 0);
 `
 
-export default { View }
+const ViewInner = styled.div`
+  opacity: 0;
+  will-change: opacity;
+  transition: ${props => props.theme.duration.standard}ms opacity
+    ${props => props.theme.ease.standard};
+`
+
+ViewInner.Work = styled(ViewInner)`
+  opacity: ${props => (props.theme.view === 'work' ? '1' : '0')};
+`
+
+ViewInner.About = styled(ViewInner)`
+  opacity: ${props => (props.theme.view === 'about' ? '1' : '0')};
+`
+
+export default { View, ViewInner }

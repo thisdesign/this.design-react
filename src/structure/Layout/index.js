@@ -29,21 +29,29 @@ function Layout({ view }) {
                   </Wrap>
                 </Section>
               </Styled.View.Root>
+
+              {/* about */}
               <Styled.View.About>
-                <Section>
-                  <Wrap>
-                    <h3>About</h3>
-                  </Wrap>
-                </Section>
+                <Styled.ViewInner.About>
+                  <Section>
+                    <Wrap>
+                      <h3>About</h3>
+                    </Wrap>
+                  </Section>
+                </Styled.ViewInner.About>
               </Styled.View.About>
+
+              {/* work */}
               <Styled.View.Work>
-                <Section>
-                  <Wrap>
-                    {data.allCaseStudies.map(item => (
-                      <div key={item.uid}>{item.uid}</div>
-                    ))}
-                  </Wrap>
-                </Section>
+                <Styled.ViewInner.Work>
+                  <Section>
+                    <Wrap>
+                      {data.allCaseStudies.map(item => (
+                        <div key={item.uid}>{item.uid}</div>
+                      ))}
+                    </Wrap>
+                  </Section>
+                </Styled.ViewInner.Work>
               </Styled.View.Work>
             </>
           </ThemeProvider>
