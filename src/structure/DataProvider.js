@@ -3,12 +3,20 @@ import getPrismicData from 'util/getPrismicData'
 
 const AppDataCtx = createContext()
 
-function DataProvider({ children }) {
+function useFetchData(cond = true) {
   const [siteData, setSiteData] = useState()
 
   useEffect(() => {
-    getPrismicData().then(res => setSiteData(res))
-  }, [])
+    if (cond) getPrismicData().then(res => setSiteData(res))
+  }, [cond])
+
+  return siteData
+}
+
+function DataProvider({ children }) {
+  const SHOULD_FETCH = true
+  const fetchedData = useFetchData(SHOULD_FETCH)
+  const siteData = SHOULD_FETCH ? fetchedData : null
 
   return (
     <AppDataCtx.Provider

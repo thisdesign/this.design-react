@@ -8,7 +8,7 @@ function App() {
   if (data.loaded) {
     return <Layout />
   }
-  return null
+  return 'loading...'
 }
 
 // App.propTypes = {}

@@ -28,7 +28,7 @@ function Layout() {
         </aside>
         <aside>
           {data.allCaseStudies.map(item => (
-            <div>{item.uid}</div>
+            <div key={item.uid}>{item.uid}</div>
           ))}
         </aside>
       </>
