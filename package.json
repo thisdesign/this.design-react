@@ -9,10 +9,11 @@
     "prismic-reactjs": "^1.1.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-router": "^5.0.1",
     "react-scripts": "3.1.1",
     "source-map-explorer": "^2.0.1",
     "styled-components": "^4.3.2",
-    "styled-reset": "^3.0.3"
+    "styled-reset": "^2.0.17"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
