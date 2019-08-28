@@ -1,11 +1,12 @@
 import React from 'react'
 import DataProvider, { useData } from './DataProvider'
+import Layout from './Layout'
 
 function App() {
   const data = useData()
 
   if (data.loaded) {
-    return data.allCaseStudies.map(item => <div key={item.uid}>{item.uid}</div>)
+    return <Layout />
   }
   return null
 }
