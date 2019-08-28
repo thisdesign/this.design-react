@@ -7,20 +7,23 @@ import theme from 'style/theme'
 import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
+import useSaved from 'hooks/useSaved'
 import Styled from './Styled'
 
 const { ViewInner, View } = Styled
 
 export const LayoutCtx = createContext()
 
-function Layout({ view }) {
+function Layout({ view, workUid }) {
+  const currentCsUid = useSaved(workUid)
+
   return (
     <LayoutCtx.Provider value={{ view }}>
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <Nav />
-          <ThemeProvider theme={{ view }}>
+          <ThemeProvider theme={{ view, currentCsUid }}>
             <>
               <View.Root as="main">
                 <Root />
