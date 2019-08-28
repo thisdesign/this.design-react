@@ -1,11 +1,14 @@
 import React from 'react'
 import { useData } from 'structure/DataProvider'
+import GlobalStyle from 'style/GlobalStyle'
+import Styled from './Styled'
 
 function Layout() {
   const data = useData()
 
   return (
     <>
+      <GlobalStyle />
       <nav>
         <ul>
           <li>
@@ -20,17 +23,17 @@ function Layout() {
         </ul>
       </nav>
       <>
-        <main>
+        <Styled.View.Root as="main">
           <h3>root</h3>
-        </main>
-        <aside>
+        </Styled.View.Root>
+        <Styled.View.About>
           <h3>About</h3>
-        </aside>
-        <aside>
+        </Styled.View.About>
+        <Styled.View.Work>
           {data.allCaseStudies.map(item => (
             <div key={item.uid}>{item.uid}</div>
           ))}
-        </aside>
+        </Styled.View.Work>
       </>
     </>
   )
