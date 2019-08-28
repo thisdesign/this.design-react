@@ -1,6 +1,7 @@
 import React from 'react'
 import { useData } from 'structure/DataProvider'
 import GlobalStyle from 'style/GlobalStyle'
+import Nav from 'components/Nav'
 import Styled from './Styled'
 
 function Layout() {
@@ -9,19 +10,7 @@ function Layout() {
   return (
     <>
       <GlobalStyle />
-      <nav>
-        <ul>
-          <li>
-            <a href="/work">Work</a>
-          </li>
-          <li>
-            <a href="/root">root</a>
-          </li>
-          <li>
-            <a href="/root">about</a>
-          </li>
-        </ul>
-      </nav>
+      <Nav />
       <>
         <Styled.View.Root as="main">
           <h3>root</h3>
