@@ -1,6 +1,10 @@
 import styled from 'styled-components/macro'
 
-const Wrap = styled.div``
+const Wrap = styled.div`
+  margin: 0px auto;
+  width: 80%;
+  max-width: 1500px;
+`
 
 Wrap.Nav = styled(Wrap)`
   padding: 0 ${props => props.theme.margins.navDesktop};
