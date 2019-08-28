@@ -10,11 +10,13 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
+    "source-map-explorer": "^2.0.1",
     "styled-components": "^4.3.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "fetch": "node src/data/storeLocalData.js",
+    "start": "npm run fetch && react-scripts start",
+    "build": "npm run fetch && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

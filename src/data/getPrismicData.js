@@ -1,5 +1,5 @@
 const Prismic = require('prismic-javascript')
-const config = require('site.config')
+const config = require('../site.config')
 
 export const getApi = async () => Prismic.getApi(config.prismicEndpoint)
 

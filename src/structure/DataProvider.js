@@ -1,5 +1,5 @@
 import React, { useState, useEffect, createContext, useContext } from 'react'
-import getPrismicData from 'util/getPrismicData'
+import getPrismicData from 'data/getPrismicData'
 
 const AppDataCtx = createContext()
 
