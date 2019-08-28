@@ -21,7 +21,7 @@ const HeroWrapper = styled(Wrap.Nav)`
 
 const Info = styled.div`
   position: relative;
-  z-index: 30;
+  z-index: 20;
 `
 
 const BackgroundMedia = styled.div``
@@ -31,6 +31,7 @@ const AuxItem = styled.div`
   top: 0;
   left: 0;
   width: ${props => props.auxWidth}vw;
+  z-index: 30;
 `
 
 const MainItem = styled.div`

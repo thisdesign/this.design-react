@@ -7,13 +7,16 @@ import Styled from './Styled'
 function useParsedData() {
   const { data } = useContext(CaseStudyCtx)
   const header = data.header[0]
+  console.log(data)
 
   return {
     title: RichText.asText(header.title),
-    bgColor: data.background_color,
+    bgColor: data.color,
+    preloadColor: header.background_color,
     intro: RichText.asText(header.copy),
     mobileImage: header.mobileImage.url,
     mainImage: header.image1.url,
+    mainVideo: header.video1.url,
     auxWidth: header.floating_media_width,
     auxVideo: header.video2.url,
     auxImage: header.image2.url,
@@ -26,12 +29,9 @@ function CaseStudyHero() {
     title,
     bgColor,
     intro,
-    mobileImage,
-    auxImage,
-    auxVideo,
-    auxWidth,
     mainImage,
     services,
+    mainVideo,
   } = useParsedData()
 
   return (
@@ -42,7 +42,9 @@ function CaseStudyHero() {
         {RichText.render(services)}
       </Styled.Info>
       <AuxItem />
-      <Styled.MainItem image={mainImage} />
+      <Styled.MainItem image={mainImage}>
+        <Video src={mainVideo} />
+      </Styled.MainItem>
     </Styled.HeroWrapper>
   )
 }
@@ -54,13 +56,19 @@ function AuxItem() {
   return (
     <Styled.AuxItem auxWidth={auxWidth}>
       {auxVideo ? (
-        <Styled.Video autoPlay muted>
-          <source src={auxVideo} />
-        </Styled.Video>
+        <Video src={auxVideo} />
       ) : (
         <img src={auxImage} alt={formatAlt(data.title)} />
       )}
     </Styled.AuxItem>
+  )
+}
+
+function Video({ src }) {
+  return (
+    <Styled.Video autoPlay muted playsInline loop>
+      <source src={src} />
+    </Styled.Video>
   )
 }
 // CaseStudyHero.propTypes = {}
