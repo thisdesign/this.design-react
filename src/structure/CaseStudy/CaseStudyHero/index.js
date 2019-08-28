@@ -7,7 +7,7 @@ function useParsedData() {
   const { data } = useContext(CaseStudyCtx)
   const header = data.header[0]
 
-  console.log(header)
+  console.log()
   return {
     title: RichText.asText(header.title),
     bgColor: data.background_color,
@@ -17,6 +17,7 @@ function useParsedData() {
     auxWidth: header.floating_media_width,
     auxVideo: header.video2.url,
     auxImage: header.image2.url,
+    services: header.services,
   }
 }
 
@@ -30,6 +31,7 @@ function CaseStudyHero() {
     auxVideo,
     auxWidth,
     mainImage,
+    services,
   } = useParsedData()
 
   return (
@@ -37,6 +39,7 @@ function CaseStudyHero() {
       <Styled.Info>
         <h1>{title}</h1>
         <h2>{intro}</h2>
+        {RichText.render(services)}
       </Styled.Info>
       <Styled.MainItem image={mainImage} />
       <Styled.AuxItem auxWidth={auxWidth}>
