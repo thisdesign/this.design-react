@@ -14,8 +14,13 @@ const duration = {
   standard: 500,
 }
 
+const margins = {
+  navDesktop: '4rem',
+}
+
 export default {
   colors,
   ease,
   duration,
+  margins,
 }

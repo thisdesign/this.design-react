@@ -4,15 +4,15 @@ import Styled from './Styled'
 
 function Nav() {
   return (
-    <Styled.Nav>
-      <ul>
+    <Styled.Nav as="nav" padTop>
+      <Styled.Wrapper>
         <li>
           <Link to="/work">Work</Link>
         </li>
         <li>
           <Link to="/about">about</Link>
         </li>
-      </ul>
+      </Styled.Wrapper>
     </Styled.Nav>
   )
 }
