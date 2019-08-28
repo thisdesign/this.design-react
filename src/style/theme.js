@@ -16,6 +16,7 @@ const duration = {
 
 const margins = {
   navDesktop: '4rem',
+  section: { md: '8rem' },
 }
 
 export default {

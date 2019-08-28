@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import theme from 'style/theme'
 import Wrap from 'components/Wrap'
+import Section from 'components/Section'
 import Styled from './Styled'
 
 function Layout({ view }) {
@@ -19,21 +20,27 @@ function Layout({ view }) {
         <ThemeProvider theme={{ view }}>
           <>
             <Styled.View.Root as="main">
-              <Wrap>
-                <h3>root</h3>
-              </Wrap>
+              <Section>
+                <Wrap>
+                  <h3>root</h3>
+                </Wrap>
+              </Section>
             </Styled.View.Root>
             <Styled.View.About>
-              <Wrap>
-                <h3>About</h3>
-              </Wrap>
+              <Section>
+                <Wrap>
+                  <h3>About</h3>
+                </Wrap>
+              </Section>
             </Styled.View.About>
             <Styled.View.Work>
-              <Wrap>
-                {data.allCaseStudies.map(item => (
-                  <div key={item.uid}>{item.uid}</div>
-                ))}
-              </Wrap>
+              <Section>
+                <Wrap>
+                  {data.allCaseStudies.map(item => (
+                    <div key={item.uid}>{item.uid}</div>
+                  ))}
+                </Wrap>
+              </Section>
             </Styled.View.Work>
           </>
         </ThemeProvider>
