@@ -1,12 +1,12 @@
 import React from 'react'
 import DataProvider, { useData } from './DataProvider'
-import Layout from './Layout'
+import Router from './Router'
 
 function App() {
   const data = useData()
 
   if (data.loaded) {
-    return <Layout />
+    return <Router />
   }
   return 'loading...'
 }

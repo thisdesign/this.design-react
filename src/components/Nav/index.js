@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import Styled from './Styled'
 
 function Nav() {
@@ -6,13 +7,13 @@ function Nav() {
     <Styled.Nav>
       <ul>
         <li>
-          <a href="/work">Work</a>
+          <Link to="/work">Work</Link>
         </li>
         <li>
-          <a href="/">root</a>
+          <Link to="/">root</Link>
         </li>
         <li>
-          <a href="/root">about</a>
+          <Link to="/about">about</Link>
         </li>
       </ul>
     </Styled.Nav>
