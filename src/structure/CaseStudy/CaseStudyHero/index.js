@@ -2,6 +2,7 @@ import React, { useContext, memo } from 'react'
 import { CaseStudyCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
+import resizeImg from 'util/resizeImg'
 import Styled from './Styled'
 
 function useParsedData() {
@@ -33,6 +34,11 @@ const CaseStudyHero = memo(() => {
     mainVideo,
   } = useParsedData()
 
+  const resizedMainImg = resizeImg(mainImage, {
+    w: 1600,
+    format: 'webp',
+  })
+
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
       <Styled.Info>
@@ -41,7 +47,7 @@ const CaseStudyHero = memo(() => {
         {RichText.render(services)}
       </Styled.Info>
       <AuxItem />
-      <Styled.MainItem image={mainImage}>
+      <Styled.MainItem image={resizedMainImg}>
         <Video src={mainVideo} />
       </Styled.MainItem>
     </Styled.HeroWrapper>

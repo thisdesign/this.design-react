@@ -2,7 +2,9 @@ import React from 'react'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
+import resizeImg from 'util/resizeImg'
 import Styled from './Styled'
+
 // import PropTypes from 'prop-types'
 
 function Work() {
@@ -27,9 +29,11 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
+  const resizedImg = resizeImg(image, { w: 600, format: 'webp' })
+
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
-      <Styled.Image image={image} key={uid}>
+      <Styled.Image image={resizedImg} key={uid}>
         {title}
       </Styled.Image>
     </Styled.WorkItem>
