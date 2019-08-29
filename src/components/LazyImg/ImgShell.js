@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
-export default function ImgShell({ aspect, src, alt, ...props }) {
+/* eslint jsx-a11y/alt-text:0 */
+
+const ImgShell = forwardRef(({ aspect, src, show, ...props }, ref) => {
   return (
-    <Wrapper hasSrc={!!src} aspect={aspect}>
-      <img {...props} src={src} alt={alt} />
+    <Wrapper show={show} aspect={aspect}>
+      <img {...props} src={show ? src : null} ref={ref} />
     </Wrapper>
   )
-}
+})
 
 const Wrapper = styled.div`
   padding-top: ${props => props.aspect * 100}%;
   position: relative;
-  opacity: ${props => (props.hasSrc ? 1 : 0)};
+  opacity: ${props => (props.show ? 1 : 0)};
+
+  /* FOR DEBUGGING */
+  ${'' /* border: 1px solid ${props => (props.show ? 'green' : 'red')}; */}
 
   img {
     position: absolute;
@@ -25,12 +30,10 @@ const Wrapper = styled.div`
   }
 `
 
-ImgShell.defaultProps = {
-  src: undefined,
-}
-
 ImgShell.propTypes = {
-  alt: PropTypes.string.isRequired,
-  src: PropTypes.string,
+  show: PropTypes.bool.isRequired,
+  src: PropTypes.string.isRequired,
   aspect: PropTypes.number.isRequired,
 }
+
+export default ImgShell
