@@ -53,7 +53,7 @@ function Info() {
 }
 
 function Background() {
-  const { mainImage, mobileImage, mainVideo } = useParsedData()
+  const { mainImage, mobileImage, mainVideo, title } = useParsedData()
   const hasBackground = !!(mobileImage || mainVideo)
 
   if (hasBackground) {
@@ -64,7 +64,7 @@ function Background() {
         ) : (
           <picture>
             <source srcSet={mobileImage} media={`(max-width: ${sizes.xs}px)`} />
-            <Styled.Img src={mainImage} />
+            <Styled.Img src={mainImage} alt={formatAlt(title)} />
           </picture>
         )}
       </Styled.MainItem>
