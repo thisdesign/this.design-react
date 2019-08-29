@@ -5,6 +5,7 @@ import Section from 'components/Section'
 import { LayoutCtx } from 'structure/Layout'
 import useSaved from 'hooks/useSaved'
 import formatAlt from 'util/formatAlt'
+import { ImgShell } from 'components/LazyImg'
 import Styled from './Styled'
 // import PropTypes from 'prop-types'
 
@@ -35,14 +36,11 @@ function WorkItem({ uid, image, title }) {
 
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
-      <img
+      <ImgShell
+        aspect={2 / 3}
         src={hasViewed ? image : null}
-        width={320}
-        format="jpg"
-        quality={60}
         alt={formatAlt(title)}
       />
-
       <div>{title}</div>
     </Styled.WorkItem>
   )
