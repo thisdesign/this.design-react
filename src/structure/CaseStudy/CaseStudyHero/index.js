@@ -48,7 +48,7 @@ const CaseStudyHero = () => {
         <Styled.Img
           src={mainImage}
           sizes={['xs', 'sm', 'md', 'lg', 'xl']}
-          width={sizes.xl}
+          width={sizes.sm}
           density={1.5}
           quality={70}
         />
