@@ -36,7 +36,8 @@ const CaseStudyHero = memo(() => {
 
   const resizedMainImg = resizeImg(mainImage, {
     w: 1600,
-    format: 'webp',
+    fm: 'jpeg',
+    q: 75,
   })
 
   return (

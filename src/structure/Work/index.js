@@ -29,7 +29,7 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
-  const resizedImg = resizeImg(image, { w: 600, fm: 'webp', q: 60 })
+  const resizedImg = resizeImg(image, { w: 600, fm: 'jpeg', q: 60 })
 
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
