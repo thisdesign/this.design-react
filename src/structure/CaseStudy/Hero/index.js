@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { CaseStudyCtx } from 'structure/CaseStudy'
+import { CaseStudyDataCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
 import { sizes } from 'style/theme'
@@ -7,7 +7,7 @@ import Heading from 'components/Heading'
 import Styled from './Styled'
 
 function useParsedData() {
-  const { data } = useContext(CaseStudyCtx)
+  const { data } = useContext(CaseStudyDataCtx)
   const header = data.header[0]
 
   return {
@@ -74,8 +74,7 @@ function Background() {
 }
 
 function AuxItem() {
-  const { data } = useContext(CaseStudyCtx)
-  const { auxImage, auxVideo, auxWidth, auxLayout } = useParsedData()
+  const { auxImage, auxVideo, auxWidth, auxLayout, title } = useParsedData()
   const hasAux = auxVideo || auxImage
 
   if (hasAux) {
@@ -84,7 +83,7 @@ function AuxItem() {
         {auxVideo ? (
           <Video src={auxVideo} />
         ) : (
-          <img src={auxImage} alt={formatAlt(data.title)} />
+          <img src={auxImage} alt={formatAlt(title)} />
         )}
       </Styled.AuxItem>
     )
