@@ -2,70 +2,51 @@ import React from 'react'
 import getImgIxUrl from 'util/getImgIxUrl'
 import qs from 'util/qs'
 import removeEmpty from 'util/removeEmpty'
-import { mq } from 'style/theme'
+import { sizes as themeSizes } from 'style/theme'
 
-function ImgIxProvider({
-  tagName,
-  src,
+export default function Img({
+  src: rawSrc,
   alt,
   quality: q,
   format: fm,
   width: w,
-  height: h,
+  density: dpr,
+  sizes,
   ...props
 }) {
-  const CustomTag = tagName
+  const imgBaseUrl = getImgIxUrl(rawSrc)
+  const constantProps = qs(removeEmpty({ q, dpr }))
 
-  const newUrl = getImgIxUrl(src)
-  const possibleOptions = { w, fm, q, h }
-  const declaredOptions = removeEmpty(possibleOptions)
-  const queryString = qs(declaredOptions)
-  const source = `${newUrl}?${queryString}`
+  const baseSrc = `${imgBaseUrl}?${constantProps}`
+
+  const format = fm ? qs({ fm }) : ''
+  const width = w ? qs({ w }) : ''
+
+  const fallBackSrc = `${baseSrc}&${format}&${width}`
+
+  const getSrcSet = declaredFmt =>
+    sizes
+      ? sizes
+          .map(size => {
+            const curSize = themeSizes[size]
+            const options = qs({
+              w: curSize,
+              ...(declaredFmt && { fm: declaredFmt }),
+            })
+            return `${baseSrc}&${options} ${curSize}w`
+          })
+          .join(', ')
+      : `${baseSrc}&fm=${declaredFmt}&w=${w}`
 
   return (
-    <CustomTag
-      src={source}
-      alt={alt}
-      {...props}
-      srcSet={`
-        ${source}&dpr=1 1x,
-        ${source}&dpr=2 2x,
-        ${source}&dpr=3 3x,
-      `}
-    />
+    <picture>
+      <source type="image/webp" srcSet={getSrcSet('webp')} />
+      <source type="image/jpeg2000" srcSet={getSrcSet('jpg2')} />
+      <img src={fallBackSrc} srcSet={getSrcSet(fm)} alt={alt} {...props} />
+    </picture>
   )
 }
 
-export default function Img({ ...props }) {
-  return <ImgIxProvider tagName="img" {...props} />
-}
-
-export function Source({ size, webP, format, jpeg2000, ...props }) {
-  const media = size ? mq[size] : `(min-width: 0px)`
-  return (
-    <>
-      {jpeg2000 && (
-        <ImgIxProvider
-          {...{ media }}
-          tagName="source"
-          format="jp2"
-          {...props}
-        />
-      )}
-      {webP && (
-        <ImgIxProvider
-          {...{ media }}
-          tagName="source"
-          format="webp"
-          {...props}
-        />
-      )}
-      <ImgIxProvider
-        {...{ media }}
-        tagName="source"
-        format={format}
-        {...props}
-      />
-    </>
-  )
+Img.defaultProps = {
+  density: 2,
 }
