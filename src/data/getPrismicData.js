@@ -7,7 +7,7 @@ export default async function getPrismicData() {
   const api = await getApi()
   const allCaseStudies = await api
     .query(Prismic.Predicates.at('document.type', 'casestudy'), {
-      pageSize: 50,
+      pageSize: 12,
     })
     .then(res => res.results)
 
