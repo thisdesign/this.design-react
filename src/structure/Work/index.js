@@ -37,8 +37,9 @@ function WorkItem({ uid, image, title }) {
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
       <ImgShell
+        show={hasViewed}
         aspect={2 / 3}
-        src={hasViewed ? image : null}
+        src={image}
         alt={formatAlt(title)}
       />
       <div>{title}</div>
