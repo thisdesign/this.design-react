@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useContext, useRef, useCallback } from 'react'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
-
+import { LayoutCtx } from 'structure/Layout'
+import useSaved from 'hooks/useSaved'
 import Styled from './Styled'
 // import PropTypes from 'prop-types'
 
@@ -28,9 +29,18 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
+  const { view } = useContext(LayoutCtx)
+  const hasViewed = useSaved(view === 'work')
+
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
-      <Styled.Img src={image} width={320} format="jpg" quality={60} />
+      <Styled.Img
+        src={hasViewed ? image : null}
+        width={320}
+        format="jpg"
+        quality={60}
+      />
+
       <div>{title}</div>
     </Styled.WorkItem>
   )
