@@ -1,5 +1,11 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { hydrate, render } from 'react-dom'
 import Layout from './structure'
 
-ReactDOM.render(<Layout />, document.getElementById('root'))
+const rootElement = document.getElementById('root')
+
+if (rootElement.hasChildNodes()) {
+  hydrate(<Layout />, rootElement)
+} else {
+  render(<Layout />, rootElement)
+}
