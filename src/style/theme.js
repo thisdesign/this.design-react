@@ -6,6 +6,22 @@ const colors = {
   midGrey: '#7d7d7d',
 }
 
+export const sizes = {
+  xl: 1900,
+  lg: 1440,
+  md: 1024,
+  sm: 768,
+  xs: 576,
+}
+
+export const mq = Object.keys(sizes).reduce(
+  (acc, current) => ({
+    ...acc,
+    [current]: `(min-width: ${sizes[current]}px)`,
+  }),
+  {}
+)
+
 const ease = {
   standard: 'cubic-bezier(0, 0, 0.2, 1)',
 }
