@@ -1,7 +1,6 @@
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
 import { mq } from 'style/theme'
-import ResImg from 'components/Img'
 
 const Wrapper = styled.div`
   display: grid;
@@ -19,8 +18,4 @@ const Wrapper = styled.div`
 
 const WorkItem = styled(Link)``
 
-const Img = styled(ResImg)`
-  width: 100%;
-`
-
-export default { Wrapper, Image, WorkItem, Img }
+export default { Wrapper, Image, WorkItem }

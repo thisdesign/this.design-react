@@ -35,7 +35,7 @@ function WorkItem({ uid, image, title }) {
 
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
-      <Styled.Img
+      <img
         src={hasViewed ? image : null}
         width={320}
         format="jpg"
