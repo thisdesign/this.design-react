@@ -27,10 +27,8 @@ Image.CSDataWrapper = function CSDataWrapper({ data }) {
   const {
     data: { title },
   } = useContext(CaseStudyDataCtx)
-  const { image, position, offset, layout } = data.primary
+  const { image, offset, layout } = data.primary
   const { width, height } = image.dimensions
-
-  console.log({ position, offset, layout })
 
   return (
     <Image
