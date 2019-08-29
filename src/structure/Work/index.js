@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useCallback } from 'react'
+import React, { useContext } from 'react'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
