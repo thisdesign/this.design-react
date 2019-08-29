@@ -40,15 +40,15 @@ export default function Img({ ...props }) {
   return <ImgIxProvider tagName="img" {...props} />
 }
 
-export function Source({ size, webP, format, jpeg200, ...props }) {
+export function Source({ size, webP, format, jpeg2000, ...props }) {
   const media = size ? mq[size] : `(min-width: 0px)`
   return (
     <>
-      {jpeg200 && (
+      {jpeg2000 && (
         <ImgIxProvider
           {...{ media }}
           tagName="source"
-          format="webp"
+          format="jp2"
           {...props}
         />
       )}

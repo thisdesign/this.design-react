@@ -53,10 +53,10 @@ const CaseStudyHero = () => {
               size={item}
               width={sizes[item] * 1.2}
               webP
-              jpeg200
+              jpeg2000
             />
           ))}
-          <Source src={mobileImage} width={sizes.xs / 1.5} webP jpeg200 />
+          <Source src={mobileImage} width={sizes.xs / 1.5} webP jpeg2000 />
           <Styled.Img src={mainImage} width={sizes.md} />
         </picture>
         <Video src={mainVideo} />
