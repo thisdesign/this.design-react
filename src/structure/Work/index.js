@@ -16,7 +16,7 @@ function Work() {
     <Section>
       <Wrap>
         <Styled.Wrapper>
-          {data.allCaseStudies.map(item => (
+          {data.ctxCaseStudies.map(item => (
             <WorkItem
               image={item.data.thumbnail.url}
               uid={item.uid}

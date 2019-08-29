@@ -7,11 +7,13 @@ import Layout from './Layout'
 function Router() {
   const data = useData()
 
+  console.log(data.ctxCaseStudies)
+
   return (
     <BrowserRouter>
       <Switch>
         <Route
-          path={data.allCaseStudies.map(item => `/work/${item.uid}`)}
+          path={data.ctxCaseStudies.map(item => `/work/${item.uid}`)}
           render={({ match }) => (
             <Layout view="root" workUid={match.path.split('/')[2]} />
           )}
