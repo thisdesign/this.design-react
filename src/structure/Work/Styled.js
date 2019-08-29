@@ -1,20 +1,26 @@
 import styled from 'styled-components/macro'
 import { Link } from 'react-router-dom'
+import { mq } from 'style/theme'
+import ResImg from 'components/Img'
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: ${props => props.theme.margins.navDesktop};
+  grid-gap: ${props => props.theme.margins.standard};
+
+  @media ${mq.xs} {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: ${props => props.theme.margins.navDesktop};
+  }
+
+  @media ${mq.md} {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `
 
 const WorkItem = styled(Link)``
 
-const Image = styled.div`
-  background-image: url(${props => props.image});
-  background-size: cover;
+const Img = styled(ResImg)`
   width: 100%;
-  height: 0;
-  padding-top: 66.67%;
 `
 
-export default { Wrapper, Image, WorkItem }
+export default { Wrapper, Image, WorkItem, Img }
