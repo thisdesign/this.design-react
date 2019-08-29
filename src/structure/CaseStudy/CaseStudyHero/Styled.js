@@ -61,6 +61,7 @@ const Img = styled(ResponsiveImg)`
   height: 100%;
   object-fit: cover;
   object-position: center center;
+  user-select: none;
 `
 
 export default { HeroWrapper, Video, AuxItem, Info, MainItem, Img }

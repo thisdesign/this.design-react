@@ -1,8 +1,8 @@
-import React, { useContext, memo } from 'react'
+import React, { useContext } from 'react'
 import { CaseStudyCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
-import Img, { Source } from 'components/Img'
+import { Source } from 'components/Img'
 import { sizes } from 'style/theme'
 import Styled from './Styled'
 
@@ -51,10 +51,9 @@ const CaseStudyHero = () => {
               key={item}
               src={mainImage}
               size={item}
-              width={sizes[item] / 1.25}
+              width={sizes[item] * 1.2}
               webP
               jpeg200
-              quality={50}
             />
           ))}
           <Source src={mobileImage} width={sizes.xs / 1.5} />
