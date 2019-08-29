@@ -56,7 +56,7 @@ const CaseStudyHero = () => {
               jpeg200
             />
           ))}
-          <Source src={mobileImage} width={sizes.xs / 1.5} />
+          <Source src={mobileImage} width={sizes.xs / 1.5} webP jpeg200 />
           <Styled.Img src={mainImage} width={sizes.md} />
         </picture>
         <Video src={mainVideo} />
