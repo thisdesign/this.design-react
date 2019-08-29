@@ -2,8 +2,10 @@ import React from 'react'
 import getImgIxUrl from 'util/getImgIxUrl'
 import qs from 'util/qs'
 import removeEmpty from 'util/removeEmpty'
+import { mq } from 'style/theme'
 
-export default function Img({
+function ImgIxProvider({
+  tagName,
   src,
   alt,
   quality: q,
@@ -12,6 +14,8 @@ export default function Img({
   height: h,
   ...props
 }) {
+  const CustomTag = tagName
+
   const newUrl = getImgIxUrl(src)
   const possibleOptions = { w, fm, q, h }
   const declaredOptions = removeEmpty(possibleOptions)
@@ -19,7 +23,7 @@ export default function Img({
   const source = `${newUrl}?${queryString}`
 
   return (
-    <img
+    <CustomTag
       src={source}
       alt={alt}
       {...props}
@@ -30,4 +34,13 @@ export default function Img({
       `}
     />
   )
+}
+
+export default function Img({ ...props }) {
+  return <ImgIxProvider tagName="img" {...props} />
+}
+
+export function Source({ size, ...props }) {
+  const media = size ? mq[size] : `(min-width: 0px)`
+  return <ImgIxProvider {...{ media }} tagName="source" {...props} />
 }

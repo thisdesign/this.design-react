@@ -2,7 +2,8 @@ import React, { useContext, memo } from 'react'
 import { CaseStudyCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
-import resizeImg from 'util/resizeImg'
+import Img, { Source } from 'components/Img'
+import { sizes } from 'style/theme'
 import Styled from './Styled'
 
 function useParsedData() {
@@ -24,21 +25,16 @@ function useParsedData() {
   }
 }
 
-const CaseStudyHero = memo(() => {
+const CaseStudyHero = () => {
   const {
     title,
     bgColor,
     intro,
     mainImage,
     services,
+    mobileImage,
     mainVideo,
   } = useParsedData()
-
-  const resizedMainImg = resizeImg(mainImage, {
-    w: 1600,
-    fm: 'jpeg',
-    q: 75,
-  })
 
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
@@ -48,12 +44,20 @@ const CaseStudyHero = memo(() => {
         {RichText.render(services)}
       </Styled.Info>
       <AuxItem />
-      <Styled.MainItem image={resizedMainImg}>
+      <Styled.MainItem>
+        <picture>
+          <Source src={mainImage} size="xl" width={sizes.xl} />
+          <Source src={mainImage} size="lg" width={sizes.lg} />
+          <Source src={mainImage} size="md" width={sizes.md} />
+          <Source src={mainImage} size="sm" width={sizes.sm} />
+          <Source src={mobileImage} width={sizes.xs} />
+          <Styled.Img src={mainImage} width={sizes.md} />
+        </picture>
         <Video src={mainVideo} />
       </Styled.MainItem>
     </Styled.HeroWrapper>
   )
-})
+}
 
 function AuxItem() {
   const { data } = useContext(CaseStudyCtx)

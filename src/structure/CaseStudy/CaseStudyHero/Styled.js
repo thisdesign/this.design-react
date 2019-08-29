@@ -1,5 +1,6 @@
 import styled from 'styled-components/macro'
 import Wrap from 'components/Wrap'
+import ResponsiveImg from 'components/Img'
 
 /*
 Z-INDEX GUIDE:
@@ -49,13 +50,17 @@ const MainItem = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url(${props => props.image});
-  background-size: cover;
-  background-position: center center;
 `
 
 const Video = styled.video`
   width: 100%;
 `
 
-export default { HeroWrapper, Video, AuxItem, Info, MainItem }
+const Img = styled(ResponsiveImg)`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+`
+
+export default { HeroWrapper, Video, AuxItem, Info, MainItem, Img }
