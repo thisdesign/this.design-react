@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components/macro'
+import styled from 'styled-components/macro'
 import Wrap from 'components/Wrap'
 import { headingStyles } from 'style/GlobalStyle'
 import { mq } from 'style/theme'
+import getAuxLayout from './getAuxLayout'
 
 /*
 Z-INDEX GUIDE:
@@ -12,63 +13,6 @@ Z-INDEX GUIDE:
   20....INFO
 
 */
-
-const getLayout = layout => {
-  switch (layout) {
-    case 'top-left':
-      return css`
-        top: 0;
-        left: 0;
-      `
-    case 'top-center':
-      return css`
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-      `
-    case 'top-right':
-      return css`
-        top: 0;
-        right: 0;
-      `
-    case 'middle-left':
-      return css`
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%);
-      `
-    case 'middle-center':
-      return css`
-        top: 50%;
-        right: 50%;
-        transform: translate3d(-50%, -50%);
-      `
-    case 'middle-right':
-      return css`
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
-      `
-    case 'bottom-left':
-      return css`
-        bottom: 0;
-        left: 0;
-      `
-    case 'bottom-center':
-      return css`
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-      `
-    case 'bottom-right':
-      return css`
-        bottom: 0;
-        right: 0;
-      `
-    default:
-      return null
-  }
-}
 
 const HeroWrapper = styled(Wrap.Nav)`
   height: 100vh;
@@ -103,10 +47,10 @@ const AuxItem = styled.div`
   position: absolute;
 
   /* CMS width */
-  width: ${props => props.auxWidth}vw;
+  width: ${props => (props.auxWidth ? `${props.auxWidth}vw` : 'auto')};
   z-index: 10;
 
-  ${props => getLayout(props.layout)}
+  ${props => getAuxLayout(props.layout)}
 `
 
 const MainItem = styled.div`
