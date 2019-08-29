@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { CaseStudyCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
-import { Source } from 'components/Img'
 import { sizes } from 'style/theme'
+import Heading from 'components/Heading'
 import Styled from './Styled'
 
 function useParsedData() {
@@ -39,9 +39,15 @@ const CaseStudyHero = () => {
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
       <Styled.Info>
-        <h1>{title}</h1>
-        <h2>{intro}</h2>
-        {RichText.render(services)}
+        <Heading as="h1" headingStyle={0}>
+          {title}
+        </Heading>
+        <Heading as="h2" headingStyle={2}>
+          {intro}
+        </Heading>
+        <Styled.ServicesWraper>
+          {RichText.render(services)}
+        </Styled.ServicesWraper>
       </Styled.Info>
       <AuxItem />
       <Styled.MainItem>

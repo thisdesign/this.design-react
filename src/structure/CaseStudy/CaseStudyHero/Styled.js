@@ -1,6 +1,7 @@
 import styled from 'styled-components/macro'
 import Wrap from 'components/Wrap'
 import ResponsiveImg from 'components/Img'
+import { headingStyles } from 'style/GlobalStyle'
 
 /*
 Z-INDEX GUIDE:
@@ -64,4 +65,18 @@ const Img = styled(ResponsiveImg)`
   user-select: none;
 `
 
-export default { HeroWrapper, Video, AuxItem, Info, MainItem, Img }
+const ServicesWraper = styled.div`
+  li {
+    ${headingStyles[3]}
+  }
+`
+
+export default {
+  HeroWrapper,
+  Video,
+  AuxItem,
+  Info,
+  MainItem,
+  Img,
+  ServicesWraper,
+}

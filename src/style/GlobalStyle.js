@@ -3,7 +3,7 @@ import reset from 'styled-reset'
 
 export const headingStyles = [
   css`
-    font-size: 25px;
+    font-size: 26px;
     font-family: serif;
     font-weight: bold;
   `,
@@ -11,7 +11,11 @@ export const headingStyles = [
     font-size: 28px;
   `,
   css`
-    font-size: 10px;
+    font-size: 20px;
+  `,
+  css`
+    font-size: 12px;
+    letter-spacing: 0.25em;
   `,
 ]
 

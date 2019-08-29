@@ -13,8 +13,8 @@ function Heading({ children, headingStyle, as, ...props }) {
 
 const HeadStyle = styled.h1`
   ${props => headingStyles[props.headingStyle]}
-  margin-bottom: ${props => props.theme.fontSizes[2]}
 `
+
 const VALID_ELS = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'li', 'div']
 
 Heading.propTypes = {
