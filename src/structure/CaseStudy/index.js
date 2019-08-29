@@ -1,6 +1,6 @@
 import React, { createContext } from 'react'
 import { useData } from 'structure/DataProvider'
-import CaseStudyHero from './CaseStudyHero'
+import Hero from './Hero'
 // import PropTypes from 'prop-types'
 
 export const CaseStudyCtx = createContext()
@@ -11,7 +11,7 @@ const CaseStudy = ({ uid }) => {
 
   return (
     <CaseStudyCtx.Provider value={csData}>
-      <CaseStudyHero />
+      <Hero />
       <div>CONTENT HERE!!!!!!!!!!!!</div>
     </CaseStudyCtx.Provider>
   )

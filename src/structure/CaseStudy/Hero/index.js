@@ -26,7 +26,7 @@ function useParsedData() {
   }
 }
 
-const CaseStudyHero = () => {
+const Hero = () => {
   const { bgColor } = useParsedData()
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
@@ -100,4 +100,4 @@ function Video({ src }) {
   )
 }
 
-export default CaseStudyHero
+export default Hero
