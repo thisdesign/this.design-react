@@ -28,6 +28,10 @@ const resetSupliment = css`
     text-decoration: none;
     font-weight: 600;
   }
+  img {
+    width: 100%;
+    display: block;
+  }
 `
 
 const type = css`
