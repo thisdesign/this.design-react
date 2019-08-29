@@ -46,11 +46,18 @@ const CaseStudyHero = () => {
       <AuxItem />
       <Styled.MainItem>
         <picture>
-          <Source src={mainImage} size="xl" width={sizes.xl} />
-          <Source src={mainImage} size="lg" width={sizes.lg} />
-          <Source src={mainImage} size="md" width={sizes.md} />
-          <Source src={mainImage} size="sm" width={sizes.sm} />
-          <Source src={mobileImage} width={sizes.xs} />
+          {['sm', 'md', 'lg', 'xl'].map(item => (
+            <Source
+              key={item}
+              src={mainImage}
+              size={item}
+              width={sizes[item] / 1.25}
+              webP
+              jpeg200
+              quality={50}
+            />
+          ))}
+          <Source src={mobileImage} width={sizes.xs / 1.5} />
           <Styled.Img src={mainImage} width={sizes.md} />
         </picture>
         <Video src={mainVideo} />
