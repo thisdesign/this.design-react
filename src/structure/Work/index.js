@@ -4,6 +4,7 @@ import Wrap from 'components/Wrap'
 import Section from 'components/Section'
 import { LayoutCtx } from 'structure/Layout'
 import useSaved from 'hooks/useSaved'
+import formatAlt from 'util/formatAlt'
 import Styled from './Styled'
 // import PropTypes from 'prop-types'
 
@@ -39,6 +40,7 @@ function WorkItem({ uid, image, title }) {
         width={320}
         format="jpg"
         quality={60}
+        alt={formatAlt(title)}
       />
 
       <div>{title}</div>
