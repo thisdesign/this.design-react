@@ -1,7 +1,7 @@
 import { buildURL } from 'react-imgix'
 
 const BASE_URL = 'https://thisstaging.cdn.prismic.io/thisstaging/'
-const IMGIX_URL = 'http://this.imgix.net/'
+const IMGIX_URL = 'https://this.imgix.net/'
 
 const getImgIxUrl = inputUrl =>
   inputUrl && inputUrl.includes(BASE_URL)
