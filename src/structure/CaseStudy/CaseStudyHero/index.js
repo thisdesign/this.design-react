@@ -21,57 +21,66 @@ function useParsedData() {
     auxWidth: header.floating_media_width,
     auxVideo: header.video2.url,
     auxImage: header.image2.url,
+    auxLayout: header.layout2,
     services: header.services,
   }
 }
 
 const CaseStudyHero = () => {
-  const {
-    title,
-    bgColor,
-    intro,
-    mainImage,
-    services,
-    mobileImage,
-    mainVideo,
-  } = useParsedData()
-
+  const { bgColor } = useParsedData()
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
-      <Styled.Info>
-        <Heading as="h1" headingStyle={0}>
-          {title}
-        </Heading>
-        <Heading as="h2" headingStyle={2}>
-          {intro}
-        </Heading>
-        <Styled.ServicesWraper>
-          {RichText.render(services)}
-        </Styled.ServicesWraper>
-      </Styled.Info>
+      <Info />
       <AuxItem />
-      <Styled.MainItem>
-        <Styled.Img
-          src={mainImage}
-          sizes={['xs', 'sm', 'md', 'lg', 'xl']}
-          width={sizes.sm}
-          density={1.5}
-          quality={70}
-        />
-        <Video src={mainVideo} />
-      </Styled.MainItem>
+      <Background />
     </Styled.HeroWrapper>
   )
 }
 
+function Info() {
+  const { title, intro, services } = useParsedData()
+  return (
+    <Styled.Info>
+      <Heading as="h1" headingStyle={0}>
+        {title}
+      </Heading>
+      <Heading as="h2" headingStyle={2}>
+        {intro}
+      </Heading>
+      <Styled.ServicesWraper>{RichText.render(services)}</Styled.ServicesWraper>
+    </Styled.Info>
+  )
+}
+
+function Background() {
+  const { mainImage, mobileImage, mainVideo } = useParsedData()
+  const hasBackground = !!(mobileImage || mainVideo)
+
+  if (hasBackground) {
+    return (
+      <Styled.MainItem>
+        {mainVideo ? (
+          <Video src={mainVideo} />
+        ) : (
+          <picture>
+            <source srcSet={mobileImage} media={`(max-width: ${sizes.xs}px)`} />
+            <Styled.Img src={mainImage} />
+          </picture>
+        )}
+      </Styled.MainItem>
+    )
+  }
+  return null
+}
+
 function AuxItem() {
   const { data } = useContext(CaseStudyCtx)
-  const { auxImage, auxVideo, auxWidth } = useParsedData()
+  const { auxImage, auxVideo, auxWidth, auxLayout } = useParsedData()
   const hasAux = auxVideo || auxImage
 
   if (hasAux) {
     return (
-      <Styled.AuxItem auxWidth={auxWidth}>
+      <Styled.AuxItem auxWidth={auxWidth} layout={auxLayout}>
         {auxVideo ? (
           <Video src={auxVideo} />
         ) : (
@@ -90,6 +99,5 @@ function Video({ src }) {
     </Styled.Video>
   )
 }
-// CaseStudyHero.propTypes = {}
 
 export default CaseStudyHero
