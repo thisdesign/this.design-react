@@ -2,6 +2,7 @@ import React, { createContext } from 'react'
 import { useData } from 'structure/DataProvider'
 import Hero from './Hero'
 import Slices from './Slices'
+import Styled from './Styled'
 
 export const CaseStudyDataCtx = createContext()
 
@@ -11,8 +12,13 @@ const CaseStudy = ({ uid }) => {
 
   return (
     <CaseStudyDataCtx.Provider value={csData}>
-      <Hero />
-      <Slices />
+      <Styled.CaseStudy
+        bg={csData.data.background_color}
+        text={csData.data.text_color}
+      >
+        <Hero />
+        <Slices />
+      </Styled.CaseStudy>
     </CaseStudyDataCtx.Provider>
   )
 }

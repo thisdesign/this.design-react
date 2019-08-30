@@ -4,16 +4,6 @@ import { headingStyles } from 'style/GlobalStyle'
 import { mq } from 'style/theme'
 import getAuxLayout from './getAuxLayout'
 
-/*
-Z-INDEX GUIDE:
-
-  -10...COLOR BLEED
-  10.....MAIN ITEM
-  20....AUX ITEM
-  30....INFO
-
-*/
-
 const HeroWrapper = styled(Wrap.Nav)`
   height: 100vh;
   padding-top: 8rem;
@@ -28,7 +18,7 @@ const HeroWrapper = styled(Wrap.Nav)`
     width: 100%;
     height: 120%;
     background: ${props => props.bgColor};
-    z-index: -1;
+    z-index: 0;
   }
 `
 
