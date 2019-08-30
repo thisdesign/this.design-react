@@ -3,11 +3,20 @@ import CaseStudy from 'structure/CaseStudy'
 import { LayoutCtx } from 'structure/Layout'
 
 function Root() {
-  const { currentCsUid } = useContext(LayoutCtx)
+  const { hoveredCs, currentCsUid } = useContext(LayoutCtx)
   const isHome = !currentCsUid
 
   return (
-    <>{isHome ? 'HOME' : <CaseStudy key={currentCsUid} uid={currentCsUid} />}</>
+    <>
+      {isHome ? (
+        'HOME'
+      ) : (
+        <CaseStudy
+          key={hoveredCs || currentCsUid}
+          uid={hoveredCs || currentCsUid}
+        />
+      )}
+    </>
   )
 }
 

@@ -50,12 +50,10 @@ function WorkItem({ uid, image, title }) {
 }
 
 function PreloadHero({ children, uid }) {
-  const { hoveredCs, setHoveredCs } = useContext(LayoutCtx)
+  const { setHoveredCs } = useContext(LayoutCtx)
 
   function preload() {
     setHoveredCs(uid)
-    console.log(hoveredCs)
-    console.log(uid)
   }
 
   return (

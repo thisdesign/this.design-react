@@ -13,6 +13,7 @@ const View = styled.aside`
   will-change: transform;
   opacity: 0.5;
   border: 2px dashed red;
+  ${'' /* pointer-events: ${props => (!props.active ? 'inherit' : 'none')}; */}
 `
 
 View.Root = styled(View)`
@@ -40,6 +41,8 @@ const ViewInner = styled.div`
 
 ViewInner.Work = styled(ViewInner)`
   opacity: ${props => (props.theme.view === 'work' ? '1' : '0')};
+  pointer-events: ${props =>
+    props.theme.view !== 'work' ? 'none' : 'inherit'};
 `
 
 ViewInner.About = styled(ViewInner)`

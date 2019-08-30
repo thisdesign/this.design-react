@@ -13,9 +13,8 @@ const CaseStudy = ({ uid }) => {
   const [isLoaded, toggleLoaded] = React.useState(false)
 
   React.useEffect(() => {
-    console.log('asfd')
     window.scrollTo(0, 0)
-    setInterval(() => toggleLoaded(true), 500)
+    setInterval(() => toggleLoaded(true), 1500)
   }, [])
 
   return (
