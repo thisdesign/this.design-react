@@ -8,9 +8,9 @@ import getAuxLayout from './getAuxLayout'
 Z-INDEX GUIDE:
 
   -10...COLOR BLEED
-  0.....MAIN ITEM
-  10....AUX ITEM
-  20....INFO
+  10.....MAIN ITEM
+  20....AUX ITEM
+  30....INFO
 
 */
 
@@ -34,7 +34,7 @@ const HeroWrapper = styled(Wrap.Nav)`
 
 const Info = styled.div`
   position: relative;
-  z-index: 20;
+  z-index: 30;
 `
 
 const InfoItem = styled.div`
@@ -52,14 +52,14 @@ const AuxItem = styled.div`
 
   /* CMS width */
   width: ${props => (props.auxWidth ? `${props.auxWidth}vw` : 'auto')};
-  z-index: 10;
+  z-index: 20;
 
   ${props => getAuxLayout(props.layout)}
 `
 
 const MainItem = styled.div`
   position: absolute;
-  z-index: 0;
+  z-index: 10;
   top: 0;
   left: 0;
   width: 100%;
