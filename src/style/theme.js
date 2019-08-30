@@ -2,7 +2,7 @@ import modularScale from 'util/modularScale'
 
 const scale = modularScale(1.2, { limit: 20, negatives: 2 })
 
-const fontSizes = scale.map(item => `${item + 16} px`)
+const fontSizes = scale.map(item => `${item}rem`)
 
 const colors = {
   text: '#111111',
