@@ -36,15 +36,33 @@ function WorkItem({ uid, image, title }) {
 
   return (
     <Styled.WorkItem to={`/work/${uid}`}>
-      <ImgShell
-        show={hasViewed}
-        aspect={2 / 3}
-        src={image}
-        alt={formatAlt(title)}
-      />
+      <PreloadHero uid={uid}>
+        <ImgShell
+          show={hasViewed}
+          aspect={2 / 3}
+          src={image}
+          alt={formatAlt(title)}
+        />
+      </PreloadHero>
       <div>{title}</div>
     </Styled.WorkItem>
   )
 }
 
+function PreloadHero({ children, uid }) {
+  const data = useData()
+
+  function preload() {
+    const doc = data.ctxCaseStudies.filter(item => item.uid === uid)[0]
+    const header = doc.data.header[0]
+    const heroImg = header.image1.url
+
+    if (heroImg) {
+      const hero = new Image()
+      hero.src = heroImg
+      console.log(hero.src)
+    }
+  }
+  return <div onMouseEnter={preload}>{children}</div>
+}
 export default Work
