@@ -51,18 +51,21 @@ function WorkItem({ uid, image, title }) {
 
 function PreloadHero({ children, uid }) {
   const data = useData()
+  const graveyard = React.createRef()
 
   function preload() {
     const doc = data.ctxCaseStudies.filter(item => item.uid === uid)[0]
     const header = doc.data.header[0]
     const heroImg = header.image1.url
 
-    if (heroImg) {
-      const hero = new Image()
-      hero.src = heroImg
-      console.log(hero.src)
-    }
+    graveyard.current.innerHTML = `<img src=${heroImg} />`
   }
-  return <div onMouseEnter={preload}>{children}</div>
+
+  return (
+    <>
+      <div ref={graveyard} style={{ display: 'none' }} />
+      <div onMouseEnter={preload}>{children}</div>
+    </>
+  )
 }
 export default Work
