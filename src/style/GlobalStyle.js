@@ -101,6 +101,10 @@ const type = css`
 const GlobalStyle = createGlobalStyle`
   ${reset}
   ${type}
+
+  body {
+    overflow: hidden;
+  }
 `
 
 export default GlobalStyle
