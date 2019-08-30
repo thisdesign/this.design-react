@@ -102,6 +102,11 @@ const GlobalStyle = createGlobalStyle`
   ${reset}
   ${type}
 
+  html {
+    transform: scale(.5);
+    border: 1px dashed blue;
+    height: 100%;
+  }
   body {
     overflow: hidden;
   }
