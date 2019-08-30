@@ -1,3 +1,9 @@
+import modularScale from 'util/modularScale'
+
+const scale = modularScale(1.2, { limit: 20, negatives: 2 })
+
+const fontSizes = scale.map(item => `${item + 16} px`)
+
 const colors = {
   text: '#111111',
   csBackground: '#f9f9f9',
@@ -41,4 +47,5 @@ export default {
   ease,
   duration,
   margins,
+  fontSizes,
 }
