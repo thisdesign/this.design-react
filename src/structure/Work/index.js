@@ -50,20 +50,16 @@ function WorkItem({ uid, image, title }) {
 }
 
 function PreloadHero({ children, uid }) {
-  const data = useData()
-  const graveyard = React.createRef()
+  const { hoveredCs, setHoveredCs } = useContext(LayoutCtx)
 
   function preload() {
-    const doc = data.ctxCaseStudies.filter(item => item.uid === uid)[0]
-    const header = doc.data.header[0]
-    const heroImg = header.image1.url
-
-    graveyard.current.innerHTML = `<img src=${heroImg} />`
+    setHoveredCs(uid)
+    console.log(hoveredCs)
+    console.log(uid)
   }
 
   return (
     <>
-      <div ref={graveyard} style={{ display: 'none' }} />
       <div onMouseEnter={preload}>{children}</div>
     </>
   )

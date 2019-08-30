@@ -12,6 +12,7 @@ const View = styled.aside`
     ${props => props.theme.ease.standard};
   will-change: transform;
   opacity: 0.5;
+  border: 2px dashed red;
 `
 
 View.Root = styled(View)`

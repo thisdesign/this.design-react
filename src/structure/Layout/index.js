@@ -17,9 +17,10 @@ export const LayoutCtx = createContext()
 
 function Layout({ view, workUid }) {
   const currentCsUid = useSaved(workUid)
+  const [hoveredCs, setHoveredCs] = React.useState(null)
 
   return (
-    <LayoutCtx.Provider value={{ view, currentCsUid }}>
+    <LayoutCtx.Provider value={{ view, currentCsUid, hoveredCs, setHoveredCs }}>
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
