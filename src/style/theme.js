@@ -1,8 +1,13 @@
 import modularScale from 'util/modularScale'
 
-const scale = modularScale(1.2, { limit: 20, negatives: 2 })
+const scale = modularScale(1.35, { limit: 20, negatives: 2 })
 
 const fontSizes = scale.map(item => `${item}rem`)
+
+const fontFamilies = {
+  sansSerif: 'Calibre, arial, sans-serif',
+  serif: 'Domaine, times, "times new roman", serif',
+}
 
 const colors = {
   text: '#111111',
@@ -48,4 +53,5 @@ export default {
   duration,
   margins,
   fontSizes,
+  fontFamilies,
 }

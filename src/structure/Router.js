@@ -7,8 +7,6 @@ import Layout from './Layout'
 function Router() {
   const data = useData()
 
-  console.log(data.ctxCaseStudies)
-
   return (
     <BrowserRouter>
       <Switch>
