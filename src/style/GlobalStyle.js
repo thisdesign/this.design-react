@@ -23,6 +23,7 @@ export const headingStyles = [
   css`
     line-height: ${props => props.theme.lineHeights.headingLg};
     font-size: ${props => props.theme.fontSizes[3]};
+    font-weight: 400;
   `,
   css`
     line-height: ${props => props.theme.lineHeights.heading};
