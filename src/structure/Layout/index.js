@@ -18,16 +18,19 @@ export const LayoutCtx = createContext()
 function Layout({ view, workUid }) {
   const currentCsUid = useSaved(workUid)
   const [hoveredCs, setHoveredCs] = React.useState(null)
+  const mainRef = React.createRef()
 
   return (
-    <LayoutCtx.Provider value={{ view, currentCsUid, hoveredCs, setHoveredCs }}>
+    <LayoutCtx.Provider
+      value={{ mainRef, view, currentCsUid, hoveredCs, setHoveredCs }}
+    >
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
           <Nav />
           <ThemeProvider theme={{ view }}>
             <>
-              <View.Root as="main">
+              <View.Root as="main" ref={mainRef}>
                 <Root />
               </View.Root>
               <View.About>

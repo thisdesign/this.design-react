@@ -58,7 +58,9 @@ function PreloadHero({ children, uid }) {
 
   return (
     <>
-      <div onMouseEnter={preload}>{children}</div>
+      <div onMouseLeave={() => setHoveredCs(null)} onMouseEnter={preload}>
+        {children}
+      </div>
     </>
   )
 }
