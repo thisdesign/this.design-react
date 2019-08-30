@@ -18,7 +18,6 @@ const CaseStudy = ({ uid }) => {
   React.useEffect(() => {
     setInterval(() => toggleLoaded(true), 1500)
 
-    console.log('mounted')
     if ($main) {
       $main.scrollTo(0, 0)
     }

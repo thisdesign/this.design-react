@@ -103,8 +103,6 @@ const GlobalStyle = createGlobalStyle`
   ${type}
 
   html {
-    transform: scale(.5);
-    border: 2px dashed blue;
     height: 100%;
   }
   body {

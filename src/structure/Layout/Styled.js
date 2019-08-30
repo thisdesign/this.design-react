@@ -11,8 +11,7 @@ const View = styled.aside`
   transition: ${props => props.theme.duration.standard}ms transform
     ${props => props.theme.ease.standard};
   will-change: transform;
-  opacity: 0.5;
-  border: 2px dashed red;
+
   ${'' /* pointer-events: ${props => (!props.active ? 'inherit' : 'none')}; */}
 `
 
