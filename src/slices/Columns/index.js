@@ -1,28 +1,7 @@
 import React from 'react'
 import { RichText } from 'prismic-reactjs'
 // import PropTypes from 'prop-types'
-import Styled from './Styled'
-
-function Columns({ mediaRight, size, children }) {
-  return (
-    <Styled.Wrap>
-      <Styled.ColWrapper size={size} mediaRight={mediaRight}>
-        {children}
-      </Styled.ColWrapper>
-    </Styled.Wrap>
-  )
-}
-
-const Media = ({ size, children }) => (
-  <Styled.Media size={size}>{children}</Styled.Media>
-)
-
-const Text = ({ children }) => (
-  <Styled.Text>{RichText.render(children)}</Styled.Text>
-)
-
-Columns.Text = Text
-Columns.Media = Media
+import Columns, { Media, Text } from 'components/Columns'
 
 /* eslint-disable react/prop-types  */
 
@@ -39,9 +18,9 @@ Columns.CSDataWrapper = function CSDataWrapper({ data, v }) {
   console.log(image)
 
   return (
-    <Columns mediaRight={right === 'right'} size={mediaSize}>
-      <Columns.Media>{image.url && <img src={image.url} />}</Columns.Media>
-      <Columns.Text>{text}</Columns.Text>
+    <Columns reverse={right === 'right'}>
+      <Media size="LARGE">{image.url && <img src={image.url} alt="" />}</Media>
+      <Text>{RichText.render(text)}</Text>
     </Columns>
   )
 }
