@@ -1,12 +1,12 @@
 import styled from 'styled-components/macro'
 import { mq } from 'style/theme'
 
-console.log(mq.sm)
 const Wrap = styled.div`
   margin: 0px auto;
 
   max-width: 1500px;
   padding: 0 ${props => props.theme.margins.standard};
+
   @media ${mq.sm} {
     width: 80%;
   }

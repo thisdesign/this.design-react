@@ -101,7 +101,7 @@ function AuxItem() {
 
 function Video({ src }) {
   return (
-    <Styled.Video autoPlay muted playsInline loop>
+    <Styled.Video autoPlay muted="muted" playsInline loop>
       <source src={src} />
     </Styled.Video>
   )
