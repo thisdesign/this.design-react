@@ -33,7 +33,11 @@ const HeroWrapper = styled(Wrap.Nav)`
 `
 
 const Info = styled.div`
-  position: relative;
+  /*
+   Videos cover up sometimes.
+   Think this fixes it
+ */
+  position: absolute;
   z-index: 20;
 `
 
