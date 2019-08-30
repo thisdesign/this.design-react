@@ -4,6 +4,7 @@ const Wrap = styled.div`
   margin: 0px auto;
   width: 80%;
   max-width: 1500px;
+  padding: 0 ${props => props.theme.margins.standard};
 `
 
 Wrap.Nav = styled.div`

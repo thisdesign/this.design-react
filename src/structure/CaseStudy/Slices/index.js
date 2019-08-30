@@ -3,6 +3,7 @@ import { CaseStudyDataCtx } from 'structure/CaseStudy'
 import Section from 'components/Section'
 import Image from 'slices/Image'
 import Text from 'slices/Text'
+import Columns from 'slices/Columns'
 import Styled from './Styled'
 
 export default function Slices() {
@@ -16,7 +17,10 @@ export default function Slices() {
               return <Image.CSDataWrapper data={slice} />
             case 'text':
               return <Text.CSDataWrapper data={slice} />
-
+            case 'columns':
+              return <Columns.CSDataWrapper data={slice} v={1} />
+            case 'columns-v2':
+              return <Columns.CSDataWrapper data={slice} v={2} />
             default:
               return slice.slice_type
           }
