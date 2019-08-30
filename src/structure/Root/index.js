@@ -6,7 +6,9 @@ function Root() {
   const { currentCsUid } = useContext(LayoutCtx)
   const isHome = !currentCsUid
 
-  return <>{isHome ? 'HOME' : <CaseStudy uid={currentCsUid} />}</>
+  return (
+    <>{isHome ? 'HOME' : <CaseStudy key={currentCsUid} uid={currentCsUid} />}</>
+  )
 }
 
 // Root.propTypes = {}
