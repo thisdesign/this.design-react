@@ -23,11 +23,15 @@ Image.propTypes = {
 
 /* eslint-disable react/prop-types  */
 
-Image.CSDataWrapper = function CSDataWrapper({ data }) {
+Image.CSDataWrapper = function CSDataWrapper({ data, v1 }) {
   const {
     data: { title },
   } = useContext(CaseStudyDataCtx)
-  const { image, offset, layout } = data.primary
+
+  const datasrc = v1 ? data.value[0] : data.primary
+  const image = v1 ? datasrc.file : datasrc.image
+  const { offset, layout } = datasrc
+
   const { width, height } = image.dimensions
 
   return (

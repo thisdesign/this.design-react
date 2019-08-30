@@ -13,6 +13,8 @@ export default function Slices() {
       {data.content
         .map(slice => {
           switch (slice.slice_type) {
+            case 'image':
+              return <Image.CSDataWrapper data={slice} v1 />
             case 'image-v2':
               return <Image.CSDataWrapper data={slice} />
             case 'text':
