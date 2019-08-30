@@ -1,6 +1,6 @@
 import modularScale from 'util/modularScale'
 
-const scale = modularScale(1.35, { limit: 20, negatives: 2 })
+const scale = modularScale(1.2, { limit: 20, negatives: 2 })
 
 const fontSizes = scale.map(item => `${item}rem`)
 

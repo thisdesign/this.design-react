@@ -17,7 +17,7 @@ export const headingStyles = [
     font-weight: 400;
   `,
   css`
-    font-size: ${props => props.theme.fontSizes[1]};
+    font-size: ${props => props.theme.fontSizes[0]};
     letter-spacing: 0.1em;
     text-transform: uppercase;
     font-weight: 400;
@@ -54,24 +54,26 @@ const fontFace = css`
     font-family: 'Calibre';
     src: url(${calibrewebReg});
     font-weight: 400;
-    font-display: swap;
   }
+
   @font-face {
     font-family: 'Calibre';
     src: url(${calibrewebLt});
     font-weight: 300;
-    font-display: swap;
   }
 
   @font-face {
     font-family: 'Domaine';
     src: url(${domaine});
     font-weight: 900;
-    font-display: swap;
   }
 `
 
 const type = css`
+  html {
+    font-size: 19px;
+  }
+
   html,
   body {
     font-family: ${props => props.theme.fontFamilies.sansSerif};
