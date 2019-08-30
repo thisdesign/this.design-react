@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { RichText } from 'prismic-reactjs'
 // import PropTypes from 'prop-types'
-import Columns, { Media, Text } from 'components/Columns'
+import Cols, { Media, Text } from 'components/Columns'
+import LazyImg from 'components/LazyImg'
+import formatAlt from 'util/formatAlt'
+import { CaseStudyDataCtx } from 'structure/CaseStudy'
+
+function Columns() {
+  return Cols
+}
 
 /* eslint-disable react/prop-types  */
 
@@ -15,13 +22,23 @@ Columns.CSDataWrapper = function CSDataWrapper({ data, v }) {
     .replace('-column--1of3', 'SMALL')
     .replace('-column--2of3', 'LARGE')
 
-  console.log(image)
-
   return (
-    <Columns reverse={right === 'right'}>
-      <Media size="LARGE">{image.url && <img src={image.url} alt="" />}</Media>
+    <Cols reverse={right === 'right'}>
+      <Media size={mediaSize}>{image.url && <Image data={image} />}</Media>
       <Text>{RichText.render(text)}</Text>
-    </Columns>
+    </Cols>
   )
 }
+
+function Image({ data }) {
+  const { data: csData } = useContext(CaseStudyDataCtx)
+  return (
+    <LazyImg
+      src={data.url}
+      alt={formatAlt(csData.title)}
+      aspect={data.dimensions.height / data.dimensions.width}
+    />
+  )
+}
+
 export default Columns
