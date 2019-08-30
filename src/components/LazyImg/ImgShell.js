@@ -1,13 +1,32 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import styled from 'styled-components/macro'
 import PropTypes from 'prop-types'
 
 /* eslint jsx-a11y/alt-text:0 */
 
+function useIsLoaded() {
+  const [isLoaded, toggleLoaded] = useState(false)
+  const imgRef = React.createRef()
+
+  React.useEffect(() => {
+    const setIsLoaded = () => toggleLoaded(true)
+    const $img = imgRef.current
+
+    $img.addEventListener('load', setIsLoaded)
+    return () => {
+      $img.removeEventListener('load', setIsLoaded)
+    }
+  }, [imgRef])
+
+  return [imgRef, isLoaded]
+}
+
 const ImgShell = forwardRef(({ aspect, src, show, ...props }, ref) => {
+  const [imgRef, isLoaded] = useIsLoaded()
+
   return (
-    <Wrapper show={show} aspect={aspect}>
-      <img {...props} src={show ? src : null} ref={ref} />
+    <Wrapper show={show} aspect={aspect} ref={ref} isLoaded={isLoaded}>
+      <img {...props} src={show ? src : null} ref={imgRef} />
     </Wrapper>
   )
 })
@@ -15,10 +34,8 @@ const ImgShell = forwardRef(({ aspect, src, show, ...props }, ref) => {
 const Wrapper = styled.div`
   padding-top: ${props => props.aspect * 100}%;
   position: relative;
-  opacity: ${props => (props.show ? 1 : 0)};
-
-  /* FOR DEBUGGING */
-  ${'' /* border: 1px solid ${props => (props.show ? 'green' : 'red')}; */}
+  transition: 300ms opacity ${props => props.theme.ease.standard};
+  opacity: ${props => (props.isLoaded && props.show ? 1 : 0)};
 
   img {
     position: absolute;
