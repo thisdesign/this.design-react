@@ -41,13 +41,21 @@ function Info() {
   const { title, intro, services } = useParsedData()
   return (
     <Styled.Info>
-      <Heading as="h1" headingStyle={0}>
-        {title}
-      </Heading>
-      <Heading as="h2" headingStyle={2}>
-        {intro}
-      </Heading>
-      <Styled.ServicesWraper>{RichText.render(services)}</Styled.ServicesWraper>
+      <Styled.InfoItem>
+        <Heading as="h1" headingStyle={0}>
+          {title}
+        </Heading>
+      </Styled.InfoItem>
+      <Styled.InfoItem>
+        <Heading as="h2" headingStyle={3}>
+          {intro}
+        </Heading>
+      </Styled.InfoItem>
+      <Styled.InfoItem>
+        <Styled.ServicesWraper>
+          {RichText.render(services)}
+        </Styled.ServicesWraper>
+      </Styled.InfoItem>
     </Styled.Info>
   )
 }

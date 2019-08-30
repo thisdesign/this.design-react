@@ -1,27 +1,28 @@
 import { createGlobalStyle, css } from 'styled-components'
 import reset from 'styled-reset'
+import { mq } from './theme'
 
 export const headingStyles = [
   css`
     line-height: ${props => props.theme.lineHeights.heading};
-    font-size: ${props => props.theme.fontSizes[4]};
+    font-size: ${props => props.theme.fontSizes[5]};
     font-family: ${props => props.theme.fontFamilies.serif};
     font-weight: 900;
   `,
 
   css`
     line-height: ${props => props.theme.lineHeights.heading};
-    font-size: ${props => props.theme.fontSizes[5]};
+    font-size: ${props => props.theme.fontSizes[6]};
     font-weight: 300;
   `,
   css`
     line-height: ${props => props.theme.lineHeights.heading};
-    font-size: ${props => props.theme.fontSizes[3]};
+    font-size: ${props => props.theme.fontSizes[4]};
     font-weight: 400;
   `,
   css`
-    line-height: ${props => props.theme.lineHeights.heading};
-    font-size: ${props => props.theme.fontSizes[2]};
+    line-height: ${props => props.theme.lineHeights.headingLg};
+    font-size: ${props => props.theme.fontSizes[3]};
   `,
   css`
     line-height: ${props => props.theme.lineHeights.heading};
@@ -40,7 +41,20 @@ const type = css`
   }
 
   html {
-    font-size: 20px;
+    font-size: 18px;
+
+    @media ${mq.sm} {
+      font-size: 19px;
+    }
+    @media ${mq.md} {
+      font-size: 20px;
+    }
+    @media ${mq.lg} {
+      font-size: 22px;
+    }
+    @media ${mq.xl} {
+      font-size: 22px;
+    }
   }
 
   html,
@@ -60,6 +74,10 @@ const type = css`
 
   h1 {
     ${headingStyles[1]}
+  }
+
+  h4 {
+    ${headingStyles[3]}
   }
 
   a {

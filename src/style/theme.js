@@ -1,6 +1,6 @@
 import modularScale from 'util/modularScale'
 
-const scale = modularScale(1.2, { limit: 20, negatives: 2 })
+const scale = modularScale(1.2, { limit: 20, negatives: 3 })
 
 const fontSizes = scale.map(item => `${item}rem`)
 
@@ -36,6 +36,7 @@ export const mq = Object.keys(sizes).reduce(
 const lineHeights = {
   paragraph: 1.7,
   heading: 1.2,
+  headingLg: 1.4,
 }
 const ease = {
   standard: 'cubic-bezier(0, 0, 0.2, 1)',
@@ -48,7 +49,7 @@ const duration = {
 const margins = {
   standard: '1rem',
   navDesktop: '4rem',
-  section: { md: '8rem' },
+  section: { md: '4rem' },
 }
 
 export default {

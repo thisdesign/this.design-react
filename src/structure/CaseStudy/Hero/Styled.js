@@ -16,7 +16,7 @@ Z-INDEX GUIDE:
 
 const HeroWrapper = styled(Wrap.Nav)`
   height: 100vh;
-  padding-top: 10rem;
+  padding-top: 8rem;
   position: relative;
   color: ${props => props.theme.colors.white};
 
@@ -39,6 +39,10 @@ const Info = styled.div`
  */
   position: absolute;
   z-index: 20;
+`
+
+const InfoItem = styled.div`
+  margin-bottom: 2rem;
 `
 
 const AuxItem = styled.div`
@@ -81,6 +85,7 @@ const Img = styled.img`
 const ServicesWraper = styled.div`
   li {
     ${headingStyles[4]}
+    line-height: ${props => props.theme.lineHeights.paragraph};
   }
 `
 
@@ -92,4 +97,5 @@ export default {
   MainItem,
   Img,
   ServicesWraper,
+  InfoItem,
 }
