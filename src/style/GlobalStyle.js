@@ -69,7 +69,8 @@ const type = css`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  p {
     margin-bottom: 1rem;
   }
 
@@ -86,9 +87,14 @@ const type = css`
     text-decoration: none;
     font-weight: 400;
   }
+
   img {
     width: 100%;
     display: block;
+  }
+
+  p {
+    line-height: ${props => props.theme.lineHeights.paragraph};
   }
 `
 
