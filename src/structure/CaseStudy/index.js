@@ -10,6 +10,14 @@ const CaseStudy = ({ uid }) => {
   const { ctxCaseStudies } = useData()
   const csData = ctxCaseStudies.filter(item => item.uid === uid)[0]
 
+  const [isLoaded, toggleLoaded] = React.useState(false)
+
+  React.useEffect(() => {
+    console.log('asfd')
+    window.scrollTo(0, 0)
+    setInterval(() => toggleLoaded(true), 500)
+  }, [])
+
   return (
     <CaseStudyDataCtx.Provider value={csData}>
       <Styled.CaseStudy
@@ -17,7 +25,7 @@ const CaseStudy = ({ uid }) => {
         text={csData.data.text_color}
       >
         <Hero />
-        <Slices />
+        {isLoaded && <Slices />}
       </Styled.CaseStudy>
     </CaseStudyDataCtx.Provider>
   )
