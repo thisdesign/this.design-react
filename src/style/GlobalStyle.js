@@ -47,24 +47,24 @@ const calibrewebReg =
   'https://prismic-io.s3.amazonaws.com/thisstaging/1af5ff39-503a-4dd7-927b-0bf77ca4e075_calibreweb-light.woff'
 
 const calibrewebLt =
-  'https://prismic-io.s3.amazonaws.com/thisstaging/1af5ff39-503a-4dd7-927b-0bf77ca4e075_calibreweb-light.woff'
+  'https://prismic-io.s3.amazonaws.com/thisstaging%2F75524f87-37a9-489b-94e1-9a2cf1e5d910_calibreweb-light.woff'
 
 const fontFace = css`
   @font-face {
     font-family: 'Calibre';
-    src: url(${calibrewebReg});
+    src: url(${calibrewebReg}) format('woff');
     font-weight: 400;
   }
 
   @font-face {
     font-family: 'Calibre';
-    src: url(${calibrewebLt});
+    src: url(${calibrewebLt}) format('woff');
     font-weight: 300;
   }
 
   @font-face {
     font-family: 'Domaine';
-    src: url(${domaine});
+    src: url(${domaine}) format('woff');
     font-weight: 900;
   }
 `
