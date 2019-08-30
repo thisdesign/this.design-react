@@ -35,6 +35,7 @@ export const mq = Object.keys(sizes).reduce(
 
 const lineHeights = {
   paragraph: 1.7,
+  heading: 1.2,
 }
 const ease = {
   standard: 'cubic-bezier(0, 0, 0.2, 1)',

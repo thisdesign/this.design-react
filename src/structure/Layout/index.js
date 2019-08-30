@@ -9,6 +9,7 @@ import Work from 'structure/Work'
 import Root from 'structure/Root'
 import useSaved from 'hooks/useSaved'
 import Styled from './Styled'
+import 'style/fontFamilies.css'
 
 const { ViewInner, View } = Styled
 

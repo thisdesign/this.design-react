@@ -80,7 +80,7 @@ const Img = styled.img`
 
 const ServicesWraper = styled.div`
   li {
-    ${headingStyles[3]}
+    ${headingStyles[4]}
   }
 `
 
