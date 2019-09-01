@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro'
+import styled, { css } from 'styled-components/macro'
 import views from './viewPos'
 
 const View = styled.aside`
@@ -36,12 +36,17 @@ const ViewInner = styled.div`
     ${props => props.theme.ease.standard};
 `
 
+const setAsideStyle = (props, viewName) => css`
+  opacity: ${props.theme.view === viewName ? '1' : '0'};
+  pointer-events: ${props.theme.view === viewName ? 'inherit' : 'none'};
+`
+
 ViewInner.Work = styled(ViewInner)`
-  opacity: ${props => (props.theme.view === 'work' ? '1' : '0')};
+  ${props => setAsideStyle(props, 'work')};
 `
 
 ViewInner.About = styled(ViewInner)`
-  opacity: ${props => (props.theme.view === 'about' ? '1' : '0')};
+  ${props => setAsideStyle(props, 'about')};
 `
 
 export default { View, ViewInner }
