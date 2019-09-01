@@ -1,4 +1,4 @@
-import React, { createContext } from 'react'
+import React, { createContext, useState } from 'react'
 import GlobalStyle from 'style/GlobalStyle'
 import Nav from 'components/Nav'
 import PropTypes from 'prop-types'
@@ -17,9 +17,12 @@ export const LayoutCtx = createContext()
 
 function Layout({ view, workUid }) {
   const currentCsUid = useSaved(workUid)
+  const [hoveredCsUID, setHoveredCsUID] = useState()
 
   return (
-    <LayoutCtx.Provider value={{ view, currentCsUid }}>
+    <LayoutCtx.Provider
+      value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID }}
+    >
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />

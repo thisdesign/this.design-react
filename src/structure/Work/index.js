@@ -35,16 +35,30 @@ function WorkItem({ uid, image, title }) {
   const hasViewed = useSaved(view === 'work')
 
   return (
-    <Styled.WorkItem to={`/work/${uid}`}>
-      <ImgShell
-        show={hasViewed}
-        aspect={2 / 3}
-        src={image}
-        alt={formatAlt(title)}
-      />
-      <div>{title}</div>
-    </Styled.WorkItem>
+    <HeroPreloader uid={uid}>
+      <Styled.WorkItem to={`/work/${uid}`}>
+        <ImgShell
+          show={hasViewed}
+          aspect={2 / 3}
+          src={image}
+          alt={formatAlt(title)}
+        />
+        <div>{title}</div>
+      </Styled.WorkItem>
+    </HeroPreloader>
   )
 }
 
+function HeroPreloader({ uid, children }) {
+  const { setHoveredCsUID } = useContext(LayoutCtx)
+
+  return (
+    <div
+      onMouseLeave={() => setHoveredCsUID(null)}
+      onMouseEnter={() => setHoveredCsUID(uid)}
+    >
+      {children}
+    </div>
+  )
+}
 export default Work
