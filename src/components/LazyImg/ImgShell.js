@@ -4,29 +4,13 @@ import PropTypes from 'prop-types'
 
 /* eslint jsx-a11y/alt-text:0 */
 
-function useIsLoaded() {
-  const [isLoaded, toggleLoaded] = useState(false)
-  const imgRef = React.createRef()
-
-  React.useEffect(() => {
-    const setIsLoaded = () => toggleLoaded(true)
-    const $img = imgRef.current
-
-    $img.addEventListener('load', setIsLoaded)
-    return () => {
-      $img.removeEventListener('load', setIsLoaded)
-    }
-  }, [imgRef])
-
-  return [imgRef, isLoaded]
-}
-
 const ImgShell = forwardRef(({ aspect, src, show, ...props }, ref) => {
-  const [imgRef, isLoaded] = useIsLoaded()
+  const [isLoaded, toggleLoaded] = useState(false)
+  const setIsLoaded = () => toggleLoaded(true)
 
   return (
     <Wrapper show={show} aspect={aspect} ref={ref} isLoaded={isLoaded}>
-      <img {...props} src={show ? src : null} ref={imgRef} />
+      <img {...props} src={show ? src : null} onLoad={setIsLoaded} />
     </Wrapper>
   )
 })
