@@ -11,7 +11,7 @@ function parseCSHeaderData(data) {
 
   return {
     title: RichText.asText(header.title),
-    bgColor: data.color,
+    bgColor: data.data.color,
     preloadColor: header.background_color,
     intro: RichText.asText(header.copy),
     mobileImage: header.mobileImage.url,
@@ -28,11 +28,11 @@ function parseCSHeaderData(data) {
 const HeroCtx = createContext()
 const Hero = ({ uid }) => {
   const heroDataRaw = useCsData(uid)
-  const { bgColor, ...heroDataParsed } = parseCSHeaderData(heroDataRaw)
+  const heroDataParsed = parseCSHeaderData(heroDataRaw)
 
   return (
     <HeroCtx.Provider value={heroDataParsed}>
-      <Styled.HeroWrapper bgColor={bgColor}>
+      <Styled.HeroWrapper bgColor={heroDataParsed.bgColor}>
         <Info />
         <AuxItem />
         <Background />
