@@ -25,6 +25,7 @@ const HeroWrapper = styled(Wrap.Nav)`
 const Info = styled.div`
   position: relative;
   z-index: 30;
+  transform: translate3d(0, 0, 0);
 `
 
 const InfoItem = styled.div`
