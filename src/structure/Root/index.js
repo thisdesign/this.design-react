@@ -18,7 +18,7 @@ function Root() {
   return <>{isHome ? 'HOME' : <CsQueue />}</>
 }
 
-const QueueCtx = createContext()
+export const QueueCtx = createContext()
 
 const CsQueue = () => {
   const { ctxCaseStudies } = useData()
@@ -29,27 +29,33 @@ const CsQueue = () => {
     <>
       {[currentCsUid, nextCsUid].map((uid, i) => (
         <QueueCtx.Provider key={uid} value={{ nextCsUid, isNext: i === 1 }}>
-          <NextCsTrigger>
-            <CaseStudy uid={uid} isNext={i === 1} />
-          </NextCsTrigger>
+          <CaseStudy uid={uid} />
         </QueueCtx.Provider>
       ))}
     </>
   )
 }
 
-const NextCsTrigger = withRouter(({ children, history, ...props }) => {
-  const { nextCsUid, isNext } = useContext(QueueCtx)
-  function handleClick() {
-    history.push(`/work/${nextCsUid}`)
-  }
+export const NextCsTrigger = withRouter(
+  ({ children, history, match, location, ...props }) => {
+    const { nextCsUid, isNext } = useContext(QueueCtx)
 
-  return (
-    <div {...props} onClick={isNext ? handleClick : null}>
-      {children}
-    </div>
-  )
-})
+    function handleClick() {
+      history.push(`/work/${nextCsUid}`)
+    }
+
+    return (
+      <div
+        {...props}
+        onClick={isNext && handleClick}
+        role="button"
+        tabIndex={0}
+      >
+        {children}
+      </div>
+    )
+  }
+)
 
 // Root.propTypes = {}
 

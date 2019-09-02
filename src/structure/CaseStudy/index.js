@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
+import { QueueCtx } from 'structure/Root'
 import useScrollTopReset from './hooks/useScrollTopReset'
 import CaseStudyWrapper from './CaseStudyWrapper'
 import Hero from './Hero'
 import Slices from './Slices'
 
-const CaseStudy = ({ uid, isNext }) => {
+const CaseStudy = ({ uid }) => {
+  const { isNext } = useContext(QueueCtx)
   const { hoveredCsUID } = useContext(LayoutCtx)
   const { transitionName } = useContext(TransitionCtx)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
