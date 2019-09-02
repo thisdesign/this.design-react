@@ -2,6 +2,7 @@ import React, { createContext, useContext } from 'react'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { useData } from 'structure/DataProvider'
 import getCSByUid from 'util/getCSByUid'
+import { withRouter } from 'react-router-dom'
 import Hero from './Hero'
 import Slices from './Slices'
 import Styled from './Styled'
@@ -24,8 +25,8 @@ const CaseStudy = ({ uid }) => {
 
   return (
     <CaseStudyWrapper uid={uid}>
-      <Hero uid={hoveredCsUID || uid} />
-      {!isTransitioningFromWork && <Slices uid={uid} />}
+      <Hero uid={hoveredCsUID || uid} key={uid} />
+      {/* {!isTransitioningFromWork && <Slices uid={uid} />} */}
     </CaseStudyWrapper>
   )
 }
@@ -42,4 +43,28 @@ function CaseStudyWrapper({ children, uid }) {
   )
 }
 
-export default CaseStudy
+function CsTrack({ uid, history }) {
+  const { mainRef } = useContext(LayoutCtx)
+  const { ctxCaseStudies } = useData()
+  const uids = ctxCaseStudies.map(item => item.uid)
+  const index = uids.indexOf(uid)
+  const nextIndex = (index + 1) % uids.length
+  const nextUid = uids[nextIndex]
+
+  console.log(nextUid)
+  return (
+    <>
+      <CaseStudy uid={uid} />
+      <div
+        onClick={() => {
+          history.push(`/work/${nextUid}`)
+          mainRef.current.scrollTop = 0
+        }}
+      >
+        <Hero uid={nextUid} />
+      </div>
+    </>
+  )
+}
+
+export default withRouter(CsTrack)
