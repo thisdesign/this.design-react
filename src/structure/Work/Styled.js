@@ -1,6 +1,6 @@
 import styled from 'styled-components/macro'
-import { Link } from 'react-router-dom'
 import { mq } from 'style/theme'
+import TransitionLink from 'components/TransitionLink'
 
 const Wrapper = styled.div`
   display: grid;
@@ -16,6 +16,6 @@ const Wrapper = styled.div`
   }
 `
 
-const WorkItem = styled(Link)``
+const WorkItem = styled(TransitionLink)``
 
 export default { Wrapper, Image, WorkItem }

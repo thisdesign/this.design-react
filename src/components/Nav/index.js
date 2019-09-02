@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import { LayoutCtx } from 'structure/Layout'
+import TransitionLink from 'components/TransitionLink'
 import Styled from './Styled'
 
 function Nav() {
@@ -12,14 +12,14 @@ function Nav() {
     <Styled.Nav as="nav" padTop>
       <Styled.Wrapper>
         <li>
-          <Link to={isRoot ? '/work' : closeRoute}>
+          <TransitionLink to={isRoot ? '/work' : closeRoute}>
             {isRoot ? 'work' : 'close'}
-          </Link>
+          </TransitionLink>
         </li>
         <li>
-          <Link to={isRoot ? '/about' : closeRoute}>
+          <TransitionLink to={isRoot ? '/about' : closeRoute}>
             {isRoot ? 'about' : 'close'}
-          </Link>
+          </TransitionLink>
         </li>
       </Styled.Wrapper>
     </Styled.Nav>

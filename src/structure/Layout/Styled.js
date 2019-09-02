@@ -8,7 +8,7 @@ const View = styled.aside`
   overflow-y: auto;
   top: 0;
   left: 0;
-  transition: ${props => props.theme.duration.standard}ms transform
+  transition: ${props => props.theme.routeTransition.duration}ms transform
     ${props => props.theme.ease.standard};
   will-change: transform;
 `
@@ -32,13 +32,16 @@ View.About = styled(View)`
 const ViewInner = styled.div`
   opacity: 0;
   will-change: opacity;
-  transition: ${props => props.theme.duration.standard}ms opacity
+  transition: ${props => props.theme.routeTransition.duration}ms opacity
     ${props => props.theme.ease.standard};
 `
 
 const setAsideStyle = (props, viewName) => css`
   opacity: ${props.theme.view === viewName ? '1' : '0'};
-  pointer-events: ${props.theme.view === viewName ? 'inherit' : 'none'};
+  pointer-events: ${props.theme.view === viewName &&
+  !props.theme.isTransitioning
+    ? 'inherit'
+    : 'none'};
 `
 
 ViewInner.Work = styled(ViewInner)`

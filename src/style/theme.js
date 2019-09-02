@@ -52,6 +52,10 @@ const margins = {
   section: { md: '4rem' },
 }
 
+const routeTransition = {
+  duration: duration.standard + 4000,
+}
+
 export default {
   colors,
   ease,
@@ -60,4 +64,5 @@ export default {
   margins,
   fontSizes,
   fontFamilies,
+  routeTransition,
 }
