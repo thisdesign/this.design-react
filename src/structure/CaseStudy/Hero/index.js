@@ -26,7 +26,10 @@ function useParsedData() {
   }
 }
 
-const Hero = memo(() => {
+const Hero = memo(({ uid }) => {
+  React.useEffect(() => {
+    console.log('mounted ', uid)
+  }, [uid])
   const { bgColor } = useParsedData()
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
