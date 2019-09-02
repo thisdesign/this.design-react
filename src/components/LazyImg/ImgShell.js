@@ -18,7 +18,8 @@ const ImgShell = forwardRef(({ aspect, src, show, ...props }, ref) => {
 const Wrapper = styled.div`
   padding-top: ${props => props.aspect * 100}%;
   position: relative;
-  transition: 300ms opacity ${props => props.theme.ease.standard};
+  transition: ${props => props.theme.duration.standard}ms opacity
+    ${props => props.theme.ease.standard};
   opacity: ${props => (props.isLoaded && props.show ? 1 : 0)};
 
   img {
