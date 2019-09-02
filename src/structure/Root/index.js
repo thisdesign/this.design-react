@@ -1,8 +1,9 @@
 import React, { useContext, createContext } from 'react'
 import CaseStudy from 'structure/CaseStudy'
-import { LayoutCtx } from 'structure/Layout'
+import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
 import { useData } from 'structure/DataProvider'
+
 import TransitionLink from 'components/TransitionLink'
 
 function getNextCsUid(currentCsUid, ctxCaseStudies) {
@@ -40,18 +41,14 @@ const CsQueue = () => {
 export const NextCsTrigger = withRouter(
   ({ children, history, match, location, staticContext, ...props }) => {
     const { nextCsUid, isNext } = useContext(QueueCtx)
+    const { triggerTransition } = useContext(TransitionCtx)
 
     function handleClick() {
-      history.push(`/work/${nextCsUid}`)
+      triggerTransition('fuck', null, () => history.push(`/work/${nextCsUid}`))
     }
 
     return (
-      <div
-        {...props}
-        onClick={isNext ? handleClick : null}
-        role="button"
-        tabIndex={0}
-      >
+      <div {...props} onClick={isNext ? handleClick : null}>
         {children}
       </div>
     )

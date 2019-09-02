@@ -10,12 +10,13 @@ function useTransition() {
     transitionName: null,
   })
 
-  const triggerTransition = name => {
+  const triggerTransition = (name, duration, cb = () => null) => {
     setState({ isTransitioning: true, transitionName: name })
 
     setTimeout(() => {
       setState({ isTransitioning: false, transitionName: null })
-    }, theme.routeTransition.duration)
+      cb()
+    }, duration || theme.routeTransition.duration)
   }
 
   return {
