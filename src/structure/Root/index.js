@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import React, { useContext, createContext } from 'react'
 import CaseStudy from 'structure/CaseStudy'
 import { LayoutCtx } from 'structure/Layout'
-import Hero from 'structure/CaseStudy/Hero'
+import { withRouter } from 'react-router-dom'
 import { useData } from 'structure/DataProvider'
 
 function getNextCsUid(currentCsUid, ctxCaseStudies) {
@@ -18,18 +18,39 @@ function Root() {
   return <>{isHome ? 'HOME' : <CsQueue />}</>
 }
 
-function CsQueue() {
+const QueueCtx = createContext()
+
+const CsQueue = () => {
   const { ctxCaseStudies } = useData()
   const { currentCsUid } = useContext(LayoutCtx)
   const nextCsUid = getNextCsUid(currentCsUid, ctxCaseStudies)
 
   return (
     <>
-      <CaseStudy uid={currentCsUid} />
-      <Hero uid={nextCsUid} />
+      {[currentCsUid, nextCsUid].map((uid, i) => (
+        <QueueCtx.Provider key={uid} value={{ nextCsUid, isNext: i === 1 }}>
+          <NextCsTrigger>
+            <CaseStudy uid={uid} isNext={i === 1} />
+          </NextCsTrigger>
+        </QueueCtx.Provider>
+      ))}
     </>
   )
 }
+
+const NextCsTrigger = withRouter(({ children, history, ...props }) => {
+  const { nextCsUid, isNext } = useContext(QueueCtx)
+  function handleClick() {
+    history.push(`/work/${nextCsUid}`)
+  }
+
+  return (
+    <div {...props} onClick={isNext ? handleClick : null}>
+      {children}
+    </div>
+  )
+})
+
 // Root.propTypes = {}
 
 export default Root
