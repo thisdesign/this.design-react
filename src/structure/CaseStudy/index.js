@@ -67,7 +67,7 @@ function CsTrack({ uid, history }) {
   return (
     <div onClick={change}>
       {uidTrack.map(cs => (
-        <CSDataProvider value={getCSByUid(ctxCaseStudies, cs)}>
+        <CSDataProvider key={cs} value={getCSByUid(ctxCaseStudies, cs)}>
           <Hero uid={cs} />
         </CSDataProvider>
       ))}
