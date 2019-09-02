@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Head from 'components/Head'
 import { RichText } from 'prismic-reactjs'
+import getCSByUid from 'util/getCSByUid'
 import { useData } from './DataProvider'
 import Layout from './Layout'
 
@@ -15,7 +16,7 @@ function Router() {
           path={data.ctxCaseStudies.map(item => `/work/${item.uid}`)}
           render={({ match }) => {
             const uid = match.path.split('/')[2]
-            const doc = data.ctxCaseStudies.filter(item => item.uid === uid)[0]
+            const doc = getCSByUid(data.ctxCaseStudies, uid)
             const desc = RichText.asText(doc.data.header[0].copy)
             return (
               <>
