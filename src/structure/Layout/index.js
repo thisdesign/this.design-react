@@ -1,4 +1,4 @@
-import React, { createContext, useState, createRef } from 'react'
+import React, { createContext, useState, useContext } from 'react'
 import GlobalStyle from 'style/GlobalStyle'
 import Nav from 'components/Nav'
 import PropTypes from 'prop-types'
@@ -8,60 +8,44 @@ import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
 import useSaved from 'hooks/useSaved'
-import useTransition from './hooks/useTransition'
+import TransitionProvider, { TransitionCtx } from './TransitionProvider'
 import Styled from './Styled'
 import 'style/fontFamilies.css'
 
 const { ViewInner, View } = Styled
 
 export const LayoutCtx = createContext()
-export const TransitionCtx = createContext()
+export { TransitionCtx }
 
 function Layout({ view, workUid }) {
   const mainRef = React.useRef()
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
-  const { isTransitioning } = useTransition()
+  const { isTransitioning } = useContext(TransitionCtx)
 
   return (
-    <ThemeProvider theme={theme}>
-      <TransitionProvider>
-        <LayoutCtx.Provider
-          value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID, mainRef }}
-        >
-          <>
-            <GlobalStyle />
-            <Nav />
-            <ThemeProvider theme={{ view, isTransitioning }}>
-              <>
-                <View.Root as="main" ref={mainRef}>
-                  <Root />
-                </View.Root>
-                <View.About>
-                  <ViewInner.About>
-                    <About />
-                  </ViewInner.About>
-                </View.About>
-                <View.Work>
-                  <ViewInner.Work>
-                    <Work />
-                  </ViewInner.Work>
-                </View.Work>
-              </>
-            </ThemeProvider>
-          </>
-        </LayoutCtx.Provider>
-      </TransitionProvider>
-    </ThemeProvider>
-  )
-}
-
-function TransitionProvider({ children }) {
-  const ctx = useTransition()
-  return (
-    <TransitionCtx.Provider value={{ ...ctx }}>
-      {children}
-    </TransitionCtx.Provider>
+    <LayoutCtx.Provider
+      value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID, mainRef }}
+    >
+      <Nav />
+      <ThemeProvider theme={{ view, isTransitioning }}>
+        <>
+          <View.Root as="main" ref={mainRef}>
+            <Root />
+          </View.Root>
+          <View.About>
+            <ViewInner.About>
+              <About />
+            </ViewInner.About>
+          </View.About>
+          <View.Work>
+            <ViewInner.Work>
+              <Work />
+            </ViewInner.Work>
+          </View.Work>
+        </>
+      </ThemeProvider>
+    </LayoutCtx.Provider>
   )
 }
 
@@ -69,4 +53,11 @@ Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,
 }
 
-export default Layout
+export default props => (
+  <ThemeProvider theme={theme}>
+    <TransitionProvider>
+      <GlobalStyle />
+      <Layout {...props} />
+    </TransitionProvider>
+  </ThemeProvider>
+)

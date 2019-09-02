@@ -1,7 +1,10 @@
-import { useState } from 'react'
+import React, { useState, createContext } from 'react'
+
 import theme from 'style/theme'
 
-export default function useTransition() {
+export const TransitionCtx = createContext()
+
+function useTransition() {
   const [state, setState] = useState({
     isTransitioning: false,
     transitionName: null,
@@ -20,4 +23,14 @@ export default function useTransition() {
     transitionName: state.transitionName,
     triggerTransition,
   }
+}
+
+export default function TransitionProvider({ children }) {
+  const ctx = useTransition()
+
+  return (
+    <TransitionCtx.Provider value={{ ...ctx }}>
+      {children}
+    </TransitionCtx.Provider>
+  )
 }
