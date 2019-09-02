@@ -5,7 +5,7 @@ import Section from 'components/Section'
 import { LayoutCtx } from 'structure/Layout'
 import useSaved from 'hooks/useSaved'
 import formatAlt from 'util/formatAlt'
-import { ImgShell } from 'components/LazyImg'
+import LazyImg from 'components/LazyImg'
 import Styled from './Styled'
 // import PropTypes from 'prop-types'
 
@@ -54,7 +54,7 @@ function WorkItem({ uid, image, title }) {
       onMouseEnter={handleMouseEnter}
       transitionName="FROM_WORK"
     >
-      <ImgShell
+      <LazyImg
         show={hasViewed}
         aspect={2 / 3}
         src={image}
