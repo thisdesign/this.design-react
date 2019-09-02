@@ -22,7 +22,6 @@ function Layout({ view, workUid }) {
   const [hoveredCsUID, setHoveredCsUID] = useState()
   const { isTransitioning, triggerTransition, transitionName } = useTransition()
 
-  console.log({ isTransitioning, transitionName })
   return (
     <ThemeProvider theme={theme}>
       <TransitionCtx.Provider
