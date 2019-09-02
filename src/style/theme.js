@@ -53,7 +53,7 @@ const margins = {
 }
 
 const routeTransition = {
-  duration: duration.standard + 4000,
+  duration: duration.standard,
 }
 
 export default {

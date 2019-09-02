@@ -36,7 +36,7 @@ function WorkItem({ uid, image, title }) {
 
   return (
     <HeroPreloader uid={uid}>
-      <Styled.WorkItem to={`/work/${uid}`}>
+      <Styled.WorkItem to={`/work/${uid}`} transitionName="FROM_WORK">
         <ImgShell
           show={hasViewed}
           aspect={2 / 3}

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom'
 import { TransitionCtx } from 'structure/Layout'
 import PropTypes from 'prop-types'
 
-function TransitionLink({ onClick, ...props }) {
+function TransitionLink({ onClick, transitionName, ...props }) {
   const { triggerTransition } = useContext(TransitionCtx)
 
   const handeClick = () => {
-    triggerTransition()
+    triggerTransition(transitionName)
     if (onClick) onClick()
   }
 
@@ -16,10 +16,12 @@ function TransitionLink({ onClick, ...props }) {
 
 TransitionLink.defaultProps = {
   onClick: undefined,
+  transitionName: null,
 }
 
 TransitionLink.propTypes = {
   onClick: PropTypes.func,
+  transitionName: PropTypes.string,
 }
 
 export default TransitionLink

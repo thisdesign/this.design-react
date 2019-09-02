@@ -2,15 +2,22 @@ import { useState } from 'react'
 import theme from 'style/theme'
 
 export default function useTransition() {
-  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [state, setState] = useState({
+    isTransitioning: false,
+    transitionName: null,
+  })
 
-  const triggerTransition = () => {
-    setIsTransitioning(true)
+  const triggerTransition = name => {
+    setState({ isTransitioning: true, transitionName: name })
 
     setTimeout(() => {
-      setIsTransitioning(false)
+      setState({ isTransitioning: false, transitionName: null })
     }, theme.routeTransition.duration)
   }
 
-  return { isTransitioning, triggerTransition }
+  return {
+    isTransitioning: state.isTransitioning,
+    transitionName: state.transitionName,
+    triggerTransition,
+  }
 }

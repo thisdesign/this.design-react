@@ -20,12 +20,14 @@ export const TransitionCtx = createContext()
 function Layout({ view, workUid }) {
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
-  const { isTransitioning, triggerTransition } = useTransition()
+  const { isTransitioning, triggerTransition, transitionName } = useTransition()
 
-  console.log({ isTransitioning })
+  console.log({ isTransitioning, transitionName })
   return (
     <ThemeProvider theme={theme}>
-      <TransitionCtx.Provider value={{ isTransitioning, triggerTransition }}>
+      <TransitionCtx.Provider
+        value={{ isTransitioning, transitionName, triggerTransition }}
+      >
         <LayoutCtx.Provider
           value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID }}
         >
