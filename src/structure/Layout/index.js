@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext } from 'react'
 import GlobalStyle from 'style/GlobalStyle'
-import Nav from 'components/Nav'
+import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import theme from 'style/theme'
