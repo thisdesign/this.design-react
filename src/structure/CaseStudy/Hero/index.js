@@ -1,14 +1,13 @@
-import React, { useContext, memo } from 'react'
-import { CaseStudyDataCtx } from 'structure/CaseStudy'
+import React, { useContext, createContext } from 'react'
+import { useCsData } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
 import { sizes } from 'style/theme'
 import Heading from 'components/Heading'
 import Styled from './Styled'
 
-function useParsedData() {
-  const { data } = useContext(CaseStudyDataCtx)
-  const header = data.header[0]
+function parseCSHeaderData(data) {
+  const header = data.data.header[0]
 
   return {
     title: RichText.asText(header.title),
@@ -26,19 +25,24 @@ function useParsedData() {
   }
 }
 
-const Hero = memo(() => {
-  const { bgColor } = useParsedData()
+const HeroCtx = createContext()
+const Hero = ({ uid }) => {
+  const heroDataRaw = useCsData(uid)
+  const { bgColor, ...heroDataParsed } = parseCSHeaderData(heroDataRaw)
+
   return (
-    <Styled.HeroWrapper bgColor={bgColor}>
-      <Info />
-      <AuxItem />
-      <Background />
-    </Styled.HeroWrapper>
+    <HeroCtx.Provider value={heroDataParsed}>
+      <Styled.HeroWrapper bgColor={bgColor}>
+        <Info />
+        <AuxItem />
+        <Background />
+      </Styled.HeroWrapper>
+    </HeroCtx.Provider>
   )
-})
+}
 
 function Info() {
-  const { title, intro, services } = useParsedData()
+  const { title, intro, services } = useContext(HeroCtx)
   return (
     <Styled.Info>
       <Styled.InfoItem>
@@ -61,7 +65,7 @@ function Info() {
 }
 
 function Background() {
-  const { mainImage, mobileImage, mainVideo, title } = useParsedData()
+  const { mainImage, mobileImage, mainVideo, title } = useContext(HeroCtx)
   const hasBackground = !!(mobileImage || mainVideo)
 
   if (hasBackground) {
@@ -82,7 +86,7 @@ function Background() {
 }
 
 function AuxItem() {
-  const { auxImage, auxVideo, auxWidth, auxLayout, title } = useParsedData()
+  const { auxImage, auxVideo, auxWidth, auxLayout, title } = useContext(HeroCtx)
   const hasAux = auxVideo || auxImage
 
   if (hasAux) {

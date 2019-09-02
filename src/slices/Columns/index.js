@@ -31,11 +31,10 @@ Columns.CSDataWrapper = function CSDataWrapper({ data, v }) {
 }
 
 function Image({ data }) {
-  const { data: csData } = useContext(CaseStudyDataCtx)
   return (
     <LazyImg
       src={data.url}
-      alt={formatAlt(csData.title)}
+      // alt={formatAlt(csData.title)}
       aspect={data.dimensions.height / data.dimensions.width}
     />
   )

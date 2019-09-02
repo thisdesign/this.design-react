@@ -1,13 +1,14 @@
-import React, { useContext } from 'react'
-import { CaseStudyDataCtx } from 'structure/CaseStudy'
+import React from 'react'
 import Section from 'components/Section'
 import Image from 'slices/Image'
 import Text from 'slices/Text'
 import Columns from 'slices/Columns'
+import { useCsData } from '..'
 import Styled from './Styled'
 
-export default function Slices() {
-  const { data } = useContext(CaseStudyDataCtx)
+export default function Slices({ uid }) {
+  const { data } = useCsData(uid)
+
   return (
     <Styled.SliceWrapper>
       {data.content

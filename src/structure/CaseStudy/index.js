@@ -7,15 +7,17 @@ import Slices from './Slices'
 import Styled from './Styled'
 
 export const CaseStudyDataCtx = createContext()
-const CSDataProvider = CaseStudyDataCtx.Provider
+
+export function useCsData(uid) {
+  const { ctxCaseStudies } = useData()
+  return getCSByUid(ctxCaseStudies, uid)
+}
 
 const CaseStudy = ({ uid }) => {
-  const { ctxCaseStudies } = useData()
   const { hoveredCsUID, mainRef } = useContext(LayoutCtx)
   const { transitionName } = useContext(TransitionCtx)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
-  const csData = getCSByUid(ctxCaseStudies, uid)
-  const hoveredData = getCSByUid(ctxCaseStudies, hoveredCsUID)
+  const csData = useCsData(uid)
 
   if (isTransitioningFromWork) {
     mainRef.current.scrollTop = 0
@@ -26,12 +28,8 @@ const CaseStudy = ({ uid }) => {
       bg={csData.data.background_color}
       text={csData.data.text_color}
     >
-      <CSDataProvider value={hoveredData || csData}>
-        <Hero key={hoveredData || uid} />
-      </CSDataProvider>
-      <CSDataProvider value={csData}>
-        {!isTransitioningFromWork && <Slices />}
-      </CSDataProvider>
+      <Hero uid={hoveredCsUID || uid} />
+      {!isTransitioningFromWork && <Slices uid={uid} />}
     </Styled.CaseStudy>
   )
 }

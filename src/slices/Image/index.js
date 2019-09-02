@@ -1,6 +1,5 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import LazyImg from 'components/LazyImg'
-import { CaseStudyDataCtx } from 'structure/CaseStudy'
 import formatAlt from 'util/formatAlt'
 import PropTypes from 'prop-types'
 import Wrap from 'components/Wrap'
@@ -24,10 +23,6 @@ Image.propTypes = {
 /* eslint-disable react/prop-types  */
 
 Image.CSDataWrapper = function CSDataWrapper({ data, v1 }) {
-  const {
-    data: { title },
-  } = useContext(CaseStudyDataCtx)
-
   const datasrc = v1 ? data.value[0] : data.primary
   const image = v1 ? datasrc.file : datasrc.image
   const { offset, layout } = datasrc
@@ -38,7 +33,7 @@ Image.CSDataWrapper = function CSDataWrapper({ data, v1 }) {
     <Image
       src={image.url}
       fullScreen={layout === 'fullscreen'}
-      alt={formatAlt(title)}
+      // alt={formatAlt(title)}
       aspect={height / width}
     />
   )
