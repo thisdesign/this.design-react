@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { CaseStudyDataCtx } from 'structure/CaseStudy'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
@@ -26,7 +26,7 @@ function useParsedData() {
   }
 }
 
-const Hero = () => {
+const Hero = memo(() => {
   const { bgColor } = useParsedData()
   return (
     <Styled.HeroWrapper bgColor={bgColor}>
@@ -35,7 +35,7 @@ const Hero = () => {
       <Background />
     </Styled.HeroWrapper>
   )
-}
+})
 
 function Info() {
   const { title, intro, services } = useParsedData()

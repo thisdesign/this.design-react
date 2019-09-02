@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, createRef } from 'react'
 import GlobalStyle from 'style/GlobalStyle'
 import Nav from 'components/Nav'
 import PropTypes from 'prop-types'
@@ -18,6 +18,7 @@ export const LayoutCtx = createContext()
 export const TransitionCtx = createContext()
 
 function Layout({ view, workUid }) {
+  const mainRef = React.useRef()
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
   const { isTransitioning } = useTransition()
@@ -26,14 +27,14 @@ function Layout({ view, workUid }) {
     <ThemeProvider theme={theme}>
       <TransitionProvider>
         <LayoutCtx.Provider
-          value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID }}
+          value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID, mainRef }}
         >
           <>
             <GlobalStyle />
             <Nav />
             <ThemeProvider theme={{ view, isTransitioning }}>
               <>
-                <View.Root as="main">
+                <View.Root as="main" ref={mainRef}>
                   <Root />
                 </View.Root>
                 <View.About>
