@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
@@ -33,32 +33,36 @@ function Work() {
 function WorkItem({ uid, image, title }) {
   const { view } = useContext(LayoutCtx)
   const hasViewed = useSaved(view === 'work')
-
-  return (
-    <HeroPreloader uid={uid}>
-      <Styled.WorkItem to={`/work/${uid}`} transitionName="FROM_WORK">
-        <ImgShell
-          show={hasViewed}
-          aspect={2 / 3}
-          src={image}
-          alt={formatAlt(title)}
-        />
-        <div>{title}</div>
-      </Styled.WorkItem>
-    </HeroPreloader>
-  )
-}
-
-function HeroPreloader({ uid, children }) {
   const { setHoveredCsUID } = useContext(LayoutCtx)
 
+  const [isHovered, toggleHovered] = useState(false)
+
+  const handleMouseEnter = () => {
+    setHoveredCsUID(uid)
+    toggleHovered(true)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredCsUID(null)
+    toggleHovered(false)
+  }
+
   return (
-    <div
-      onMouseLeave={() => setHoveredCsUID(null)}
-      onMouseEnter={() => setHoveredCsUID(uid)}
+    <Styled.WorkItem
+      to={`/work/${uid}`}
+      onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
+      transitionName="FROM_WORK"
     >
-      {children}
-    </div>
+      <ImgShell
+        show={hasViewed}
+        aspect={2 / 3}
+        src={image}
+        alt={formatAlt(title)}
+      />
+      <Styled.Title isHovered={isHovered}>{title}</Styled.Title>
+    </Styled.WorkItem>
   )
 }
+
 export default Work

@@ -62,6 +62,7 @@ const type = css`
   body {
     font-family: ${props => props.theme.fontFamilies.sansSerif};
     font-weight: 300;
+    height: 100%;
   }
 
   h1,
