@@ -2,7 +2,7 @@ import { useState } from 'react'
 import theme from 'style/theme'
 
 export default function useTransition() {
-  const [isTransitioning, setIsTransitioning] = useState()
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   const triggerTransition = () => {
     setIsTransitioning(true)
