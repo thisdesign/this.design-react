@@ -1,5 +1,5 @@
 import React, { useContext, createContext } from 'react'
-import { useCsData } from 'structure/CaseStudy'
+import useCsData from 'structure/CaseStudy/hooks/useCsData'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
 import { sizes } from 'style/theme'

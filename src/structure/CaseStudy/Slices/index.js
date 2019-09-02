@@ -3,7 +3,7 @@ import Section from 'components/Section'
 import Image from 'slices/Image'
 import Text from 'slices/Text'
 import Columns from 'slices/Columns'
-import { useCsData } from '..'
+import useCsData from 'structure/CaseStudy/hooks/useCsData'
 import Styled from './Styled'
 
 export default function Slices({ uid }) {
