@@ -1,5 +1,8 @@
 import React from 'react'
 import { createStore } from 'redux'
+import { ThemeProvider } from 'styled-components'
+import GlobalStyle from 'style/GlobalStyle'
+import theme from 'style/theme'
 import reducers from 'reducers'
 import { Provider } from 'react-redux'
 import DataProvider, { useData } from './DataProvider'
@@ -28,6 +31,11 @@ function App() {
 
 export default () => (
   <DataProvider>
-    <App />
+    <ThemeProvider theme={theme}>
+      <>
+        <GlobalStyle />
+        <App />
+      </>
+    </ThemeProvider>
   </DataProvider>
 )

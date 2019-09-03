@@ -1,14 +1,13 @@
-import React, { createContext, useState, useContext } from 'react'
-import GlobalStyle from 'style/GlobalStyle'
+import React, { createContext, useState } from 'react'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 
-import theme from 'style/theme'
 import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
+
 import useSaved from 'hooks/useSaved'
 import Styled from './Styled'
 import 'style/fontFamilies.css'
@@ -69,11 +68,4 @@ Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,
 }
 
-export default props => (
-  <ThemeProvider theme={theme}>
-    <>
-      <GlobalStyle />
-      <Layout {...props} />
-    </>
-  </ThemeProvider>
-)
+export default Layout
