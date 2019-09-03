@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
-import { LayoutCtx } from 'structure/Layout'
 import useSaved from 'hooks/useSaved'
 import formatAlt from 'util/formatAlt'
 import LazyImg from 'components/LazyImg'
@@ -32,19 +31,19 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
+  const dispatch = useDispatch()
   const view = useSelector(state => state.view)
   const hasViewed = useSaved(view === 'work')
-  const { setHoveredCsUID } = useContext(LayoutCtx)
 
   const [isHovered, toggleHovered] = useState(false)
 
   const handleMouseEnter = () => {
-    setHoveredCsUID(uid)
     toggleHovered(true)
+    dispatch({ type: 'HOVER_ITEM', payload: { uid } })
   }
 
   const handleMouseLeave = () => {
-    setHoveredCsUID(null)
+    dispatch({ type: 'UNHOVER_ITEM' })
     toggleHovered(false)
   }
 

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react'
+import React from 'react'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
@@ -13,8 +13,6 @@ import Styled from './Styled'
 import 'style/fontFamilies.css'
 
 const { ViewInner, View } = Styled
-
-export const LayoutCtx = createContext()
 
 function Layout({ view: viewProp, workUid }) {
   const dispatch = useDispatch()
@@ -31,16 +29,13 @@ function Layout({ view: viewProp, workUid }) {
 
   const view = useSelector(state => state.view)
 
-  const mainRef = React.useRef()
-  const [hoveredCsUID, setHoveredCsUID] = useState()
-
   return (
-    <LayoutCtx.Provider value={{ hoveredCsUID, setHoveredCsUID, mainRef }}>
+    <>
       <Nav />
       <ThemeProvider theme={{ view, isTransitioning }}>
         <Structure />
       </ThemeProvider>
-    </LayoutCtx.Provider>
+    </>
   )
 }
 
