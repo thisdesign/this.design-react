@@ -4,7 +4,7 @@ import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import { changeViewName } from 'actions'
+
 import theme from 'style/theme'
 import About from 'structure/About'
 import Work from 'structure/Work'
@@ -24,12 +24,12 @@ function Layout({ view: viewProp, workUid }) {
   const currentCsUid = useSaved(workUid)
 
   React.useEffect(() => {
-    dispatch({ type: 'CHANGE_VIEW', payload: viewProp })
-  }, [dispatch, viewProp])
-
-  React.useEffect(() => {
-    dispatch({ type: 'CHANGE_CS', payload: currentCsUid || null })
-  }, [currentCsUid, dispatch])
+    dispatch({
+      type: 'CHANGE_VIEW',
+      view: viewProp,
+      currentCsUid,
+    })
+  }, [currentCsUid, dispatch, viewProp])
 
   const view = useSelector(state => state.view)
 
