@@ -1,6 +1,14 @@
 import React from 'react'
+import { createStore } from 'redux'
+import reducers from 'reducers'
+import { Provider } from 'react-redux'
 import DataProvider, { useData } from './DataProvider'
 import Router from './Router'
+
+const store = createStore(
+  reducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+)
 
 function App() {
   const data = useData()
@@ -15,6 +23,8 @@ function App() {
 
 export default () => (
   <DataProvider>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </DataProvider>
 )
