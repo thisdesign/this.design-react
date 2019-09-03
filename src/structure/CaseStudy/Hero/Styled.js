@@ -32,7 +32,7 @@ const InfoItem = styled.div`
   margin-bottom: 2rem;
   opacity: ${props => (props.theme.isNext ? 0 : 1)};
   transition: ${props => props.theme.duration.standard}ms opacity
-    ${props => props.theme.ease.standard};
+    ${props => props.theme.ease.slow};
 `
 
 const TitleWrapper = styled(InfoItem)`

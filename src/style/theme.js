@@ -45,6 +45,7 @@ const ease = {
 
 const duration = {
   standard: 500,
+  slow: 750,
 }
 
 const margins = {
@@ -58,8 +59,8 @@ const routeTransition = {
 }
 
 const csTransition = {
-  duration: duration.standard,
-  ease: ease.decel,
+  duration: 600,
+  ease: `cubic-bezier(.27,.93,.59,.99)`,
 }
 
 export default {
