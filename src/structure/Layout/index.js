@@ -13,20 +13,29 @@ import 'style/fontFamilies.css'
 const { ViewInner, View } = Styled
 
 export const LayoutCtx = createContext()
+export const RouteCtx = createContext()
+
 export { TransitionCtx }
 
-function Layout({ view, workUid }) {
-  const mainRef = React.useRef()
+const RouteProvider = ({ children, workUid, view }) => {
   const currentCsUid = useSaved(workUid)
+  return (
+    <RouteCtx.Provider value={{ view, currentCsUid }}>
+      {children}
+    </RouteCtx.Provider>
+  )
+}
+
+function Layout() {
+  const mainRef = React.useRef()
   const [hoveredCsUID, setHoveredCsUID] = useState()
   const { isTransitioning } = useContext(TransitionCtx)
+  const { view } = useContext(RouteCtx)
 
   return (
     <>
       <LayoutCtx.Provider
         value={{
-          view,
-          currentCsUid,
           hoveredCsUID,
           setHoveredCsUID,
           mainRef,
@@ -42,7 +51,6 @@ function Layout({ view, workUid }) {
 }
 
 const Structure = () => {
-  console.log('structure rendered')
   return (
     <>
       <View.Root as="main">
@@ -66,4 +74,8 @@ Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,
 }
 
-export default Layout
+export default props => (
+  <RouteProvider {...props}>
+    <Layout />
+  </RouteProvider>
+)

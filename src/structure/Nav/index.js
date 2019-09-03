@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { LayoutCtx } from 'structure/Layout'
+import { RouteCtx } from 'structure/Layout'
 import TransitionLink from 'components/TransitionLink'
 import { ThemeProvider } from 'styled-components'
 import Styled from './Styled'
 
 function Nav() {
-  const { view, currentCsUid } = useContext(LayoutCtx)
+  const { view, currentCsUid } = useContext(RouteCtx)
   const isRoot = view === 'root'
   const isAbout = view === 'about'
   const closeRoute = currentCsUid ? `/work/${currentCsUid}` : '/'
