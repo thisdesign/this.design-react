@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
-import { LayoutCtx } from 'structure/Layout'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import TransitionLink from 'components/TransitionLink'
 import { ThemeProvider } from 'styled-components'
 import Styled from './Styled'
 
 function Nav() {
-  const { view, currentCsUid } = useContext(LayoutCtx)
+  const { view, currentCsUid } = useSelector(state => state)
   const isRoot = view === 'root'
   const isAbout = view === 'about'
   const closeRoute = currentCsUid ? `/work/${currentCsUid}` : '/'

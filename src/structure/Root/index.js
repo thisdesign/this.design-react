@@ -1,6 +1,6 @@
 import React, { useContext, createContext, memo } from 'react'
 import CaseStudy from 'structure/CaseStudy'
-import { LayoutCtx, TransitionCtx } from 'structure/Layout'
+import { TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
 import { useData } from 'structure/DataProvider'
 import theme from 'style/theme'
@@ -14,10 +14,7 @@ function getNextCsUid(currentCsUid, ctxCaseStudies) {
 }
 
 function Root() {
-  const view = useSelector(state => state.view)
-  console.log({ view })
-
-  const { currentCsUid } = useContext(LayoutCtx)
+  const { currentCsUid } = useSelector(state => state)
   const isHome = !currentCsUid
 
   return <>{isHome ? 'HOME' : <CsQueue />}</>
@@ -27,7 +24,7 @@ export const QueueCtx = createContext()
 
 const CsQueue = memo(() => {
   const { ctxCaseStudies } = useData()
-  const { currentCsUid } = useContext(LayoutCtx)
+  const { currentCsUid } = useSelector(state => state)
   const nextCsUid = getNextCsUid(currentCsUid, ctxCaseStudies)
 
   return (

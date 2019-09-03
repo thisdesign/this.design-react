@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
@@ -31,7 +32,7 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
-  const { view } = useContext(LayoutCtx)
+  const { view } = useSelector(state => state)
   const hasViewed = useSaved(view === 'work')
   const { setHoveredCsUID } = useContext(LayoutCtx)
 
