@@ -3,6 +3,8 @@ import GlobalStyle from 'style/GlobalStyle'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeViewName } from 'actions'
 import theme from 'style/theme'
 import About from 'structure/About'
 import Work from 'structure/Work'
@@ -17,7 +19,11 @@ const { ViewInner, View } = Styled
 export const LayoutCtx = createContext()
 export { TransitionCtx }
 
-function Layout({ view, workUid }) {
+function Layout({ view: viewProp, workUid }) {
+  const dispatch = useDispatch()
+  dispatch(changeViewName(viewProp))
+  const view = useSelector(state => state.view)
+
   const mainRef = React.useRef()
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()

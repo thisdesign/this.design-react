@@ -4,6 +4,7 @@ import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
 import { useData } from 'structure/DataProvider'
 import theme from 'style/theme'
+import { useSelector } from 'react-redux'
 
 function getNextCsUid(currentCsUid, ctxCaseStudies) {
   const uids = ctxCaseStudies.map(item => item.uid)
@@ -13,6 +14,9 @@ function getNextCsUid(currentCsUid, ctxCaseStudies) {
 }
 
 function Root() {
+  const view = useSelector(state => state.view)
+  console.log({ view })
+
   const { currentCsUid } = useContext(LayoutCtx)
   const isHome = !currentCsUid
 

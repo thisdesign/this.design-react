@@ -1,7 +1,7 @@
 const viewReducer = (state, action) => {
   switch (action.type) {
     case 'CHANGE_VIEW':
-      return 'state has been set'
+      return action.val
     default:
       return null
   }
