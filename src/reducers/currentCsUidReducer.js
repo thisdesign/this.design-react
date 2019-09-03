@@ -1,9 +1,9 @@
-const currentCsUidReducer = (state, action) => {
+const currentCsUidReducer = (state = null, action) => {
   switch (action.type) {
     case 'CHANGE_CS':
-      return 'state has been set'
+      return action.payload
     default:
-      return null
+      return state
   }
 }
 

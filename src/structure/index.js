@@ -5,16 +5,21 @@ import { Provider } from 'react-redux'
 import DataProvider, { useData } from './DataProvider'
 import Router from './Router'
 
-const store = createStore(
-  reducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
 function App() {
   const data = useData()
 
+  const store = createStore(
+    reducers,
+    { view: 'asasdfadsasdf' },
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  )
+
   if (data.loaded) {
-    return <Router />
+    return (
+      <Provider store={store}>
+        <Router />{' '}
+      </Provider>
+    )
   }
   return 'loading...'
 }
@@ -23,8 +28,6 @@ function App() {
 
 export default () => (
   <DataProvider>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App />
   </DataProvider>
 )

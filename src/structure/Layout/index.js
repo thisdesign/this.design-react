@@ -21,11 +21,19 @@ export { TransitionCtx }
 
 function Layout({ view: viewProp, workUid }) {
   const dispatch = useDispatch()
-  dispatch(changeViewName(viewProp))
+  const currentCsUid = useSaved(workUid)
+
+  React.useEffect(() => {
+    dispatch({ type: 'CHANGE_VIEW', payload: viewProp })
+  }, [dispatch, viewProp])
+
+  React.useEffect(() => {
+    dispatch({ type: 'CHANGE_CS', payload: currentCsUid || null })
+  }, [currentCsUid, dispatch])
+
   const view = useSelector(state => state.view)
 
   const mainRef = React.useRef()
-  const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
   const { isTransitioning } = useContext(TransitionCtx)
 

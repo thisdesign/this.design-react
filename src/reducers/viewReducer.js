@@ -1,9 +1,9 @@
-const viewReducer = (state, action) => {
+const viewReducer = (state = null, action) => {
   switch (action.type) {
     case 'CHANGE_VIEW':
-      return action.val
+      return action.payload
     default:
-      return null
+      return state
   }
 }
 
