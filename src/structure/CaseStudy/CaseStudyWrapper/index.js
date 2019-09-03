@@ -1,6 +1,6 @@
 import React, { useContext, memo } from 'react'
+import { useSelector } from 'react-redux'
 import { QueueCtx } from 'structure/Root'
-import { TransitionCtx } from 'structure/Layout'
 import { ThemeProvider } from 'styled-components'
 import useCsData from '../hooks/useCsData'
 import Styled from './Styled'
@@ -8,7 +8,7 @@ import Styled from './Styled'
 const CaseStudyWrapper = memo(({ children, uid }) => {
   const csData = useCsData(uid)
   const { isNext } = useContext(QueueCtx)
-  const { transitionName } = useContext(TransitionCtx)
+  const transitionName = useSelector(state => state.transition.transitionName)
 
   return (
     <ThemeProvider

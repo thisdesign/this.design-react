@@ -59,7 +59,7 @@ const routeTransition = {
 }
 
 const csTransition = {
-  duration: 600,
+  duration: 1600,
   ease: `cubic-bezier(.27,.93,.59,.99)`,
 }
 

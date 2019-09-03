@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { TransitionCtx } from 'structure/Layout'
 import PropTypes from 'prop-types'
+import useTransitionTrigger from './useTransitionTrigger'
 
 function TransitionLink({ onClick, transitionName, ...props }) {
-  const { triggerTransition } = useContext(TransitionCtx)
+  const triggerTransition = useTransitionTrigger()
 
   const handeClick = () => {
     triggerTransition(transitionName)
@@ -24,4 +24,5 @@ TransitionLink.propTypes = {
   transitionName: PropTypes.string,
 }
 
+export { useTransitionTrigger }
 export default TransitionLink

@@ -8,7 +8,12 @@ const currentCsUidReducer = (state = INITIAL_STATE, action) => {
     case 'START_TRANSITION':
       return {
         isTransitioning: true,
-        transitionName: action.name,
+        transitionName: action.payload.name,
+      }
+    case 'STOP_TRANSITION':
+      return {
+        isTransitioning: false,
+        transitionName: null,
       }
     default:
       return state

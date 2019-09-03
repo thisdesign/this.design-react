@@ -1,6 +1,7 @@
 import React, { useContext, memo } from 'react'
+import { useSelector } from 'react-redux'
 
-import { LayoutCtx, TransitionCtx } from 'structure/Layout'
+import { LayoutCtx } from 'structure/Layout'
 import { QueueCtx, NextCsTrigger } from 'structure/Root'
 
 import CaseStudyWrapper from './CaseStudyWrapper'
@@ -11,7 +12,8 @@ import Styled from './Styled'
 const CaseStudy = memo(({ uid }) => {
   const { isNext } = useContext(QueueCtx)
   const { hoveredCsUID } = useContext(LayoutCtx)
-  const { transitionName } = useContext(TransitionCtx)
+
+  const transitionName = useSelector(state => state.transition.transitionName)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
 
   return (

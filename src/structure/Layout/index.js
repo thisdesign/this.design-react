@@ -10,18 +10,17 @@ import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
 import useSaved from 'hooks/useSaved'
-import TransitionProvider, { TransitionCtx } from './TransitionProvider'
 import Styled from './Styled'
 import 'style/fontFamilies.css'
 
 const { ViewInner, View } = Styled
 
 export const LayoutCtx = createContext()
-export { TransitionCtx }
 
 function Layout({ view: viewProp, workUid }) {
   const dispatch = useDispatch()
   const currentCsUid = useSaved(workUid)
+  const isTransitioning = useSelector(state => state.transition.isTransitioning)
 
   React.useEffect(() => {
     dispatch({
@@ -35,7 +34,6 @@ function Layout({ view: viewProp, workUid }) {
 
   const mainRef = React.useRef()
   const [hoveredCsUID, setHoveredCsUID] = useState()
-  const { isTransitioning } = useContext(TransitionCtx)
 
   return (
     <LayoutCtx.Provider value={{ hoveredCsUID, setHoveredCsUID, mainRef }}>
@@ -73,9 +71,9 @@ Layout.propTypes = {
 
 export default props => (
   <ThemeProvider theme={theme}>
-    <TransitionProvider>
+    <>
       <GlobalStyle />
       <Layout {...props} />
-    </TransitionProvider>
+    </>
   </ThemeProvider>
 )
