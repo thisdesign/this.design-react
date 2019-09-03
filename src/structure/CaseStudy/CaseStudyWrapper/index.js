@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { NextCsTrigger, QueueCtx } from 'structure/Root'
+import { QueueCtx } from 'structure/Root'
 import { TransitionCtx } from 'structure/Layout'
 import { ThemeProvider } from 'styled-components'
 import useCsData from '../hooks/useCsData'
@@ -12,15 +12,14 @@ export default function CaseStudyWrapper({ children, uid }) {
 
   return (
     <ThemeProvider
-      theme={{ isNext, transitioningNext: transitionName === 'NEXT_CS' }}
+      theme={{
+        isNext,
+        bgColor: csData.data.background_color,
+        transitioningNext: transitionName === 'NEXT_CS',
+        textColor: csData.data.text_color,
+      }}
     >
-      <Styled.CaseStudy
-        as={NextCsTrigger}
-        bg={csData.data.background_color}
-        text={csData.data.text_color}
-      >
-        {children}
-      </Styled.CaseStudy>
+      <Styled.CaseStudy>{children}</Styled.CaseStudy>
     </ThemeProvider>
   )
 }

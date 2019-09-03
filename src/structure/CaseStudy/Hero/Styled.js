@@ -47,6 +47,7 @@ const AuxItem = styled.div`
   }
 
   position: absolute;
+  transform: translate3d(0, 0, 0);
 
   /* CMS width */
   width: ${props => (props.auxWidth ? `${props.auxWidth}vw` : 'auto')};

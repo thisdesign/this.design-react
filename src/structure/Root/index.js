@@ -51,7 +51,7 @@ export const NextCsTrigger = withRouter(
     }
 
     return (
-      <div {...props} onClick={isNext ? handleClick : null}>
+      <div {...props} onClick={!isNext ? handleClick : null}>
         {children}
       </div>
     )

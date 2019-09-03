@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
-import { QueueCtx } from 'structure/Root'
+import { QueueCtx, NextCsTrigger } from 'structure/Root'
 import useScrollTopReset from './hooks/useScrollTopReset'
 import CaseStudyWrapper from './CaseStudyWrapper'
 import Hero from './Hero'
 import Slices from './Slices'
+import Styled from './Styled'
 
 const CaseStudy = ({ uid }) => {
   const { isNext } = useContext(QueueCtx)
@@ -17,11 +18,18 @@ const CaseStudy = ({ uid }) => {
     <CaseStudyWrapper uid={uid}>
       {!isNext ? (
         <>
-          <Hero uid={hoveredCsUID || uid} />
-          {!isTransitioningFromWork && <Slices uid={uid} />}
+          <Styled.ColorBg>
+            <Hero uid={hoveredCsUID || uid} />
+            {!isTransitioningFromWork && <Slices uid={uid} />}
+          </Styled.ColorBg>
+          <NextCsTrigger>
+            <Styled.Shim />
+          </NextCsTrigger>
         </>
       ) : (
-        <Hero uid={uid} />
+        <Styled.ColorBg>
+          <Hero uid={uid} />
+        </Styled.ColorBg>
       )}
     </CaseStudyWrapper>
   )
