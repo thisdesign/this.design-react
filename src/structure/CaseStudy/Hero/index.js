@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react'
+import React, { useContext, createContext, memo } from 'react'
 import useCsData from 'structure/CaseStudy/hooks/useCsData'
 import { RichText } from 'prismic-reactjs'
 import formatAlt from 'util/formatAlt'
@@ -26,7 +26,8 @@ function parseCSHeaderData(data) {
 }
 
 const HeroCtx = createContext()
-const Hero = ({ uid }) => {
+
+const Hero = memo(({ uid }) => {
   const heroDataRaw = useCsData(uid)
   const heroDataParsed = parseCSHeaderData(heroDataRaw)
 
@@ -39,7 +40,7 @@ const Hero = ({ uid }) => {
       </Styled.HeroWrapper>
     </HeroCtx.Provider>
   )
-}
+})
 
 function Info() {
   const { title, intro, services } = useContext(HeroCtx)

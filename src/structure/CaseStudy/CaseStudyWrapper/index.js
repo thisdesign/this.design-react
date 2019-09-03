@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { QueueCtx } from 'structure/Root'
 import { TransitionCtx } from 'structure/Layout'
 import { ThemeProvider } from 'styled-components'
 import useCsData from '../hooks/useCsData'
 import Styled from './Styled'
 
-export default function CaseStudyWrapper({ children, uid }) {
+const CaseStudyWrapper = memo(({ children, uid }) => {
   const csData = useCsData(uid)
   const { isNext } = useContext(QueueCtx)
   const { transitionName } = useContext(TransitionCtx)
@@ -22,4 +22,6 @@ export default function CaseStudyWrapper({ children, uid }) {
       <Styled.CaseStudy>{children}</Styled.CaseStudy>
     </ThemeProvider>
   )
-}
+})
+
+export default CaseStudyWrapper

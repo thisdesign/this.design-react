@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { QueueCtx, NextCsTrigger } from 'structure/Root'
 import useScrollTopReset from './hooks/useScrollTopReset'
@@ -7,7 +7,7 @@ import Hero from './Hero'
 import Slices from './Slices'
 import Styled from './Styled'
 
-const CaseStudy = ({ uid }) => {
+const CaseStudy = memo(({ uid }) => {
   const { isNext } = useContext(QueueCtx)
   const { hoveredCsUID } = useContext(LayoutCtx)
   const { transitionName } = useContext(TransitionCtx)
@@ -19,7 +19,7 @@ const CaseStudy = ({ uid }) => {
       {!isNext ? (
         <>
           <Styled.ColorBg>
-            <Hero uid={hoveredCsUID || uid} />
+            <Hero uid={isNext ? hoveredCsUID || uid : uid} />
             {!isTransitioningFromWork && <Slices uid={uid} />}
           </Styled.ColorBg>
           <NextCsTrigger>
@@ -33,6 +33,6 @@ const CaseStudy = ({ uid }) => {
       )}
     </CaseStudyWrapper>
   )
-}
+})
 
 export default CaseStudy

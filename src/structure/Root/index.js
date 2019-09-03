@@ -1,4 +1,4 @@
-import React, { useContext, createContext } from 'react'
+import React, { useContext, createContext, memo } from 'react'
 import CaseStudy from 'structure/CaseStudy'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
@@ -21,7 +21,7 @@ function Root() {
 
 export const QueueCtx = createContext()
 
-const CsQueue = () => {
+const CsQueue = memo(() => {
   const { ctxCaseStudies } = useData()
   const { currentCsUid } = useContext(LayoutCtx)
   const nextCsUid = getNextCsUid(currentCsUid, ctxCaseStudies)
@@ -35,26 +35,28 @@ const CsQueue = () => {
       ))}
     </>
   )
-}
+})
 
-export const NextCsTrigger = withRouter(
-  ({ children, history, match, location, staticContext, ...props }) => {
-    const { nextCsUid, isNext } = useContext(QueueCtx)
-    const { triggerTransition } = useContext(TransitionCtx)
+export const NextCsTrigger = memo(
+  withRouter(
+    ({ children, history, match, location, staticContext, ...props }) => {
+      const { nextCsUid, isNext } = useContext(QueueCtx)
+      const { triggerTransition } = useContext(TransitionCtx)
 
-    function handleClick() {
-      const cb = () => history.push(`/work/${nextCsUid}`)
-      const { duration } = theme.csTransition
-      const transitionName = 'NEXT_CS'
-      triggerTransition(transitionName, duration, cb)
+      function handleClick() {
+        const cb = () => history.push(`/work/${nextCsUid}`)
+        const { duration } = theme.csTransition
+        const transitionName = 'NEXT_CS'
+        triggerTransition(transitionName, duration, cb)
+      }
+
+      return (
+        <div {...props} onClick={!isNext ? handleClick : null}>
+          {children}
+        </div>
+      )
     }
-
-    return (
-      <div {...props} onClick={!isNext ? handleClick : null}>
-        {children}
-      </div>
-    )
-  }
+  )
 )
 
 // Root.propTypes = {}
