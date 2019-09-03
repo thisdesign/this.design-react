@@ -32,7 +32,7 @@ function Work() {
 }
 
 function WorkItem({ uid, image, title }) {
-  const { view } = useSelector(state => state)
+  const view = useSelector(state => state.view)
   const hasViewed = useSaved(view === 'work')
   const { setHoveredCsUID } = useContext(LayoutCtx)
 

@@ -38,30 +38,34 @@ function Layout({ view: viewProp, workUid }) {
   const { isTransitioning } = useContext(TransitionCtx)
 
   return (
-    <LayoutCtx.Provider
-      value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID, mainRef }}
-    >
+    <LayoutCtx.Provider value={{ hoveredCsUID, setHoveredCsUID, mainRef }}>
       <Nav />
       <ThemeProvider theme={{ view, isTransitioning }}>
-        <>
-          <View.Root as="main" ref={mainRef}>
-            <Root />
-          </View.Root>
-          <View.About>
-            <ViewInner.About>
-              <About />
-            </ViewInner.About>
-          </View.About>
-          <View.Work>
-            <ViewInner.Work>
-              <Work />
-            </ViewInner.Work>
-          </View.Work>
-        </>
+        <Structure />
       </ThemeProvider>
     </LayoutCtx.Provider>
   )
 }
+
+const Structure = React.memo(() => {
+  return (
+    <>
+      <View.Root as="main">
+        <Root />
+      </View.Root>
+      <View.About>
+        <ViewInner.About>
+          <About />
+        </ViewInner.About>
+      </View.About>
+      <View.Work>
+        <ViewInner.Work>
+          <Work />
+        </ViewInner.Work>
+      </View.Work>
+    </>
+  )
+})
 
 Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,

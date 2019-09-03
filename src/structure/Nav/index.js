@@ -5,7 +5,8 @@ import { ThemeProvider } from 'styled-components'
 import Styled from './Styled'
 
 function Nav() {
-  const { view, currentCsUid } = useSelector(state => state)
+  const currentCsUid = useSelector(state => state.currentCsUid)
+  const view = useSelector(state => state.view)
   const isRoot = view === 'root'
   const isAbout = view === 'about'
   const closeRoute = currentCsUid ? `/work/${currentCsUid}` : '/'

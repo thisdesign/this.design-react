@@ -13,8 +13,9 @@ function getNextCsUid(currentCsUid, ctxCaseStudies) {
   return ctxCaseStudies[nextIndex].uid
 }
 
-function Root() {
-  const { currentCsUid } = useSelector(state => state)
+const Root = () => {
+  console.log('root rendered')
+  const currentCsUid = useSelector(state => state.currentCsUid)
   const isHome = !currentCsUid
 
   return <>{isHome ? 'HOME' : <CsQueue />}</>
@@ -24,7 +25,7 @@ export const QueueCtx = createContext()
 
 const CsQueue = memo(() => {
   const { ctxCaseStudies } = useData()
-  const { currentCsUid } = useSelector(state => state)
+  const currentCsUid = useSelector(state => state.currentCsUid)
   const nextCsUid = getNextCsUid(currentCsUid, ctxCaseStudies)
 
   return (

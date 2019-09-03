@@ -1,7 +1,8 @@
 import React, { useContext, memo } from 'react'
+
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { QueueCtx, NextCsTrigger } from 'structure/Root'
-import useScrollTopReset from './hooks/useScrollTopReset'
+
 import CaseStudyWrapper from './CaseStudyWrapper'
 import Hero from './Hero'
 import Slices from './Slices'
@@ -12,7 +13,6 @@ const CaseStudy = memo(({ uid }) => {
   const { hoveredCsUID } = useContext(LayoutCtx)
   const { transitionName } = useContext(TransitionCtx)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
-  useScrollTopReset()
 
   return (
     <CaseStudyWrapper uid={uid}>
