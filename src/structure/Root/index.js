@@ -13,6 +13,7 @@ function getNextCsUid(currentCsUid, ctxCaseStudies) {
 }
 
 function Root() {
+  console.log('rendered')
   const { currentCsUid } = useContext(LayoutCtx)
   const isHome = !currentCsUid
 

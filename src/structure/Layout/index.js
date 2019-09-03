@@ -21,31 +21,53 @@ function Layout({ view, workUid }) {
   const mainRef = React.useRef()
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
-  const { isTransitioning } = useContext(TransitionCtx)
 
   return (
-    <LayoutCtx.Provider
-      value={{ view, currentCsUid, hoveredCsUID, setHoveredCsUID, mainRef }}
-    >
-      <Nav />
-      <ThemeProvider theme={{ view, isTransitioning }}>
-        <>
-          <View.Root as="main" ref={mainRef}>
-            <Root />
-          </View.Root>
-          <View.About>
-            <ViewInner.About>
-              <About />
-            </ViewInner.About>
-          </View.About>
-          <View.Work>
-            <ViewInner.Work>
-              <Work />
-            </ViewInner.Work>
-          </View.Work>
-        </>
-      </ThemeProvider>
-    </LayoutCtx.Provider>
+    <ThemeProvider theme={theme}>
+      <TransitionProvider>
+        <TransitionCtx.Consumer>
+          {({ isTransitioning }) => (
+            <>
+              <GlobalStyle />
+              <LayoutCtx.Provider
+                value={{
+                  view,
+                  currentCsUid,
+                  hoveredCsUID,
+                  setHoveredCsUID,
+                  mainRef,
+                }}
+              >
+                <Nav />
+                <ThemeProvider theme={{ view, isTransitioning }}>
+                  <Structure />
+                </ThemeProvider>
+              </LayoutCtx.Provider>
+            </>
+          )}
+        </TransitionCtx.Consumer>
+      </TransitionProvider>
+    </ThemeProvider>
+  )
+}
+
+const Structure = () => {
+  return (
+    <>
+      <View.Root as="main">
+        <Root />
+      </View.Root>
+      <View.About>
+        <ViewInner.About>
+          <About />
+        </ViewInner.About>
+      </View.About>
+      <View.Work>
+        <ViewInner.Work>
+          <Work />
+        </ViewInner.Work>
+      </View.Work>
+    </>
   )
 }
 
@@ -53,11 +75,4 @@ Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,
 }
 
-export default props => (
-  <ThemeProvider theme={theme}>
-    <TransitionProvider>
-      <GlobalStyle />
-      <Layout {...props} />
-    </TransitionProvider>
-  </ThemeProvider>
-)
+export default Layout
