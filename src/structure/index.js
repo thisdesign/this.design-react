@@ -4,6 +4,7 @@ import { ThemeProvider } from 'styled-components/macro'
 import GlobalStyle from 'style/GlobalStyle'
 import DataProvider, { useData } from './DataProvider'
 import Router from './Router'
+import TransitionProvider from './TransitionProvider'
 
 function App() {
   const data = useData()
@@ -13,7 +14,9 @@ function App() {
       <ThemeProvider theme={theme}>
         <>
           <GlobalStyle />
-          <Router />
+          <TransitionProvider>
+            <Router />
+          </TransitionProvider>
         </>
       </ThemeProvider>
     )

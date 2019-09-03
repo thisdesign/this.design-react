@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useContext } from 'react'
+import { TransitionCtx } from 'structure/TransitionProvider'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
@@ -6,7 +7,6 @@ import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
 import useSaved from 'hooks/useSaved'
-import TransitionProvider, { TransitionCtx } from './TransitionProvider'
 import Styled from './Styled'
 import 'style/fontFamilies.css'
 
@@ -19,34 +19,30 @@ function Layout({ view, workUid }) {
   const mainRef = React.useRef()
   const currentCsUid = useSaved(workUid)
   const [hoveredCsUID, setHoveredCsUID] = useState()
+  const { isTransitioning } = useContext(TransitionCtx)
 
   return (
-    <TransitionProvider>
-      <TransitionCtx.Consumer>
-        {({ isTransitioning }) => (
-          <>
-            <LayoutCtx.Provider
-              value={{
-                view,
-                currentCsUid,
-                hoveredCsUID,
-                setHoveredCsUID,
-                mainRef,
-              }}
-            >
-              <Nav />
-              <ThemeProvider theme={{ view, isTransitioning }}>
-                <Structure />
-              </ThemeProvider>
-            </LayoutCtx.Provider>
-          </>
-        )}
-      </TransitionCtx.Consumer>
-    </TransitionProvider>
+    <>
+      <LayoutCtx.Provider
+        value={{
+          view,
+          currentCsUid,
+          hoveredCsUID,
+          setHoveredCsUID,
+          mainRef,
+        }}
+      >
+        <Nav />
+        <ThemeProvider theme={{ view, isTransitioning }}>
+          <Structure />
+        </ThemeProvider>
+      </LayoutCtx.Provider>
+    </>
   )
 }
 
 const Structure = () => {
+  console.log('structure rendered')
   return (
     <>
       <View.Root as="main">
