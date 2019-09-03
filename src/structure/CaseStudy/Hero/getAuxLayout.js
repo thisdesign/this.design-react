@@ -27,8 +27,8 @@ const getAuxLayout = layout => {
     case 'middle-center':
       return css`
         top: 50%;
-        right: 50%;
-        transform: translate3d(-50%, -50%);
+        left: 50%;
+        transform: translate3d(-50%, -50%, 0);
       `
     case 'middle-right':
       return css`
