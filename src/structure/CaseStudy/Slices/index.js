@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Section from 'components/Section'
 import Image from 'slices/Image'
 import Text from 'slices/Text'
@@ -6,9 +6,10 @@ import Columns from 'slices/Columns'
 import useCsData from 'structure/CaseStudy/hooks/useCsData'
 import Styled from './Styled'
 
-export default function Slices({ uid }) {
+const Slices = memo(({ uid }) => {
   const { data } = useCsData(uid)
 
+  console.log('rendered')
   return (
     <Styled.SliceWrapper>
       {data.content
@@ -33,4 +34,6 @@ export default function Slices({ uid }) {
         ))}
     </Styled.SliceWrapper>
   )
-}
+})
+
+export default Slices
