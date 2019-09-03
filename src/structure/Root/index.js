@@ -44,7 +44,10 @@ export const NextCsTrigger = withRouter(
     const { triggerTransition } = useContext(TransitionCtx)
 
     function handleClick() {
-      triggerTransition('fuck', null, () => history.push(`/work/${nextCsUid}`))
+      const cb = () => history.push(`/work/${nextCsUid}`)
+      const duration = null
+      const transitionName = 'NEXT_CS'
+      triggerTransition(transitionName, duration, cb)
     }
 
     return (

@@ -30,6 +30,13 @@ const Info = styled.div`
 
 const InfoItem = styled.div`
   margin-bottom: 2rem;
+  opacity: ${props => (props.theme.isNext ? 0 : 1)};
+  transition: ${props => props.theme.duration.standard}ms opacity
+    ${props => props.theme.ease.standard};
+`
+
+const TitleWrapper = styled(InfoItem)`
+  opacity: 1;
 `
 
 const AuxItem = styled.div`
@@ -79,6 +86,7 @@ const ServicesWraper = styled.div`
 `
 
 export default {
+  TitleWrapper,
   HeroWrapper,
   Video,
   AuxItem,

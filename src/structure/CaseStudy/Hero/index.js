@@ -45,11 +45,11 @@ function Info() {
   const { title, intro, services } = useContext(HeroCtx)
   return (
     <Styled.Info>
-      <Styled.InfoItem>
+      <Styled.TitleWrapper>
         <Heading as="h1" headingStyle={0}>
           {title}
         </Heading>
-      </Styled.InfoItem>
+      </Styled.TitleWrapper>
       <Styled.InfoItem>
         <Heading as="h2" headingStyle={3}>
           {intro}
