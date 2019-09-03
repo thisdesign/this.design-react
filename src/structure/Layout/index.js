@@ -1,9 +1,7 @@
-import React, { createContext, useState, useContext } from 'react'
-import GlobalStyle from 'style/GlobalStyle'
+import React, { createContext, useState } from 'react'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components'
-import theme from 'style/theme'
 import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
@@ -23,31 +21,28 @@ function Layout({ view, workUid }) {
   const [hoveredCsUID, setHoveredCsUID] = useState()
 
   return (
-    <ThemeProvider theme={theme}>
-      <TransitionProvider>
-        <TransitionCtx.Consumer>
-          {({ isTransitioning }) => (
-            <>
-              <GlobalStyle />
-              <LayoutCtx.Provider
-                value={{
-                  view,
-                  currentCsUid,
-                  hoveredCsUID,
-                  setHoveredCsUID,
-                  mainRef,
-                }}
-              >
-                <Nav />
-                <ThemeProvider theme={{ view, isTransitioning }}>
-                  <Structure />
-                </ThemeProvider>
-              </LayoutCtx.Provider>
-            </>
-          )}
-        </TransitionCtx.Consumer>
-      </TransitionProvider>
-    </ThemeProvider>
+    <TransitionProvider>
+      <TransitionCtx.Consumer>
+        {({ isTransitioning }) => (
+          <>
+            <LayoutCtx.Provider
+              value={{
+                view,
+                currentCsUid,
+                hoveredCsUID,
+                setHoveredCsUID,
+                mainRef,
+              }}
+            >
+              <Nav />
+              <ThemeProvider theme={{ view, isTransitioning }}>
+                <Structure />
+              </ThemeProvider>
+            </LayoutCtx.Provider>
+          </>
+        )}
+      </TransitionCtx.Consumer>
+    </TransitionProvider>
   )
 }
 
