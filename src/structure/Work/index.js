@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { useData } from 'structure/DataProvider'
 import Wrap from 'components/Wrap'
 import Section from 'components/Section'
-import { LayoutCtx } from 'structure/Layout'
+import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import useSaved from 'hooks/useSaved'
 import formatAlt from 'util/formatAlt'
 import LazyImg from 'components/LazyImg'
@@ -34,6 +34,7 @@ function WorkItem({ uid, image, title }) {
   const { view } = useContext(LayoutCtx)
   const hasViewed = useSaved(view === 'work')
   const { setHoveredCsUID } = useContext(LayoutCtx)
+  const { isTransitioning } = useContext(TransitionCtx)
 
   const [isHovered, toggleHovered] = useState(false)
 
@@ -50,8 +51,8 @@ function WorkItem({ uid, image, title }) {
   return (
     <Styled.WorkItem
       to={`/work/${uid}`}
-      onMouseLeave={handleMouseLeave}
-      onMouseEnter={handleMouseEnter}
+      onMouseLeave={isTransitioning ? null : handleMouseLeave}
+      onMouseEnter={isTransitioning ? null : handleMouseEnter}
       transitionName="FROM_WORK"
     >
       <LazyImg
