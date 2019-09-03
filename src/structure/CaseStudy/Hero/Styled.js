@@ -37,6 +37,17 @@ const InfoItem = styled.div`
 
 const TitleWrapper = styled(InfoItem)`
   opacity: 1;
+  transition: ${props => props.theme.csTransition.duration}ms transform
+    ${props => props.theme.csTransition.ease};
+  will-change: transform;
+  transform: translate3d(
+    0,
+    ${props =>
+      props.theme.isNext && !props.theme.transitioningNext
+        ? 'calc(100vh - 400px)'
+        : 0},
+    0
+  );
 `
 
 const AuxItem = styled.div`

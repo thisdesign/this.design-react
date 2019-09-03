@@ -40,6 +40,7 @@ const lineHeights = {
 }
 const ease = {
   standard: 'cubic-bezier(0, 0, 0.2, 1)',
+  decel: 'cubic-bezier(0.0, 0.0, 0.2, 1)',
 }
 
 const duration = {
@@ -56,6 +57,11 @@ const routeTransition = {
   duration: duration.standard,
 }
 
+const csTransition = {
+  duration: duration.standard,
+  ease: ease.decel,
+}
+
 export default {
   colors,
   ease,
@@ -65,4 +71,5 @@ export default {
   fontSizes,
   fontFamilies,
   routeTransition,
+  csTransition,
 }

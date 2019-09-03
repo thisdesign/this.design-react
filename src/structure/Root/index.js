@@ -3,8 +3,7 @@ import CaseStudy from 'structure/CaseStudy'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
 import { useData } from 'structure/DataProvider'
-
-import TransitionLink from 'components/TransitionLink'
+import theme from 'style/theme'
 
 function getNextCsUid(currentCsUid, ctxCaseStudies) {
   const uids = ctxCaseStudies.map(item => item.uid)
@@ -45,7 +44,7 @@ export const NextCsTrigger = withRouter(
 
     function handleClick() {
       const cb = () => history.push(`/work/${nextCsUid}`)
-      const duration = null
+      const { duration } = theme.csTransition
       const transitionName = 'NEXT_CS'
       triggerTransition(transitionName, duration, cb)
     }
