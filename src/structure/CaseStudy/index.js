@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, memo } from 'react'
 import { LayoutCtx, TransitionCtx } from 'structure/Layout'
 import { QueueCtx, NextCsTrigger } from 'structure/Root'
 import CaseStudyWrapper from './CaseStudyWrapper'
@@ -6,11 +6,12 @@ import Hero from './Hero'
 import Slices from './Slices'
 import Styled from './Styled'
 
-const CaseStudy = ({ uid }) => {
+const CaseStudy = memo(({ uid }) => {
   const { isNext } = useContext(QueueCtx)
   const { hoveredCsUID } = useContext(LayoutCtx)
   const { transitionName } = useContext(TransitionCtx)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
+  console.log('CaseStudy rendered', { hoveredCsUID, isNext })
 
   return (
     <CaseStudyWrapper uid={uid}>
@@ -31,6 +32,6 @@ const CaseStudy = ({ uid }) => {
       )}
     </CaseStudyWrapper>
   )
-}
+})
 
 export default CaseStudy

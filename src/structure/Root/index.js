@@ -1,4 +1,4 @@
-import React, { useContext, createContext, memo } from 'react'
+import React, { useContext, createContext, memo, useMemo } from 'react'
 import CaseStudy from 'structure/CaseStudy'
 import { RouteCtx, TransitionCtx } from 'structure/Layout'
 import { withRouter } from 'react-router-dom'
@@ -23,18 +23,22 @@ const Root = memo(() => {
 export const QueueCtx = createContext()
 
 const CsQueue = () => {
+  console.log('CsQueue rendered')
   const { ctxCaseStudies } = useData()
   const { currentCsUid } = useContext(RouteCtx)
   const nextCsUid = getNextCsUid(currentCsUid, ctxCaseStudies)
 
-  return (
-    <>
-      {[currentCsUid, nextCsUid].map((uid, i) => (
-        <QueueCtx.Provider key={uid} value={{ nextCsUid, isNext: i === 1 }}>
-          <CaseStudy uid={uid} />
-        </QueueCtx.Provider>
-      ))}
-    </>
+  return useMemo(
+    () => (
+      <>
+        {[currentCsUid, nextCsUid].map((uid, i) => (
+          <QueueCtx.Provider key={uid} value={{ nextCsUid, isNext: i === 1 }}>
+            <CaseStudy uid={uid} />
+          </QueueCtx.Provider>
+        ))}
+      </>
+    ),
+    [currentCsUid, nextCsUid]
   )
 }
 
