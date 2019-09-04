@@ -39,7 +39,7 @@ const TitleWrapper = styled(InfoItem)`
   opacity: 1;
   transition: ${props => props.theme.csTransition.duration}ms transform
     ${props => props.theme.csTransition.ease};
-  will-change: transform;
+
   transform: translate3d(
     0,
     ${props =>

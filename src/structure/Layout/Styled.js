@@ -33,7 +33,7 @@ View.About = styled(View)`
 
 const ViewInner = styled.div`
   opacity: 0;
-  will-change: opacity;
+
   transition: ${props => props.theme.routeTransition.duration}ms opacity
     ${props => props.theme.ease.standard};
 `

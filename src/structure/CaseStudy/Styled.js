@@ -20,6 +20,5 @@ const ColorBg = styled.div`
         : '0'},
     0
   );
-  will-change: transform;
 `
 export default { Shim, ColorBg }
