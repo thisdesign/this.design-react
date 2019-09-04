@@ -14,8 +14,6 @@ const { ViewInner, View } = Styled
 const Layout = memo(({ view: viewProp, workUid }) => {
   const dispatch = useDispatch()
   const currentCsUid = useSaved(workUid)
-  const isTransitioning = useSelector(state => state.transition.isTransitioning)
-  const view = useSelector(state => state.view)
 
   React.useEffect(() => {
     dispatch({
@@ -25,6 +23,12 @@ const Layout = memo(({ view: viewProp, workUid }) => {
     })
   }, [currentCsUid, dispatch, viewProp])
 
+  return <Structure />
+})
+
+const Structure = memo(() => {
+  const isTransitioning = useSelector(state => state.transition.isTransitioning)
+  const view = useSelector(state => state.view)
   const extraProps = { isTransitioning, view }
 
   return (
@@ -46,7 +50,6 @@ const Layout = memo(({ view: viewProp, workUid }) => {
     </>
   )
 })
-
 Layout.propTypes = {
   view: PropTypes.oneOf(['root', 'work', 'about']).isRequired,
 }

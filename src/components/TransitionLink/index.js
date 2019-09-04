@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import useTransitionTrigger from './useTransitionTrigger'
 
 function TransitionLink({ onClick, transitionName, ...props }) {
+  console.log('rendered')
   const triggerTransition = useTransitionTrigger()
 
   const handeClick = () => {

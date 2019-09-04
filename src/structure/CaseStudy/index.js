@@ -1,6 +1,5 @@
 import React, { useContext, memo } from 'react'
 import { useSelector } from 'react-redux'
-
 import { QueueCtx, NextCsTrigger } from 'structure/Root'
 
 import CaseStudyWrapper from './CaseStudyWrapper'
@@ -14,24 +13,27 @@ const CaseStudy = memo(({ uid }) => {
   const hoveredCsUID = useSelector(state => state.hoveredCsUID)
   const isTransitioningFromWork = transitionName === 'FROM_WORK'
 
-  return (
-    <CaseStudyWrapper uid={uid}>
-      {!isNext ? (
-        <>
+  return React.useMemo(
+    () => (
+      <CaseStudyWrapper uid={uid}>
+        {!isNext ? (
+          <>
+            <Styled.ColorBg>
+              <Hero uid={isNext ? hoveredCsUID || uid : uid} />
+              {!isTransitioningFromWork && <Slices uid={uid} />}
+            </Styled.ColorBg>
+            <NextCsTrigger>
+              <Styled.Shim />
+            </NextCsTrigger>
+          </>
+        ) : (
           <Styled.ColorBg>
-            <Hero uid={isNext ? hoveredCsUID || uid : uid} />
-            {!isTransitioningFromWork && <Slices uid={uid} />}
+            <Hero uid={uid} />
           </Styled.ColorBg>
-          <NextCsTrigger>
-            <Styled.Shim />
-          </NextCsTrigger>
-        </>
-      ) : (
-        <Styled.ColorBg>
-          <Hero uid={uid} />
-        </Styled.ColorBg>
-      )}
-    </CaseStudyWrapper>
+        )}
+      </CaseStudyWrapper>
+    ),
+    [hoveredCsUID, isNext, isTransitioningFromWork, uid]
   )
 })
 
