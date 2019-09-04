@@ -1,23 +1,21 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Nav from 'structure/Nav'
 import PropTypes from 'prop-types'
-import { ThemeProvider } from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-
 import About from 'structure/About'
 import Work from 'structure/Work'
 import Root from 'structure/Root'
-
 import useSaved from 'hooks/useSaved'
 import Styled from './Styled'
 import 'style/fontFamilies.css'
 
 const { ViewInner, View } = Styled
 
-function Layout({ view: viewProp, workUid }) {
+const Layout = memo(({ view: viewProp, workUid }) => {
   const dispatch = useDispatch()
   const currentCsUid = useSaved(workUid)
   const isTransitioning = useSelector(state => state.transition.isTransitioning)
+  const view = useSelector(state => state.view)
 
   React.useEffect(() => {
     dispatch({
@@ -27,31 +25,21 @@ function Layout({ view: viewProp, workUid }) {
     })
   }, [currentCsUid, dispatch, viewProp])
 
-  const view = useSelector(state => state.view)
+  const extraProps = { isTransitioning, view }
 
   return (
     <>
       <Nav />
-      <ThemeProvider theme={{ view, isTransitioning }}>
-        <Structure />
-      </ThemeProvider>
-    </>
-  )
-}
-
-const Structure = React.memo(() => {
-  return (
-    <>
-      <View.Root as="main">
+      <View.Root as="main" {...extraProps}>
         <Root />
       </View.Root>
-      <View.About>
-        <ViewInner.About>
+      <View.About {...extraProps}>
+        <ViewInner.About {...extraProps}>
           <About />
         </ViewInner.About>
       </View.About>
-      <View.Work>
-        <ViewInner.Work>
+      <View.Work {...extraProps}>
+        <ViewInner.Work {...extraProps}>
           <Work />
         </ViewInner.Work>
       </View.Work>

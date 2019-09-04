@@ -1,4 +1,6 @@
+import React from 'react'
 import styled, { css } from 'styled-components/macro'
+import { useSelector } from 'react-redux'
 import views from './viewPos'
 
 const View = styled.aside`
@@ -37,9 +39,8 @@ const ViewInner = styled.div`
 `
 
 const setAsideStyle = (props, viewName) => css`
-  opacity: ${props.theme.view === viewName ? '1' : '0'};
-  pointer-events: ${props.theme.view === viewName &&
-  !props.theme.isTransitioning
+  opacity: ${props.view === viewName ? '1' : '0'};
+  pointer-events: ${props.view === viewName && !props.theme.isTransitioning
     ? 'inherit'
     : 'none'};
 `

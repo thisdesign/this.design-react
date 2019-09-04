@@ -1,6 +1,6 @@
 const views = {
   work: props => {
-    switch (props.theme.view) {
+    switch (props.view) {
       case 'about':
         return -100
       case 'work':
@@ -10,7 +10,7 @@ const views = {
     }
   },
   root: props => {
-    switch (props.theme.view) {
+    switch (props.view) {
       case 'about':
         return -100
       case 'work':
@@ -20,7 +20,7 @@ const views = {
     }
   },
   about: props => {
-    switch (props.theme.view) {
+    switch (props.view) {
       case 'about':
         return 0
       case 'work':
