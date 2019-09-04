@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@welldone-software/why-did-you-render": "^3.3.3",
     "all": "^0.0.0",
     "esm": "^3.2.25",
     "prismic-javascript": "^2.1.1",
