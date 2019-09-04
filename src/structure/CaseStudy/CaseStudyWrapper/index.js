@@ -10,6 +10,7 @@ const CaseStudyWrapper = memo(({ children, uid }) => {
   const { isNext } = useContext(QueueCtx)
   const transitionName = useSelector(state => state.transition.transitionName)
 
+  console.log('NEXT CS TRANSITION:', transitionName === 'NEXT_CS')
   return (
     <ThemeProvider
       theme={{

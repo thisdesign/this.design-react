@@ -6,7 +6,7 @@ export default function useTransitionTrigger() {
 
   const triggerTransition = (
     transitionName,
-    duration = theme.routeTransition.duration,
+    duration = theme.routeTransition.duration + 100,
     cb = () => {}
   ) => {
     dispatch({ type: 'START_TRANSITION', payload: { name: transitionName } })
