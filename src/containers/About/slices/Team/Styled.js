@@ -53,6 +53,7 @@ const Item = styled.div`
 
 const Overlay = styled.div`
   cursor: pointer;
+
   @media ${TWO_COL_BREAKPOINT} {
     position: absolute;
     top: 0;
@@ -65,9 +66,10 @@ const Overlay = styled.div`
 
     box-sizing: border-box;
 
-    display: grid;
+    display: flex;
     justify-content: center;
     align-items: center;
+
     height: 100%;
     opacity: 0;
 
@@ -81,11 +83,10 @@ const Overlay = styled.div`
 
 const TextWrap = styled.div`
   @media ${TWO_COL_BREAKPOINT} {
-    margin: 0 auto;
-    transform: translateY(0.5em);
+    transform: translate3d(0, 0.5em, 0);
 
     ${Overlay}:hover & {
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
 
     transition: 300ms transform ${props => props.theme.ease.standard};
