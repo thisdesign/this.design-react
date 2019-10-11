@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { RichText } from 'prismic-reactjs'
 import { ThemeProvider } from 'styled-components'
 import { About } from 'containers/About/styles'
@@ -8,19 +8,21 @@ import Styled from './Styled'
 /* eslint react/prop-types: 0 */
 
 function Team({ items }) {
-  const [hoveredIndex, setHoveredIndex] = useState(null)
   return (
     <About.Wrapper>
-      <Styled.Wrapper onMouseLeave={() => setHoveredIndex(null)}>
+      <Styled.Wrapper>
         {items.map((item, i) => {
-          const large = i % 3 === 0
-          const hovered = hoveredIndex === i
+          const large =
+            /* every 4th image starting at first img */
+            i % 4 === 0 ||
+            /* every 4th image starting at second img */
+            (i + 1) % 4 === 0
+
           return (
-            <ThemeProvider theme={{ large, hovered }} key={item.role}>
+            <ThemeProvider theme={{ large }} key={item.role}>
               <Styled.Item
                 landscape={item.image.url}
                 portrait={item.image.portrait.url}
-                onMouseEnter={() => setHoveredIndex(i)}
               >
                 <Styled.Img src={item.image.mobile.url} />
                 <Styled.Overlay>
