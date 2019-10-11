@@ -5,6 +5,7 @@ import Text from './slices/Text/Text'
 import Columns from './slices/Columns/Columns'
 import Instagram from './slices/Instagram/Instagram'
 import Clients from './slices/Clients/ClientsWrapper'
+import Team from './slices/Team'
 import Conclusion from './slices/Conclusion/Conclusion'
 import Gridwall from './slices/Gridwall/Gridwall'
 import Timeline from './slices/Timeline/Timeline'
@@ -31,6 +32,8 @@ function About() {
               return <Conclusion data={slice} />
             case 'clients':
               return <Clients.Wrapper data={slice} />
+            case 'team':
+              return <Team.Wrapper data={slice} />
             case 'color-start':
               return null // used to be <ScrollTrigger />;
             case 'link_to_timeline':
@@ -39,10 +42,9 @@ function About() {
               return (
                 <p className="future">
                   {slice.slice_type}
-                  
-goes here
+                  goes here
                 </p>
-)
+              )
           }
         })
         .map(slice => (

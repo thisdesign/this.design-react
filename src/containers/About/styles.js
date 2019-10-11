@@ -14,10 +14,11 @@ About.Wrapper = styled.div`
   margin: 0px auto;
   padding: 2rem;
   border: ${BORDERS ? '1px solid orange' : 'none'};
+  box-sizing: border-box;
 
   @media (min-width: 768px) {
     max-width: 1500px;
-    width: ${({ large }) => (large ? '90%' : '80%')};
+    width: 100%;
   }
 `
 
