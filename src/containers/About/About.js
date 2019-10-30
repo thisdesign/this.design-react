@@ -37,7 +37,7 @@ function About() {
             case 'color-start':
               return null // used to be <ScrollTrigger />;
             case 'link_to_timeline':
-              return <Timeline prismicCtx={this.props.prismicCtx} />
+              return <Timeline data={slice} />
             default:
               return (
                 <p className="future">
