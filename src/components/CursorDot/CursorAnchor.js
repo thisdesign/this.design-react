@@ -4,13 +4,7 @@ import CursorContext from 'components/CursorDot/CursorContext'
 import PropTypes from 'prop-types'
 import icons from './icons'
 
-export default function CursorAnchor({
-  children,
-  onClick,
-  detached,
-  textId,
-  className,
-}) {
+const CursorAnchor = ({ children, onClick, detached, textId, className }) => {
   const { updateCursor } = useContext(CursorContext)
   const [enabled, handleHover] = useState(false)
 
@@ -56,13 +50,15 @@ export default function CursorAnchor({
   )
 }
 
-const AttachedCursor = ({ textId, enabled }) => (
+export default React.memo(CursorAnchor)
+
+const AttachedCursor = React.memo(({ textId, enabled }) => (
   <div className="cursorAnchor__wrapper">
     <div className={`cursor__text ${enabled && 'cursor__text--enabled'}`}>
       {icons[textId]}
     </div>
   </div>
-)
+))
 
 CursorAnchor.defaultProps = {
   detached: false,
