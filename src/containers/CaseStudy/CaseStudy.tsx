@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
 import { LayoutContext } from 'containers/Layout/Layout'
 import Head from 'components/Head'
 
@@ -9,9 +8,59 @@ import Posed, { getPose } from './posed'
 import Partials from './partials/index'
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps'
 
-export const CsContext = React.createContext()
+/**
+ * Types
+ */
 
-const CaseStudy = ({
+type CaseStudyDoc = {
+  uid: string
+  data: {
+    text_color: string
+    background_color: string
+    title: string
+  }
+}
+
+interface IProps {
+  doc: CaseStudyDoc
+  next: boolean
+  initCsChange: () => void
+  openingFromHome: boolean
+  initHomeOpen: () => void
+  csTransitioning: boolean
+}
+
+interface IContextProps {
+  isHome: boolean
+  next: boolean
+  openingFromHome: boolean
+  alt: string
+  csTransitioning: boolean
+  meta: {
+    description: string
+    title: string
+    image: string
+  }
+}
+
+/**
+ *  Component
+ */
+
+export const CsContext = React.createContext<IContextProps>({
+  isHome: false,
+  next: false,
+  alt: '',
+  meta: {
+    description: '',
+    title: '',
+    image: '',
+  },
+  csTransitioning: false,
+  openingFromHome: false,
+})
+
+const CaseStudy: React.FC<IProps> = ({
   doc,
   next,
   initCsChange,
@@ -24,8 +73,8 @@ const CaseStudy = ({
     background: doc.data.background_color,
   }
   const alt = `${doc.data.title} - This Design - Portland OR`
-  const { caseStudySelected } = useContext(LayoutContext).csState
-  const isHome = !caseStudySelected
+  const { csState } = useContext(LayoutContext)
+  const isHome = !csState.caseStudySelected
 
   return (
     <CsContext.Provider
@@ -56,7 +105,7 @@ const CaseStudy = ({
         }}
       >
         <Styled.Inner {...customStyle}>
-          <Partials.Cover data={doc.data} />
+          <Partials.Cover />
           <Partials.Body {...{ next, isHome, doc }} />
         </Styled.Inner>
         <Partials.Shim {...{ initCsChange, isHome }} />
@@ -66,7 +115,7 @@ const CaseStudy = ({
 }
 
 const lineBreak = /(\r\n|\n|\r)/gm
-const sanitize = str => str.replace(lineBreak, ' ')
+const sanitize = (str: string) => str.replace(lineBreak, ' ')
 
 const HeadMeta = () => {
   const { isHome, next, meta } = useContext(CsContext)
@@ -87,16 +136,5 @@ const HeadMeta = () => {
   }
   return null
 }
-
-CaseStudy.propTypes = {
-  doc: PropTypes.object.isRequired, //eslint-disable-line
-  next: PropTypes.bool.isRequired,
-  initCsChange: PropTypes.func.isRequired,
-  openingFromHome: PropTypes.bool.isRequired,
-  initHomeOpen: PropTypes.func.isRequired,
-  csTransitioning: PropTypes.bool.isRequired,
-}
-
-CsContext.Provider.propTypes = _contextPropTypes
 
 export default React.memo(CaseStudy)

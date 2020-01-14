@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
 import { ThemeProvider } from 'styled-components/macro'
 import Nav from 'components/Nav/Nav'
 import Work from 'components/Work/Work'
@@ -15,9 +14,44 @@ import useRouterData from './useRouterData'
 import useNavInvert from './useNavInvert'
 import useProjectLaunch from './useProjectLaunch'
 
-export const LayoutContext = React.createContext()
+/**
+ * Types
+ */
 
-function Layout({ view, pathUid }) {
+interface ILayoutProps {
+  view: string
+  pathUid: string
+}
+
+interface ContextProps {
+  csState: {
+    caseStudySelected: boolean
+    currentUid: string | null
+  }
+  view: string
+  launchProject: () => void
+  navInverted: boolean
+  invertNav: () => void
+  revertNav: () => void
+}
+
+/**
+ * Component
+ */
+
+export const LayoutContext = React.createContext<ContextProps>({
+  csState: {
+    caseStudySelected: false,
+    currentUid: null,
+  },
+  view: '',
+  launchProject: () => null,
+  navInverted: true,
+  invertNav: () => null,
+  revertNav: () => null,
+})
+
+const Layout: React.FC<ILayoutProps> = ({ view, pathUid }) => {
   const csState = useRouterData({ pathUid })
 
   const { revertNav, invertNav, navInverted } = useNavInvert()
@@ -72,15 +106,6 @@ function AppMeta() {
     return <Head title="About" path="/work" />
   }
   return <Head path="/" />
-}
-
-Layout.defaultProps = {
-  pathUid: null,
-}
-
-Layout.propTypes = {
-  view: PropTypes.string.isRequired,
-  pathUid: PropTypes.string,
 }
 
 export default Layout
