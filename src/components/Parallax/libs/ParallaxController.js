@@ -2,7 +2,7 @@
 let container = null
 
 // Only bind listener once
-let mounted: false
+let mounted = false
 
 // All parallax elements to be updated
 let els = []
