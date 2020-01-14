@@ -71,8 +71,6 @@ const CaseStudy: React.FC<IProps> = ({
     background: doc.data.background_color,
   }
 
-  console.log(doc)
-
   const alt = `${doc.data.title} - This Design - Portland OR`
   const { csState } = useContext(LayoutContext)
   const isHome = !csState.caseStudySelected

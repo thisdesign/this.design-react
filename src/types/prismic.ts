@@ -21,3 +21,9 @@ export interface PrismicImage {
   copyright: string | void
   url: string | void
 }
+
+export type PrismicRichText = {
+  type: string
+  text: string
+  spans: []
+}[]

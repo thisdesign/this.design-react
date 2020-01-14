@@ -16,6 +16,17 @@ const Year = styled.div`
 
 const Title = styled.h4`
   margin-bottom: 0.5rem;
+
+  a,
+  p {
+    margin: 0;
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+
+  a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
 `
 const Description = styled.p`
   margin: 0;
