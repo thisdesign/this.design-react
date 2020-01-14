@@ -12,7 +12,12 @@ function Instagram() {
     <div className="about__instagram -wrap">
       {urls &&
         urls.map(imgUrl => (
-          <a href="https://instagram.com/this" key={imgUrl}>
+          <a
+            href="https://instagram.com/this"
+            key={imgUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img
               className="about__instagram__item"
               src={imgUrl}
