@@ -7,6 +7,38 @@ import useAutoplay from './hooks/useAutoplay'
 
 export const PlayerCtx = createContext()
 
+const VideoNode = memo(
+  ({ url, autoPlay, poster, controls, muteToggle, playing }) => {
+    return (
+      // Pass props here like muted etc
+      <Styled.VideoProvider
+        src={url}
+        // loop if controls aren't present
+        loop={!controls}
+        muted={!controls}
+      >
+        <Player
+          shouldPlay={playing}
+          muteToggle={muteToggle}
+          controlsEnabled={controls}
+          poster={poster}
+        />
+      </Styled.VideoProvider>
+    )
+  }
+)
+
+VideoNode.propTypes = {
+  url: PropTypes.string.isRequired,
+  poster: PropTypes.string,
+  controls: PropTypes.bool,
+  muteToggle: PropTypes.bool,
+  playing: PropTypes.bool,
+}
+
+/**
+ * This is the player itself
+ */
 function Player({ shouldPlay, muteToggle, controlsEnabled, poster }) {
   const { video, state, controls, wrapperRef } = useContext(VideoCtx)
   const [hovered, setHovered] = useState()
@@ -78,27 +110,6 @@ export function MuteToggle() {
   const { state } = useContext(VideoCtx)
   const { toggleMute } = useContext(PlayerCtx)
   return <Styled.Mute muted={state.muted} onClick={toggleMute} />
-}
-
-const VideoNode = memo(({ url, poster, controls, muteToggle, playing }) => {
-  return (
-    <Styled.VideoProvider src={url} muted={!controls}>
-      <Player
-        shouldPlay={playing}
-        muteToggle={muteToggle}
-        controlsEnabled={controls}
-        poster={poster}
-      />
-    </Styled.VideoProvider>
-  )
-})
-
-VideoNode.propTypes = {
-  url: PropTypes.string.isRequired,
-  poster: PropTypes.string,
-  controls: PropTypes.bool,
-  muteToggle: PropTypes.bool,
-  playing: PropTypes.bool,
 }
 
 export default VideoNode

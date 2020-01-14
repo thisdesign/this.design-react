@@ -1,4 +1,4 @@
-import media from 'styles/media'
+import media, { sizes } from 'styles/media'
 import modularScale from './util/modularScale'
 
 const scale = modularScale({
@@ -45,6 +45,14 @@ const ease = {
   decel: 'cubic-bezier(0, 0, .2, 1)',
   accel: 'cubic-bezier(.4, 0, 1, 1)',
 }
+
+export const mq = Object.keys(sizes).reduce(
+  (acc, current) => ({
+    ...acc,
+    [current]: `(min-width: ${sizes[current]}px)`,
+  }),
+  {}
+)
 
 const theme = {
   ...{ color, margin, media, ease, fontSizes, scale, lineHeights, fontFaces },
