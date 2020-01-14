@@ -7,19 +7,11 @@ import Styled from './styled'
 import Posed, { getPose } from './posed'
 import Partials from './partials/index'
 import _getContextProps, { _contextPropTypes } from './util/_getContextProps'
+import { CaseStudyDoc } from 'types'
 
 /**
  * Types
  */
-
-type CaseStudyDoc = {
-  uid: string
-  data: {
-    text_color: string
-    background_color: string
-    title: string
-  }
-}
 
 interface IProps {
   doc: CaseStudyDoc
@@ -41,24 +33,30 @@ interface IContextProps {
     title: string
     image: string
   }
+  header: {
+    backgroundColor: string | null
+    title: any
+    description: React.FC
+    services: React.FC
+    auxItem: {
+      videoUrl: string | void
+      imageUrl: string | void
+      width: number | void
+      position: string
+    }
+    background: {
+      videoUrl: string | void
+      imageUrl: string | void
+      mobileImage: string | void
+    }
+  }
 }
 
 /**
  *  Component
  */
 
-export const CsContext = React.createContext<IContextProps>({
-  isHome: false,
-  next: false,
-  alt: '',
-  meta: {
-    description: '',
-    title: '',
-    image: '',
-  },
-  csTransitioning: false,
-  openingFromHome: false,
-})
+export const CsContext = React.createContext<IContextProps | null>(null)
 
 const CaseStudy: React.FC<IProps> = ({
   doc,

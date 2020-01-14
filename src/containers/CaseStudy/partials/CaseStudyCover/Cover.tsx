@@ -8,6 +8,7 @@ const mobile = isMobile()
 
 const Cover = () => {
   const { header, next, csTransitioning, isHome } = useContext(CsContext)
+
   return (
     <Styled.Cover>
       <Styled.Fill backgroundColor={header.backgroundColor} />
@@ -28,10 +29,11 @@ const Cover = () => {
 const Splash = () => {
   const { header } = useContext(CsContext)
   const { videoUrl, imageUrl, mobileImage } = header.background
+
   if (!mobile) {
     return (
       <Styled.Splash image={!videoUrl && imageUrl}>
-        <Video src={videoUrl} bg name="BG Video" />
+        {videoUrl && <Video src={videoUrl} />}
         <AuxiliaryItem />
       </Styled.Splash>
     )
@@ -49,12 +51,16 @@ const AuxiliaryItem = () => {
       data-name="Aux Item Container"
     >
       {imageUrl && <Styled.AuxImg src={imageUrl} alt={alt} />}
-      <Video src={videoUrl} name="Aux Video" />
+      {videoUrl && <Video src={videoUrl} />}
     </Styled.AuxWrapper>
   )
 }
 
-const Video = ({ src }) =>
+interface VideoProps {
+  src: string
+}
+
+const Video: React.FC<VideoProps> = ({ src }) =>
   src ? (
     <Styled.Video autoPlay muted loop playsinline>
       <source src={src} />
