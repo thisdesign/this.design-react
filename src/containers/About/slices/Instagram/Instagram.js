@@ -6,7 +6,9 @@ import './Instagram.scss'
 function Instagram() {
   const response = useFetch(api)
   const urls =
-    response && response.data.map(img => img.images.standard_resolution.url)
+    response && response.data
+      ? response.data.map(img => img.images.standard_resolution.url)
+      : []
 
   return (
     <div className="about__instagram -wrap">
