@@ -1,5 +1,11 @@
 import React, { useContext } from 'react'
-import { BrowserRouter, Switch, Route, matchPath } from 'react-router-dom'
+import {
+  BrowserRouter,
+  Switch,
+  Route,
+  Redirect,
+  matchPath,
+} from 'react-router-dom'
 import { ApiDataCtx } from '../App/App'
 import Layout from '../Layout/Layout'
 import Preview from './Preview'
@@ -9,6 +15,11 @@ function Router() {
   return (
     <BrowserRouter>
       <Switch>
+        <Route
+          exact
+          path="/work/tonal"
+          render={({ match }) => <Redirect to="/work/emery" />}
+        />
         <Route
           exact
           path={caseStudies.map(cs => `/work/${cs.uid}`)}
