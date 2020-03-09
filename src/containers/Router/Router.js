@@ -17,11 +17,6 @@ function Router() {
       <Switch>
         <Route
           exact
-          path="/work/tonal"
-          render={({ match }) => <Redirect to="/work/emery" />}
-        />
-        <Route
-          exact
           path={caseStudies.map(cs => `/work/${cs.uid}`)}
           render={({ match }) => (
             <Layout
