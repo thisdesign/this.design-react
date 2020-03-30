@@ -17,9 +17,9 @@ export interface PrismicImage {
     width: number
     height: number
   }
-  alt: string | void
-  copyright: string | void
-  url: string | void
+  alt: string | null
+  copyright: string | null
+  url: string | null
 }
 
 export type PrismicRichText = {

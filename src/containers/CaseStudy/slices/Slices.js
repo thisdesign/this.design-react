@@ -9,6 +9,7 @@ import Video from './Video/Video'
 import Pullquote from './Pullquote/Pullquote'
 import Website from './Website/WebsiteWrapper'
 import Diptych from './Diptych/DiptychWrapper'
+import PanningGallery from './PanningGallery/PanningGallery'
 import YouTube from './YouTube'
 import Iframe from './Iframe/Iframe'
 
@@ -38,6 +39,8 @@ const Slices = ({ sliceData, title }) => {
         return <Diptych.Wrapper {...atts} type="diptych" />
       case 'video':
         return <Video {...atts} type="video" />
+      case 'panning_gallery':
+        return <PanningGallery {...atts} type="panning-gallery" />
       case 'gallery':
       case 'gallery-v2':
         return <Gallery.Wrapper {...atts} type="gallery" />
