@@ -18,19 +18,9 @@ type DirectionIndex = -1 | 0 | 1
 const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
   const [directionIndex, setDirectionIndex] = useState<DirectionIndex>(0)
   const galleryRef = useRef()
-  const isDoubleGrouped = data.primary.cell_grouping === true
+  const flickity = useRef<any>()
 
-  const position = useRef({
-    furthestLeft: null,
-    furthestRight: null,
-  })
-
-  const getDirectionIndex = (mouseX): DirectionIndex => {
-    if (position.current.furthestLeft > mouseX) return -1
-    if (position.current.furthestRight < mouseX) return 1
-    return 0
-  }
-
+  // initialize flickity
   useEffect(() => {
     if (galleryRef.current) {
       const flkty = new Flickity(galleryRef.current, {
@@ -38,34 +28,57 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
         wrapAround: true,
         prevNextButtons: false,
         pageDots: false,
-        groupCells: isDoubleGrouped ? 2 : 1,
+        groupCells: data.primary.cell_grouping === true ? 2 : 1,
       })
 
-      const setPosition = () => {
-        const centerRects = flkty.selectedCells.map(item =>
-          item.element.getBoundingClientRect()
-        )
+      flickity.current = flkty
+    }
+  }, [])
 
-        const furthestLeft = Math.min(...centerRects.map(rect => rect.x))
-        const furthestRight = Math.max(
-          ...centerRects.map(rect => rect.x + rect.width)
-        )
+  const xBounds = useRef({
+    furthestLeft: null,
+    furthestRight: null,
+  })
 
-        position.current = { furthestRight, furthestLeft }
-      }
+  // set bounds of "next", "prev", or "inside"
+  const setXBounds = () => {
+    if (flickity.current) {
+      const centerRects = flickity.current.selectedCells.map(item =>
+        item.element.getBoundingClientRect()
+      )
 
-      setPosition()
+      const furthestLeft = Math.min(...centerRects.map(rect => rect.x))
+      const furthestRight = Math.max(
+        ...centerRects.map(rect => rect.x + rect.width)
+      )
 
-      flkty.on('change', setPosition)
+      xBounds.current = { furthestRight, furthestLeft }
+    }
+  }
+
+  // forward or backward
+  const getDirectionIndex = (mouseX): DirectionIndex => {
+    setXBounds()
+    if (xBounds.current.furthestLeft > mouseX) return -1
+    if (xBounds.current.furthestRight < mouseX) return 1
+    return 0
+  }
+
+  // events
+  useEffect(() => {
+    if (flickity.current) {
+      const flkty = flickity.current
+
+      flkty.on('change', setXBounds)
 
       flkty.on('staticClick', event => {
-        setPosition()
         const indexChange = getDirectionIndex(event.clientX)
         flkty.select(flkty.selectedIndex + indexChange, true)
       })
     }
-  }, [])
+  }, [flickity.current])
 
+  // for cursor
   const handleMouseOver = (e: React.MouseEvent) => {
     const directionIndexOfMouse = getDirectionIndex(e.clientX)
 
