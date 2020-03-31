@@ -90,14 +90,15 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
   return (
     <>
       DIRECTION INDEX: {directionIndex}
-      <S.Wrapper ref={galleryRef} className="flexy-carousel ">
+      <S.Wrapper
+        onMouseMove={handleMouseOver}
+        ref={galleryRef}
+        className="flexy-carousel "
+      >
         {data.items.map(
           (item, i) =>
             item.image.url && (
-              <S.ImageWrapper
-                width={data.primary.cell_width}
-                onMouseMove={handleMouseOver}
-              >
+              <S.ImageWrapper width={data.primary.cell_width}>
                 <img src={item.image.url} />
               </S.ImageWrapper>
             )
