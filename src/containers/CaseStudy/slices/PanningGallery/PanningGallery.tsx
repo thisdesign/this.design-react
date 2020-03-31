@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { PrismicImage } from 'types/prismic'
 import S from './PanningGallery.Styled'
 import Flickity from 'flickity-imagesloaded'
@@ -13,7 +13,10 @@ type PanningGallery = {
   }
 }
 
+type DirectionIndex = -1 | 0 | 1
+
 const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
+  const [directionIndex, setDirectionIndex] = useState<DirectionIndex>(0)
   const galleryRef = useRef()
   const isDoubleGrouped = data.primary.cell_grouping === true
 
@@ -22,7 +25,7 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
     furthestRight: null,
   })
 
-  const getIndexChange = (mouseX): -1 | 0 | 1 => {
+  const getDirectionIndex = (mouseX): DirectionIndex => {
     if (position.current.furthestLeft > mouseX) return -1
     if (position.current.furthestRight < mouseX) return 1
     return 0
@@ -56,30 +59,38 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
       flkty.on('change', setPosition)
 
       flkty.on('staticClick', event => {
-        const indexChange = getIndexChange(event.clientX)
+        setPosition()
+        const indexChange = getDirectionIndex(event.clientX)
         flkty.select(flkty.selectedIndex + indexChange, true)
       })
     }
   }, [])
 
   const handleMouseOver = (e: React.MouseEvent) => {
-    console.log(getIndexChange(e.clientX))
+    const directionIndexOfMouse = getDirectionIndex(e.clientX)
+
+    if (directionIndexOfMouse !== directionIndex) {
+      setDirectionIndex(directionIndexOfMouse)
+    }
   }
 
   return (
-    <S.Wrapper ref={galleryRef} className="flexy-carousel ">
-      {data.items.map(
-        (item, i) =>
-          item.image.url && (
-            <S.ImageWrapper
-              width={data.primary.cell_width}
-              onMouseMove={handleMouseOver}
-            >
-              <img src={item.image.url} />
-            </S.ImageWrapper>
-          )
-      )}
-    </S.Wrapper>
+    <>
+      DIRECTION INDEX: {directionIndex}
+      <S.Wrapper ref={galleryRef} className="flexy-carousel ">
+        {data.items.map(
+          (item, i) =>
+            item.image.url && (
+              <S.ImageWrapper
+                width={data.primary.cell_width}
+                onMouseMove={handleMouseOver}
+              >
+                <img src={item.image.url} />
+              </S.ImageWrapper>
+            )
+        )}
+      </S.Wrapper>
+    </>
   )
 }
 
