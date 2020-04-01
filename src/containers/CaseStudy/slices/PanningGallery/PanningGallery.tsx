@@ -24,12 +24,27 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
   // initialize flickity
   useEffect(() => {
     if (galleryRef.current) {
+      const resizeForMobile = () => {
+        const wrappers = [
+          ...galleryRef.current.querySelectorAll('.js-imagewrapper'),
+        ]
+        wrappers.forEach(wrapper => (wrapper.style.width = '70%'))
+      }
+
+      const getCellCount = () => {
+        if (window.innerWidth < 720) {
+          resizeForMobile()
+          return 1
+        }
+        return data.primary.cell_grouping === true ? 2 : 1
+      }
+
       const flkty = new Flickity(galleryRef.current, {
         imagesLoaded: true,
         wrapAround: true,
         prevNextButtons: false,
         pageDots: false,
-        groupCells: data.primary.cell_grouping === true ? 2 : 1,
+        groupCells: getCellCount(),
       })
 
       flickity.current = flkty
@@ -85,7 +100,6 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
       const [natX, natY] = [x - galleryBounds.x, y - galleryBounds.y]
 
       cursorRef.current.style.transform = `translate3d(${natX}px, ${natY}px, 0)`
-      console.log(natX, natY)
     }
   }
 
@@ -121,6 +135,7 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
               <S.ImageWrapper
                 key={item.image.url}
                 width={data.primary.cell_width}
+                className="js-imagewrapper"
               >
                 <img src={item.image.url} />
               </S.ImageWrapper>

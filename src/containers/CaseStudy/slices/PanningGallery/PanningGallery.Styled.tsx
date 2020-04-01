@@ -21,7 +21,7 @@ const Wrapper = styled.div<{ isCursor?: boolean }>`
 `
 
 const ImageWrapper = styled.div<{ width?: number }>`
-  width: ${props => (props.width ? props.width : 50)}%;
+  width: ${props => (props.width ? props.width : 70)}%;
   padding: 0.5rem;
   box-sizing: border-box;
 `
