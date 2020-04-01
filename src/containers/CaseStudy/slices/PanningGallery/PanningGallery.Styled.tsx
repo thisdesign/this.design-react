@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<{ isCursor?: boolean }>`
+  cursor: ${props => (props.isCursor ? 'none' : 'inherit')};
   overflow: hidden;
   outline: none !important;
   width: 100%;

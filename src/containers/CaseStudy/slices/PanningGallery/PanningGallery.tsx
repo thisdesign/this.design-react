@@ -91,22 +91,21 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
 
   // for cursor
   const handleMouseOver = (e: React.MouseEvent) => {
-    const coords = [e.clientX, e.clientY]
-
     handleCursor(e.clientX, e.clientY)
     const directionIndexOfMouse = getDirectionIndex(e.clientX)
 
-    console.log(cursorRef)
     if (directionIndexOfMouse !== directionIndex) {
       setDirectionIndex(directionIndexOfMouse)
     }
   }
 
+  const isCursor = directionIndex !== 0
+
   return (
     <>
       <S.Cursor ref={cursorRef}>
         <S.CursorInner inverted={directionIndex === -1}>
-          {directionIndex !== 0 && <ArrowSvg />}
+          {isCursor && <ArrowSvg />}
         </S.CursorInner>
       </S.Cursor>
 
@@ -114,6 +113,7 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
         onMouseMove={handleMouseOver}
         ref={galleryRef}
         className="flexy-carousel "
+        isCursor={isCursor}
       >
         {data.items.map(
           (item, i) =>
