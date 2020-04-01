@@ -25,4 +25,25 @@ const ImageWrapper = styled.div<{ width?: number }>`
   box-sizing: border-box;
 `
 
-export default { ImageWrapper, Wrapper }
+const Cursor = styled.div<{ visible: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: ${props => (props.visible ? 'block' : 'fixed')};
+  mix-blend-mode: exclusion;
+  pointer-events: none;
+  cursor: pointer;
+`
+
+const CursorInner = styled.div<{ inverted?: boolean }>`
+  transform: translate3d(-50%, -50%, 0)
+    ${props => (props.inverted ? 'rotate(180deg)' : '')};
+
+  svg {
+    width: 4em;
+    display: block;
+  }
+`
+
+export default { ImageWrapper, Wrapper, Cursor, CursorInner }

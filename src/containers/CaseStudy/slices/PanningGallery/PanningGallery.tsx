@@ -17,7 +17,8 @@ type DirectionIndex = -1 | 0 | 1
 
 const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
   const [directionIndex, setDirectionIndex] = useState<DirectionIndex>(0)
-  const galleryRef = useRef()
+  const galleryRef = useRef(null)
+  const cursorRef = useRef(null)
   const flickity = useRef<any>()
 
   // initialize flickity
@@ -78,10 +79,24 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
     }
   }, [flickity.current])
 
+  const handleCursor = (x: number, y: number) => {
+    if (galleryRef.current) {
+      const galleryBounds = galleryRef.current.getBoundingClientRect()
+      const [natX, natY] = [x - galleryBounds.x, y - galleryBounds.y]
+
+      cursorRef.current.style.transform = `translate3d(${natX}px, ${natY}px, 0)`
+      console.log(natX, natY)
+    }
+  }
+
   // for cursor
   const handleMouseOver = (e: React.MouseEvent) => {
+    const coords = [e.clientX, e.clientY]
+
+    handleCursor(e.clientX, e.clientY)
     const directionIndexOfMouse = getDirectionIndex(e.clientX)
 
+    console.log(cursorRef)
     if (directionIndexOfMouse !== directionIndex) {
       setDirectionIndex(directionIndexOfMouse)
     }
@@ -89,7 +104,12 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
 
   return (
     <>
-      DIRECTION INDEX: {directionIndex}
+      <S.Cursor ref={cursorRef}>
+        <S.CursorInner inverted={directionIndex === -1}>
+          {directionIndex !== 0 && <ArrowSvg />}
+        </S.CursorInner>
+      </S.Cursor>
+
       <S.Wrapper
         onMouseMove={handleMouseOver}
         ref={galleryRef}
@@ -98,7 +118,10 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
         {data.items.map(
           (item, i) =>
             item.image.url && (
-              <S.ImageWrapper width={data.primary.cell_width}>
+              <S.ImageWrapper
+                key={item.image.url}
+                width={data.primary.cell_width}
+              >
                 <img src={item.image.url} />
               </S.ImageWrapper>
             )
@@ -107,5 +130,15 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
     </>
   )
 }
+
+const ArrowSvg = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 195 67">
+    <path
+      fill="#fff"
+      d="M161.5 0l-7.9 7.799L173.501 27.8H0v11.101h173.501L153.6 58.8l7.9 7.8 33.1-33.2-.1-.1.1-.1z"
+      fill-rule="evenodd"
+    />
+  </svg>
+)
 
 export default PanningGallery
