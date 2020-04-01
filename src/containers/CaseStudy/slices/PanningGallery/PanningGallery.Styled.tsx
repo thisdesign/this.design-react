@@ -42,7 +42,7 @@ const CursorInner = styled.div<{ inverted?: boolean }>`
     ${props => (props.inverted ? 'rotate(180deg)' : '')};
 
   svg {
-    width: 4em;
+    width: 1.35em;
     display: block;
   }
 `
