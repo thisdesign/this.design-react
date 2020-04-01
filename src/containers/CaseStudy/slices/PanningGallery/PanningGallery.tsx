@@ -122,9 +122,9 @@ const PanningGallery: React.FC<{ data: PanningGallery }> = ({ data }) => {
           {isCursor && <ArrowSvg />}
         </S.CursorInner>
       </S.Cursor>
-
       <S.Wrapper
         onMouseMove={handleMouseOver}
+        onMouseOut={() => setDirectionIndex(0)}
         ref={galleryRef}
         className="flexy-carousel "
         isCursor={isCursor}
