@@ -13,7 +13,7 @@ const Cover = () => {
     <Styled.Cover>
       <Styled.Fill backgroundColor={header.backgroundColor} />
       <Styled.Header>
-        <Styled.Title itemTitle {...{ csTransitioning, next }}>
+        <Styled.Title itemTitle {...{ csTransitioning, next }} className="h2">
           {header.title}
         </Styled.Title>
         <Styled.Desc {...{ next, isHome }}>{header.description}</Styled.Desc>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { RichText } from 'prismic-reactjs'
 
-const _getContextProps = data => {
+const _getContextProps = (data) => {
   const {
     title,
     copy,
@@ -23,7 +23,7 @@ const _getContextProps = data => {
 
   const header = {
     backgroundColor: data.color,
-    title: RichText.render(title),
+    title: RichText.asText(title),
     description: RichText.render(copy),
     services: RichText.render(services),
     auxItem: {
