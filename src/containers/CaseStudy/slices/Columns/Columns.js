@@ -15,11 +15,12 @@ const Columns = ({
   hasMute,
   text,
   layout,
+  shadowOpacity,
 }) => {
   const { alt } = useContext(CsContext)
   const columnItems = [
     <Styled.Media speed={-90} key="media">
-      <MediaWrapper layout={layout}>
+      <MediaWrapper layout={layout} shadowOpacity={shadowOpacity}>
         {videoUrl ? (
           <WaypointVideo muteToggle={hasMute} url={videoUrl} />
         ) : (
@@ -39,12 +40,12 @@ const Columns = ({
   )
 }
 
-const MediaWrapper = ({ children, layout }) => {
+const MediaWrapper = ({ children, layout, shadowOpacity }) => {
   switch (layout) {
     case '-website':
       return <WebsiteFrame>{children}</WebsiteFrame>
     case '-mobile':
-      return <MobileFrame>{children}</MobileFrame>
+      return <MobileFrame shadowOpacity={shadowOpacity}>{children}</MobileFrame>
     default:
       return children
   }

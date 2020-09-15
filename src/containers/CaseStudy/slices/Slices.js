@@ -23,7 +23,7 @@ const Slice = ({ children, type }) => (
 )
 
 const Slices = ({ sliceData, title }) => {
-  const slices = sliceData.map(data => {
+  const slices = sliceData.map((data) => {
     const atts = { data, title }
     switch (data.slice_type) {
       case 'text':

@@ -7,8 +7,8 @@ Styled.MobileFrame = styled.div`
   margin: 0 auto;
   overflow: hidden;
   position: relative;
-  box-shadow: 0 20px 70px rgba(0, 0, 0, .25);
-  border-radius: ${props => props.radius}px;
+  box-shadow: 0 20px 70px rgba(0, 0, 0, ${(p) => p.shadowOpacity || 0.25});
+  border-radius: ${(props) => props.radius}px;
 
   > * {
     margin: -.1px;

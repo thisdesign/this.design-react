@@ -27,6 +27,7 @@ Columns.Wrapper = ({ data }) => {
 
   return (
     <Columns
+      shadowOpacity={api.shadow_opacity}
       isRight={api.right === 'right'}
       type="columns"
       text={RichText.render(api.text)}
